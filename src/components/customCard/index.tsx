@@ -31,7 +31,7 @@ export default function CustomCard({
 		<Card
 			className={cn(
 				"flex flex-col   bg-gray-100 p-4 gap-6 w-[923px] h-[325px]",
-				`w-[${width}px] h-[${height}px]`
+				`md:w-[${width}px] w-[350px] h-[${height}px]`
 			)}
 		>
 			<CardHeader className="flex flex-row items-center justify-between ">

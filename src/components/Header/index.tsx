@@ -4,16 +4,16 @@ import { Input } from "../ui/input";
 
 export default function Header() {
 	return (
-		<div className="flex justify-between items-center px-12">
+		<div className="flex md:flex-row flex-col justify-between md:gap-0 gap-2 md:items-center md:px-12">
 			{/* logo */}
 			<div className="max-w-full flex items-center gap-[13px]">
 				<div className="max-w-full rounded-full">
 					<img src="./logo.svg" className="w-[27px] h-[27px]" alt="" />
 				</div>
-				<p className="text-[24px]">مرحبا بك في شركة SB</p>
+				<p className="md:text-[24px] text-[20px]">مرحبا بك في شركة SB</p>
 			</div>
 			{/* seatch */}
-			<div className="relative text-black">
+			<div className="relative text-black md:block hidden">
 				<Search className="absolute right-3 top-5 h-4 w-4 text-black" />
 				<Input
 					placeholder="ابحث هنا"

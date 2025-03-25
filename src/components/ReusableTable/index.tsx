@@ -183,7 +183,7 @@ export default function ReusableTable<TData>({
 								</label>
 								<Select
 									value={selectedEmployee}
-								 dir="rtl"
+									dir="rtl"
 									onValueChange={(e) => {
 										setSelectedEmployee((prev) => (prev === e ? "" : e));
 									}}
@@ -285,7 +285,7 @@ export default function ReusableTable<TData>({
 							<ChevronRight className="h-4 w-4 ml-1" />
 							<span>السابق</span>
 						</Button>
-						<div className="flex flex-row-reverse items-center justify-center space-x-2">
+						<div className="md:flex flex-row-reverse hidden items-center justify-center space-x-2">
 							{Array.from({ length: totalPages }, (_, i) => i + 1).map(
 								(page) => (
 									<Button

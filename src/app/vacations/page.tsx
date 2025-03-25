@@ -81,9 +81,9 @@ export default function Page() {
 							width={1010}
 							height={450}
 							Content={
-								<div className="flex flex-col gap-4 pl-6">
-									<div className="grid grid-cols-3 items-center gap-4">
-										<div className="flex flex-col gap-2">
+								<div className="flex flex-col gap-4 md:pl-6">
+									<div className="grid md:grid-cols-3 grid-cols-1 items-center gap-4">
+										<div className="flex flex-col gap-2 w-[302px]">
 											<label className="text-[16px] text-black font-[500]">
 												الموظف
 											</label>
@@ -94,7 +94,7 @@ export default function Page() {
 												// 	setSelectedEmployee((prev) => (prev === e ? "" : e));
 												// }}
 											>
-												<SelectTrigger className="min-w-[302px] min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
+												<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
 													<SelectValue placeholder="الكل" />
 												</SelectTrigger>
 												<SelectContent>
@@ -115,7 +115,7 @@ export default function Page() {
 												// 	setSelectedEmployee((prev) => (prev === e ? "" : e));
 												// }}
 											>
-												<SelectTrigger className="min-w-[302px] min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
+												<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
 													<SelectValue placeholder="الكل" />
 												</SelectTrigger>
 												<SelectContent>
@@ -131,8 +131,8 @@ export default function Page() {
 											</label>
 											<Input
 												// placeholder="ابحث هنا"
-												// className="min-w-[302px] h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
-												className="min-w-[302px] h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+												// className="md:min-w-[302px]  h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
+												className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
 												// type="time"
 
 												// value={globalFilter}
@@ -145,8 +145,8 @@ export default function Page() {
 											</label>
 											<Input
 												// placeholder="ابحث هنا"
-												// className="min-w-[302px] h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
-												className="min-w-[240px] h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+												// className="md:min-w-[302px]  h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
+												className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
 												type="month"
 
 												// value={globalFilter}
@@ -160,8 +160,8 @@ export default function Page() {
 											</label>
 											<Input
 												// placeholder="ابحث هنا"
-												// className="min-w-[240px] h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
-												className="min-w-[240px] h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+												// className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
+												className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
 												type="month"
 
 												// value={globalFilter}
@@ -172,7 +172,7 @@ export default function Page() {
 											<label className="text-base text-[#1E1E1E]">خصم</label>
 											<Input
 												placeholder="خصم"
-												className="min-w-[240px] h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
+												className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
 
 												// value={globalFilter}
 												// onChange={(e) => setGlobalFilter(e.target.value)}
