@@ -21,28 +21,35 @@ export default function CustomCard({
 	Content,
 	width,
 	height,
+	className,
+	withButton = true,
 }: {
 	title?: any;
 	Content?: any;
 	height?: any;
 	width?: any;
+	className?: any;
+	withButton?: any;
 }) {
 	return (
 		<Card
 			className={cn(
-				"flex flex-col   bg-gray-100 p-4 gap-6 w-[923px] h-[325px]",
-				`md:w-[${width}px] w-[350px] h-[${height}px]`
+				"flex flex-col   p-4 gap-6 md:w-[923px] h-[325px]",
+				`w-[${width}px] h-[${height}px]`,
+				className
 			)}
 		>
 			<CardHeader className="flex flex-row items-center justify-between ">
 				<CardTitle className="text-center flex-1 text-xl">{title}</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<div className=" flex justify-end">
-					<Button className="text-[16px] font-[500] text-[#16C47F] border-[#16C47F] p-0 py-[10px] px-3 w-[117px] h-[44px] bg-transparent hover:bg-transparent shadow-none border-[1px]">
-						السجل
-					</Button>
-				</div>
+				{withButton && (
+					<div className=" flex justify-end">
+						<Button className="text-[16px] font-[500] text-[#16C47F] border-[#16C47F] p-0 py-[10px] px-3 w-[117px] h-[44px] bg-transparent hover:bg-transparent shadow-none border-[1px]">
+							السجل
+						</Button>
+					</div>
+				)}
 				{Content}
 			</CardContent>
 		</Card>

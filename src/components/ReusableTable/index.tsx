@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import PopUp from "../PopUp";
 import AddButton from "../AddButton";
+import LoadingIndicator from "../loadingIndicator";
 
 type TableProps<TData> = {
 	columns: ColumnDef<TData>[];
@@ -34,6 +35,10 @@ type TableProps<TData> = {
 	onClickAdd?: any;
 	ButtonTrigger?: any;
 	employees?: any;
+	pagination?: any;
+	handlePageChange?: any;
+	loading?: boolean;
+	error?: unknown;
 };
 
 export default function ReusableTable<TData>({
@@ -43,7 +48,11 @@ export default function ReusableTable<TData>({
 	AddTitle,
 	onClickAdd,
 	ButtonTrigger,
+	pagination,
+	handlePageChange,
 	employees,
+	loading,
+	error,
 }: TableProps<TData>) {
 	// Export to Excel
 	const exportToExcel = () => {
@@ -69,10 +78,7 @@ export default function ReusableTable<TData>({
 		string | undefined
 	>();
 	const [selectedMonth, setSelectedMonth] = useState<string | undefined>();
-	const [currentPage, setCurrentPage] = useState(1);
 
-	const pageSize = 10;
-	const totalPages = Math.ceil(data.length / pageSize);
 	const filteredData = useMemo(() => {
 		return data.filter((record: any) => {
 			const matchesEmployee =
@@ -158,10 +164,6 @@ export default function ReusableTable<TData>({
 		initialState: { pagination: { pageIndex: 0, pageSize: 10 } },
 	});
 
-	useEffect(() => {
-		console.log(selectedEmployee);
-	}, [selectedEmployee]);
-
 	return (
 		<>
 			<Card className="border-none shadow-none ">
@@ -173,146 +175,170 @@ export default function ReusableTable<TData>({
 						<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
 					)}
 				</CardHeader>
-				<CardContent>
-					{/* Filters */}
-					<div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
-						<div className="flex flex-col md:flex-row gap-5">
-							<div className="flex flex-col gap-2">
-								<label className="text-[16px] text-black font-[500]">
-									الموظف
-								</label>
-								<Select
-									value={selectedEmployee}
-									dir="rtl"
-									onValueChange={(e) => {
-										setSelectedEmployee((prev) => (prev === e ? "" : e));
-									}}
-								>
-									<SelectTrigger className="min-w-[240px]">
-										<SelectValue placeholder="الكل" />
-									</SelectTrigger>
-									<SelectContent>
-										{employees?.map((el: any) => (
-											<SelectItem value={el}>{el}</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-							</div>
-							<div className="flex flex-col gap-2">
-								<label className="text-[16px] text-black font-[500]">
-									التاريخ
-								</label>
-								<Input
-									type="month"
-									className="min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-									value={selectedMonth}
-									onChange={(e) => {
-										console.log(e?.target.value);
-										setSelectedMonth((prev) =>
-											prev === e.target.value ? undefined : e.target.value
-										);
-									}}
-								/>
+				{
+					<CardContent>
+						{/* Filters */}
+						<div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
+							<div className="flex flex-col md:flex-row gap-5">
+								<div className="flex flex-col gap-2">
+									<label className="text-[16px] text-black font-[500]">
+										الموظف
+									</label>
+									<Select
+										value={selectedEmployee}
+										dir="rtl"
+										onValueChange={(e) => {
+											setSelectedEmployee((prev) => (prev === e ? "" : e));
+										}}
+									>
+										<SelectTrigger className="min-w-[240px]">
+											<SelectValue placeholder="الكل" />
+										</SelectTrigger>
+										<SelectContent>
+											{loading ? (
+												<SelectItem
+													className="justify-center"
+													disabled
+													value="loading"
+												>
+													<LoadingIndicator />
+												</SelectItem>
+											) : (
+												employees?.map((el: any) => (
+													<SelectItem value={el}>{el}</SelectItem>
+												))
+											)}
+										</SelectContent>
+									</Select>
+								</div>
+								<div className="flex flex-col gap-2">
+									<label className="text-[16px] text-black font-[500]">
+										التاريخ
+									</label>
+									<Input
+										type="month"
+										className="min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+										value={selectedMonth}
+										onChange={(e) => {
+											console.log(e?.target.value);
+											setSelectedMonth((prev) =>
+												prev === e.target.value ? undefined : e.target.value
+											);
+										}}
+									/>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					{/* Table */}
-					<div className="overflow-x-auto">
-						<Button
-							onClick={exportToExcel}
-							className="bg-emerald-500 hover:bg-emerald-600 w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
-						>
-							<img src="./print.svg" className="h-6 w-6 mr-2" />
-							{"طباعة"}
-						</Button>{" "}
-						<table className="w-full border-collapse">
-							<thead className="bg-[#D0F3E5] border-b-[1px] border-[#14250D66]">
-								{table.getHeaderGroups().map((headerGroup) => (
-									<tr key={headerGroup.id} className="text-center">
-										{headerGroup.headers.map((header) => (
-											<th key={header.id} className="p-3 text-center border-b">
-												{flexRender(
-													header.column.columnDef.header,
-													header.getContext()
-												)}
-											</th>
-										))}
-									</tr>
-								))}
-							</thead>
-							<tbody>
-								{table.getRowModel().rows.map((row) => (
-									<tr
-										key={row.id}
-										className="border-b hover:bg-muted/50 text-center"
-									>
-										{row.getVisibleCells().map((cell) => (
-											<td
-												key={cell.id}
-												className={cn(
-													`p-3 text-[16px] tec border-y-[1px] border-[#14250D66]`,
-													`${
-														(cell.getContext().row.id as unknown as number) %
-															2 !==
-														0
-															? "bg-[#D0F3E5]"
-															: ""
-													}`
-												)}
-											>
-												{" "}
-												{flexRender(
-													cell.column.columnDef.cell,
-													cell.getContext()
-												)}
-											</td>
-										))}
-									</tr>
-								))}
-							</tbody>
-						</table>
-					</div>
-
-					{/* Pagination */}
-					<div className="flex items-center justify-between mt-6">
-						<Button
-							variant="outline"
-							size="sm"
-							onClick={() => table.previousPage()}
-							disabled={!table.getCanPreviousPage()}
-						>
-							<ChevronRight className="h-4 w-4 ml-1" />
-							<span>السابق</span>
-						</Button>
-						<div className="md:flex flex-row-reverse hidden items-center justify-center space-x-2">
-							{Array.from({ length: totalPages }, (_, i) => i + 1).map(
-								(page) => (
+						{/* Table */}
+						{loading ? (
+							<LoadingIndicator />
+						) : (
+							<>
+								<div className="overflow-x-auto">
 									<Button
-										key={page}
-										variant={page === currentPage ? "default" : "ghost"}
-										className={cn(
-											"w-10 h-10 p-0",
-											page === currentPage && "bg-black text-white"
-										)}
-										onClick={() => setCurrentPage(page)}
+										onClick={exportToExcel}
+										className="bg-emerald-500 hover:bg-emerald-600 w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
 									>
-										{page}
+										<img src="./print.svg" className="h-6 w-6 mr-2" />
+										{"طباعة"}
+									</Button>{" "}
+									<table className="w-full border-collapse">
+										<thead className="bg-[#D0F3E5] border-b-[1px] border-[#14250D66]">
+											{table.getHeaderGroups().map((headerGroup) => (
+												<tr key={headerGroup.id} className="text-center">
+													{headerGroup.headers.map((header) => (
+														<th
+															key={header.id}
+															className="p-3 text-center border-b"
+														>
+															{flexRender(
+																header.column.columnDef.header,
+																header.getContext()
+															)}
+														</th>
+													))}
+												</tr>
+											))}
+										</thead>
+										<tbody>
+											{table.getRowModel().rows.map((row) => (
+												<tr
+													key={row.id}
+													className="border-b hover:bg-muted/50 text-center"
+												>
+													{row.getVisibleCells().map((cell) => (
+														<td
+															key={cell.id}
+															className={cn(
+																`p-3 text-[16px] tec border-y-[1px] border-[#14250D66]`,
+																`${
+																	(cell.getContext().row
+																		.id as unknown as number) %
+																		2 !==
+																	0
+																		? "bg-[#D0F3E5]"
+																		: ""
+																}`
+															)}
+														>
+															{" "}
+															{flexRender(
+																cell.column.columnDef.cell,
+																cell.getContext()
+															)}
+														</td>
+													))}
+												</tr>
+											))}
+										</tbody>
+									</table>
+								</div>
+								{/* Pagination */}
+								<div className="flex items-center justify-between mt-6">
+									<Button
+										variant="outline"
+										size="sm"
+										onClick={() => handlePageChange(pagination.current - 1)}
+										disabled={pagination?.current === 1}
+									>
+										<ChevronRight className="h-4 w-4 ml-1" />
+										<span>السابق</span>
 									</Button>
-								)
-							)}
-						</div>
-						<Button
-							variant="outline"
-							size="sm"
-							onClick={() => table.nextPage()}
-							disabled={!table.getCanNextPage()}
-						>
-							<span>التالي</span>
-							<ChevronLeft className="h-4 w-4 mr-1" />
-						</Button>
-					</div>
-				</CardContent>
+									<div className="md:flex flex-row-reverse hidden items-center justify-center space-x-2">
+										{Array.from(
+											{ length: pagination?.pages || 0 },
+											(_, i) => i + 1
+										).map((page) => (
+											<Button
+												key={page}
+												variant={
+													page === pagination.current ? "default" : "ghost"
+												}
+												className={cn(
+													"w-10 h-10 p-0",
+													page === pagination.current && "bg-black text-white"
+												)}
+												onClick={() => handlePageChange(page)}
+											>
+												{page}
+											</Button>
+										))}
+									</div>
+									<Button
+										variant="outline"
+										size="sm"
+										onClick={() => handlePageChange(pagination.current - 1)}
+										disabled={pagination?.current === pagination?.pages}
+									>
+										<span>التالي</span>
+										<ChevronLeft className="h-4 w-4 mr-1" />
+									</Button>
+								</div>{" "}
+							</>
+						)}
+					</CardContent>
+				}
 			</Card>
 		</>
 	);

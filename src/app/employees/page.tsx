@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReusableTable from "@/components/ReusableTable";
 import WarningPopUp from "@/components/warningPopUp";
 import CustomPopUp from "@/components/popups";
@@ -15,75 +15,95 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-
+import { useEmployees } from "./useEmployee";
 const columns = [
 	{ accessorKey: "date", header: "التاريخ" },
 	{ accessorKey: "employee", header: "الموظف" },
-	{ accessorKey: "leaveStart", header: "بداية الأجازة" },
-	{ accessorKey: "leaveEnd", header: "نهاية الأجازة" },
-	{ accessorKey: "leaveDays", header: "عدد الأيام" },
-	{ accessorKey: "leaveType", header: "نوع الأجازة" },
-	{ accessorKey: "deduction", header: "الخصم" },
+	{ accessorKey: "work_nature", header: "طبيعة العمل" },
+	{ accessorKey: "net_salary", header: "صافي المرتب" },
+	{ accessorKey: "phone_number", header: "رقم الهاتف" },
+	{ accessorKey: "address", header: "العنوان" },
 ];
 
-const getRandomDate = (start: any, end: any) => {
-	const date = new Date(
-		start.getTime() + Math.random() * (end.getTime() - start.getTime())
-	);
-	return date.toISOString().split("T")[0].split("-").reverse().join("/"); // Format: DD/MM/YYYY
-};
-const employees = [
-	"أحمد محمود",
-	"محمد علي",
-	"خالد حسن",
-	"ياسر عبد الله",
-	"سعيد عمر",
-];
-const leaveTypes = ["عادية", "مرضية", "طارئة"];
-const deductions = [100, 120, 150, 200];
+// const getRandomDate = (start: any, end: any) => {
+// 	const date = new Date(
+// 		start.getTime() + Math.random() * (end.getTime() - start.getTime())
+// 	);
+// 	return date.toISOString().split("T")[0].split("-").reverse().join("/"); // Format: DD/MM/YYYY
+// };
+// const employees = [
+// 	"أحمد محمود",
+// 	"محمد علي",
+// 	"خالد حسن",
+// 	"ياسر عبد الله",
+// 	"سعيد عمر",
+// ];
+// const leaveTypes = ["عادية", "مرضية", "طارئة"];
+// const deductions = [100, 120, 150, 200];
 
-const data = Array.from({ length: 100 }, (_, index) => {
-	const leaveStart = getRandomDate(
-		new Date(2025, 9, 10),
-		new Date(2025, 11, 20)
-	); // Random date between Oct-Dec 2025
-	const leaveEnd = getRandomDate(new Date(2025, 9, 11), new Date(2025, 11, 25));
+// const data = Array.from({ length: 100 }, (_, index) => {
+// 	const leaveStart = getRandomDate(
+// 		new Date(2025, 9, 10),
+// 		new Date(2025, 11, 20)
+// 	); // Random date between Oct-Dec 2025
+// 	const leaveEnd = getRandomDate(new Date(2025, 9, 11), new Date(2025, 11, 25));
 
-	return {
-		id: index + 1,
-		date: getRandomDate(new Date(2025, 8, 1), new Date(2025, 11, 1)), // Random date between Sep-Dec 2025
-		employee: employees[Math.floor(Math.random() * employees.length)],
-		leaveStart,
-		leaveEnd,
-		leaveDays: Math.max(1, Math.floor(Math.random() * 5)), // 1 to 4 days
-		leaveType: leaveTypes[Math.floor(Math.random() * leaveTypes.length)],
-		deduction: deductions[Math.floor(Math.random() * deductions.length)],
-	};
-});
+// 	return {
+// 		id: index + 1,
+// 		date: getRandomDate(new Date(2025, 8, 1), new Date(2025, 11, 1)), // Random date between Sep-Dec 2025
+// 		employee: employees[Math.floor(Math.random() * employees.length)],
+// 		leaveStart,
+// 		leaveEnd,
+// 		leaveDays: Math.max(1, Math.floor(Math.random() * 5)), // 1 to 4 days
+// 		leaveType: leaveTypes[Math.floor(Math.random() * leaveTypes.length)],
+// 		deduction: deductions[Math.floor(Math.random() * deductions.length)],
+// 	};
+// });
 export default function Page() {
-	const [selectedEmployee, setSelectedEmployee] = useState<
-		string | undefined
-	>();
+	const {
+		employees,
+		pagination,
+		loading,
+		error,
+		distinctEmployeesName,
+		fetchEmployees,
+		distinctEmployees,
+		updateEmployee,
+		deleteEmployee,
+	} = useEmployees();
+
+	useEffect(() => {
+		fetchEmployees();
+		distinctEmployees();
+	}, []);
+
+	const handlePageChange = (page: number) => {
+		fetchEmployees(page);
+	};
+	console.log(distinctEmployeesName);
 	return (
 		<ReusableTable
 			columns={columns}
-			data={data}
-			employees={employees}
-			title="سجل الأجازات"
+			data={employees}
+			employees={distinctEmployeesName}
+			title="الموظفين"
+			handlePageChange={handlePageChange}
+			pagination={pagination}
+			loading={loading}
+			error={error}
 			ButtonTrigger={() => (
 				<CustomPopUp
 					DialogTriggerComponent={() => {
-						return <AddButton onClickAdd={() => {}} AddTitle="اضافة اجازة" />;
+						return <AddButton onClickAdd={() => {}} AddTitle="موظف جديد" />;
 					}}
 					DialogContentComponent={() => (
 						<CustomCard
 							title={"اجازات"}
 							width={1010}
 							height={450}
-							className={"not-md:w-[350px]"}
 							Content={
 								<div className="flex flex-col gap-4 md:pl-6">
-									<div className="grid md:grid-cols-3 grid-cols-1 items-center gap-4">
+									{/* <div className="grid md:grid-cols-3 grid-cols-1 items-center gap-4">
 										<div className="flex flex-col gap-2 w-[302px]">
 											<label className="text-[16px] text-black font-[500]">
 												الموظف
@@ -179,7 +199,7 @@ export default function Page() {
 												// onChange={(e) => setGlobalFilter(e.target.value)}
 											/>
 										</div>
-									</div>
+									</div> */}
 									<div className="pt-7 flex justify-end">
 										<Button className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px]  hover:bg-[#16C47F]/70 shadow-none cursor-pointer">
 											حفظ
