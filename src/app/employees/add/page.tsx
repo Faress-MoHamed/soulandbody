@@ -68,17 +68,16 @@ export default function EmployeeForm() {
 					>
 						{({ errors, touched, values, setFieldValue }) => (
 							<Form className="space-y-6">
-								<div className="text-right">
+								<div className="text-left">
 									<CustomPopUp
 										DialogTriggerComponent={() => (
 											<Button
-												type="button"
-												className="bg-emerald-500 hover:bg-emerald-600 text-white"
+												className="bg-emerald-500 hover:bg-emerald-600 md:w-[148px] w-[140px] md:h-[44px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px]"
 											>
-												الملحقات
+												{"الملحقات"}
 											</Button>
-                    )}
-                    // DialogContentclassName="bg-white"
+										)}
+										// DialogContentclassName="bg-white"
 										DialogContentComponent={() => (
 											<CustomCard
 												withButton={false}
