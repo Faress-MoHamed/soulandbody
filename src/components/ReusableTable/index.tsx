@@ -168,7 +168,7 @@ export default function ReusableTable<TData>({
 		<>
 			<Card className="border-none shadow-none ">
 				<CardHeader className="flex flex-row items-center justify-between">
-					<CardTitle className="text-[26px]">{title}</CardTitle>
+					<CardTitle className="md:text-[26px] text-[20px]">{title}</CardTitle>
 					{ButtonTrigger ? (
 						<ButtonTrigger />
 					) : (
@@ -328,7 +328,7 @@ export default function ReusableTable<TData>({
 									<Button
 										variant="outline"
 										size="sm"
-										onClick={() => handlePageChange(pagination.current - 1)}
+										onClick={() => handlePageChange(pagination.current + 1)}
 										disabled={pagination?.current === pagination?.pages}
 									>
 										<span>التالي</span>

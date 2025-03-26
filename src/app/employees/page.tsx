@@ -101,111 +101,113 @@ export default function Page() {
 							title={"اجازات"}
 							width={1010}
 							height={450}
+							className={"md:w-[1010px] w-[300px]"}
 							Content={
-								<div className="flex flex-col gap-4 md:pl-6">
-									{/* <div className="grid md:grid-cols-3 grid-cols-1 items-center gap-4">
-										<div className="flex flex-col gap-2 w-[302px]">
-											<label className="text-[16px] text-black font-[500]">
-												الموظف
-											</label>
-											<Select
-												// value={selectedEmployee}
-												dir="rtl"
-												// onValueChange={(e) => {
-												// 	setSelectedEmployee((prev) => (prev === e ? "" : e));
-												// }}
-											>
-												<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
-													<SelectValue placeholder="الكل" />
-												</SelectTrigger>
-												<SelectContent>
-													{employees?.map((el: any) => (
-														<SelectItem value={el}>{el}</SelectItem>
-													))}
-												</SelectContent>
-											</Select>
-										</div>
-										<div className="flex flex-col gap-1 w-[302px]">
-											<label className="text-base text-[#1E1E1E]">
-												نوع الأجازة
-											</label>
-											<Select
-												// value={selectedEmployee}
-												dir="rtl"
-												// onValueChange={(e) => {
-												// 	setSelectedEmployee((prev) => (prev === e ? "" : e));
-												// }}
-											>
-												<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
-													<SelectValue placeholder="الكل" />
-												</SelectTrigger>
-												<SelectContent>
-													{leaveTypes?.map((el: any) => (
-														<SelectItem value={el}>{el}</SelectItem>
-													))}
-												</SelectContent>
-											</Select>
-										</div>
-										<div className="flex flex-col gap-1 w-[302px]">
-											<label className="text-base text-[#1E1E1E]">
-												عدد الأيام
-											</label>
-											<Input
-												// placeholder="ابحث هنا"
-												// className="md:min-w-[302px]  h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
-												className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-												// type="time"
+								<></>
+								// <div className="flex flex-col gap-4 md:pl-6">
+								// 	{/* <div className="grid md:grid-cols-3 grid-cols-1 items-center gap-4">
+								// 		<div className="flex flex-col gap-2 w-[302px]">
+								// 			<label className="text-[16px] text-black font-[500]">
+								// 				الموظف
+								// 			</label>
+								// 			<Select
+								// 				// value={selectedEmployee}
+								// 				dir="rtl"
+								// 				// onValueChange={(e) => {
+								// 				// 	setSelectedEmployee((prev) => (prev === e ? "" : e));
+								// 				// }}
+								// 			>
+								// 				<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
+								// 					<SelectValue placeholder="الكل" />
+								// 				</SelectTrigger>
+								// 				<SelectContent>
+								// 					{employees?.map((el: any) => (
+								// 						<SelectItem value={el}>{el}</SelectItem>
+								// 					))}
+								// 				</SelectContent>
+								// 			</Select>
+								// 		</div>
+								// 		<div className="flex flex-col gap-1 w-[302px]">
+								// 			<label className="text-base text-[#1E1E1E]">
+								// 				نوع الأجازة
+								// 			</label>
+								// 			<Select
+								// 				// value={selectedEmployee}
+								// 				dir="rtl"
+								// 				// onValueChange={(e) => {
+								// 				// 	setSelectedEmployee((prev) => (prev === e ? "" : e));
+								// 				// }}
+								// 			>
+								// 				<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
+								// 					<SelectValue placeholder="الكل" />
+								// 				</SelectTrigger>
+								// 				<SelectContent>
+								// 					{leaveTypes?.map((el: any) => (
+								// 						<SelectItem value={el}>{el}</SelectItem>
+								// 					))}
+								// 				</SelectContent>
+								// 			</Select>
+								// 		</div>
+								// 		<div className="flex flex-col gap-1 w-[302px]">
+								// 			<label className="text-base text-[#1E1E1E]">
+								// 				عدد الأيام
+								// 			</label>
+								// 			<Input
+								// 				// placeholder="ابحث هنا"
+								// 				// className="md:min-w-[302px]  h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
+								// 				className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+								// 				// type="time"
 
-												// value={globalFilter}
-												// onChange={(e) => setGlobalFilter(e.target.value)}
-											/>
-										</div>
-										<div className="flex flex-col gap-1 w-[302px]">
-											<label htmlFor="fromDate" className="text-right block">
-												تاريخ البدء{" "}
-											</label>
-											<Input
-												// placeholder="ابحث هنا"
-												// className="md:min-w-[302px]  h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
-												className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-												type="month"
+								// 				// value={globalFilter}
+								// 				// onChange={(e) => setGlobalFilter(e.target.value)}
+								// 			/>
+								// 		</div>
+								// 		<div className="flex flex-col gap-1 w-[302px]">
+								// 			<label htmlFor="fromDate" className="text-right block">
+								// 				تاريخ البدء{" "}
+								// 			</label>
+								// 			<Input
+								// 				// placeholder="ابحث هنا"
+								// 				// className="md:min-w-[302px]  h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
+								// 				className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+								// 				type="month"
 
-												// value={globalFilter}
-												// onChange={(e) => setGlobalFilter(e.target.value)}
-											/>
-										</div>
+								// 				// value={globalFilter}
+								// 				// onChange={(e) => setGlobalFilter(e.target.value)}
+								// 			/>
+								// 		</div>
 
-										<div className="flex flex-col gap-1 w-[302px]">
-											<label htmlFor="toDate" className="text-right block">
-												تاريخ العودة{" "}
-											</label>
-											<Input
-												// placeholder="ابحث هنا"
-												// className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
-												className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-												type="month"
+								// 		<div className="flex flex-col gap-1 w-[302px]">
+								// 			<label htmlFor="toDate" className="text-right block">
+								// 				تاريخ العودة{" "}
+								// 			</label>
+								// 			<Input
+								// 				// placeholder="ابحث هنا"
+								// 				// className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
+								// 				className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+								// 				type="month"
 
-												// value={globalFilter}
-												// onChange={(e) => setGlobalFilter(e.target.value)}
-											/>
-										</div>
-										<div className="flex flex-col gap-1 w-[302px]">
-											<label className="text-base text-[#1E1E1E]">خصم</label>
-											<Input
-												placeholder="خصم"
-												className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
+								// 				// value={globalFilter}
+								// 				// onChange={(e) => setGlobalFilter(e.target.value)}
+								// 			/>
+								// 		</div>
+								// 		<div className="flex flex-col gap-1 w-[302px]">
+								// 			<label className="text-base text-[#1E1E1E]">خصم</label>
+								// 			<Input
+								// 				placeholder="خصم"
+								// 				className="md:min-w-[240px] w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black"
 
-												// value={globalFilter}
-												// onChange={(e) => setGlobalFilter(e.target.value)}
-											/>
-										</div>
-									</div> */}
-									<div className="pt-7 flex justify-end">
-										<Button className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px]  hover:bg-[#16C47F]/70 shadow-none cursor-pointer">
-											حفظ
-										</Button>
-									</div>
-								</div>
+								// 				// value={globalFilter}
+								// 				// onChange={(e) => setGlobalFilter(e.target.value)}
+								// 			/>
+								// 		</div>
+								// 	</div> */}
+								// 	<div className="pt-7 flex justify-end">
+								// 		<Button className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px]  hover:bg-[#16C47F]/70 shadow-none cursor-pointer">
+								// 			حفظ
+								// 		</Button>
+								// 	</div>
+								// </div>
 							}
 						/>
 					)}
