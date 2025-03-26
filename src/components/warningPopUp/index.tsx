@@ -25,7 +25,7 @@ export default function WarningPopUp() {
 	};
 
 	return (
-		<Card className="flex flex-col   bg-gray-100 p-4 gap-6 w-[923px] h-[325px]">
+		<Card className="flex flex-col   bg-gray-100 p-4 gap-6 md:w-[923px] w-[300px] md:h-[325px] h-[350px]">
 			<CardHeader className="flex flex-row items-center justify-between ">
 				<CardTitle className="text-center flex-1 text-xl">
 					إجراءات تأديبية
@@ -104,10 +104,10 @@ export default function WarningPopUp() {
 			<CardContent>
 				<form
 					onSubmit={handleSubmit}
-					className="space-y-4 flex items-end gap-2"
+					className="space-y-4 flex md:flex-row flex-col items-end gap-2"
 					dir="rtl"
 				>
-					<div className="grid grid-cols-2 gap-4 w-full">
+					<div className="grid md:grid-cols-2 grid-cols-1 gap-4 w-full">
 						<div className="space-y-2">
 							<label htmlFor="employeeName" className="text-right block">
 								اسم الموظف
@@ -174,7 +174,9 @@ export default function WarningPopUp() {
 							</>
 						)}
 					</div>
-					<div className={warningType === "suspension"?"pb-[16px]":"pb-[24px]"}>
+					<div
+						className={warningType === "suspension" ? "pb-[16px]" : "pb-[24px]"}
+					>
 						<Button
 							type="submit"
 							className="bg-emerald-500 hover:bg-emerald-600 p-0 py-[10px] px-3 w-[117px] h-[44px]  shadow-none border-[1px]"
