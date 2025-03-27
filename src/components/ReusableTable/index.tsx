@@ -39,6 +39,9 @@ type TableProps<TData> = {
 	handlePageChange?: any;
 	loading?: boolean;
 	error?: unknown;
+	onDelete?: any;
+	deleteLoading?: any;
+	onEdit?: any;
 };
 
 export default function ReusableTable<TData>({
@@ -53,6 +56,9 @@ export default function ReusableTable<TData>({
 	employees,
 	loading,
 	error,
+	deleteLoading,
+	onDelete,
+	onEdit,
 }: TableProps<TData>) {
 	// Export to Excel
 	const exportToExcel = () => {
@@ -107,30 +113,42 @@ export default function ReusableTable<TData>({
 			updatedColumns.push({
 				accessorKey: "action",
 				header: "الإجراء",
-				cell: () => (
+				cell: ({ row }: any) => (
 					<div className="flex justify-center gap-1 ">
-						<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								className="lucide lucide-trash-2"
-							>
-								<path d="M3 6h18" />
-								<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-								<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-								<line x1="10" x2="10" y1="11" y2="17" />
-								<line x1="14" x2="14" y1="11" y2="17" />
-							</svg>
-							حذف
+						<Button
+							onClick={() => onDelete(row?.original?.id)}
+							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
+						>
+							{deleteLoading ? (
+								<LoadingIndicator />
+							) : (
+								<>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										className="lucide lucide-trash-2"
+									>
+										<path d="M3 6h18" />
+										<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+										<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+										<line x1="10" x2="10" y1="11" y2="17" />
+										<line x1="14" x2="14" y1="11" y2="17" />
+									</svg>
+									حذف
+								</>
+							)}
 						</Button>
-						<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]">
+						<Button
+							onClick={() => onEdit(row?.original?.id)}
+							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="16"
@@ -162,6 +180,7 @@ export default function ReusableTable<TData>({
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel({ initialSync: true }),
 		initialState: { pagination: { pageIndex: 0, pageSize: 10 } },
+		
 	});
 
 	return (
@@ -240,7 +259,7 @@ export default function ReusableTable<TData>({
 										onClick={exportToExcel}
 										className="bg-emerald-500 hover:bg-emerald-600 w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
 									>
-										<img src="./print.svg" className="h-6 w-6 mr-2" />
+										<img src="/print.svg" className="h-6 w-6 mr-2" />
 										{"طباعة"}
 									</Button>{" "}
 									<table className="w-full border-collapse">

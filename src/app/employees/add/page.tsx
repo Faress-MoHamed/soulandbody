@@ -7,232 +7,218 @@ import EmployeeManagement from "@/app/work-hours/page";
 import CustomPopUp from "@/components/popups";
 import FileUpload from "@/components/uploadFile";
 import CustomCard from "@/components/customCard";
+import { Input } from "@/components/ui/input";
+import {
+	useCreateEmployee,
+	useUpdateEmployee,
+	useEmployee,
+} from "../useEmployee";
+import { useSearchParams, useRouter } from "next/navigation";
+import LoadingIndicator from "@/components/loadingIndicator";
+import { useState } from "react";
 
 // Validation schema using Yup
 const EmployeeSchema = Yup.object().shape({
-	name: Yup.string().required("الاسم مطلوب"),
+	employee: Yup.string().required("الاسم مطلوب"),
 	birthDate: Yup.date().required("تاريخ الميلاد مطلوب"),
 	qualification: Yup.string().required("المؤهل مطلوب"),
 	position: Yup.string().required("الوظيفة مطلوبة"),
-	salary: Yup.number()
+	net_salary: Yup.number()
 		.required("الراتب مطلوب")
 		.positive("يجب أن يكون الراتب قيمة موجبة"),
-	startDate: Yup.date().required("تاريخ بدء العمل مطلوب"),
-	workNature: Yup.string().required("طبيعة العمل مطلوبة"),
-	schedule: Yup.array().of(
-		Yup.object().shape({
-			day: Yup.string().required(),
-			startTime: Yup.string().required(),
-			endTime: Yup.string().required(),
-			active: Yup.boolean(),
-		})
-	),
+	date: Yup.date().required("تاريخ بدء العمل مطلوب"),
+	work_nature: Yup.string().required("طبيعة العمل مطلوبة"),
+	extras: Yup.string().required("البدلات مطلوبة"),
 });
 
 export default function EmployeeForm() {
-	// Initial values for the form
-	const initialValues = {
-		name: "محمد احمد",
-		birthDate: "2003-03-03",
-		qualification: "بكالوريوس تجارة",
-		position: "محاسب",
-		salary: 2500,
-		startDate: "2025-10-17",
-		workNature: "متزوج",
-		schedule: [
-			{ day: "السبت", startTime: "16:00", endTime: "20:00", active: false },
-			{ day: "الأحد", startTime: "16:00", endTime: "20:00", active: true },
-			{ day: "الاثنين", startTime: "16:00", endTime: "20:00", active: true },
-			{ day: "الثلاثاء", startTime: "16:00", endTime: "20:00", active: true },
-			{ day: "الأربعاء", startTime: "16:00", endTime: "20:00", active: true },
-			{ day: "الخميس", startTime: "16:00", endTime: "20:00", active: true },
-			{ day: "الجمعة", startTime: "16:00", endTime: "20:00", active: false },
-		],
-	};
+	const searchParams = useSearchParams();
+	const employeeId = searchParams.get("id");
+	const router = useRouter();
+	const [navigateLoading, setNavigateLoading] = useState(false);
 
-	const handleSubmit = (values: any) => {
-		console.log(values);
-		// Handle form submission here
-	};
+	const { mutate: createEmployee, isPending: createEmployeePending } =
+		useCreateEmployee();
+	const { mutate: updateEmployee, isPending: updateEmployeePending } =
+		useUpdateEmployee();
+	const { data: employee, isLoading } = useEmployee(employeeId ?? "");
+
+	// Loading state for existing employee
+	if (employeeId && isLoading) return <p>Loading employee data...</p>;
 
 	return (
 		<>
-			<h1 className="text-2xl font-bold mb-6 text-right">الموظفين</h1>
+			<h1 className="text-2xl font-bold mb-6 text-right">
+				{employeeId ? "تعديل بيانات الموظف" : "إضافة موظف جديد"}
+			</h1>
 
 			<Card className="border rounded-md p-6">
-				<CardContent className="p-0">
-					<Formik
-						initialValues={initialValues}
-						validationSchema={EmployeeSchema}
-						onSubmit={handleSubmit}
-					>
-						{({ errors, touched, values, setFieldValue }) => (
-							<Form className="space-y-6">
-								<div className="text-left">
-									<CustomPopUp
-										DialogTriggerComponent={() => (
-											<Button
-												className="bg-emerald-500 hover:bg-emerald-600 md:w-[148px] w-[140px] md:h-[44px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px]"
+				{createEmployeePending || updateEmployeePending || navigateLoading ? (
+					<LoadingIndicator />
+				) : (
+					<CardContent className="p-0">
+						<Formik
+							initialValues={{
+								employee: employee?.employee || "",
+								birthDate: employee?.birthDate || "",
+								qualification: employee?.qualification || "",
+								position: employee?.position || "",
+								net_salary: employee?.net_salary || "",
+								date: employee?.date || "",
+								work_nature: employee?.work_nature || "",
+								extras: employee?.extras || "",
+							}}
+							enableReinitialize={true} // Update values when `employee` changes
+							validationSchema={EmployeeSchema}
+							onSubmit={async (values, { resetForm }) => {
+								// Convert all values to strings
+								const stringifiedValues = Object.fromEntries(
+									Object.entries(values).map(([key, value]) => [
+										key,
+										String(value),
+									])
+								);
+
+								if (employeeId) {
+									// Update existing employee
+									await updateEmployee({
+										id: Number(employeeId),
+										employee: stringifiedValues,
+									});
+								} else {
+									// Create new employee
+									await createEmployee(stringifiedValues);
+								}
+
+								setNavigateLoading(true);
+								resetForm();
+								router.push("/employees"); // Redirect after submission
+							}}
+						>
+							{({ handleSubmit }) => (
+								<Form onSubmit={handleSubmit} className="space-y-6">
+									<div className="text-left">
+										<CustomPopUp
+											DialogTriggerComponent={() => (
+												<Button className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-md px-4 py-2">
+													{"الملحقات"}
+												</Button>
+											)}
+											DialogContentComponent={() => (
+												<CustomCard
+													withButton={false}
+													title={"رفع ملف، شهادة النجاح"}
+													width={556}
+													height={450}
+													Content={<FileUpload />}
+												/>
+											)}
+										/>
+									</div>
+
+									{/* Employee Information */}
+									<div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
+										{[
+											{ name: "employee", label: "الاسم", type: "text" },
+											{
+												name: "birthDate",
+												label: "تاريخ الميلاد",
+												type: "date",
+											},
+											{ name: "qualification", label: "المؤهل", type: "text" },
+											{ name: "position", label: "الوظيفة", type: "text" },
+										].map(({ name, label, type }) => (
+											<div className="flex flex-col gap-2" key={name}>
+												<label className="block text-right font-semibold">
+													{label}
+												</label>
+												<Field
+													as={Input}
+													type={type}
+													name={name}
+													className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
+												/>
+												<ErrorMessage
+													name={name}
+													component="div"
+													className="text-red-500 text-sm"
+												/>
+											</div>
+										))}
+									</div>
+
+									{/* Salary & Work Info */}
+									<div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
+										{[
+											{
+												name: "net_salary",
+												label: "صافي المرتب",
+												type: "number",
+											},
+											{ name: "extras", label: "بدلات", type: "number" },
+											{ name: "date", label: "تاريخ بدء العمل", type: "date" },
+										].map(({ name, label, type }) => (
+											<div className="flex flex-col gap-2" key={name}>
+												<label className="block text-right font-semibold">
+													{label}
+												</label>
+												<Field
+													as={Input}
+													type={type}
+													name={name}
+													className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
+												/>
+												<ErrorMessage
+													name={name}
+													component="div"
+													className="text-red-500 text-sm"
+												/>
+											</div>
+										))}
+										{/* Work Nature */}
+										<div className="flex flex-col gap-2">
+											<label className="block text-right font-semibold">
+												طبيعة العمل
+											</label>
+											<Field
+												as="select"
+												name="work_nature"
+												className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border border-[#D9D9D9] text-right"
 											>
-												{"الملحقات"}
-											</Button>
-										)}
-										// DialogContentclassName="bg-white"
-										DialogContentComponent={() => (
-											<CustomCard
-												withButton={false}
-												title={"رفع ملف، شهادة النجاح"}
-												width={556}
-												height={450}
-												className={" md:w-[556px] h-fit"}
-												Content={<FileUpload />}
-											></CustomCard>
-										)}
-									></CustomPopUp>
-								</div>
-
-								{/* Employee Information */}
-								<div className="grid grid-cols-4 gap-4 items-center">
-									<div className="text-right font-semibold">الاسم</div>
-									<div className="text-right font-semibold">تاريخ الميلاد</div>
-									<div className="text-right font-semibold">المؤهل</div>
-									<div className="text-right font-semibold">الوظيفة</div>
-
-									<div>
-										<Field
-											name="name"
-											type="text"
-											className="w-full border rounded-md p-2 text-right"
-										/>
-										<ErrorMessage
-											name="name"
-											component="div"
-											className="text-red-500 text-sm"
-										/>
+												<option value="">اختر طبيعة العمل</option>
+												{["متزوج", "أعزب", "مطلق"].map((el, index) => (
+													<option key={index} value={el}>
+														{el}
+													</option>
+												))}
+											</Field>
+											<ErrorMessage
+												name="work_nature"
+												component="div"
+												className="text-red-500 text-sm"
+											/>
+										</div>
 									</div>
 
-									<div>
-										<Field
-											name="birthDate"
-											type="date"
-											className="w-full border rounded-md p-2 text-right"
-										/>
-										<ErrorMessage
-											name="birthDate"
-											component="div"
-											className="text-red-500 text-sm"
-										/>
-									</div>
-
-									<div>
-										<Field
-											name="qualification"
-											type="text"
-											className="w-full border rounded-md p-2 text-right"
-										/>
-										<ErrorMessage
-											name="qualification"
-											component="div"
-											className="text-red-500 text-sm"
-										/>
-									</div>
-
-									<div>
-										<Field
-											name="position"
-											type="text"
-											className="w-full border rounded-md p-2 text-right"
-										/>
-										<ErrorMessage
-											name="position"
-											component="div"
-											className="text-red-500 text-sm"
-										/>
-									</div>
-								</div>
-
-								{/* Salary and Work Information */}
-								<div className="grid grid-cols-4 gap-4 items-center">
-									<div className="text-right font-semibold">راتب التعريف</div>
-									<div className="text-right font-semibold">بدلات</div>
-									<div className="text-right font-semibold">
-										تاريخ بدء العمل
-									</div>
-									<div className="text-right font-semibold">طبيعة العمل</div>
-
-									<div>
-										<Field
-											name="salary"
-											type="number"
-											className="w-full border rounded-md p-2 text-right"
-										/>
-										<ErrorMessage
-											name="salary"
-											component="div"
-											className="text-red-500 text-sm"
-										/>
-									</div>
-									<div>
-										<Field
-											name="salary"
-											type="number"
-											className="w-full border rounded-md p-2 text-right"
-										/>
-										<ErrorMessage
-											name="salary"
-											component="div"
-											className="text-red-500 text-sm"
-										/>
-									</div>
-
-									<div>
-										<Field
-											name="startDate"
-											type="date"
-											className="w-full border rounded-md p-2 text-right"
-										/>
-										<ErrorMessage
-											name="startDate"
-											component="div"
-											className="text-red-500 text-sm"
-										/>
-									</div>
-
-									<div>
-										<Field
-											as="select"
-											name="workNature"
-											className="w-full border rounded-md p-2 text-right"
+									{/* Submit Button */}
+									<div className="text-right mt-6">
+										<Button
+											type="submit"
+											className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
 										>
-											<option value="متزوج">متزوج</option>
-											<option value="أعزب">أعزب</option>
-											<option value="مطلق">مطلق</option>
-										</Field>
-										<ErrorMessage
-											name="workNature"
-											component="div"
-											className="text-red-500 text-sm"
-										/>
+											{employeeId ? "تحديث البيانات" : "حفظ"}
+										</Button>
 									</div>
-								</div>
 
-								{/* Work Schedule */}
-								<div className="mt-8">
-									<EmployeeManagement />
-								</div>
-
-								<div className="text-right mt-6">
-									<Button
-										type="submit"
-										className="bg-emerald-500 hover:bg-emerald-600 text-white"
-									>
-										حفظ
-									</Button>
-								</div>
-							</Form>
-						)}
-					</Formik>
-				</CardContent>
+									{/* Work Schedule */}
+									<div className="mt-8">
+										<EmployeeManagement />
+									</div>
+								</Form>
+							)}
+						</Formik>
+					</CardContent>
+				)}
 			</Card>
 		</>
 	);

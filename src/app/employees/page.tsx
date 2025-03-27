@@ -15,7 +15,11 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useEmployees } from "./useEmployee";
+import {
+	useDeleteEmployee,
+	useDistinctEmployees,
+	useEmployees,
+} from "./useEmployee";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 const columns = [
@@ -62,38 +66,40 @@ const columns = [
 // 	};
 // });
 export default function Page() {
-	const {
-		employees,
-		pagination,
-		loading,
-		error,
-		distinctEmployeesName,
-		fetchEmployees,
-		distinctEmployees,
-		updateEmployee,
-		deleteEmployee,
-	} = useEmployees();
+	const [page, setPage] = useState(1);
 
-	useEffect(() => {
-		fetchEmployees();
-		distinctEmployees();
-	}, []);
+	const { data, isLoading, error } = useEmployees(page);
 
-	const handlePageChange = (page: number) => {
-		fetchEmployees(page);
+	const handlePageChange = (pageinationPage: number) => {
+		setPage(pageinationPage);
 	};
-	console.log(distinctEmployeesName);
 	const route = useRouter();
+	const { mutate: DeleteEmployee, isPending: DeleteEmployeeLoading } =
+		useDeleteEmployee();
+	const handleNavigation = (id: string) => {
+		route.push(`/employees/add?id=${id}`);
+	};
+	const {
+		data: distinctEmployeesName,
+		isLoading: distinctEmployeesLoading,
+		error: distinctEmployeesError,
+	} = useDistinctEmployees();
+
 	return (
 		<ReusableTable
 			columns={columns}
-			data={employees}
-			employees={distinctEmployeesName}
+			data={data?.employees ?? []}
+			employees={distinctEmployeesName?.employees?.map(
+				(el: any) => el?.employee
+			)}
 			title="الموظفين"
 			handlePageChange={handlePageChange}
-			pagination={pagination}
-			loading={loading}
-			error={error}
+			pagination={data?.pagination}
+			loading={isLoading || distinctEmployeesLoading}
+			error={error || distinctEmployeesError}
+			onDelete={DeleteEmployee}
+			deleteLoading={DeleteEmployeeLoading}
+			onEdit={handleNavigation}
 			ButtonTrigger={() => (
 				<Link href={"/employees/add"}>
 					<AddButton onClickAdd={() => {}} AddTitle="موظف جديد" />

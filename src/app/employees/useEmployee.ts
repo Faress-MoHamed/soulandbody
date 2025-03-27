@@ -1,15 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import {
-	Employee,
-	fetchEmployees,
-	getEmployee,
-	createEmployee,
-	updateEmployee,
-	getDistinctEmployees,
-	deleteEmployee,
-} from "./employees.server";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+
+export interface Employee {
+	id: number;
+	date: string;
+	employee: string;
+	leaveStart: string;
+	leaveEnd: string;
+	leaveDays: number;
+	leaveType: string;
+	deduction: number;
+	work_nature: string;
+	net_salary: string;
+	phone_number: string;
+	address: string;
+	birthDate: string;
+	qualification: string;
+	position: string;
+	extras: string;
+}
 
 interface Pagination {
 	total: number;
@@ -17,138 +28,86 @@ interface Pagination {
 	current: number;
 }
 
-interface UseEmployeesReturn {
-	employees: Employee[];
-	pagination: Pagination;
-	loading: boolean;
-	error: string | null;
-	distinctEmployeesName: any[];
-	fetchEmployees: (page?: number) => Promise<void>;
-	distinctEmployees: () => Promise<null | undefined>;
-	getEmployee: (id: number) => Promise<Employee | null>;
-	createEmployee: (employee: Omit<Employee, "id">) => Promise<Employee | null>;
-	updateEmployee: (
-		id: number,
-		employee: Partial<Employee>
-	) => Promise<Employee | null>;
-	deleteEmployee: (id: number) => Promise<boolean>;
+// Fetch all employees with pagination
+export function useEmployees(page: number = 1, limit: number = 10) {
+	return useQuery({
+		queryKey: ["employees", page, limit],
+		queryFn: async () => {
+			const { data } = await axios.get("/api/employees", {
+				params: { page, limit },
+			});
+			return data;
+		},
+	});
 }
 
-export function useEmployees(): UseEmployeesReturn {
-	const [employees, setEmployees] = useState<Employee[]>([]);
-	const [distinctEmployeesName, setdistinctEmployeesName] = useState<any[]>([]);
-	const [pagination, setPagination] = useState<Pagination>({
-		total: 0,
-		pages: 0,
-		current: 1,
+// Fetch a single employee
+export function useEmployee(id: string) {
+	return useQuery({
+		queryKey: ["employee", id],
+		queryFn: async () => {
+			const { data } = await axios.get(`/api/employees?id=${id}`);
+			return data;
+		},
+		enabled: !!id, // Prevents unnecessary fetches when id is not provided
 	});
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+}
 
-	const fetchEmployeesData = async (page = 1) => {
-		setLoading(true);
-		setError(null);
-		console.log(page, pagination);
-		try {
-			const data = await fetchEmployees(page);
-			setEmployees(data.employees);
-			setPagination(data.pagination);
-		} catch (err) {
-			setError(err instanceof Error ? err.message : "An error occurred");
-		} finally {
-			setLoading(false);
-		}
-	};
+// Fetch distinct employees
+export function useDistinctEmployees() {
+	return useQuery({
+		queryKey: ["distinctEmployees"],
+		queryFn: async () => {
+			const { data } = await axios.get("/api/employees/distinct");
+			return data;
+		},
+	});
+}
 
-	const getEmployeeById = async (id: number) => {
-		setLoading(true);
-		setError(null);
-		try {
-			return await getEmployee(id);
-		} catch (err) {
-			setError(err instanceof Error ? err.message : "An error occurred");
-			return null;
-		} finally {
-			setLoading(false);
-		}
-	};
-	const distinctEmployees = async () => {
-		setLoading(true);
-		setError(null);
-		try {
-			const data = await getDistinctEmployees();
-			setdistinctEmployeesName(data?.employees?.map((el: any) => el?.employee));
-		} catch (err) {
-			setError(err instanceof Error ? err.message : "An error occurred");
-			return null;
-		} finally {
-			setLoading(false);
-		}
-	};
+// Create an employee
+export function useCreateEmployee() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: async (employee: Omit<any, "id">) => {
+			const { data } = await axios.post("/api/employees", employee);
+			return data;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["employees"] });
+		},
+	});
+}
 
-	const createNewEmployee = async (employee: Omit<Employee, "id">) => {
-		setLoading(true);
-		setError(null);
-		try {
-			const newEmployee = await createEmployee(employee);
-			if (newEmployee) await fetchEmployeesData(pagination.current);
-			return newEmployee;
-		} catch (err) {
-			setError(err instanceof Error ? err.message : "An error occurred");
-			return null;
-		} finally {
-			setLoading(false);
-		}
-	};
+// Update an employee
+export function useUpdateEmployee() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: async ({
+			id,
+			employee,
+		}: {
+			id: number;
+			employee: Partial<Employee>;
+		}) => {
+			const { data } = await axios.put(`/api/employees`, { id, ...employee });
+			return data;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["employees"] });
+		},
+	});
+}
 
-	const updateExistingEmployee = async (
-		id: number,
-		employee: Partial<Employee>
-	) => {
-		setLoading(true);
-		setError(null);
-		try {
-			const updatedEmployee = await updateEmployee(id, employee);
-			if (updatedEmployee) await fetchEmployeesData(pagination.current);
-			return updatedEmployee;
-		} catch (err) {
-			setError(err instanceof Error ? err.message : "An error occurred");
-			return null;
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	const removeEmployee = async (id: number) => {
-		setLoading(true);
-		setError(null);
-		try {
-			const success = await deleteEmployee(id);
-			if (success) await fetchEmployeesData(pagination.current);
-			return success;
-		} catch (err) {
-			setError(err instanceof Error ? err.message : "An error occurred");
-			return false;
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	useEffect(() => {
-		fetchEmployeesData();
-	}, []);
-
-	return {
-		employees,
-		pagination,
-		loading,
-		error,
-		distinctEmployeesName,
-		distinctEmployees,
-		fetchEmployees: fetchEmployeesData,
-		getEmployee: getEmployeeById,
-		createEmployee: createNewEmployee,
-		updateEmployee: updateExistingEmployee,
-		deleteEmployee: removeEmployee,
-	};
+// Delete an employee
+export function useDeleteEmployee() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: async (id: string) => {
+			await axios.delete(`/api/employees`, { params: { id } });
+			return id;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["employees"] });
+		},
+	});
 }
