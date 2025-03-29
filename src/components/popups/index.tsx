@@ -32,23 +32,20 @@ export default function CustomPopUp({
 	DialogContentComponent: () => JSX.Element;
 }) {
 	const [open, setOpen] = React.useState(false);
-
+	// Memoize the content component to prevent unnecessary re-renders
+	const MemoizedDialogContentComponent = React.useMemo(() => {
+		return React.memo(DialogContentComponent);
+	}, [DialogContentComponent]);
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger
-				onClick={() => {
-					setOpen(true);
-				}}
-				// asChild
-			>
-				{<DialogTriggerComponent />}
+			<DialogTrigger asChild>
+				{/* Ensure the button does not trigger an extra re-render */}
+				<div onClick={() => setOpen(true)}>
+					<DialogTriggerComponent />
+				</div>
 			</DialogTrigger>
-			<DialogContent
-				className={cn(
-					DialogContentclassName
-				)}
-			>
-				{<DialogContentComponent />}
+			<DialogContent className={cn(DialogContentclassName)}>
+				<MemoizedDialogContentComponent />
 			</DialogContent>
 		</Dialog>
 	);

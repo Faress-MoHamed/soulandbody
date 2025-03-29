@@ -43,6 +43,7 @@
     "@types/react-modal": "^3.16.3",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
+    "tailwind-scrollbar": "^4.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -93,8 +93,6 @@ export default function Page() {
 				(el: any) => el?.employee
 			)}
 			title="الموظفين"
-			handlePageChange={handlePageChange}
-			pagination={data?.pagination}
 			loading={isLoading || distinctEmployeesLoading}
 			error={error || distinctEmployeesError}
 			onDelete={DeleteEmployee}

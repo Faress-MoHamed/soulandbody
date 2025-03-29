@@ -117,7 +117,7 @@ export default function EmployeeForm() {
 									</div>
 
 									{/* Employee Information */}
-									<div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
+									<div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
 										{[
 											{ name: "employee", label: "الاسم", type: "text" },
 											{
@@ -148,7 +148,7 @@ export default function EmployeeForm() {
 									</div>
 
 									{/* Salary & Work Info */}
-									<div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
+									<div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
 										{[
 											{
 												name: "net_salary",

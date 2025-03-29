@@ -30,24 +30,10 @@ export async function GET(req: NextRequest) {
 		return NextResponse.json(employee);
 	}
 
-	const page = Number(searchParams.get("page") || 1);
-	const limit = Number(searchParams.get("limit") || 10);
-	const offset = (page - 1) * limit;
-
-	const employees = db
-		.prepare("SELECT * FROM employees LIMIT ? OFFSET ?")
-		.all(limit, offset);
-	const total: any = db
-		.prepare("SELECT COUNT(*) as count FROM employees")
-		.get();
+	const employees = db.prepare("SELECT * FROM employees").all();
 
 	return NextResponse.json({
 		employees,
-		pagination: {
-			total: total.count,
-			pages: Math.ceil(total.count / limit),
-			current: page,
-		},
 	});
 }
 

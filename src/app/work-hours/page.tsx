@@ -1,35 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
+import SmallTable from "@/components/smallTable";
 import {
 	useToggleWorkDay,
 	useUpdateBreakHours,
 	useUpdateWorkHours,
 	useWorkHours,
 } from "./useWorkHours";
-import SmallTable from "@/components/smallTable";
 
 export default function EmployeeManagement() {
-	// const {
-	// 	workHours,
-	// 	updateWorkHours,
-	// 	toggleWorkDay,
-	// 	updateBreakHours,
-	// 	refreshWorkHours,
-	// 	loading,
-	// 	error,
-	// } = useWorkHours();
-
 	const { data: workHours, isLoading, error } = useWorkHours();
 	const { mutate: toggleWorkDay, isPending: toggleWorkDayPending } =
 		useToggleWorkDay();
@@ -37,6 +19,45 @@ export default function EmployeeManagement() {
 		useUpdateWorkHours();
 	const { mutate: updateBreakHours, isPending: updateBreakHoursPending } =
 		useUpdateBreakHours();
+
+	const [pendingChanges, setPendingChanges] = useState<Record<string, any>>({});
+
+	// Function to handle changes in state
+	const handleChange = (day: string, field: string, value: any) => {
+		setPendingChanges((prev) => ({
+			...prev,
+			[day]: {
+				...prev[day],
+				[field]: value,
+			},
+		}));
+	};
+
+	// Function to save changes
+	const handleSave = () => {
+		Object.entries(pendingChanges).forEach(([day, changes]: any) => {
+			if (changes.is_active !== undefined) {
+				toggleWorkDay(day);
+			}
+			if (changes.start_time || changes.end_time) {
+				updateWorkHours({
+					day,
+					startTime:
+						changes.start_time ??
+						workHours.find((d: { day: any; }) => d.day === day)?.start_time,
+					endTime:
+						changes.end_time ?? workHours.find((d: { day: any; }) => d.day === day)?.end_time,
+				});
+			}
+			if (changes.break_hours !== undefined) {
+				updateBreakHours({
+					day,
+					breakHours: changes.break_hours,
+				});
+			}
+		});
+		setPendingChanges({});
+	};
 
 	const columns = [
 		{
@@ -49,12 +70,14 @@ export default function EmployeeManagement() {
 			header: "دوام",
 			cell: ({ row }: any) => (
 				<Switch
-					checked={row.original.is_active}
-					onCheckedChange={() => toggleWorkDay(row.original.day)}
+					checked={
+						pendingChanges[row.original.day]?.is_active ??
+						row.original.is_active
+					}
+					onCheckedChange={(checked) =>
+						handleChange(row.original.day, "is_active", checked)
+					}
 				/>
-				// <button onClick={() => toggleWorkDay(row.original.day)}>
-				// 	{row.original.is_active ? "✅" : "❌"}
-				// </button>
 			),
 		},
 		{
@@ -63,13 +86,12 @@ export default function EmployeeManagement() {
 			cell: ({ row }: any) => (
 				<input
 					type="time"
-					defaultValue={row.original.start_time}
+					value={
+						pendingChanges[row.original.day]?.start_time ??
+						row.original.start_time
+					}
 					onChange={(e) =>
-						updateWorkHours({
-							day: row.original.day,
-							startTime: e.target.value,
-							endTime: row.original.end_time,
-						})
+						handleChange(row.original.day, "start_time", e.target.value)
 					}
 				/>
 			),
@@ -80,13 +102,11 @@ export default function EmployeeManagement() {
 			cell: ({ row }: any) => (
 				<input
 					type="time"
-					defaultValue={row.original.end_time}
+					value={
+						pendingChanges[row.original.day]?.end_time ?? row.original.end_time
+					}
 					onChange={(e) =>
-						updateWorkHours({
-							day: row.original.day,
-							endTime: e.target.value,
-							startTime: row.original.start_time,
-						})
+						handleChange(row.original.day, "end_time", e.target.value)
 					}
 				/>
 			),
@@ -97,13 +117,13 @@ export default function EmployeeManagement() {
 			cell: ({ row }: any) => (
 				<input
 					type="number"
-					className="max-w-[80px] justify-se"
-					defaultValue={row.original.break_hours}
+					className="max-w-[80px]"
+					value={
+						pendingChanges[row.original.day]?.break_hours ??
+						row.original.break_hours
+					}
 					onChange={(e) =>
-						updateBreakHours({
-							day: row.original.day,
-							breakHours: +e.target.value,
-						})
+						handleChange(row.original.day, "break_hours", +e.target.value)
 					}
 				/>
 			),
@@ -111,7 +131,7 @@ export default function EmployeeManagement() {
 	];
 
 	return (
-		<div className="">
+		<div>
 			<SmallTable
 				loading={
 					isLoading ||
@@ -123,7 +143,13 @@ export default function EmployeeManagement() {
 				data={workHours}
 				title="ساعات الدوام"
 			/>
+			<Button
+				className="mt-4"
+				onClick={handleSave}
+				disabled={Object.keys(pendingChanges).length === 0}
+			>
+				حفظ التغييرات
+			</Button>
 		</div>
-		// </div>
 	);
 }

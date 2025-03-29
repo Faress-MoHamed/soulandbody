@@ -23,6 +23,7 @@ export default function CustomCard({
 	height,
 	className,
 	withButton = true,
+	ButtonTitle,
 }: {
 	title?: any;
 	Content?: any;
@@ -30,6 +31,7 @@ export default function CustomCard({
 	width?: any;
 	className?: any;
 	withButton?: any;
+	ButtonTitle?: string;
 }) {
 	return (
 		<Card
@@ -46,7 +48,7 @@ export default function CustomCard({
 				{withButton && (
 					<div className=" flex justify-end">
 						<Button className="text-[16px] font-[500] text-[#16C47F] border-[#16C47F] p-0 py-[10px] px-3 w-[117px] h-[44px] bg-transparent hover:bg-transparent shadow-none border-[1px]">
-							السجل
+							{ButtonTitle || "السجل"}
 						</Button>
 					</div>
 				)}

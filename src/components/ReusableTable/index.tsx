@@ -30,7 +30,7 @@ import LoadingIndicator from "../loadingIndicator";
 type TableProps<TData> = {
 	columns: ColumnDef<TData>[];
 	data: TData[];
-	title: string;
+	title?: string;
 	AddTitle?: string;
 	onClickAdd?: any;
 	ButtonTrigger?: any;
@@ -42,6 +42,7 @@ type TableProps<TData> = {
 	onDelete?: any;
 	deleteLoading?: any;
 	onEdit?: any;
+	withActionButtons?: boolean;
 };
 
 export default function ReusableTable<TData>({
@@ -59,25 +60,17 @@ export default function ReusableTable<TData>({
 	deleteLoading,
 	onDelete,
 	onEdit,
+	withActionButtons = true,
 }: TableProps<TData>) {
+	const [pageIndex, setPageIndex] = useState(0);
+	const [pageSize, setPageSize] = useState(10); // Default to 10 rows per page
+
 	// Export to Excel
 	const exportToExcel = () => {
 		const worksheet = utils.json_to_sheet(data);
 		const workbook = utils.book_new();
 		utils.book_append_sheet(workbook, worksheet, "Sheet1");
 		writeFile(workbook, "table_data.xlsx");
-	};
-
-	// Export to PDF
-	const exportToPDF = () => {
-		const doc = new jsPDF();
-		doc.text("Employee Leave Report", 14, 10);
-		autoTable(doc, {
-			startY: 20,
-			head: [columns?.map((el) => el?.header) as any[]],
-			body: data.map((item: any) => Object.values(item)),
-		});
-		doc.save("table_data.pdf");
 	};
 
 	const [selectedEmployee, setSelectedEmployee] = useState<
@@ -91,11 +84,12 @@ export default function ReusableTable<TData>({
 				!selectedEmployee || record.employee === selectedEmployee;
 
 			const recordMonth = record.date
-				.split("/")
-				.reverse()
+				.split("-")
 				.slice(0, 2)
 				.join("-"); // Convert "DD/MM/YYYY" → "YYYY-MM"
+			console.log("recordMonth", recordMonth);
 			const matchesMonth = !selectedMonth || recordMonth === selectedMonth;
+			console.log("selectedMonth", selectedMonth);
 
 			return matchesEmployee && matchesMonth;
 		});
@@ -110,86 +104,100 @@ export default function ReusableTable<TData>({
 			);
 
 			// Add "الإجراء" (Action) column
-			updatedColumns.push({
-				accessorKey: "action",
-				header: "الإجراء",
-				cell: ({ row }: any) => (
-					<div className="flex justify-center gap-1 ">
-						<Button
-							onClick={() => onDelete(row?.original?.id)}
-							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
-						>
-							{deleteLoading ? (
-								<LoadingIndicator />
-							) : (
-								<>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										className="lucide lucide-trash-2"
-									>
-										<path d="M3 6h18" />
-										<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-										<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-										<line x1="10" x2="10" y1="11" y2="17" />
-										<line x1="14" x2="14" y1="11" y2="17" />
-									</svg>
-									حذف
-								</>
-							)}
-						</Button>
-						<Button
-							onClick={() => onEdit(row?.original?.id)}
-							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								className="lucide lucide-pencil"
+			if (withActionButtons) {
+				updatedColumns.push({
+					accessorKey: "action",
+					header: "الإجراء",
+					cell: ({ row }: any) => (
+						<div className="flex justify-center gap-1 ">
+							<Button
+								onClick={() => onDelete(row?.original?.id)}
+								className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
 							>
-								<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-								<path d="m15 5 4 4" />
-							</svg>
-							تعديل
-						</Button>
-					</div>
-				),
-			});
+								{deleteLoading ? (
+									<LoadingIndicator />
+								) : (
+									<>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											strokeWidth="2"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											className="lucide lucide-trash-2"
+										>
+											<path d="M3 6h18" />
+											<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+											<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+											<line x1="10" x2="10" y1="11" y2="17" />
+											<line x1="14" x2="14" y1="11" y2="17" />
+										</svg>
+										حذف
+									</>
+								)}
+							</Button>
+							<Button
+								onClick={() => onEdit(row?.original?.id)}
+								className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									className="lucide lucide-pencil"
+								>
+									<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+									<path d="m15 5 4 4" />
+								</svg>
+								تعديل
+							</Button>
+						</div>
+					),
+				});
+			}
 		}
 
 		return updatedColumns;
 	}, [selectedEmployee, columns]);
 
+	const paginatedData = useMemo(() => {
+		const start = pageIndex * pageSize;
+		const end = start + pageSize;
+		return filteredData.slice(start, end);
+	}, [filteredData, pageIndex, pageSize]);
 	const table = useReactTable({
-		data: filteredData,
+		data: paginatedData,
 		columns: dynamicColumns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel({ initialSync: true }),
-		initialState: { pagination: { pageIndex: 0, pageSize: 10 } },
-		
+		manualPagination: false, // Enable client-side pagination
 	});
+
+	console.log(pageIndex, data.length, pageSize);
 
 	return (
 		<>
 			<Card className="border-none shadow-none ">
 				<CardHeader className="flex flex-row items-center justify-between">
-					<CardTitle className="md:text-[26px] text-[20px]">{title}</CardTitle>
+					{title && (
+						<CardTitle className="md:text-[26px] text-[20px] w-full">
+							{title}
+						</CardTitle>
+					)}
 					{ButtonTrigger ? (
-						<ButtonTrigger />
+						<div className="w-full flex justify-end">
+							<ButtonTrigger />
+						</div>
 					) : (
 						<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
 					)}
@@ -208,6 +216,7 @@ export default function ReusableTable<TData>({
 										dir="rtl"
 										onValueChange={(e) => {
 											setSelectedEmployee((prev) => (prev === e ? "" : e));
+											setPageIndex(0);
 										}}
 									>
 										<SelectTrigger className="min-w-[240px]">
@@ -314,7 +323,64 @@ export default function ReusableTable<TData>({
 									</table>
 								</div>
 								{/* Pagination */}
-								<div className="flex items-center justify-between mt-6">
+								<div className="flex flex-col items-center gap-2">
+									<div className="flex items-center justify-between mt-4 w-full">
+										{" "}
+										<Button
+											onClick={() =>
+												setPageIndex((prev) =>
+													prev + 1 < Math.ceil(filteredData?.length / pageSize)
+														? prev + 1
+														: prev
+												)
+											}
+											disabled={
+												filteredData.length <= pageSize ||
+												(pageIndex + 1) * pageSize >= filteredData.length
+											}
+										>
+											<ChevronRight className="h-4 w-4 mr-1" />
+											التالي
+										</Button>
+										<div className="md:flex flex-row-reverse hidden items-center justify-center space-x-2">
+											{Array.from(
+												{
+													length:
+														Math.ceil(filteredData.length / pageSize) || 0,
+												},
+												(_, i) => i + 1
+											).map((page) => (
+												<Button
+													key={page}
+													variant={page === pageIndex + 1 ? "default" : "ghost"}
+													className={cn(
+														"w-10 h-10 p-0",
+														page === pageIndex + 1 && "bg-black text-white"
+													)}
+													onClick={() => setPageIndex(page - 1)}
+												>
+													{page}
+												</Button>
+											))}
+										</div>
+										<Button
+											onClick={() =>
+												setPageIndex((prev) => Math.max(prev - 1, 0))
+											}
+											disabled={
+												pageIndex === 0 || filteredData.length <= pageSize
+											}
+										>
+											السابق
+											<ChevronLeft className="h-4 w-4 ml-1" />
+										</Button>
+									</div>
+									<span>
+										الصفحة {pageIndex + 1} من{" "}
+										{Math.ceil(filteredData.length / pageSize)}
+									</span>
+								</div>
+								{/* <div className="flex items-center justify-between mt-6">
 									<Button
 										variant="outline"
 										size="sm"
@@ -353,7 +419,7 @@ export default function ReusableTable<TData>({
 										<span>التالي</span>
 										<ChevronLeft className="h-4 w-4 mr-1" />
 									</Button>
-								</div>{" "}
+								</div>{" "} */}
 							</>
 						)}
 					</CardContent>
