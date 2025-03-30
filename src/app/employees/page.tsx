@@ -77,7 +77,7 @@ export default function Page() {
 	const { mutate: DeleteEmployee, isPending: DeleteEmployeeLoading } =
 		useDeleteEmployee();
 	const handleNavigation = (id: string) => {
-		route.push(`/employees/add?id=${id}`);
+		route.push(`/employees/${id}`);
 	};
 	const {
 		data: distinctEmployeesName,
