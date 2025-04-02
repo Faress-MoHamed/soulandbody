@@ -3,10 +3,15 @@
 import { useState, useRef, type ChangeEvent } from "react";
 import { Upload, Check, X } from "lucide-react";
 import Image from "next/image";
+import { Button } from "../ui/button";
+import FileUploadList from "../file-upload-list";
+// import type { FileItem } from "@/app/test/page";
+import CustomPopUp from "../popups";
+import CustomCard from "../customCard";
 
 type UploadState = "idle" | "uploading" | "success";
 
-export default function FileUpload() {
+export function FileUpload() {
 	const [uploadState, setUploadState] = useState<UploadState>("idle");
 	const [progress, setProgress] = useState(0);
 	const [fileName, setFileName] = useState("");
@@ -132,9 +137,7 @@ export default function FileUpload() {
 								<span className="text-sm font-medium">{progress}%</span>
 							</div>
 						</div>
-						<p className="text-center">
-							جاري التحميل
-						</p>
+						<p className="text-center">جاري التحميل</p>
 					</>
 				)}
 
@@ -143,9 +146,7 @@ export default function FileUpload() {
 						<div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
 							<Check className="w-6 h-6 text-emerald-500" />
 						</div>
-						<p className="text-center">
-							تم التحميل
-						</p>
+						<p className="text-center">تم التحميل</p>
 						{fileName && (
 							<p className="text-sm text-gray-500 mt-2">{fileName}</p>
 						)}
@@ -155,7 +156,85 @@ export default function FileUpload() {
 		</div>
 	);
 }
+export default function Test() {
+	const [files, setFiles] = useState<
+		{
+			id: string;
+			name: string;
+			size: string;
+			type: string;
+		}[]
+	>([
+		{ id: "1", name: "صورة شخصية", size: "5.34KB", type: "image" },
+		{ id: "2", name: "ملف جنائي", size: "5.34KB", type: "document" },
+		{ id: "3", name: "كشف العميل", size: "5.34KB", type: "document" },
+		{ id: "4", name: "ترخيص المهني", size: "5.34KB", type: "document" },
+		{ id: "5", name: "شهادات الخبرة", size: "5.34KB", type: "document" },
+		{ id: "6", name: "رقم البطاقة", size: "5.34KB", type: "document" },
+		{ id: "7", name: "شهادة الميلاد", size: "5.34KB", type: "document" },
+		{ id: "8", name: "السيرة الذاتية", size: "5.34KB", type: "document" },
+	]);
 
+	const handleDeleteFile = (id: string) => {
+		setFiles(files.filter((file) => file.id !== id));
+	};
+	return (
+		<div className="">
+			<div className="flex items-center justify-between p-4 bg-[#E8F9F2] rounded-[12px] mb-4">
+				{" "}
+				<div className="flex items-center">
+					<Image
+						src={"/anaymouns.svg"}
+						width={40}
+						height={40}
+						alt="pdf"
+						className="ml-3"
+					/>
+					<div className="text-right flex flex-col gap-1">
+						<div className="font-medium text-gray-900">{"شهادة التخرج"}</div>
+					</div>
+				</div>
+				<div className="flex items-center">
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<Button
+								variant="ghost"
+								// onClick={handleAddFile}
+								className="text-green-500 hover:text-green-500  hover:bg-transparent hover:underline"
+								// onClick={() => onDelete(file.id)}
+							>
+								رفع الملف
+							</Button>
+						)}
+						DialogContentComponent={() => (
+							<CustomCard
+								withButton={false}
+								title={"رفع ملف، شهادة النجاح"}
+								width={556}
+								height={450}
+								className={`lg:w-[556px] lg:h-[350px] h-[300px] overflow-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100
+						[&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
+								Content={<FileUpload />}
+							/>
+						)}
+					/>
+				</div>
+			</div>
+			{/* <div className="p-4 border-b flex justify-between items-center">
+							<h2 className="text-lg font-semibold">رفع الملف</h2>
+							<div className="flex rtl">
+								<Button
+									onClick={handleAddFile}
+									className="bg-emerald-600 hover:bg-emerald-700 "
+								>
+									تصفح للملفات
+								</Button>
+							</div>
+						</div> */}
+			<FileUploadList files={files} onDelete={handleDeleteFile} />
+		</div>
+	);
+}
 // "use client";
 
 // import type React from "react";

@@ -57,15 +57,17 @@ export default function SelectableComponent({
 
 	return (
 		<div className={cn("w-full", className)}>
-			<div
-				className={cn(
-					"flex gap-2 mb-4 w-full justify-end",
-					direction === "horizontal" ? "flex-row" : "flex-col"
-				)}
-				role="tablist"
-			>
-				{buttons}
-			</div>
+			{items?.length > 1 && (
+				<div
+					className={cn(
+						"flex gap-2  w-full justify-end",
+						direction === "horizontal" ? "flex-row" : "flex-col"
+					)}
+					role="tablist"
+				>
+					{buttons}
+				</div>
+			)}
 			<div className={cn("mt-2", contentClassName)} role="tabpanel">
 				{items[activeIndex]?.component}
 			</div>

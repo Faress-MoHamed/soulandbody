@@ -37,7 +37,7 @@ export default function RootLayout({
 			>
 				<ReactQueryProvider>
 					{" "}
-					<div className="container  md:px-[80px] px-[20px] py-10 flex flex-col gap-[26px]">
+					<div className=" lg:px-[80px] px-[20px] py-10 flex flex-col gap-[26px]">
 						<Header />
 						{children}
 					</div>

@@ -38,11 +38,14 @@ type TableProps<TData> = {
 	pagination?: any;
 	handlePageChange?: any;
 	loading?: boolean;
+	withFilter?: boolean;
 	error?: unknown;
 	onDelete?: any;
 	deleteLoading?: any;
 	onEdit?: any;
+	UserComponent?: any;
 	withActionButtons?: boolean;
+	withColspan?: boolean;
 };
 
 export default function ReusableTable<TData>({
@@ -56,11 +59,14 @@ export default function ReusableTable<TData>({
 	handlePageChange,
 	employees,
 	loading,
+	withColspan,
 	error,
 	deleteLoading,
 	onDelete,
 	onEdit,
 	withActionButtons = true,
+	withFilter = true,
+	UserComponent,
 }: TableProps<TData>) {
 	const [pageIndex, setPageIndex] = useState(0);
 	const [pageSize, setPageSize] = useState(10); // Default to 10 rows per page
@@ -83,10 +89,7 @@ export default function ReusableTable<TData>({
 			const matchesEmployee =
 				!selectedEmployee || record.employee === selectedEmployee;
 
-			const recordMonth = record.date
-				.split("-")
-				.slice(0, 2)
-				.join("-"); // Convert "DD/MM/YYYY" → "YYYY-MM"
+			const recordMonth = record.date.split("-").slice(0, 2).join("-"); // Convert "DD/MM/YYYY" → "YYYY-MM"
 			console.log("recordMonth", recordMonth);
 			const matchesMonth = !selectedMonth || recordMonth === selectedMonth;
 			console.log("selectedMonth", selectedMonth);
@@ -190,7 +193,7 @@ export default function ReusableTable<TData>({
 			<Card className="border-none shadow-none ">
 				<CardHeader className="flex flex-row items-center justify-between">
 					{title && (
-						<CardTitle className="md:text-[26px] text-[20px] w-full">
+						<CardTitle className="lg:text-[26px] text-[20px] w-full">
 							{title}
 						</CardTitle>
 					)}
@@ -205,58 +208,60 @@ export default function ReusableTable<TData>({
 				{
 					<CardContent>
 						{/* Filters */}
-						<div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
-							<div className="flex flex-col md:flex-row gap-5">
-								<div className="flex flex-col gap-2">
-									<label className="text-[16px] text-black font-[500]">
-										الموظف
-									</label>
-									<Select
-										value={selectedEmployee}
-										dir="rtl"
-										onValueChange={(e) => {
-											setSelectedEmployee((prev) => (prev === e ? "" : e));
-											setPageIndex(0);
-										}}
-									>
-										<SelectTrigger className="min-w-[240px]">
-											<SelectValue placeholder="الكل" />
-										</SelectTrigger>
-										<SelectContent>
-											{loading ? (
-												<SelectItem
-													className="justify-center"
-													disabled
-													value="loading"
-												>
-													<LoadingIndicator />
-												</SelectItem>
-											) : (
-												employees?.map((el: any) => (
-													<SelectItem value={el}>{el}</SelectItem>
-												))
-											)}
-										</SelectContent>
-									</Select>
-								</div>
-								<div className="flex flex-col gap-2">
-									<label className="text-[16px] text-black font-[500]">
-										التاريخ
-									</label>
-									<Input
-										type="month"
-										className="min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-										value={selectedMonth}
-										onChange={(e) => {
-											console.log(e?.target.value);
-											setSelectedMonth((prev) =>
-												prev === e.target.value ? undefined : e.target.value
-											);
-										}}
-									/>
+						{withFilter && (
+							<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
+								<div className="flex flex-col lg:flex-row gap-5">
+									<div className="flex flex-col gap-2">
+										<label className="text-[16px] text-black font-[500]">
+											الموظف
+										</label>
+										<Select
+											value={selectedEmployee}
+											dir="rtl"
+											onValueChange={(e) => {
+												setSelectedEmployee((prev) => (prev === e ? "" : e));
+												setPageIndex(0);
+											}}
+										>
+											<SelectTrigger className="min-w-[240px]">
+												<SelectValue placeholder="الكل" />
+											</SelectTrigger>
+											<SelectContent>
+												{loading ? (
+													<SelectItem
+														className="justify-center"
+														disabled
+														value="loading"
+													>
+														<LoadingIndicator />
+													</SelectItem>
+												) : (
+													employees?.map((el: any) => (
+														<SelectItem value={el}>{el}</SelectItem>
+													))
+												)}
+											</SelectContent>
+										</Select>
+									</div>
+									<div className="flex flex-col gap-2">
+										<label className="text-[16px] text-black font-[500]">
+											التاريخ
+										</label>
+										<Input
+											type="month"
+											className="min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+											value={selectedMonth}
+											onChange={(e) => {
+												console.log(e?.target.value);
+												setSelectedMonth((prev) =>
+													prev === e.target.value ? undefined : e.target.value
+												);
+											}}
+										/>
+									</div>
 								</div>
 							</div>
-						</div>
+						)}
 
 						{/* Table */}
 						{loading ? (
@@ -271,6 +276,9 @@ export default function ReusableTable<TData>({
 										<img src="/print.svg" className="h-6 w-6 mr-2" />
 										{"طباعة"}
 									</Button>{" "}
+									{UserComponent && (
+										<UserComponent selectedEmployee={selectedEmployee} />
+									)}
 									<table className="w-full border-collapse">
 										<thead className="bg-[#D0F3E5] border-b-[1px] border-[#14250D66]">
 											{table.getHeaderGroups().map((headerGroup) => (
@@ -289,37 +297,86 @@ export default function ReusableTable<TData>({
 												</tr>
 											))}
 										</thead>
-										<tbody>
-											{table.getRowModel().rows.map((row) => (
-												<tr
-													key={row.id}
-													className="border-b hover:bg-muted/50 text-center"
-												>
-													{row.getVisibleCells().map((cell) => (
-														<td
-															key={cell.id}
+										{withColspan ? (
+											<tbody>
+												{table.getRowModel().rows.map((row, index) => {
+													const cells = row.getVisibleCells();
+													let lastValueIndex = -1;
+
+													// Find the last cell with a value in this row
+													for (let i = cells.length - 1; i >= 0; i--) {
+														if (cells[i].getValue()) {
+															lastValueIndex = i;
+															break;
+														}
+													}
+
+													return (
+														<tr
+															key={row.id}
 															className={cn(
-																`p-3 text-[16px] tec border-y-[1px] border-[#14250D66]`,
-																`${
-																	(cell.getContext().row
-																		.id as unknown as number) %
-																		2 !==
-																	0
-																		? "bg-[#D0F3E5]"
-																		: ""
-																}`
+																"border-b hover:bg-muted/50 text-center w-full",
+																`${index % 2 !== 0 ? "bg-[#D0F3E5]" : ""}`
 															)}
 														>
-															{" "}
-															{flexRender(
-																cell.column.columnDef.cell,
-																cell.getContext()
-															)}
-														</td>
-													))}
-												</tr>
-											))}
-										</tbody>
+															{cells.map((cell, cellIndex) => {
+																const cellValue = cell.getValue();
+
+																// Skip rendering cells after the last valued cell
+																if (cellIndex > lastValueIndex) return null;
+
+																// Calculate colspan for the last valued cell
+																const colspan =
+																	cellIndex === lastValueIndex
+																		? cells.length - lastValueIndex
+																		: undefined;
+
+																return (
+																	<td
+																		key={cell.id}
+																		colSpan={colspan}
+																		className={cn(
+																			"p-3 text-[16px] tec border-y-[1px] border-[#14250D66]"
+																		)}
+																	>
+																		{flexRender(
+																			cell.column.columnDef.cell,
+																			cell.getContext()
+																		)}
+																	</td>
+																);
+															})}
+														</tr>
+													);
+												})}
+											</tbody>
+										) : (
+											<tbody>
+												{table.getRowModel().rows.map((row, index) => (
+													<tr
+														key={row.id}
+														className={cn(
+															"border-b hover:bg-muted/50 text-center w-full",
+															`${index % 2 !== 0 ? "bg-[#D0F3E5]" : ""}`
+														)}
+													>
+														{row.getVisibleCells().map((cell) => (
+															<td
+																key={cell.id}
+																className={cn(
+																	`p-3 text-[16px] tec border-y-[1px] border-[#14250D66]`
+																)}
+															>
+																{flexRender(
+																	cell.column.columnDef.cell,
+																	cell.getContext()
+																)}
+															</td>
+														))}
+													</tr>
+												))}
+											</tbody>
+										)}
 									</table>
 								</div>
 								{/* Pagination */}
@@ -342,7 +399,7 @@ export default function ReusableTable<TData>({
 											<ChevronRight className="h-4 w-4 mr-1" />
 											التالي
 										</Button>
-										<div className="md:flex flex-row-reverse hidden items-center justify-center space-x-2">
+										<div className="lg:flex flex-row-reverse hidden items-center justify-center space-x-2">
 											{Array.from(
 												{
 													length:
@@ -390,7 +447,7 @@ export default function ReusableTable<TData>({
 										<ChevronRight className="h-4 w-4 ml-1" />
 										<span>السابق</span>
 									</Button>
-									<div className="md:flex flex-row-reverse hidden items-center justify-center space-x-2">
+									<div className="lg:flex flex-row-reverse hidden items-center justify-center space-x-2">
 										{Array.from(
 											{ length: pagination?.pages || 0 },
 											(_, i) => i + 1

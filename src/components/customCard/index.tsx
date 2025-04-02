@@ -36,7 +36,7 @@ export default function CustomCard({
 	return (
 		<Card
 			className={cn(
-				"flex flex-col   p-4 gap-6 md:w-[923px] h-[325px]",
+				"flex flex-col   p-4 gap-6 lg:w-[923px] h-[325px]",
 				`w-[${width}px] h-[${height}px]`,
 				className
 			)}

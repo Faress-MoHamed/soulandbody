@@ -118,8 +118,8 @@ export default function Page() {
 			// 				className={"md:w-[1010px] w-[300px]"}
 			// 				Content={
 			// 					<></>
-			// 					// <div className="flex flex-col gap-4 md:pl-6">
-			// 					// 	{/* <div className="grid md:grid-cols-3 grid-cols-1 items-center gap-4">
+			// 					// <div className="flex flex-col gap-4 lg:pl-6">
+			// 					// 	{/* <div className="grid lg:grid-cols-3 grid-cols-1 items-center gap-4">
 			// 					// 		<div className="flex flex-col gap-2 w-[302px]">
 			// 					// 			<label className="text-[16px] text-black font-[500]">
 			// 					// 				الموظف

@@ -25,7 +25,7 @@ export default function WarningPopUp() {
 	};
 
 	return (
-		<Card className="flex flex-col   bg-gray-100 p-4 gap-6 md:w-[923px] w-[300px] md:h-[325px] h-[350px]">
+		<Card className="flex flex-col   bg-gray-100 p-4 gap-6 lg:w-[923px] w-[300px] lg:h-[325px] h-fit">
 			<CardHeader className="flex flex-row items-center justify-between ">
 				<CardTitle className="text-center flex-1 text-xl">
 					إجراءات تأديبية
@@ -104,10 +104,10 @@ export default function WarningPopUp() {
 			<CardContent>
 				<form
 					onSubmit={handleSubmit}
-					className="space-y-4 flex md:flex-row flex-col items-end gap-2"
+					className="space-y-4 flex lg:flex-row flex-col items-end gap-2"
 					dir="rtl"
 				>
-					<div className="grid md:grid-cols-2 grid-cols-1 gap-4 w-full">
+					<div className="grid lg:grid-cols-2 grid-cols-1 gap-4 w-full">
 						<div className="space-y-2">
 							<label htmlFor="employeeName" className="text-right block">
 								اسم الموظف

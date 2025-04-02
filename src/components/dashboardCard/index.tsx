@@ -23,7 +23,7 @@ export function DashboardCard({
 		<Link
 			href={href}
 			className={cn(
-				"flex  items-center justify-between p-6 bg-white rounded-lg md:w-[435px] w-full h-[251px] shadow-sm hover:shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)] transition-shadow duration-200 ",
+				"flex  items-center justify-between p-6 bg-white rounded-lg lg:min-w-[435px] min-w-full h-[251px] shadow-sm hover:shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)] transition-shadow duration-200 lg:max-w-[30%] max-w-full",
 				className
 			)}
 		>
@@ -43,7 +43,7 @@ export function DashboardCard({
 				return (
 					<div
 						className={cn(
-							"flex  items-center justify-between p-6 bg-white rounded-lg  md:w-[435px] w-full h-[251px] shadow-sm hover:shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)] transition-shadow duration-200 ",
+							"flex  items-center justify-between p-6 bg-white rounded-lg  lg:w-[435px] w-full h-[251px] shadow-sm hover:shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)] transition-shadow duration-200 ",
 							className
 						)}
 					>
@@ -58,7 +58,8 @@ export function DashboardCard({
 						</div>
 					</div>
 				);
-			}}
+				}}
+				DialogContentclassName=""
 			DialogContentComponent={() => <DialogContentComponent />}
 		/>
 	);

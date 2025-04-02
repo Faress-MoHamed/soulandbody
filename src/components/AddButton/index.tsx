@@ -13,7 +13,7 @@ export default function AddButton({
 		onClickAdd && (
 			<Button
 				onClick={onClickAdd}
-				className="bg-emerald-500 hover:bg-emerald-600 md:min-w-[148px] min-w-[140px] md:h-[44px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px]"
+				className="bg-emerald-500 hover:bg-emerald-600 lg:min-w-[148px] min-w-[140px] lg:h-[44px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px]"
 			>
 				<img src="./add.svg" className="h-6 w-6" />
 				{AddTitle}

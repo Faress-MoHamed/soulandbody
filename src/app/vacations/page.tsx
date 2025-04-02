@@ -136,11 +136,11 @@ export default function Page() {
 								title={"اجازات"}
 								width={1010}
 								height={450}
-								className={`md:w-[1010px] md:h-[450px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100
+								className={`lg:w-[1010px] lg:h-[450px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100
   [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
 								Content={
 									<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-										<div className="grid md:grid-cols-3 gap-4">
+										<div className="grid lg:grid-cols-3 gap-4">
 											<div>
 												<label>الموظف</label>
 												<Select
@@ -287,9 +287,3 @@ export default function Page() {
 		/>
 	);
 }
-
-
-
-
-
-
