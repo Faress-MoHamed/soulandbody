@@ -101,7 +101,7 @@ function AttendanceEmployee() {
 				loading={false}
 				UserComponent={({ selectedEmployee }: any) => {
 					return (
-						<div className="p-6 border-t border-x border-[#02140D4D] mb-4 flex justify-between in-checked:">
+						<div className="p-6 border-t border-x border-[#02140D4D] mb-4 flex lg:flex-row flex-col justify-between in-checked:">
 							<p className="text-[26px] font-bold">{"فارس محمد"}</p>
 							<p className="text-[24px] font-[500]">
 								{" "}
