@@ -127,7 +127,7 @@ export default function page() {
 			<h2 className="text-[26px] font-bold">بيانات موظف</h2>
 
 			<div className="flex justify-between items-center">
-				<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
+				<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6 rounded-none">
 					<div className="flex flex-col lg:flex-row gap-5">
 						<div className="flex flex-col gap-2">
 							<label className="text-[16px] text-black font-[500]">
@@ -178,12 +178,22 @@ export default function page() {
 				<AddButton AddTitle={"اضافة موظف"} onClickAdd={() => {}} />
 			</div>
 			<SelectableComponent
-				contentClassName="border-0 p-6 rounded-lg"
+				contentClassName="border-0 mt-0 rounded-lg"
 				className=""
 				items={[
 					{ label: "معلومات شخصية", component: <Salaries /> },
 					{ label: "سجلات حضور", component: <AttendanceEmployee /> },
-					{ label: "تفاصيل المرتب", component: <EmployeesForm employeeId={5} /> },
+					{
+						label: "تفاصيل المرتب",
+						component: (
+							<EmployeesForm
+								CardStyle={"rounded-none"}
+								withEmployeeManagement={false}
+								withTitle={false}
+								employeeId={5}
+							/>
+						),
+					},
 				]}
 			/>
 		</>

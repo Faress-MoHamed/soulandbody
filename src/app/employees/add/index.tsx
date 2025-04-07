@@ -16,6 +16,7 @@ import {
 import { useSearchParams, useRouter } from "next/navigation";
 import LoadingIndicator from "@/components/loadingIndicator";
 import { Suspense, useState } from "react";
+import { cn } from "@/lib/utils";
 
 // Validation schema using Yup
 const EmployeeSchema = Yup.object().shape({
@@ -31,7 +32,17 @@ const EmployeeSchema = Yup.object().shape({
 	extras: Yup.string().required("البدلات مطلوبة"),
 });
 
-export default function EmployeesForm({ employeeId }: { employeeId?: any }) {
+export default function EmployeesForm({
+	employeeId,
+	withTitle = true,
+	withEmployeeManagement = true,
+	CardStyle,
+}: {
+	employeeId?: any;
+	CardStyle?: any;
+	withTitle?: boolean;
+	withEmployeeManagement?: boolean;
+}) {
 	// const searchParams = useSearchParams();
 	// const employeeId = searchParams.get("id");
 	const router = useRouter();
@@ -48,11 +59,13 @@ export default function EmployeesForm({ employeeId }: { employeeId?: any }) {
 
 	return (
 		<>
-			<h1 className="text-2xl font-bold mb-6 text-right">
-				{employeeId ? "تعديل بيانات الموظف" : "إضافة موظف جديد"}
-			</h1>
+			{withTitle && (
+				<h1 className="text-2xl font-bold mb-6 text-right">
+					{employeeId ? "تعديل بيانات الموظف" : "إضافة موظف جديد"}
+				</h1>
+			)}
 
-			<Card className="border rounded-md p-6">
+			<Card className={cn("border rounded-md p-6", CardStyle)}>
 				{createEmployeePending || updateEmployeePending || navigateLoading ? (
 					<LoadingIndicator />
 				) : (
@@ -100,7 +113,10 @@ export default function EmployeesForm({ employeeId }: { employeeId?: any }) {
 									<div className="text-left">
 										<CustomPopUp
 											DialogTriggerComponent={() => (
-												<Button type="button" className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-md px-4 py-2">
+												<Button
+													type="button"
+													className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-md px-4 py-2"
+												>
 													{"الملحقات"}
 												</Button>
 											)}
@@ -212,9 +228,11 @@ export default function EmployeesForm({ employeeId }: { employeeId?: any }) {
 									</div>
 
 									{/* Work Schedule */}
-									<div className="mt-8">
-										<EmployeeManagement />
-									</div>
+									{withEmployeeManagement && (
+										<div className="mt-8">
+											<EmployeeManagement />
+										</div>
+									)}
 								</Form>
 							)}
 						</Formik>

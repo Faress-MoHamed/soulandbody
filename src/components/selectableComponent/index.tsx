@@ -39,11 +39,9 @@ export default function SelectableComponent({
 					key={item.label} // Use label as key for better stability
 					onClick={() => handleClick(index)}
 					className={cn(
-						"px-4 py-2 rounded-md transition-colors cursor-pointer",
-						"bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700",
-						index === activeIndex &&
-							(activeButtonClassName ||
-								"bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-primary dark:hover:bg-primary/90"),
+						"px-2 py-1 transition-colors cursor-pointer border-t border-x border-[#D9D9D9] bg-[#fafafa]",
+						// "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700",
+						index === activeIndex && (activeButtonClassName || "bg-white"),
 						buttonClassName
 					)}
 					aria-selected={index === activeIndex}
@@ -60,7 +58,7 @@ export default function SelectableComponent({
 			{items?.length > 1 && (
 				<div
 					className={cn(
-						"flex gap-2  w-full justify-end",
+						"flex gap-2  w-full justify-end pl-[1px]",
 						direction === "horizontal" ? "flex-row" : "flex-col"
 					)}
 					role="tablist"

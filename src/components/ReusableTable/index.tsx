@@ -191,20 +191,23 @@ export default function ReusableTable<TData>({
 	return (
 		<>
 			<Card className="border-none shadow-none ">
-				<CardHeader className="flex flex-row items-center justify-between">
-					{title && (
-						<CardTitle className="lg:text-[26px] text-[20px] w-full">
-							{title}
-						</CardTitle>
-					)}
-					{ButtonTrigger ? (
-						<div className="w-full flex justify-end">
-							<ButtonTrigger />
-						</div>
-					) : (
-						<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
-					)}
-				</CardHeader>
+				{title ||
+					(ButtonTrigger && (
+						<CardHeader className="flex flex-row items-center justify-between">
+							{title && (
+								<CardTitle className="lg:text-[26px] text-[20px] w-full">
+									{title}
+								</CardTitle>
+							)}
+							{ButtonTrigger ? (
+								<div className="w-full flex justify-end">
+									<ButtonTrigger />
+								</div>
+							) : (
+								<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
+							)}
+						</CardHeader>
+					))}
 				{
 					<CardContent>
 						{/* Filters */}
@@ -269,13 +272,13 @@ export default function ReusableTable<TData>({
 						) : (
 							<>
 								<div className="overflow-x-auto">
-									<Button
+									{/* <Button
 										onClick={exportToExcel}
 										className="bg-emerald-500 hover:bg-emerald-600 w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
 									>
 										<img src="/print.svg" className="h-6 w-6 mr-2" />
 										{"طباعة"}
-									</Button>{" "}
+									</Button>{" "} */}
 									{UserComponent && (
 										<UserComponent selectedEmployee={selectedEmployee} />
 									)}
@@ -380,8 +383,7 @@ export default function ReusableTable<TData>({
 									</table>
 								</div>
 								{/* Pagination */}
-								<div className="flex flex-col items-center gap-2">
-									<div className="flex items-center justify-between mt-4 w-full">
+									<div className="flex  justify-between mt-4 w-full">
 										{" "}
 										<Button
 											onClick={() =>
@@ -399,26 +401,34 @@ export default function ReusableTable<TData>({
 											<ChevronRight className="h-4 w-4 mr-1" />
 											التالي
 										</Button>
-										<div className="lg:flex flex-row-reverse hidden items-center justify-center space-x-2">
-											{Array.from(
-												{
-													length:
-														Math.ceil(filteredData.length / pageSize) || 0,
-												},
-												(_, i) => i + 1
-											).map((page) => (
-												<Button
-													key={page}
-													variant={page === pageIndex + 1 ? "default" : "ghost"}
-													className={cn(
-														"w-10 h-10 p-0",
-														page === pageIndex + 1 && "bg-black text-white"
-													)}
-													onClick={() => setPageIndex(page - 1)}
-												>
-													{page}
-												</Button>
-											))}
+										<div className="flex flex-col items-center justify-center gap-4">
+											<div className="xl:flex flex-row-reverse hidden items-center justify-center space-x-2 w-full">
+												{Array.from(
+													{
+														length:
+															Math.ceil(filteredData.length / pageSize) || 0,
+													},
+													(_, i) => i + 1
+												).map((page) => (
+													<Button
+														key={page}
+														variant={
+															page === pageIndex + 1 ? "default" : "ghost"
+														}
+														className={cn(
+															"w-10 h-10 p-0",
+															page === pageIndex + 1 && "bg-black text-white"
+														)}
+														onClick={() => setPageIndex(page - 1)}
+													>
+														{page}
+													</Button>
+												))}
+											</div>
+											<span>
+												الصفحة {pageIndex + 1} من{" "}
+												{Math.ceil(filteredData.length / pageSize)}
+											</span>
 										</div>
 										<Button
 											onClick={() =>
@@ -432,11 +442,6 @@ export default function ReusableTable<TData>({
 											<ChevronLeft className="h-4 w-4 ml-1" />
 										</Button>
 									</div>
-									<span>
-										الصفحة {pageIndex + 1} من{" "}
-										{Math.ceil(filteredData.length / pageSize)}
-									</span>
-								</div>
 								{/* <div className="flex items-center justify-between mt-6">
 									<Button
 										variant="outline"

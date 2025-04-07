@@ -456,7 +456,7 @@ export default function Page() {
 		<>
 			<h2 className="text-[26px] font-bold">سجل الحركات</h2>
 			<SelectableComponent
-				contentClassName="border-2 p-6 rounded-lg"
+				contentClassName="border-2 p-6 mt-0 "
 				items={[
 					{ label: "خصم واضافة", component: <Deduction /> },
 					{ label: "مرتبات", component: <Salaries /> },
