@@ -5,7 +5,7 @@ export default function SalaryDetailsTable() {
 				<tr>
 					<th
 						colSpan={8}
-						className="bg-white p-2 text-right font-bold text-lg border-b"
+						className=" p-2 text-right font-bold text-lg border-b"
 					>
 						تفاصيل الراتب الشهري
 					</th>

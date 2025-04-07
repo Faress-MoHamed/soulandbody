@@ -174,100 +174,109 @@ export default function ReusableTable<TData>({
 
 		return updatedColumns;
 	}, [selectedEmployee, columns]);
-
 	const paginatedData = useMemo(() => {
 		const start = pageIndex * pageSize;
 		const end = start + pageSize;
-		return filteredData.slice(start, end);
-	}, [filteredData, pageIndex, pageSize]);
+		return data.slice(start, end);
+	}, [data, pageIndex, pageSize]);
+	const finalData = useMemo(() => {
+		return selectedEmployee ? filteredData : paginatedData;
+	}, [selectedEmployee, data, pageIndex, pageSize]);
 	const table = useReactTable({
-		data: paginatedData,
+		data: finalData,
 		columns: dynamicColumns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel({ initialSync: true }),
 		manualPagination: false, // Enable client-side pagination
 	});
 
-	console.log(pageIndex, data.length, pageSize);
+	console.log(selectedEmployee ? filteredData : paginatedData);
 
 	return (
 		<>
 			<Card className="border-none shadow-none ">
-				{title ||
-					(ButtonTrigger && (
-						<CardHeader className="flex flex-row items-center justify-between">
+				{(title || ButtonTrigger) && (
+					<CardHeader className="flex flex-row items-center justify-between">
+						{/* Filters */}
+						<div className="flex flex-col w-full gap-4">
+							{" "}
 							{title && (
 								<CardTitle className="lg:text-[26px] text-[20px] w-full">
 									{title}
 								</CardTitle>
 							)}
-							{ButtonTrigger ? (
-								<div className="w-full flex justify-end">
-									<ButtonTrigger />
-								</div>
-							) : (
-								<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
-							)}
-						</CardHeader>
-					))}
+							<div className="flex justify-between items-center w-full">
+								{withFilter && (
+									<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
+										<div className="flex flex-col lg:flex-row gap-5">
+											<div className="flex flex-col gap-2">
+												<label className="text-[16px] text-black font-[500]">
+													الموظف
+												</label>
+												<Select
+													value={selectedEmployee}
+													dir="rtl"
+													onValueChange={(e) => {
+														setSelectedEmployee((prev) =>
+															prev === e ? "" : e
+														);
+														setPageIndex(0);
+													}}
+												>
+													<SelectTrigger className="min-w-[240px]">
+														<SelectValue placeholder="الكل" />
+													</SelectTrigger>
+													<SelectContent>
+														{loading ? (
+															<SelectItem
+																className="justify-center"
+																disabled
+																value="loading"
+															>
+																<LoadingIndicator />
+															</SelectItem>
+														) : (
+															employees?.map((el: any) => (
+																<SelectItem value={el}>{el}</SelectItem>
+															))
+														)}
+													</SelectContent>
+												</Select>
+											</div>
+											<div className="flex flex-col gap-2">
+												<label className="text-[16px] text-black font-[500]">
+													التاريخ
+												</label>
+												<Input
+													type="month"
+													className="min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+													value={selectedMonth}
+													onChange={(e) => {
+														console.log(e?.target.value);
+														setSelectedMonth((prev) =>
+															prev === e.target.value
+																? undefined
+																: e.target.value
+														);
+													}}
+												/>
+											</div>
+										</div>
+									</div>
+								)}
+								{ButtonTrigger ? (
+									<div className="w-full flex justify-end">
+										<ButtonTrigger />
+									</div>
+								) : (
+									<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
+								)}
+							</div>
+						</div>
+					</CardHeader>
+				)}
 				{
 					<CardContent>
-						{/* Filters */}
-						{withFilter && (
-							<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
-								<div className="flex flex-col lg:flex-row gap-5">
-									<div className="flex flex-col gap-2">
-										<label className="text-[16px] text-black font-[500]">
-											الموظف
-										</label>
-										<Select
-											value={selectedEmployee}
-											dir="rtl"
-											onValueChange={(e) => {
-												setSelectedEmployee((prev) => (prev === e ? "" : e));
-												setPageIndex(0);
-											}}
-										>
-											<SelectTrigger className="min-w-[240px]">
-												<SelectValue placeholder="الكل" />
-											</SelectTrigger>
-											<SelectContent>
-												{loading ? (
-													<SelectItem
-														className="justify-center"
-														disabled
-														value="loading"
-													>
-														<LoadingIndicator />
-													</SelectItem>
-												) : (
-													employees?.map((el: any) => (
-														<SelectItem value={el}>{el}</SelectItem>
-													))
-												)}
-											</SelectContent>
-										</Select>
-									</div>
-									<div className="flex flex-col gap-2">
-										<label className="text-[16px] text-black font-[500]">
-											التاريخ
-										</label>
-										<Input
-											type="month"
-											className="min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-											value={selectedMonth}
-											onChange={(e) => {
-												console.log(e?.target.value);
-												setSelectedMonth((prev) =>
-													prev === e.target.value ? undefined : e.target.value
-												);
-											}}
-										/>
-									</div>
-								</div>
-							</div>
-						)}
-
 						{/* Table */}
 						{loading ? (
 							<LoadingIndicator />
@@ -387,105 +396,127 @@ export default function ReusableTable<TData>({
 									</table>
 								</div>
 								{/* Pagination */}
-								<div className="flex items-start justify-between mt-4 w-full">
-									{" "}
-									<button
-										className="cursor-pointer"
-										onClick={() =>
-											setPageIndex((prev) =>
-												prev + 1 < Math.ceil(filteredData?.length / pageSize)
-													? prev + 1
-													: prev
-											)
-										}
-										disabled={
-											filteredData.length <= pageSize ||
-											(pageIndex + 1) * pageSize >= filteredData.length
-										}
-									>
-										{/* <ChevronRight className="h-4 w-4 mr-1" /> */}
-										التالي
-									</button>
-									<div className="flex flex-col items-center justify-center gap-4">
-										<div className="xl:flex flex-row-reverse hidden items-center justify-center space-x-2 w-full">
-											{Array.from(
-												{
-													length:
-														Math.ceil(filteredData.length / pageSize) || 0,
-												},
-												(_, i) => i + 1
-											).map((page) => (
-												<Button
-													key={page}
-													variant={page === pageIndex + 1 ? "default" : "ghost"}
-													className={cn(
-														"w-10 h-10 p-0",
-														page === pageIndex + 1 && "bg-black text-white"
-													)}
-													onClick={() => setPageIndex(page - 1)}
-												>
-													{page}
-												</Button>
-											))}
+								{!selectedEmployee && (
+									<div className="flex items-start justify-between mt-4 w-full">
+										{" "}
+										<button
+											className="cursor-pointer"
+											onClick={() =>
+												setPageIndex((prev) =>
+													prev + 1 < Math.ceil(filteredData?.length / pageSize)
+														? prev + 1
+														: prev
+												)
+											}
+											disabled={
+												filteredData.length <= pageSize ||
+												(pageIndex + 1) * pageSize >= filteredData.length
+											}
+										>
+											{/* <ChevronRight className="h-4 w-4 mr-1" /> */}
+											التالي
+										</button>
+										<div className="flex flex-col items-center justify-center gap-4">
+											<div className="flex items-center justify-center">
+												{(() => {
+													const totalPages =
+														Math.ceil(filteredData.length / pageSize) || 1;
+													const currentPage = pageIndex + 1;
+
+													const pagesToShow: (number | string)[] = [];
+
+													// Always show first two pages
+													pagesToShow.push(1);
+													if (totalPages >= 2) pagesToShow.push(2);
+
+													// Determine middle range
+													const rangeStart = Math.max(3, currentPage - 1);
+													const rangeEnd = Math.min(
+														totalPages - 2,
+														currentPage + 1
+													);
+
+													if (rangeStart > 3) pagesToShow.push("ellipsis1");
+
+													for (let i = rangeStart; i <= rangeEnd; i++) {
+														pagesToShow.push(i);
+													}
+
+													if (rangeEnd < totalPages - 2)
+														pagesToShow.push("ellipsis2");
+
+													// Always show last two pages
+													if (totalPages > 3) pagesToShow.push(totalPages - 1);
+													if (totalPages > 2) pagesToShow.push(totalPages);
+
+													// Remove duplicates and sort
+													const uniquePages = [
+														...new Set(pagesToShow.filter(Boolean)),
+													].sort((a, b) =>
+														typeof a === "number" && typeof b === "number"
+															? a - b
+															: 0
+													);
+
+													return (
+														<div className="flex flex-row-reverse items-center gap-1 rtl">
+															{uniquePages.map((page, index) => {
+																if (
+																	typeof page === "string" &&
+																	page.startsWith("ellipsis")
+																) {
+																	return (
+																		<span
+																			key={`ellipsis-${index}`}
+																			className="px-2"
+																		>
+																			...
+																		</span>
+																	);
+																}
+
+																return (
+																	<Button
+																		key={page}
+																		variant="ghost"
+																		className={cn(
+																			"w-8 h-8 p-0 min-w-[32px] font-semibold",
+																			page === currentPage
+																				? "bg-black text-white hover:bg-black hover:text-white "
+																				: "text-gray-600"
+																		)}
+																		onClick={() =>
+																			setPageIndex((page as number) - 1)
+																		}
+																	>
+																		{page}
+																	</Button>
+																);
+															})}
+														</div>
+													);
+												})()}
+											</div>
+
+											<span>
+												الصفحة {pageIndex + 1} من{" "}
+												{Math.ceil(filteredData.length / pageSize)}
+											</span>
 										</div>
-										<span>
-											الصفحة {pageIndex + 1} من{" "}
-											{Math.ceil(filteredData.length / pageSize)}
-										</span>
+										<button
+											className="cursor-pointer"
+											onClick={() =>
+												setPageIndex((prev) => Math.max(prev - 1, 0))
+											}
+											disabled={
+												pageIndex === 0 || filteredData.length <= pageSize
+											}
+										>
+											السابق
+											{/* <ChevronLeft className="h-4 w-4 ml-1" /> */}
+										</button>
 									</div>
-									<button
-										className="cursor-pointer"
-										onClick={() =>
-											setPageIndex((prev) => Math.max(prev - 1, 0))
-										}
-										disabled={
-											pageIndex === 0 || filteredData.length <= pageSize
-										}
-									>
-										السابق
-										{/* <ChevronLeft className="h-4 w-4 ml-1" /> */}
-									</button>
-								</div>
-								{/* <div className="flex items-center justify-between mt-6">
-									<Button
-										variant="outline"
-										size="sm"
-										onClick={() => handlePageChange(pagination.current - 1)}
-										disabled={pagination?.current === 1}
-									>
-										<ChevronRight className="h-4 w-4 ml-1" />
-										<span>السابق</span>
-									</Button>
-									<div className="lg:flex flex-row-reverse hidden items-center justify-center space-x-2">
-										{Array.from(
-											{ length: pagination?.pages || 0 },
-											(_, i) => i + 1
-										).map((page) => (
-											<Button
-												key={page}
-												variant={
-													page === pagination.current ? "default" : "ghost"
-												}
-												className={cn(
-													"w-10 h-10 p-0",
-													page === pagination.current && "bg-black text-white"
-												)}
-												onClick={() => handlePageChange(page)}
-											>
-												{page}
-											</Button>
-										))}
-									</div>
-									<Button
-										variant="outline"
-										size="sm"
-										onClick={() => handlePageChange(pagination.current + 1)}
-										disabled={pagination?.current === pagination?.pages}
-									>
-										<span>التالي</span>
-										<ChevronLeft className="h-4 w-4 mr-1" />
-									</Button>
-								</div>{" "} */}
+								)}
 							</>
 						)}
 					</CardContent>

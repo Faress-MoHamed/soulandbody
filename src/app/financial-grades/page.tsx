@@ -51,42 +51,36 @@ type SalaryFormType = {
 	allowances: string;
 	totalSalary: string;
 };
-function LeaveForm() {
-	const [formData, setFormData] = useState<FormDataType>({
+interface DeductionFormType {
+	date: string;
+	employee: string;
+	type: string;
+	amount: string;
+	reason: string;
+}
+const LeaveForm = () => {
+	const [formData, setFormData] = useState<DeductionFormType>({
+		date: "",
 		employee: "",
-		leaveType: "",
-		leaveDays: "",
-		leaveStart: "",
-		leaveEnd: "",
-		deduction: "",
+		type: "",
+		amount: "",
+		reason: "",
 	});
-	const [errors, setErrors] = useState<Partial<FormDataType>>({});
+	const [errors, setErrors] = useState<Partial<DeductionFormType>>({});
 
-	const validateForm = (): boolean => {
-		let newErrors: Partial<FormDataType> = {};
+	const validateForm = () => {
+		let newErrors: Partial<DeductionFormType> = {};
 
+		if (!formData.date) newErrors.date = "يرجى اختيار التاريخ";
 		if (!formData.employee) newErrors.employee = "يرجى اختيار الموظف";
-		if (!formData.leaveType) newErrors.leaveType = "يرجى اختيار نوع الأجازة";
+		if (!formData.type) newErrors.type = "يرجى اختيار نوع الحركة";
 		if (
-			!formData.leaveDays ||
-			isNaN(Number(formData.leaveDays)) ||
-			Number(formData.leaveDays) <= 0
+			!formData.amount ||
+			isNaN(Number(formData.amount)) ||
+			Number(formData.amount) <= 0
 		)
-			newErrors.leaveDays = "يرجى إدخال عدد أيام صالح";
-		if (!formData.leaveStart) newErrors.leaveStart = "يرجى اختيار تاريخ البدء";
-		if (!formData.leaveEnd) newErrors.leaveEnd = "يرجى اختيار تاريخ العودة";
-		if (
-			formData.leaveStart &&
-			formData.leaveEnd &&
-			formData.leaveStart > formData.leaveEnd
-		)
-			newErrors.leaveEnd = "تاريخ العودة يجب أن يكون بعد تاريخ البدء";
-		if (
-			!formData.deduction ||
-			isNaN(Number(formData.deduction)) ||
-			Number(formData.deduction) < 0
-		)
-			newErrors.deduction = "يرجى إدخال قيمة خصم صالحة";
+			newErrors.amount = "يرجى إدخال مبلغ صحيح";
+		if (!formData.reason) newErrors.reason = "يرجى إدخال السبب";
 
 		setErrors(newErrors);
 		return Object.keys(newErrors).length === 0;
@@ -95,40 +89,55 @@ function LeaveForm() {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (validateForm()) {
-			console.log("Form submitted successfully", formData);
-			// Handle form submission logic here
+			console.log("Form submitted", formData);
+			// Handle submit
 		}
 	};
 
-	const handleChange = (field: keyof FormDataType, value: string) => {
+	const handleChange = (field: keyof DeductionFormType, value: string) => {
 		setFormData((prev) => ({ ...prev, [field]: value }));
 	};
 
 	return (
 		<CustomCard
-			title="إضافة إجازة"
+			title="إضافة خصم"
 			width={1010}
-			height={450}
-			className={`lg:w-[1010px] lg:h-[450px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
+			height={400}
+			className="lg:w-[1010px] w-[350px] h-auto overflow-auto"
 			Content={
 				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 					<div className="grid lg:grid-cols-3 gap-4">
-						{/** Employee Select **/}
+						{/* Date */}
+						<div>
+							<label>التاريخ</label>
+							<Input
+								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+								type="date"
+								value={formData.date}
+								onChange={(e) => handleChange("date", e.target.value)}
+								// className="form-input"
+							/>
+							{errors.date && (
+								<span className="text-red-500">{errors.date}</span>
+							)}
+						</div>
+
+						{/* Employee */}
 						<div>
 							<label>الموظف</label>
 							<Select
 								dir="rtl"
 								value={formData.employee}
-								onValueChange={(value) => handleChange("employee", value)}
+								onValueChange={(val) => handleChange("employee", val)}
 							>
-								<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex">
+								<SelectTrigger className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex  w-full ">
+									{" "}
 									<SelectValue placeholder="اختر الموظف" />
 								</SelectTrigger>
 								<SelectContent>
-									{employees.map((el) => (
-										<SelectItem key={el} value={el}>
-											{el}
+									{employees.map((emp) => (
+										<SelectItem key={emp} value={emp}>
+											{emp}
 										</SelectItem>
 									))}
 								</SelectContent>
@@ -138,88 +147,58 @@ function LeaveForm() {
 							)}
 						</div>
 
-						{/** Leave Type Select **/}
+						{/* Type */}
 						<div>
-							<label>نوع الأجازة</label>
+							<label>نوع الحركة</label>
 							<Select
 								dir="rtl"
-								value={formData.leaveType}
-								onValueChange={(value) => handleChange("leaveType", value)}
+								value={formData.type}
+								onValueChange={(val) => handleChange("type", val)}
 							>
-								<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex">
+								<SelectTrigger className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex  w-full ">
+									{" "}
 									<SelectValue placeholder="اختر النوع" />
 								</SelectTrigger>
 								<SelectContent>
-									{leaveTypes.map((el) => (
-										<SelectItem key={el} value={el}>
-											{el}
-										</SelectItem>
-									))}
+									<SelectItem value="خصم">خصم</SelectItem>
+									<SelectItem value="سلفة">سلفة</SelectItem>
 								</SelectContent>
 							</Select>
-							{errors.leaveType && (
-								<span className="text-red-500">{errors.leaveType}</span>
+							{errors.type && (
+								<span className="text-red-500">{errors.type}</span>
 							)}
 						</div>
 
-						{/** Leave Days Input **/}
+						{/* Amount */}
 						<div>
-							<label>عدد الأيام</label>
+							<label>المبلغ</label>
 							<Input
+								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
 								type="number"
-								value={formData.leaveDays}
-								onChange={(e) => handleChange("leaveDays", e.target.value)}
-								className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
+								value={formData.amount}
+								onChange={(e) => handleChange("amount", e.target.value)}
 							/>
-							{errors.leaveDays && (
-								<span className="text-red-500">{errors.leaveDays}</span>
+							{errors.amount && (
+								<span className="text-red-500">{errors.amount}</span>
 							)}
 						</div>
 
-						{/** Leave Start Date **/}
-						<div>
-							<label>تاريخ البدء</label>
+						{/* Reason */}
+						<div className="lg:col-span-2">
+							<label>السبب</label>
 							<Input
-								type="date"
-								value={formData.leaveStart}
-								onChange={(e) => handleChange("leaveStart", e.target.value)}
-								className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
+								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+								type="text"
+								value={formData.reason}
+								onChange={(e) => handleChange("reason", e.target.value)}
 							/>
-							{errors.leaveStart && (
-								<span className="text-red-500">{errors.leaveStart}</span>
-							)}
-						</div>
-
-						{/** Leave End Date **/}
-						<div>
-							<label>تاريخ العودة</label>
-							<Input
-								type="date"
-								value={formData.leaveEnd}
-								onChange={(e) => handleChange("leaveEnd", e.target.value)}
-								className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
-							/>
-							{errors.leaveEnd && (
-								<span className="text-red-500">{errors.leaveEnd}</span>
-							)}
-						</div>
-
-						{/** Deduction Input **/}
-						<div>
-							<label>الخصم</label>
-							<Input
-								type="number"
-								value={formData.deduction}
-								onChange={(e) => handleChange("deduction", e.target.value)}
-								className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
-							/>
-							{errors.deduction && (
-								<span className="text-red-500">{errors.deduction}</span>
+							{errors.reason && (
+								<span className="text-red-500">{errors.reason}</span>
 							)}
 						</div>
 					</div>
 
-					<div className="pt-7 flex justify-end">
+					<div className="pt-6 flex justify-end">
 						<Button
 							type="submit"
 							className="text-white bg-[#16C47F] p-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none"
@@ -231,7 +210,7 @@ function LeaveForm() {
 			}
 		/>
 	);
-}
+};
 
 function SalariesForm() {
 	const [formData, setFormData] = useState<SalaryFormType>({
@@ -300,14 +279,14 @@ function SalariesForm() {
 				<form onSubmit={handleSubmit} className="flex flex-col gap-4 lg:pl-6">
 					<div className="grid lg:grid-cols-3 grid-cols-1 items-center gap-4">
 						{/* Employee Select */}
-						<div className="flex flex-col gap-2 w-[302px]">
+						<div className="flex flex-col gap-2 w-[200px]">
 							<label>الموظف</label>
 							<Select
 								dir="rtl"
 								value={formData.employee}
 								onValueChange={(value) => handleChange("employee", value)}
 							>
-								<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex">
+								<SelectTrigger className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex">
 									<SelectValue placeholder="اختر الموظف" />
 								</SelectTrigger>
 								<SelectContent>
@@ -324,13 +303,13 @@ function SalariesForm() {
 						</div>
 
 						{/* Date Input */}
-						<div className="flex flex-col gap-1 w-[302px]">
+						<div className="flex flex-col gap-1 w-[200px]">
 							<label>التاريخ</label>
 							<Input
 								type="date"
 								value={formData.date}
 								onChange={(e) => handleChange("date", e.target.value)}
-								className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
+								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
 							/>
 							{errors.date && (
 								<span className="text-red-500">{errors.date}</span>
@@ -344,7 +323,7 @@ function SalariesForm() {
 							{ label: "بدلات", field: "allowances" },
 							{ label: "اجمالي المرتب", field: "totalSalary" },
 						].map(({ label, field }) => (
-							<div key={field} className="flex flex-col gap-1 w-[302px]">
+							<div key={field} className="flex flex-col gap-1 w-[200px]">
 								<label>{label}</label>
 								<Input
 									type="number"
@@ -352,7 +331,7 @@ function SalariesForm() {
 									onChange={(e) =>
 										handleChange(field as keyof SalaryFormType, e.target.value)
 									}
-									className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
+									className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
 								/>
 								{errors[field as keyof SalaryFormType] && (
 									<span className="text-red-500">
@@ -396,24 +375,29 @@ function Deduction() {
 	];
 
 	return (
-		<ReusableTable
-			columns={columns}
-			data={deductionData ?? []}
-			employees={distinctEmployees}
-			withActionButtons={false}
-			loading={deductionLoading}
-			error={deductionError}
-			ButtonTrigger={() => (
-				<CustomPopUp
-					DialogTriggerComponent={() => {
-						return (
-							<AddButton onClickAdd={() => {}} AddTitle=" حركة حسابية جديدة" />
-						);
-					}}
-					DialogContentComponent={() => <LeaveForm />}
-				/>
-			)}
-		/>
+		<>
+			<ReusableTable
+				columns={columns}
+				data={deductionData ?? []}
+				employees={distinctEmployees}
+				withActionButtons={false}
+				loading={deductionLoading}
+				error={deductionError}
+				ButtonTrigger={() => (
+					<CustomPopUp
+						DialogTriggerComponent={() => {
+							return (
+								<AddButton
+									onClickAdd={() => {}}
+									AddTitle=" حركة حسابية جديدة"
+								/>
+							);
+						}}
+						DialogContentComponent={() => <LeaveForm />}
+					/>
+				)}
+			/>
+		</>
 	);
 }
 function Salaries() {

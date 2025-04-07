@@ -114,7 +114,7 @@ function AttendanceEmployee() {
 				}}
 				withFilter={false}
 			/>
-			<SalaryDetailsTable />
+			{/* <SalaryDetailsTable /> */}
 		</>
 	);
 }
@@ -176,8 +176,14 @@ export default function page() {
 						</div>
 					</div>
 				</div>
-
-				<AddButton AddTitle={"اضافة موظف"} onClickAdd={() => {}} />
+				<Link
+					href={"/employees/add"}
+					className="bg-emerald-500 hover:bg-emerald-600 lg:min-w-[148px] min-w-[140px] lg:h-[44px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px] px-4 py-2 has-[>svg]:px-3 text-white"
+				>
+					<img src="./add.svg" className="h-6 w-6" />
+					{"اضافة موظف"}
+				</Link>
+				{/* <AddButton AddTitle={"اضافة موظف"} onClickAdd={() => {}} /> */}
 			</div>
 			<SelectableComponent
 				contentClassName="border-0 mt-0 rounded-lg"

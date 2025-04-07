@@ -44,9 +44,10 @@ export default function EmployeeManagement() {
 					day,
 					startTime:
 						changes.start_time ??
-						workHours.find((d: { day: any; }) => d.day === day)?.start_time,
+						workHours.find((d: { day: any }) => d.day === day)?.start_time,
 					endTime:
-						changes.end_time ?? workHours.find((d: { day: any; }) => d.day === day)?.end_time,
+						changes.end_time ??
+						workHours.find((d: { day: any }) => d.day === day)?.end_time,
 				});
 			}
 			if (changes.break_hours !== undefined) {
@@ -144,7 +145,8 @@ export default function EmployeeManagement() {
 				title="ساعات الدوام"
 			/>
 			<Button
-				className="mt-4"
+				type="submit"
+				className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md mt-2"
 				onClick={handleSave}
 				disabled={Object.keys(pendingChanges).length === 0}
 			>

@@ -149,7 +149,7 @@ export default function Page() {
 														setFormData({ ...formData, employee: e })
 													}
 												>
-													<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
+													<SelectTrigger className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex w-full ">
 														{" "}
 														<SelectValue placeholder="اختر الموظف" />
 													</SelectTrigger>
@@ -175,7 +175,7 @@ export default function Page() {
 														setFormData({ ...formData, leaveType: e })
 													}
 												>
-													<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
+													<SelectTrigger className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex  w-full ">
 														<SelectValue placeholder="اختر النوع" />
 													</SelectTrigger>
 													<SelectContent>
@@ -195,7 +195,7 @@ export default function Page() {
 											<div>
 												<label>عدد الأيام</label>
 												<Input
-													className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
 													type="number"
 													value={formData.leaveDays}
 													onChange={(e) =>
@@ -214,7 +214,7 @@ export default function Page() {
 											<div>
 												<label>تاريخ البدء</label>
 												<Input
-													className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
 													type="date"
 													value={formData.leaveStart}
 													onChange={(e) =>
@@ -233,7 +233,7 @@ export default function Page() {
 											<div>
 												<label>تاريخ العودة</label>
 												<Input
-													className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
 													type="date"
 													value={formData.leaveEnd}
 													onChange={(e) =>
@@ -252,7 +252,7 @@ export default function Page() {
 											<div>
 												<label>الخصم</label>
 												<Input
-													className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
 													type="number"
 													value={formData.deduction}
 													onChange={(e) =>

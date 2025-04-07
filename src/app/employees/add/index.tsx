@@ -47,7 +47,7 @@ export default function EmployeesForm({
 	// const employeeId = searchParams.get("id");
 	const router = useRouter();
 	const [navigateLoading, setNavigateLoading] = useState(false);
-
+	const [selectedWorkNature, setSelectedWorkNature] = useState("");
 	const { mutate: createEmployee, isPending: createEmployeePending } =
 		useCreateEmployee();
 	const { mutate: updateEmployee, isPending: updateEmployeePending } =
@@ -58,11 +58,14 @@ export default function EmployeesForm({
 	if (employeeId && isLoading) return <p>Loading employee data...</p>;
 
 	return (
-		<>
+		<div className="space-y-2">
 			{withTitle && (
-				<h1 className="text-2xl font-bold mb-6 text-right">
-					{employeeId ? "تعديل بيانات الموظف" : "إضافة موظف جديد"}
-				</h1>
+				<>
+					<p className="text-2xl font-bold mb-4 text-right">بيانات موظف</p>
+					<h1 className="text-2xl  text-right">
+						{employeeId ? "تعديل بيانات الموظف" : "إضافة موظف جديد"}
+					</h1>
+				</>
 			)}
 
 			<Card className={cn("border rounded-md p-6", CardStyle)}>
@@ -109,8 +112,11 @@ export default function EmployeesForm({
 							}}
 						>
 							{({ handleSubmit }) => (
-								<Form onSubmit={handleSubmit} className="space-y-6">
-									<div className="text-left">
+								<Form
+									onSubmit={handleSubmit}
+									className="space-y-6 flex flex-col"
+								>
+									<div className="text-left max-w-fit self-end">
 										<CustomPopUp
 											DialogTriggerComponent={() => (
 												<Button
@@ -132,17 +138,27 @@ export default function EmployeesForm({
 											)}
 										/>
 									</div>
-
-									{/* Employee Information */}
 									<div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center">
+										{/* Employee Information */}
+										{/* <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center"> */}
 										{[
 											{ name: "employee", label: "الاسم", type: "text" },
+											{
+												name: "phoneNumber",
+												label: "رقم الهاتف",
+												type: "text",
+											},
+											{ name: "address", label: "العنوان", type: "text" },
 											{
 												name: "birthDate",
 												label: "تاريخ الميلاد",
 												type: "date",
 											},
-											{ name: "qualification", label: "المؤهل", type: "text" },
+											{
+												name: "qualification",
+												label: "المؤهل",
+												type: "text",
+											},
 											{ name: "position", label: "الوظيفة", type: "text" },
 										].map(({ name, label, type }) => (
 											<div className="flex flex-col gap-2" key={name}>
@@ -153,7 +169,7 @@ export default function EmployeesForm({
 													as={Input}
 													type={type}
 													name={name}
-													className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
+													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
 												/>
 												<ErrorMessage
 													name={name}
@@ -162,10 +178,10 @@ export default function EmployeesForm({
 												/>
 											</div>
 										))}
-									</div>
+										{/* </div> */}
 
-									{/* Salary & Work Info */}
-									<div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center">
+										{/* Salary & Work Info */}
+										{/* <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center"> */}
 										{[
 											{
 												name: "net_salary",
@@ -173,7 +189,16 @@ export default function EmployeesForm({
 												type: "number",
 											},
 											{ name: "extras", label: "بدلات", type: "number" },
-											{ name: "date", label: "تاريخ بدء العمل", type: "date" },
+											{
+												name: "date",
+												label: "تاريخ بدء العمل",
+												type: "date",
+											},
+											{
+												name: "netSalary",
+												label: "اجمالي الراتب",
+												type: "text",
+											},
 										].map(({ name, label, type }) => (
 											<div className="flex flex-col gap-2" key={name}>
 												<label className="block text-right font-semibold">
@@ -183,7 +208,7 @@ export default function EmployeesForm({
 													as={Input}
 													type={type}
 													name={name}
-													className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
+													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
 												/>
 												<ErrorMessage
 													name={name}
@@ -197,18 +222,28 @@ export default function EmployeesForm({
 											<label className="block text-right font-semibold">
 												طبيعة العمل
 											</label>
-											<Field
-												as="select"
-												name="work_nature"
-												className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border border-[#D9D9D9] text-right"
-											>
-												<option value="">اختر طبيعة العمل</option>
-												{["متزوج", "أعزب", "مطلق"].map((el, index) => (
-													<option key={index} value={el}>
-														{el}
-													</option>
-												))}
+											<Field name="work_nature">
+												{({ field, form }: any) => (
+													<select
+														{...field}
+														onChange={(e) => {
+															form.setFieldValue("work_nature", e.target.value);
+															setSelectedWorkNature(e.target.value);
+														}}
+														className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border border-[#D9D9D9] text-right"
+													>
+														<option value="">اختر طبيعة العمل</option>
+														{["دوام كامل", "دوام جزئي", "متنوع"].map(
+															(el, index) => (
+																<option key={index} value={el}>
+																	{el}
+																</option>
+															)
+														)}
+													</select>
+												)}
 											</Field>
+
 											<ErrorMessage
 												name="work_nature"
 												component="div"
@@ -216,7 +251,7 @@ export default function EmployeesForm({
 											/>
 										</div>
 									</div>
-
+									{/* </div> */}
 									{/* Submit Button */}
 									<div className="text-right mt-6">
 										<Button
@@ -228,7 +263,7 @@ export default function EmployeesForm({
 									</div>
 
 									{/* Work Schedule */}
-									{withEmployeeManagement && (
+									{selectedWorkNature === "متنوع" && (
 										<div className="mt-8">
 											<EmployeeManagement />
 										</div>
@@ -239,6 +274,6 @@ export default function EmployeesForm({
 					</CardContent>
 				)}
 			</Card>
-		</>
+		</div>
 	);
 }

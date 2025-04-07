@@ -58,7 +58,7 @@ export default function SelectableComponent({
 			{items?.length > 1 && (
 				<div
 					className={cn(
-						"flex gap-2  w-full justify-end pl-[1px]",
+						"flex  w-full justify-end pl-[1px]",
 						direction === "horizontal" ? "flex-row" : "flex-col"
 					)}
 					role="tablist"
