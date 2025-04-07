@@ -205,7 +205,7 @@ export default function ReusableTable<TData>({
 									{title}
 								</CardTitle>
 							)}
-							<div className="flex justify-between items-center w-full">
+							<div className="flex justify-between md:items-center w-full">
 								{withFilter && (
 									<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
 										<div className="flex flex-col lg:flex-row gap-5">
