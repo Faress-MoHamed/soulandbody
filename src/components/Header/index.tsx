@@ -22,10 +22,10 @@ export default function Header() {
 			</Link>
 			{/* seatch */}
 			<div className="relative text-black lg:block hidden">
-				<Search className="absolute right-3 top-5 h-4 w-4 text-black" />
+				<Search className="absolute right-3 top-3.5 h-4 w-4 text-black" />
 				<Input
 					placeholder="ابحث هنا"
-					className="pr-9 min-w-[360px] h-[56px] max-[720px] rounded-[16px] lg:w-1/3 bg-[#007DFC1A] border-none placeholder:text-black"
+					className="pr-9 min-w-[360px] h-[46px] max-[720px] rounded-[16px] lg:w-1/3 bg-[#007DFC1A] border-none placeholder:text-black"
 
 					// value={globalFilter}
 					// onChange={(e) => setGlobalFilter(e.target.value)}
