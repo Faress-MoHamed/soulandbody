@@ -57,6 +57,7 @@ function Salaries() {
 				data={salaryData ?? []}
 				employees={distinctEmployees}
 				withActionButtons={false}
+				withPrinter={false}
 				// title="الموظفين"
 				withColspan
 				loading={salaryLoading}
@@ -96,6 +97,7 @@ function AttendanceEmployee() {
 				columns={columns}
 				data={data ?? []}
 				withActionButtons={false}
+				withPrinter={false}
 				// title="الموظفين"
 				withColspan
 				loading={false}
@@ -181,10 +183,8 @@ export default function page() {
 				contentClassName="border-0 mt-0 rounded-lg"
 				className=""
 				items={[
-					{ label: "معلومات شخصية", component: <Salaries /> },
-					{ label: "سجلات حضور", component: <AttendanceEmployee /> },
 					{
-						label: "تفاصيل المرتب",
+						label: "معلومات شخصية",
 						component: (
 							<EmployeesForm
 								CardStyle={"rounded-none"}
@@ -193,6 +193,11 @@ export default function page() {
 								employeeId={5}
 							/>
 						),
+					},
+					{ label: "سجلات حضور", component: <AttendanceEmployee /> },
+					{
+						label: "تفاصيل المرتب",
+						component: <Salaries />,
 					},
 				]}
 			/>

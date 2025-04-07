@@ -46,6 +46,7 @@ type TableProps<TData> = {
 	UserComponent?: any;
 	withActionButtons?: boolean;
 	withColspan?: boolean;
+	withPrinter?: boolean;
 };
 
 export default function ReusableTable<TData>({
@@ -66,6 +67,7 @@ export default function ReusableTable<TData>({
 	onEdit,
 	withActionButtons = true,
 	withFilter = true,
+	withPrinter = true,
 	UserComponent,
 }: TableProps<TData>) {
 	const [pageIndex, setPageIndex] = useState(0);
@@ -272,13 +274,15 @@ export default function ReusableTable<TData>({
 						) : (
 							<>
 								<div className="overflow-x-auto">
-									{/* <Button
-										onClick={exportToExcel}
-										className="bg-emerald-500 hover:bg-emerald-600 w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
-									>
-										<img src="/print.svg" className="h-6 w-6 mr-2" />
-										{"طباعة"}
-									</Button>{" "} */}
+									{withPrinter && (
+										<Button
+											onClick={exportToExcel}
+											className="bg-emerald-500 hover:bg-emerald-600 w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
+										>
+											<img src="/print.svg" className="h-6 w-6 mr-2" />
+											{"طباعة"}
+										</Button>
+									)}{" "}
 									{UserComponent && (
 										<UserComponent selectedEmployee={selectedEmployee} />
 									)}
@@ -383,65 +387,65 @@ export default function ReusableTable<TData>({
 									</table>
 								</div>
 								{/* Pagination */}
-									<div className="flex  justify-between mt-4 w-full">
-										{" "}
-										<Button
-											onClick={() =>
-												setPageIndex((prev) =>
-													prev + 1 < Math.ceil(filteredData?.length / pageSize)
-														? prev + 1
-														: prev
-												)
-											}
-											disabled={
-												filteredData.length <= pageSize ||
-												(pageIndex + 1) * pageSize >= filteredData.length
-											}
-										>
-											<ChevronRight className="h-4 w-4 mr-1" />
-											التالي
-										</Button>
-										<div className="flex flex-col items-center justify-center gap-4">
-											<div className="xl:flex flex-row-reverse hidden items-center justify-center space-x-2 w-full">
-												{Array.from(
-													{
-														length:
-															Math.ceil(filteredData.length / pageSize) || 0,
-													},
-													(_, i) => i + 1
-												).map((page) => (
-													<Button
-														key={page}
-														variant={
-															page === pageIndex + 1 ? "default" : "ghost"
-														}
-														className={cn(
-															"w-10 h-10 p-0",
-															page === pageIndex + 1 && "bg-black text-white"
-														)}
-														onClick={() => setPageIndex(page - 1)}
-													>
-														{page}
-													</Button>
-												))}
-											</div>
-											<span>
-												الصفحة {pageIndex + 1} من{" "}
-												{Math.ceil(filteredData.length / pageSize)}
-											</span>
+								<div className="flex items-start justify-between mt-4 w-full">
+									{" "}
+									<button
+										className="cursor-pointer"
+										onClick={() =>
+											setPageIndex((prev) =>
+												prev + 1 < Math.ceil(filteredData?.length / pageSize)
+													? prev + 1
+													: prev
+											)
+										}
+										disabled={
+											filteredData.length <= pageSize ||
+											(pageIndex + 1) * pageSize >= filteredData.length
+										}
+									>
+										{/* <ChevronRight className="h-4 w-4 mr-1" /> */}
+										التالي
+									</button>
+									<div className="flex flex-col items-center justify-center gap-4">
+										<div className="xl:flex flex-row-reverse hidden items-center justify-center space-x-2 w-full">
+											{Array.from(
+												{
+													length:
+														Math.ceil(filteredData.length / pageSize) || 0,
+												},
+												(_, i) => i + 1
+											).map((page) => (
+												<Button
+													key={page}
+													variant={page === pageIndex + 1 ? "default" : "ghost"}
+													className={cn(
+														"w-10 h-10 p-0",
+														page === pageIndex + 1 && "bg-black text-white"
+													)}
+													onClick={() => setPageIndex(page - 1)}
+												>
+													{page}
+												</Button>
+											))}
 										</div>
-										<Button
-											onClick={() =>
-												setPageIndex((prev) => Math.max(prev - 1, 0))
-											}
-											disabled={
-												pageIndex === 0 || filteredData.length <= pageSize
-											}
-										>
-											السابق
-											<ChevronLeft className="h-4 w-4 ml-1" />
-										</Button>
+										<span>
+											الصفحة {pageIndex + 1} من{" "}
+											{Math.ceil(filteredData.length / pageSize)}
+										</span>
 									</div>
+									<button
+										className="cursor-pointer"
+										onClick={() =>
+											setPageIndex((prev) => Math.max(prev - 1, 0))
+										}
+										disabled={
+											pageIndex === 0 || filteredData.length <= pageSize
+										}
+									>
+										السابق
+										{/* <ChevronLeft className="h-4 w-4 ml-1" /> */}
+									</button>
+								</div>
 								{/* <div className="flex items-center justify-between mt-6">
 									<Button
 										variant="outline"
