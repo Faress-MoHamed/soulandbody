@@ -100,28 +100,16 @@ const LeaveForm = () => {
 
 	return (
 		<CustomCard
-			title="إضافة خصم"
+			title="الحركات المالية لشئون الموظفين"
 			width={1010}
 			height={400}
-			className="lg:w-[1010px] w-[350px] h-auto overflow-auto"
+			className={`lg:w-[1010px] lg:h-[350px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
+			// className="lg:w-[1010px] w-[350px] md:h-auto overflow-auto md:min-h-[350px] h-[30%]"
 			Content={
 				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 					<div className="grid lg:grid-cols-3 gap-4">
-						{/* Date */}
-						<div>
-							<label>التاريخ</label>
-							<Input
-								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-								type="date"
-								value={formData.date}
-								onChange={(e) => handleChange("date", e.target.value)}
-								// className="form-input"
-							/>
-							{errors.date && (
-								<span className="text-red-500">{errors.date}</span>
-							)}
-						</div>
-
+						{" "}
 						{/* Employee */}
 						<div>
 							<label>الموظف</label>
@@ -146,7 +134,20 @@ const LeaveForm = () => {
 								<span className="text-red-500">{errors.employee}</span>
 							)}
 						</div>
-
+						{/* Date */}
+						<div>
+							<label>التاريخ</label>
+							<Input
+								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
+								type="date"
+								value={formData.date}
+								onChange={(e) => handleChange("date", e.target.value)}
+								// className="form-input"
+							/>
+							{errors.date && (
+								<span className="text-red-500">{errors.date}</span>
+							)}
+						</div>
 						{/* Type */}
 						<div>
 							<label>نوع الحركة</label>
@@ -168,7 +169,6 @@ const LeaveForm = () => {
 								<span className="text-red-500">{errors.type}</span>
 							)}
 						</div>
-
 						{/* Amount */}
 						<div>
 							<label>المبلغ</label>
@@ -182,9 +182,8 @@ const LeaveForm = () => {
 								<span className="text-red-500">{errors.amount}</span>
 							)}
 						</div>
-
 						{/* Reason */}
-						<div className="lg:col-span-2">
+						<div>
 							<label>السبب</label>
 							<Input
 								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
@@ -196,15 +195,14 @@ const LeaveForm = () => {
 								<span className="text-red-500">{errors.reason}</span>
 							)}
 						</div>
-					</div>
-
-					<div className="pt-6 flex justify-end">
-						<Button
-							type="submit"
-							className="text-white bg-[#16C47F] p-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none"
-						>
-							حفظ
-						</Button>
+						<div className="pt-6 flex ">
+							<Button
+								type="submit"
+								className="text-white bg-[#16C47F] p-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none"
+							>
+								حفظ
+							</Button>
+						</div>
 					</div>
 				</form>
 			}
@@ -303,7 +301,7 @@ function SalariesForm() {
 						</div>
 
 						{/* Date Input */}
-						<div className="flex flex-col gap-1 w-[200px]">
+						<div className="flex flex-col gap-1 min-w-[200px] w-full">
 							<label>التاريخ</label>
 							<Input
 								type="date"
@@ -323,7 +321,10 @@ function SalariesForm() {
 							{ label: "بدلات", field: "allowances" },
 							{ label: "اجمالي المرتب", field: "totalSalary" },
 						].map(({ label, field }) => (
-							<div key={field} className="flex flex-col gap-1 w-[200px]">
+							<div
+								key={field}
+								className="flex flex-col gap-1 min-w-[200px] w-full"
+							>
 								<label>{label}</label>
 								<Input
 									type="number"

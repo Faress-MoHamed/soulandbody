@@ -15,7 +15,7 @@ import {
 } from "../useEmployee";
 import { useSearchParams, useRouter } from "next/navigation";
 import LoadingIndicator from "@/components/loadingIndicator";
-import { Suspense, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 // Validation schema using Yup
@@ -53,7 +53,7 @@ export default function EmployeesForm({
 	const { mutate: updateEmployee, isPending: updateEmployeePending } =
 		useUpdateEmployee();
 	const { data: employee, isLoading } = useEmployee(employeeId ?? "");
-
+	const buttonRef = useRef(null);
 	// Loading state for existing employee
 	if (employeeId && isLoading) return <p>Loading employee data...</p>;
 
@@ -253,9 +253,15 @@ export default function EmployeesForm({
 									</div>
 									{/* </div> */}
 									{/* Submit Button */}
-									<div className="text-right mt-6">
+									<div
+										className={cn(
+											"text-right mt-6",
+											`${selectedWorkNature === "متنوع" ? "hidden" : ""}`
+										)}
+									>
 										<Button
 											type="submit"
+											ref={buttonRef}
 											className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
 										>
 											{employeeId ? "تحديث البيانات" : "حفظ"}
@@ -265,7 +271,13 @@ export default function EmployeesForm({
 									{/* Work Schedule */}
 									{selectedWorkNature === "متنوع" && (
 										<div className="mt-8">
-											<EmployeeManagement />
+											<EmployeeManagement
+												saveHandler={() => {
+													if (buttonRef?.current) {
+														(buttonRef?.current as any)?.click();
+													}
+												}}
+											/>
 										</div>
 									)}
 								</Form>

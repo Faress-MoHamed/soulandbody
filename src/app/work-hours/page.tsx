@@ -11,7 +11,11 @@ import {
 	useWorkHours,
 } from "./useWorkHours";
 
-export default function EmployeeManagement() {
+export default function EmployeeManagement({
+	saveHandler,
+}: {
+	saveHandler?: any;
+}) {
 	const { data: workHours, isLoading, error } = useWorkHours();
 	const { mutate: toggleWorkDay, isPending: toggleWorkDayPending } =
 		useToggleWorkDay();
@@ -147,8 +151,11 @@ export default function EmployeeManagement() {
 			<Button
 				type="submit"
 				className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md mt-2"
-				onClick={handleSave}
-				disabled={Object.keys(pendingChanges).length === 0}
+				onClick={() => {
+					handleSave();
+					saveHandler();
+				}}
+				disabled={Object.keys(pendingChanges).length === 0 && !saveHandler}
 			>
 				حفظ التغييرات
 			</Button>

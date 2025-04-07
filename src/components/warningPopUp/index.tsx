@@ -105,7 +105,7 @@ export default function WarningPopUp() {
 				<form
 					onSubmit={handleSubmit}
 					className="space-y-4 flex lg:flex-row flex-col items-end gap-2"
-					dir="rtl"
+					// dir="rtl"
 				>
 					<div className="grid lg:grid-cols-2 grid-cols-1 gap-4 w-full">
 						<div className="space-y-2">
@@ -113,7 +113,10 @@ export default function WarningPopUp() {
 								اسم الموظف
 							</label>
 							<Select>
-								<SelectTrigger className="min-w-[240px] w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
+								<SelectTrigger
+									dir="rtl"
+									className="min-w-[240px] w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex "
+								>
 									<SelectValue placeholder="احمد محمود" />
 								</SelectTrigger>
 								<SelectContent>
@@ -129,7 +132,10 @@ export default function WarningPopUp() {
 								نوع الإنذار
 							</label>
 							<Select onValueChange={setWarningType}>
-								<SelectTrigger className="min-w-[240px] w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex ">
+								<SelectTrigger
+									dir="rtl"
+									className="min-w-[240px] w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex "
+								>
 									<SelectValue placeholder="تنبيه" />
 								</SelectTrigger>
 								<SelectContent>
