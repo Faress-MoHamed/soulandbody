@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import EmployeeManagement from "@/app/work-hours/page";
+import EmployeeManagement from "@/app/work-hours";
 import CustomPopUp from "@/components/popups";
 import FileUpload from "@/components/uploadFile";
 import CustomCard from "@/components/customCard";
