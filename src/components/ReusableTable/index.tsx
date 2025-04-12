@@ -91,7 +91,7 @@ export default function ReusableTable<TData>({
 			const matchesEmployee =
 				!selectedEmployee || record.employee === selectedEmployee;
 
-			const recordMonth = record.date.split("-").slice(0, 2).join("-"); // Convert "DD/MM/YYYY" → "YYYY-MM"
+			const recordMonth = record?.date?.split("-")?.slice(0, 2).join("-"); // Convert "DD/MM/YYYY" → "YYYY-MM"
 			console.log("recordMonth", recordMonth);
 			const matchesMonth = !selectedMonth || recordMonth === selectedMonth;
 			console.log("selectedMonth", selectedMonth);
@@ -117,7 +117,7 @@ export default function ReusableTable<TData>({
 						<div className="flex justify-center gap-1 ">
 							<Button
 								onClick={() => onDelete(row?.original?.id)}
-								className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
+								className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619]   hover:bg-white hover:opacity-70 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
 							>
 								{deleteLoading ? (
 									<LoadingIndicator />
@@ -147,7 +147,7 @@ export default function ReusableTable<TData>({
 							</Button>
 							<Button
 								onClick={() => onEdit(row?.original?.id)}
-								className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+								className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-70 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
