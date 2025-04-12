@@ -83,7 +83,7 @@ export function Table<TData>({
 			const matchesEmployee =
 				!selectedEmployee || record.employee === selectedEmployee;
 
-			const recordMonth = record.date.split("-").slice(0, 2).join("-"); // Convert "DD/MM/YYYY" → "YYYY-MM"
+			const recordMonth = record.date?.split("-").slice(0, 2).join("-"); // Convert "DD/MM/YYYY" → "YYYY-MM"
 			// console.log("recordMonth", recordMonth);
 			const matchesMonth = !selectedMonth || recordMonth === selectedMonth;
 			// console.log("selectedMonth", selectedMonth);
@@ -560,6 +560,7 @@ type MultipleTableProps<TData> = {
 		data: TData[];
 		title?: string;
 		AddTitle?: string;
+		label?: string;
 		employees?: any;
 		pagination?: any;
 		handlePageChange?: any;
@@ -611,7 +612,7 @@ export default function ReusableManyTable<TData>({
 			))} */}
 			<SelectableComponent
 				items={dataSets.map((set, index) => ({
-					label: set.title || "title",
+					label: set.label || set.title || "title",
 					component: (
 						<Table<TData>
 							key={index}
@@ -630,8 +631,8 @@ export default function ReusableManyTable<TData>({
 							deleteLoading={set.deleteLoading}
 							onDelete={set.onDelete}
 							onEdit={set.onEdit}
-							withActionButtons={set.withActionButtons || true}
-							withFilter={set.withFilter || true}
+							withActionButtons={set.withActionButtons}
+							withFilter={set.withFilter}
 							UserComponent={set.UserComponent}
 						/>
 					),

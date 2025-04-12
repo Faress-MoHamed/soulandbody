@@ -26,7 +26,7 @@ const generateRandomData = (count: number) => {
 			saleUnit: (Math.floor(Math.random() * 1000) + 100).toString(),
 			total: (Math.floor(Math.random() * 5000) + 500).toString(),
 			discount: Math.floor(Math.random() * 30).toString(),
-			tax: taxOptions[Math.floor(Math.random() * taxOptions.length)].toString(),
+			tax: "إضافة ضريبة",
 			totalSale: (Math.floor(Math.random() * 4000) + 400).toString(),
 		});
 	}
@@ -90,16 +90,26 @@ export default function Page() {
 		{
 			accessorKey: "tax",
 			header: "الضريبة",
-			cell: ({ row }) => (
-				<span
-					style={{
-						color: row.original.tax === "إضافة ضريبة" ? "green" : "inherit",
-						cursor: "pointer",
-					}}
-				>
-					{row.original.tax}
-				</span>
-			),
+			cell: ({ row }) =>
+				row.original.tax === "إضافة ضريبة" ? (
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<span
+								style={{
+									color:
+										row.original.tax === "إضافة ضريبة" ? "green" : "inherit",
+									cursor: "pointer",
+									textDecoration: "underline",
+								}}
+							>
+								{row.original.tax}
+							</span>
+						)}
+						DialogContentComponent={() => <TaxOnProduct />}
+					/>
+				) : (
+					<span>{row.original.tax}</span>
+				),
 		},
 		{
 			accessorKey: "totalSale",

@@ -45,7 +45,7 @@ export default function SelectableComponent({
 					key={item.label} // Use label as key for better stability
 					onClick={() => handleClick(index)}
 					className={cn(
-						"px-2 py-1 transition-colors cursor-pointer border-t border-x border-[#D9D9D9] bg-[#fafafa]",
+						"px-2 py-[10px] transition-colors text-nowrap cursor-pointer border-t border-x border-[#D9D9D9] bg-[#fafafa]",
 						// "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700",
 						index === activeIndex && (activeButtonClassName || "bg-white"),
 						buttonClassName
@@ -71,7 +71,7 @@ export default function SelectableComponent({
 					{
 						<Button
 							onClick={exportToExcel}
-							className="bg-emerald-500 hover:bg-emerald-600 w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
+							className="bg-emerald-500 hover:bg-emerald-600 md:w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
 						>
 							<img src="/print.svg" className="h-6 w-6 mr-2" />
 							{"طباعة"}

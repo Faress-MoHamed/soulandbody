@@ -57,6 +57,7 @@ export default function Page() {
 			title: "الموظفين",
 			subTitle: "سجل مشترياتك من الموردين وإدارة الفواتير المستحقة وكشف حساب",
 			Icon: "/companies/Employees.png",
+			LinkUrl: "/companies/Employees",
 		},
 		{
 			title: "العملاء",

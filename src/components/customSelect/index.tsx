@@ -67,13 +67,13 @@ export default function CustomSelect({
 	return (
 		<div className={cn("flex flex-col gap-2", className)}>
 			{label && (
-				<label className="text-[16px] text-[#1E1E1E] font-[400]">{label}</label>
+				<label className="text-[16px] text-[#1E1E1E] font-[400] text-start">{label}</label>
 			)}
 			<Select dir={dir} {...props}>
 				<SelectTrigger size={size} className={triggerClassName}>
 					<SelectValue placeholder={placeholder} />
 				</SelectTrigger>
-				<SelectContent>
+				<SelectContent className="z-[+99999]">
 					{options?.map((option) => {
 						const value = typeof option === "string" ? option : option.value;
 						const label = typeof option === "string" ? option : option.label;
