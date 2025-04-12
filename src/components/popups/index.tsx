@@ -1,26 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
-import { X } from "lucide-react";
-
-import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
+import { createRoot } from "react-dom/client";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { cn } from "@/lib/utils";
 import type { JSX } from "react";
+import "./popup.css";
+const SweetAlert = withReactContent(Swal);
 
 export default function CustomPopUp({
 	DialogTriggerComponent,
@@ -31,22 +18,33 @@ export default function CustomPopUp({
 	DialogContentclassName?: string;
 	DialogContentComponent: () => JSX.Element;
 }) {
-	const [open, setOpen] = React.useState(false);
-	// Memoize the content component to prevent unnecessary re-renders
-	const MemoizedDialogContentComponent = React.useMemo(() => {
-		return React.memo(DialogContentComponent);
-	}, [DialogContentComponent]);
+	const openPopup = React.useCallback(() => {
+		SweetAlert.fire({
+			html: <DialogContentComponent />,
+			showConfirmButton: false,
+			showCloseButton: true,
+			customClass: {
+				container: cn("swal2-container", DialogContentclassName),
+				popup: "swalPopup",
+				closeButton: "",
+				htmlContainer: "htmlContainer",
+
+			},
+			// titleText:"fares",
+			didOpen: () => {
+				const contentContainer = Swal.getHtmlContainer();
+				if (contentContainer) {
+					const root = createRoot(contentContainer);
+					root.render(<DialogContentComponent />);
+				}
+			},
+			padding: 0,
+		});
+	}, [DialogContentComponent, DialogContentclassName]);
+
 	return (
-		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger asChild>
-				{/* Ensure the button does not trigger an extra re-render */}
-				<div onClick={() => setOpen(true)}>
-					<DialogTriggerComponent />
-				</div>
-			</DialogTrigger>
-			<DialogContent className={cn(DialogContentclassName)}>
-				<MemoizedDialogContentComponent />
-			</DialogContent>
-		</Dialog>
+		<div onClick={openPopup}>
+			<DialogTriggerComponent />
+		</div>
 	);
 }

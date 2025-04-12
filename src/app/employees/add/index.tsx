@@ -2,7 +2,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import EmployeeManagement from "@/app/work-hours";
 import CustomPopUp from "@/components/popups";
 import FileUpload from "@/components/uploadFile";
@@ -31,6 +31,157 @@ const EmployeeSchema = Yup.object().shape({
 	work_nature: Yup.string().required("طبيعة العمل مطلوبة"),
 	extras: Yup.string().required("البدلات مطلوبة"),
 });
+
+const SickLeave = () => {
+	return (
+		<Card className="flex flex-col   bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<CardHeader className="flex flex-row items-center justify-between ">
+				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+					عدد الأيام المرضي
+				</CardTitle>
+			</CardHeader>
+						<CardContent className="flex md:flex-row flex-col items-end gap-4">
+
+				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+					<label>عدد ايام</label>
+					<Input
+						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
+						type="number"
+					/>
+				</div>
+				<div>
+					<Button
+						type="submit"
+						// ref={buttonRef}
+						className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]"
+					>
+						{"حفظ"}
+					</Button>
+				</div>
+			</CardContent>
+		</Card>
+	);
+};
+const TotalLeave = () => {
+	return (
+		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<CardHeader className="flex flex-row items-center justify-between">
+				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+					رصيد الأجازات الكلي
+				</CardTitle>
+			</CardHeader>
+						<CardContent className="flex md:flex-row flex-col items-end gap-4">
+
+				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+					<label>عدد الأيام</label>
+					<Input
+						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+						type="number"
+					/>
+				</div>
+				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+					حفظ
+				</Button>
+			</CardContent>
+		</Card>
+	);
+};
+const RegularLeave = () => {
+	return (
+		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<CardHeader className="flex flex-row items-center justify-between">
+				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+					رصيد الإجازة الاعتيادية
+				</CardTitle>
+			</CardHeader>
+			<CardContent className="flex md:flex-row flex-col items-end gap-4">
+				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+					<label>عدد الأيام</label>
+					<Input
+						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+						type="number"
+					/>
+				</div>
+				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+					حفظ
+				</Button>
+			</CardContent>
+		</Card>
+	);
+};
+const EmergencyLeave = () => {
+	return (
+		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<CardHeader className="flex flex-row items-center justify-between">
+				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+					رصيد الإجازة العارضة
+				</CardTitle>
+			</CardHeader>
+						<CardContent className="flex md:flex-row flex-col items-end gap-4">
+
+				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+					<label>عدد الأيام</label>
+					<Input
+						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+						type="number"
+					/>
+				</div>
+				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+					حفظ
+				</Button>
+			</CardContent>
+		</Card>
+	);
+};
+const ContinuousAbsence = () => {
+	return (
+		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<CardHeader className="flex flex-row items-center justify-between">
+				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+					الغياب المتصل
+				</CardTitle>
+			</CardHeader>
+						<CardContent className="flex md:flex-row flex-col items-end gap-4">
+
+				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+					<label>عدد الأيام</label>
+					<Input
+						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+						type="number"
+					/>
+				</div>
+				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+					حفظ
+				</Button>
+			</CardContent>
+		</Card>
+	);
+};
+const SeparateAbsence = () => {
+	return (
+		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<CardHeader className="flex flex-row items-center justify-between">
+				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+					الغياب المنفصل
+				</CardTitle>
+			</CardHeader>
+						<CardContent className="flex md:flex-row flex-col items-end gap-4">
+
+				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+					<label>عدد الأيام</label>
+					<Input
+						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+						type="number"
+					/>
+				</div>
+				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+					حفظ
+				</Button>
+			</CardContent>
+		</Card>
+	);
+};
+
 
 export default function EmployeesForm({
 	employeeId,
@@ -131,7 +282,7 @@ export default function EmployeesForm({
 													withButton={false}
 													width={556}
 													height={450}
-													className={`lg:w-[600px] lg:h-[450px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-0.5 [&::-webkit-scrollbar-track]:bg-gray-100
+													className={`lg:w-[600px] lg:h-[450px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-100
   [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
 													Content={<FileUpload />}
 												/>
@@ -286,6 +437,95 @@ export default function EmployeesForm({
 					</CardContent>
 				)}
 			</Card>
+			<ul className="pt-9 text-[18px] flex flex-col md:gap-1 gap-1">
+				<li className="flex flex-wrap">
+					-رصيد الأجازات الكلي المسموحه للموظف{" "}
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<Button
+								type="button"
+								variant={"link"}
+								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+							>
+								{"40 يوم"}
+							</Button>
+						)}
+						DialogContentComponent={() => <TotalLeave />}
+					/>
+					منقسم الى
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<Button
+								type="button"
+								variant={"link"}
+								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+							>
+								{"21 يوم اعتيادي"}
+							</Button>
+						)}
+						DialogContentComponent={() => <RegularLeave />}
+					/>
+					و
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<Button
+								type="button"
+								variant={"link"}
+								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+							>
+								7 ايام عارضة
+							</Button>
+						)}
+						DialogContentComponent={() => <EmergencyLeave />}
+					/>
+					و
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<Button
+								type="button"
+								variant={"link"}
+								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+							>
+								12 يوم مرضي
+							</Button>
+						)}
+						DialogContentComponent={() => <SickLeave />}
+					/>
+				</li>
+				<li>
+					-في حالة تخطي عدد ايام الأجازة المسموح بها يتم تطبيق الخصم على حسب
+					نظام الشركة
+				</li>
+				<li className="flex flex-wrap">
+					-في حالةغياب الموظف
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<Button
+								type="button"
+								variant={"link"}
+								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+							>
+								15 يوم متصلة
+							</Button>
+						)}
+						DialogContentComponent={() => <ContinuousAbsence />}
+					/>{" "}
+					او{" "}
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<Button
+								type="button"
+								variant={"link"}
+								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+							>
+								30 يوم منفصلة
+							</Button>
+						)}
+						DialogContentComponent={() => <SeparateAbsence />}
+					/>{" "}
+					يتم اتخاذ اجراءات الفصل في اليوم الأخير
+				</li>
+			</ul>
 		</div>
 	);
 }

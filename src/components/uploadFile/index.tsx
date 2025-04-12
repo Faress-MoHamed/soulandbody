@@ -212,7 +212,7 @@ export default function Test() {
 								title={"رفع ملف، شهادة النجاح"}
 								width={556}
 								height={450}
-								className={`lg:w-[556px] lg:h-[350px] h-[300px] overflow-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-gray-100
+								className={`lg:w-[556px] lg:h-[350px] h-[300px] overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-100
 						[&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
 								Content={<FileUpload />}
 							/>

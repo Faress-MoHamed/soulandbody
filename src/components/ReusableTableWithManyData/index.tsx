@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils";
 import PopUp from "../PopUp";
 import AddButton from "../AddButton";
 import LoadingIndicator from "../loadingIndicator";
+import SelectableComponent from "../selectableComponent";
 
 type TableProps<TData> = {
 	columns: ColumnDef<TData>[];
@@ -48,8 +49,7 @@ type TableProps<TData> = {
 	withColspan?: boolean;
 	withPrinter?: boolean;
 };
-
-export default function ReusableTable<TData>({
+export function Table<TData>({
 	columns,
 	data,
 	title,
@@ -58,7 +58,7 @@ export default function ReusableTable<TData>({
 	ButtonTrigger,
 	pagination,
 	handlePageChange,
-	employees,
+	employees = [],
 	loading,
 	withColspan,
 	error,
@@ -67,13 +67,41 @@ export default function ReusableTable<TData>({
 	onEdit,
 	withActionButtons = true,
 	withFilter = true,
-	withPrinter = true,
+	withPrinter,
 	UserComponent,
 }: TableProps<TData>) {
+	const [selectedEmployee, setSelectedEmployee] = useState<string>("");
+	const [selectedMonth, setSelectedMonth] = useState<string | undefined>();
 	const [pageIndex, setPageIndex] = useState(0);
-	const [pageSize, setPageSize] = useState(10); // Default to 10 rows per page
 
-	// Export to Excel
+	// Example of filtered data and pagination size
+	const filteredData = useMemo(() => {
+		return data.filter((record: any) => {
+			console.log("selectedEmployee", selectedEmployee);
+			console.log("record.employee", record);
+			console.log("record.employee", record.employee);
+			const matchesEmployee =
+				!selectedEmployee || record.employee === selectedEmployee;
+
+			const recordMonth = record.date.split("-").slice(0, 2).join("-"); // Convert "DD/MM/YYYY" → "YYYY-MM"
+			// console.log("recordMonth", recordMonth);
+			const matchesMonth = !selectedMonth || recordMonth === selectedMonth;
+			// console.log("selectedMonth", selectedMonth);
+
+			return matchesEmployee && matchesMonth;
+		});
+	}, [data, selectedEmployee, selectedMonth]);
+
+	const pageSize = 10;
+	const paginatedData = useMemo(() => {
+		const start = pageIndex * pageSize;
+		const end = start + pageSize;
+		return data.slice(start, end);
+	}, [data, pageIndex, pageSize]);
+
+	const finalData = useMemo(() => {
+		return selectedEmployee ? filteredData : paginatedData;
+	}, [selectedEmployee, data, pageIndex, pageSize]);
 	const exportToExcel = () => {
 		const worksheet = utils.json_to_sheet(data);
 		const workbook = utils.book_new();
@@ -81,24 +109,6 @@ export default function ReusableTable<TData>({
 		writeFile(workbook, "table_data.xlsx");
 	};
 
-	const [selectedEmployee, setSelectedEmployee] = useState<
-		string | undefined
-	>();
-	const [selectedMonth, setSelectedMonth] = useState<string | undefined>();
-
-	const filteredData = useMemo(() => {
-		return data.filter((record: any) => {
-			const matchesEmployee =
-				!selectedEmployee || record.employee === selectedEmployee;
-
-			const recordMonth = record.date.split("-").slice(0, 2).join("-"); // Convert "DD/MM/YYYY" → "YYYY-MM"
-			console.log("recordMonth", recordMonth);
-			const matchesMonth = !selectedMonth || recordMonth === selectedMonth;
-			console.log("selectedMonth", selectedMonth);
-
-			return matchesEmployee && matchesMonth;
-		});
-	}, [selectedEmployee, selectedMonth, data]);
 	const dynamicColumns = useMemo(() => {
 		let updatedColumns: any = [...columns];
 
@@ -174,14 +184,7 @@ export default function ReusableTable<TData>({
 
 		return updatedColumns;
 	}, [selectedEmployee, columns]);
-	const paginatedData = useMemo(() => {
-		const start = pageIndex * pageSize;
-		const end = start + pageSize;
-		return data.slice(start, end);
-	}, [data, pageIndex, pageSize]);
-	const finalData = useMemo(() => {
-		return selectedEmployee ? filteredData : paginatedData;
-	}, [selectedEmployee, data, pageIndex, pageSize]);
+
 	const table = useReactTable({
 		data: finalData,
 		columns: dynamicColumns,
@@ -189,13 +192,10 @@ export default function ReusableTable<TData>({
 		getPaginationRowModel: getPaginationRowModel({ initialSync: true }),
 		manualPagination: false, // Enable client-side pagination
 	});
-
-	console.log(selectedEmployee ? filteredData : paginatedData);
-
 	return (
 		<>
-			<Card className="border-none shadow-none ">
-				{(title || ButtonTrigger) && (
+			<Card className="border shadow-none rounded-none">
+				{(title || ButtonTrigger || (withFilter && employees.length !== 0)) && (
 					<CardHeader className="flex flex-row items-center justify-between">
 						{/* Filters */}
 						<div className="flex flex-col w-full gap-4">
@@ -252,7 +252,6 @@ export default function ReusableTable<TData>({
 													className="min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
 													value={selectedMonth}
 													onChange={(e) => {
-														console.log(e?.target.value);
 														setSelectedMonth((prev) =>
 															prev === e.target.value
 																? undefined
@@ -428,7 +427,7 @@ export default function ReusableTable<TData>({
 													strokeLinecap="round"
 													stroke-linejoin="round"
 												/>
-											</svg>{" "}
+											</svg>
 											التالي
 										</Button>
 										<div className="flex flex-col items-center justify-center gap-4">
@@ -518,7 +517,6 @@ export default function ReusableTable<TData>({
 												{Math.ceil(filteredData.length / pageSize)}
 											</span>
 										</div>
-										
 										<Button
 											variant={"secondary"}
 											className="cursor-pointer"
@@ -554,5 +552,94 @@ export default function ReusableTable<TData>({
 				}
 			</Card>
 		</>
+	);
+}
+
+type MultipleTableProps<TData> = {
+	dataSets: {
+		data: TData[];
+		title?: string;
+		AddTitle?: string;
+		employees?: any;
+		pagination?: any;
+		handlePageChange?: any;
+		columns: ColumnDef<TData>[];
+		UserComponent?: any;
+		onClickAdd?: any;
+		ButtonTrigger?: any;
+		loading?: boolean;
+		withFilter?: boolean;
+		error?: unknown;
+		onDelete?: any;
+		deleteLoading?: any;
+		onEdit?: any;
+		withActionButtons?: boolean;
+		withColspan?: boolean;
+	}[];
+	withPrinter?: boolean;
+};
+
+export default function ReusableManyTable<TData>({
+	dataSets,
+	withPrinter,
+}: MultipleTableProps<TData>) {
+	return (
+		<div className="flex flex-col gap-8">
+			{/* {dataSets.map((set, index) => (
+				<Table<TData>
+					key={index}
+					columns={set.columns}
+					data={set.data}
+					title={set.title}
+					AddTitle={set.AddTitle}
+					employees={set.employees}
+					pagination={set.pagination}
+					handlePageChange={set.handlePageChange}
+					onClickAdd={onClickAdd}
+					ButtonTrigger={ButtonTrigger}
+					loading={loading}
+					withColspan={withColspan}
+					error={error}
+					deleteLoading={deleteLoading}
+					onDelete={onDelete}
+					onEdit={onEdit}
+					withActionButtons={withActionButtons}
+					withFilter={withFilter}
+					withPrinter={withPrinter}
+					UserComponent={UserComponent}
+				/>
+			))} */}
+			<SelectableComponent
+				items={dataSets.map((set, index) => ({
+					label: set.title || "title",
+					component: (
+						<Table<TData>
+							key={index}
+							columns={set.columns}
+							data={set.data}
+							title={set.title}
+							AddTitle={set.AddTitle}
+							employees={set.employees}
+							pagination={set.pagination}
+							handlePageChange={set.handlePageChange}
+							onClickAdd={set.onClickAdd}
+							ButtonTrigger={set.ButtonTrigger}
+							loading={set.loading}
+							withColspan={set.withColspan}
+							error={set.error}
+							deleteLoading={set.deleteLoading}
+							onDelete={set.onDelete}
+							onEdit={set.onEdit}
+							withActionButtons={set.withActionButtons || true}
+							withFilter={set.withFilter || true}
+							UserComponent={set.UserComponent}
+						/>
+					),
+					data: set.data,
+				}))}
+				withPrinter={withPrinter}
+				exportToExcel={true}
+			/>
+		</div>
 	);
 }

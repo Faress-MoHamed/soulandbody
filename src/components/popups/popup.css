@@ -1,0 +1,9 @@
+.htmlContainer {
+	width: fit-content !important;
+	padding: 0 !important;
+}
+.swalPopup {
+	width: fit-content;
+	padding: 0;
+	background: none;
+}

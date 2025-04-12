@@ -3,17 +3,22 @@
 import type React from "react";
 import { useState, useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import { utils, writeFile } from "xlsx";
 
 interface SelectableComponentProps {
 	items: {
 		label: string;
 		component: React.ReactNode;
+		data?: any;
 	}[];
 	direction?: "horizontal" | "vertical";
 	className?: string;
 	buttonClassName?: string;
 	activeButtonClassName?: string;
 	contentClassName?: string;
+	withPrinter?: boolean;
+	exportToExcel?: any;
 }
 
 export default function SelectableComponent({
@@ -23,6 +28,7 @@ export default function SelectableComponent({
 	buttonClassName,
 	activeButtonClassName,
 	contentClassName,
+	withPrinter,
 }: SelectableComponentProps) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
@@ -52,21 +58,39 @@ export default function SelectableComponent({
 			)),
 		[items, activeIndex, handleClick, buttonClassName, activeButtonClassName]
 	);
-
+	const exportToExcel = () => {
+		const worksheet = utils.json_to_sheet(items[activeIndex]?.data);
+		const workbook = utils.book_new();
+		utils.book_append_sheet(workbook, worksheet, "Sheet1");
+		writeFile(workbook, "table_data.xlsx");
+	};
 	return (
 		<div className={cn("w-full", className)}>
-			{items?.length > 1 && (
-				<div
-					className={cn(
-						"flex  w-full justify-end pl-[1px]",
-						direction === "horizontal" ? "flex-row" : "flex-col"
-					)}
-					role="tablist"
-				>
-					{buttons}
-				</div>
-			)}
-			<div className={cn("mt-2", contentClassName)} role="tabpanel">
+			<div className="flex justify-between w-full">
+				<div>
+					{
+						<Button
+							onClick={exportToExcel}
+							className="bg-emerald-500 hover:bg-emerald-600 w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
+						>
+							<img src="/print.svg" className="h-6 w-6 mr-2" />
+							{"طباعة"}
+						</Button>
+					}
+				</div>{" "}
+				{items?.length > 1 && (
+					<div
+						className={cn(
+							"flex justify-end pl-[1px]",
+							direction === "horizontal" ? "flex-row" : "flex-col"
+						)}
+						role="tablist"
+					>
+						{buttons}
+					</div>
+				)}
+			</div>
+			<div className={cn("border-t", contentClassName)} role="tabpanel">
 				{items[activeIndex]?.component}
 			</div>
 		</div>
