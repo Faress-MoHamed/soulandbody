@@ -366,14 +366,17 @@ export function Table<TData>({
 
 				<CardContent>
 					{loading ? (
-						<LoadingIndicator />
+						<LoadingIndicator withFullScreen />
 					) : (
 						<>
 							<div className="">
-								{withPrinter && <Printer data={data} />}
-								{UserComponent && (
-									<UserComponent selectedEmployee={selectedEmployee} />
-								)}
+								<div className="flex flex-col gap-4">
+									{UserComponent && (
+										<UserComponent selectedEmployee={selectedEmployee} />
+									)}
+
+									{withPrinter && <Printer data={data} />}
+								</div>
 								<div className="overflow-x-auto">
 									<div className="min-w-full inline-block align-middle">
 										<table className="min-w-full border-collapse">
@@ -443,7 +446,7 @@ export function Table<TData>({
 
 export default function ReusableManyTable<TData>({
 	dataSets,
-	withPrinter,
+	withTopPrinter,
 }: MultipleTableProps<TData>) {
 	return (
 		<div className="flex flex-col gap-8">
@@ -466,6 +469,7 @@ export default function ReusableManyTable<TData>({
 							withColspan={set.withColspan}
 							error={set.error}
 							deleteLoading={set.deleteLoading}
+							withPrinter={set.withPrinter}
 							onDelete={set.onDelete}
 							onEdit={set.onEdit}
 							withActionButtons={set.withActionButtons}
@@ -481,7 +485,8 @@ export default function ReusableManyTable<TData>({
 					),
 					data: set.data,
 				}))}
-				withPrinter={withPrinter}
+				contentClassName="border-none"
+				withTopPrinter={withTopPrinter}
 				exportToExcel={true}
 			/>
 		</div>

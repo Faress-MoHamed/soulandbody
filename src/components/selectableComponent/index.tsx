@@ -17,7 +17,7 @@ interface SelectableComponentProps {
 	buttonClassName?: string;
 	activeButtonClassName?: string;
 	contentClassName?: string;
-	withPrinter?: boolean;
+	withTopPrinter?: boolean;
 	exportToExcel?: any;
 }
 
@@ -28,7 +28,7 @@ export default function SelectableComponent({
 	buttonClassName,
 	activeButtonClassName,
 	contentClassName,
-	withPrinter,
+	withTopPrinter=true,
 }: SelectableComponentProps) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
@@ -68,7 +68,7 @@ export default function SelectableComponent({
 		<div className={cn("w-full", className)}>
 			<div className="flex justify-between w-full">
 				<div>
-					{
+					{withTopPrinter && (
 						<Button
 							onClick={exportToExcel}
 							className="bg-emerald-500 hover:bg-emerald-600 md:w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
@@ -76,7 +76,7 @@ export default function SelectableComponent({
 							<img src="/print.svg" className="h-6 w-6 mr-2" />
 							{"طباعة"}
 						</Button>
-					}
+					)}
 				</div>{" "}
 				{items?.length > 1 && (
 					<div
@@ -90,7 +90,10 @@ export default function SelectableComponent({
 					</div>
 				)}
 			</div>
-			<div className={cn("border-t max-w-full", contentClassName)} role="tabpanel">
+			<div
+				className={cn("border-t max-w-full", contentClassName)}
+				role="tabpanel"
+			>
 				{items[activeIndex]?.component}
 			</div>
 		</div>

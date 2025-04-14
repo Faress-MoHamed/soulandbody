@@ -21,7 +21,7 @@ export default function CustomInput({
 	return (
 		<div
 			className={cn(
-				"flex flex-col gap-2 md:max-w-[302px] w-full",
+				"flex flex-col gap-2 md:w-[302px] w-full",
 				wrapperClassName
 			)}
 		>
@@ -38,7 +38,7 @@ export default function CustomInput({
 			<Input
 				type={type}
 				className={cn(
-					"max-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end h-[48px]",
+					"min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end h-[48px]",
 					className
 				)}
 				{...props}

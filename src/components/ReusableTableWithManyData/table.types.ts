@@ -82,5 +82,5 @@ export interface CustomTableProps<TData> extends TableProps<TData> {
 
 export type MultipleTableProps<TData> = {
 	dataSets: CustomTableProps<TData>[];
-	withPrinter?: boolean;
+	withTopPrinter?: boolean;
 };

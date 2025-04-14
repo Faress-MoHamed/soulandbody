@@ -70,8 +70,12 @@ export default function MainBody<TData>({
 															onChange={(e) =>
 																element?.onChange && element?.onChange(e)
 															}
-															wrapperClassName={element.wrapperClassName}
-															labelClassName={element.labelClassName}
+															className="max-w-[240px] min-w-auto"
+															wrapperClassName={cn(
+																"md:w-auto md:max-w-[302px]",
+																element.wrapperClassName
+															)}
+															labelClassName={cn(element.labelClassName)}
 														/>
 													);
 												case "select":
