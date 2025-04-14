@@ -54,7 +54,7 @@ export default function StatusCard({
 				background: typeBgColor[type],
 				color: typeTextColor[type],
 			}}
-			className="w-[150px] py-1.5 px-2 h-[30px] rounded-[10px] bg-[#FFF5C5] text-[#E27D00] font-[500] text-[12px]"
+			className="w-[150px] py-1.5 px-2 h-[30px] rounded-[10px] bg-[#FFF5C5] text-[#E27D00] font-[500] text-[12px] opacity-70"
 		>
 			{Trnalation[type]}
 		</div>

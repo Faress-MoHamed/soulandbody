@@ -329,19 +329,22 @@ export function Table<TData>({
 	return (
 		<>
 			<Card
-				className={cn("border shadow-none rounded-none", containerClassName)}
+				className={cn(
+					"border shadow-none rounded-none bg-[#F9F9F9]",
+					containerClassName
+				)}
 			>
 				{(title || ButtonTrigger || (withFilter && employees.length !== 0)) && (
 					<CardHeader className="flex flex-row items-center justify-between">
-						<div className="flex flex-col w-full gap-4">
+						<div className="flex flex-col w-full gap-4  mt-6">
 							{" "}
 							{title && (
-								<CardTitle className="lg:text-[26px] text-[20px] w-full">
+								<CardTitle className="lg:text-[26px] text-[20px] font-bold w-full">
 									{title}
 								</CardTitle>
 							)}
-							<div className="flex justify-between md:items-center w-full">
-								{withFilter && (
+							{withFilter && (
+								<div className="flex justify-between md:items-center w-full">
 									<BaseFilter
 										employees={employees}
 										selectedEmployee={selectedEmployee}
@@ -351,15 +354,16 @@ export function Table<TData>({
 										setSelectedMonth={setSelectedMonth}
 										loading={loading}
 									/>
-								)}
-								{ButtonTrigger ? (
-									<div className="w-full flex justify-end">
-										<ButtonTrigger />
-									</div>
-								) : (
-									<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
-								)}
-							</div>
+
+									{ButtonTrigger ? (
+										<div className="w-full flex justify-end">
+											<ButtonTrigger />
+										</div>
+									) : (
+										<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
+									)}
+								</div>
+							)}
 						</div>
 					</CardHeader>
 				)}

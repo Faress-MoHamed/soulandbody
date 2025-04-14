@@ -54,7 +54,7 @@ export function MultiSelect({
 
 	return (
 		<div
-			className={`space-y-4  max-w-fit  md:w-[302px] w-full  min-w-auto ${
+			className={`space-y-4  md:max-w-fit  md:w-[302px] max-h-fit w-full  min-w-auto ${
 				direction === "rtl" ? "text-right" : "text-left"
 			}`}
 			dir={direction}

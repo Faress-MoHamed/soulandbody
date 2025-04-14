@@ -43,7 +43,7 @@ export default function CustomPopUp({
 	}, [DialogContentComponent, DialogContentclassName]);
 
 	return (
-		<div onClick={openPopup}>
+		<div className="cursor-pointer" onClick={openPopup}>
 			<DialogTriggerComponent />
 		</div>
 	);

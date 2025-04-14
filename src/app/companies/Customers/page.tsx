@@ -7,6 +7,7 @@ import React from "react";
 import AddNewEmployee from "../Employees/component/AddNewEmployee";
 import { Button } from "@/components/ui/button";
 import AddCustomers from "./components/AddCustomers";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
 type Client = {
 	name: string;
 	phone: string;
@@ -148,21 +149,29 @@ export default function CustomersPage() {
 	const data = generateClientTableRows(10);
 
 	return (
-		<ReusableTable
-			title="العملاء"
-			withFilter={false}
-			ButtonTrigger={() => (
-				<CustomPopUp
-					DialogTriggerComponent={() => (
-						<div className="text-end flex justify-between">
-							<AddButton AddTitle="اضافة عميل" onClickAdd={() => {}} />
-						</div>
-					)}
-					DialogContentComponent={() => <AddCustomers />}
-				/>
-			)}
-			data={data}
-			columns={columns}
+		<ReusableManyTable
+			dataSets={[
+				{
+					columns,
+					data,
+
+					title: "العملاء",
+					withFilter: false,
+					ButtonTrigger: () => (
+						<CustomPopUp
+							DialogTriggerComponent={() => (
+								<div className="text-end flex justify-between">
+									<AddButton AddTitle="اضافة عميل" onClickAdd={() => {}} />
+								</div>
+							)}
+							DialogContentComponent={() => <AddCustomers />}
+						/>
+					),
+					withPrinter: true,
+					containerClassName:"border-none mt-9"
+				},
+			]}
+			withTopPrinter={false}
 		/>
 	);
 }

@@ -3,19 +3,18 @@
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
-import { useExecutions, type ExecuseRecord } from "./hooks/useExecuses";
+import { useBreakTime, type ExecuseRecord } from "./hooks/useBreakTime";
 import { CustomDatePicker } from "@/components/customDatePicker";
-import StatusCard from "./components/statuseCards";
 import CustomInput from "@/components/customInput";
 import CustomPopUp from "@/components/popups";
 import AddCustomers from "@/app/companies/Customers/components/AddCustomers";
 import AddButton from "@/components/AddButton";
 import { MonthPicker } from "@/components/monthPicker";
-import InOutPopUp from "./components/InAndOutPopUp";
 import ExecusePopup from "./components/execusePopup";
+import StatusCard from "../execuse/components/statuseCards";
 
 export default function ExecusesPage() {
-	const { data: executionsData, isLoading: executionLoading } = useExecutions();
+	const { data: breakTimeData, isLoading: breakTimeLoading } = useBreakTime();
 	const columns: ColumnDef<ExecuseRecord>[] = [
 		{
 			header: "التاريخ",
@@ -64,11 +63,11 @@ export default function ExecusesPage() {
 				dataSets={[
 					{
 						columns,
-						data: executionsData || [],
-						loading: executionLoading,
+						data: breakTimeData || [],
+						loading: breakTimeLoading,
 						withPrinter: true,
 						containerClassName: "border-none",
-						title: "سجل استاذان",
+						title: "سجل الراحة",
 						withFilter: false,
 						UserComponent: () => (
 							<div className="flex md:flex-row flex-col gap-3 justify-between md:items-end items-start">
@@ -77,12 +76,12 @@ export default function ExecusesPage() {
 									className="w-[302px] h-[48px] bg-white"
 								/>
 								{new Date().getHours() >= 1 && new Date().getHours() <= 2 ? (
-									<AddButton AddTitle="استأذان" onClickAdd={() => {}} />
+									<AddButton AddTitle="طلب راحة" onClickAdd={() => {}} />
 								) : (
 									<CustomPopUp
 										DialogTriggerComponent={() => (
 											<div className="text-end flex justify-between">
-												<AddButton AddTitle="استأذان" onClickAdd={() => {}} />
+												<AddButton AddTitle="طلب راحة" onClickAdd={() => {}} />
 											</div>
 										)}
 										DialogContentComponent={() => <ExecusePopup />}

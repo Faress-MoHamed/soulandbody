@@ -31,7 +31,7 @@ export default function MainBody<TData>({
 						<tr
 							key={row.id}
 							className={cn(
-								"border-b hover:bg-muted/50 text-center w-full",
+								"border-b hover:bg-[#98cbb7] transition-colors duration-300 text-center w-full",
 								`${index % 2 !== 0 ? "bg-[#D0F3E5]" : ""}`
 							)}
 						>

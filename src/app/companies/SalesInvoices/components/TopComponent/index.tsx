@@ -1,26 +1,12 @@
 import CustomInput from "@/components/customInput";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TaxOnProduct from "../TaxOnProduct";
 import { Button } from "@/components/ui/button";
 import CustomPopUp from "@/components/popups";
 import TaxOnInvoice from "../TaxOnInvoice";
 import CustomSelect from "@/components/customSelect";
 import { CustomDatePicker } from "@/components/customDatePicker";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useSalesInvoice } from "../../hooks/useSalesInvoices";
-
-// Validation schema
-const invoiceSchema = Yup.object().shape({
-	invoiceNumber: Yup.string().required("Invoice number is required"),
-	date: Yup.date().required("Date is required"),
-	customerName: Yup.string().required("Customer name is required"),
-	customerPhone: Yup.string()
-		.matches(/^[0-9]+$/, "Must be only digits")
-		.required("Phone number is required"),
-	customerAddress: Yup.string().required("Address is required"),
-	customerDiscount: Yup.string().required("Discount is required"),
-});
 
 export default function TopComponent({
 	selectedInvoice,
@@ -30,21 +16,134 @@ export default function TopComponent({
 	setSelectedInvoice?: any;
 }) {
 	const { data: userDetails } = useSalesInvoice("1");
-	const formik = useFormik({
-		initialValues: {
-			invoiceNumber: selectedInvoice || "",
-			date: new Date(),
-			customerName: userDetails?.customerName || "",
-			customerPhone: userDetails?.customerPhone || "",
-			customerAddress: userDetails?.customerAddress || "",
-			customerDiscount: userDetails?.customerDiscount || "",
-		},
-		validationSchema: invoiceSchema,
-		onSubmit: (values) => {
-			// Handle form submission
-			console.log(values);
-		},
+
+	// Form state
+	const [formValues, setFormValues] = useState({
+		invoiceNumber: selectedInvoice || "",
+		date: new Date(),
+		customerName: "",
+		customerPhone: "",
+		customerAddress: "",
+		customerDiscount: "",
 	});
+
+	// Form errors state
+	const [errors, setErrors] = useState({
+		invoiceNumber: "",
+		date: "",
+		customerName: "",
+		customerPhone: "",
+		customerAddress: "",
+		customerDiscount: "",
+	});
+
+	// Update form values when userDetails changes
+	useEffect(() => {
+		if (userDetails) {
+			setFormValues((prevValues) => ({
+				...prevValues,
+				customerName: userDetails.customerName || "",
+				customerPhone: userDetails.customerPhone || "",
+				customerAddress: userDetails.customerAddress || "",
+				customerDiscount: userDetails.customerDiscount || "",
+			}));
+		}
+	}, [userDetails]);
+
+	// Update invoiceNumber when selectedInvoice changes
+	useEffect(() => {
+		if (selectedInvoice) {
+			setFormValues((prevValues) => ({
+				...prevValues,
+				invoiceNumber: selectedInvoice,
+			}));
+		}
+	}, [selectedInvoice]);
+
+	// Handle input changes
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setFormValues({
+			...formValues,
+			[name]: value,
+		});
+	};
+
+	// Handle date change from CustomDatePicker
+	const handleDateChange = (date: Date) => {
+		setFormValues({
+			...formValues,
+			date: date,
+		});
+	};
+
+	// Handle select change for invoice number
+	const handleInvoiceChange = (value: string) => {
+		setFormValues({
+			...formValues,
+			invoiceNumber: value,
+		});
+		setSelectedInvoice?.(value);
+	};
+
+	// Validate form only on submission
+	const validateForm = () => {
+		let isValid = true;
+		let newErrors = {
+			invoiceNumber: "",
+			date: "",
+			customerName: "",
+			customerPhone: "",
+			customerAddress: "",
+			customerDiscount: "",
+		};
+
+		// Validate all fields
+		if (!formValues.invoiceNumber) {
+			newErrors.invoiceNumber = "Invoice number is required";
+			isValid = false;
+		}
+
+		if (!formValues.date) {
+			newErrors.date = "Date is required";
+			isValid = false;
+		}
+
+		if (!formValues.customerName) {
+			newErrors.customerName = "Customer name is required";
+			isValid = false;
+		}
+
+		if (!formValues.customerPhone) {
+			newErrors.customerPhone = "Phone number is required";
+			isValid = false;
+		} else if (!/^[0-9]+$/.test(formValues.customerPhone)) {
+			newErrors.customerPhone = "Must be only digits";
+			isValid = false;
+		}
+
+		if (!formValues.customerAddress) {
+			newErrors.customerAddress = "Address is required";
+			isValid = false;
+		}
+
+		if (!formValues.customerDiscount) {
+			newErrors.customerDiscount = "Discount is required";
+			isValid = false;
+		}
+
+		setErrors(newErrors);
+		return isValid;
+	};
+
+	// Handle form submission
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		if (validateForm()) {
+			// Handle form submission
+			console.log(formValues);
+		}
+	};
 
 	return (
 		<div className="border-x border-t p-6 flex flex-col gap-5 bg-white">
@@ -102,24 +201,21 @@ export default function TopComponent({
 					DialogContentComponent={() => <TaxOnProduct />}
 				/>
 			</div>
-			<form onSubmit={formik.handleSubmit}>
+			<form onSubmit={handleSubmit}>
 				<div className="flex gap-5">
 					<CustomDatePicker
 						label="التاريخ"
 						wrapperClassName="w-[302px] h-[48px]"
-						// value={formik.values.date}
-						// onSelect={(date) => formik.setFieldValue("date", date)}
+						// value={formValues.date}
+						// onSelect={handleDateChange}
 					/>
 
 					<CustomSelect
 						label="رقم الفاتورة"
 						options={["invoice1", "invoice2", "invoice3"]}
 						triggerClassName="!h-[48px] w-[302px] bg-white"
-						value={formik.values.invoiceNumber}
-						onValueChange={(value) => {
-							formik.setFieldValue("invoiceNumber", value);
-							setSelectedInvoice?.(value);
-						}}
+						value={formValues.invoiceNumber}
+						onValueChange={handleInvoiceChange}
 					/>
 				</div>
 				<div className="flex flex-col gap-1">
@@ -131,14 +227,9 @@ export default function TopComponent({
 							wrapperClassName="w-[302px] "
 							className="h-[48px]"
 							name="customerName"
-							value={formik.values.customerName}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							error={
-								formik.touched.customerName && formik.errors.customerName
-									? formik.errors.customerName
-									: undefined
-							}
+							value={formValues.customerName}
+							onChange={handleChange}
+							error={errors.customerName || undefined}
 						/>
 						<CustomInput
 							label="الرقم"
@@ -146,14 +237,9 @@ export default function TopComponent({
 							wrapperClassName="w-[302px] "
 							className="h-[48px]"
 							name="customerPhone"
-							value={formik.values.customerPhone}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							error={
-								formik.touched.customerPhone && formik.errors.customerPhone
-									? formik.errors.customerPhone
-									: undefined
-							}
+							value={formValues.customerPhone}
+							onChange={handleChange}
+							error={errors.customerPhone || undefined}
 						/>
 						<CustomInput
 							label="العنوان"
@@ -161,14 +247,9 @@ export default function TopComponent({
 							wrapperClassName="w-[302px] "
 							className="h-[48px]"
 							name="customerAddress"
-							value={formik.values.customerAddress}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							error={
-								formik.touched.customerAddress && formik.errors.customerAddress
-									? formik.errors.customerAddress
-									: undefined
-							}
+							value={formValues.customerAddress}
+							onChange={handleChange}
+							error={errors.customerAddress || undefined}
 						/>
 						<CustomInput
 							label="خصومات العميل"
@@ -176,22 +257,16 @@ export default function TopComponent({
 							wrapperClassName="w-[302px] "
 							className="h-[48px]"
 							name="customerDiscount"
-							value={formik.values.customerDiscount}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							error={
-								formik.touched.customerDiscount &&
-								formik.errors.customerDiscount
-									? formik.errors.customerDiscount
-									: undefined
-							}
+							value={formValues.customerDiscount}
+							onChange={handleChange}
+							error={errors.customerDiscount || undefined}
 						/>
 					</div>
 				</div>
 				{/* You might want to add a submit button here */}
 				{/* <Button type="submit" className="mt-4">
-          Submit
-        </Button> */}
+					Submit
+				</Button> */}
 			</form>
 		</div>
 	);

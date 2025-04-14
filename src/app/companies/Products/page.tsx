@@ -8,6 +8,7 @@ import CustomInput from "@/components/customInput";
 import { Button } from "@/components/ui/button";
 import CustomPopUp from "@/components/popups";
 import OtherBranches from "./components/OtherBranches";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
 
 export default function ProductsPage() {
 	const { data: productsData, isLoading: ProductDataLoading } = useProducts();
@@ -69,25 +70,30 @@ export default function ProductsPage() {
 	];
 
 	return (
-		<ReusableTable
-			// title="المنتجات"
-			containerClassName="mt-[57px]"
-			withFilter={false}
-			UserComponent={() => {
-				return (
-					<div className="p-6 border-1">
-						<h1 className="text-[26px] font-bold">المنتجات</h1>
-						<CustomInput
-							wrapperClassName="md:w-[395px]"
-							className="min-w-[395px] h-[40px]"
-							placeholder="ابحث هنا.."
-						/>
-					</div>
-				);
-			}}
-			loading={ProductDataLoading}
-			data={productsData || []}
-			columns={columns}
+		<ReusableManyTable
+			dataSets={[
+				{
+					columns,
+					data: productsData || [],
+					containerClassName: "border-none mt-9",
+					withFilter: false,
+					UserComponent: () => {
+						return (
+							<div className="p-6 flex flex-col gap-6">
+								<h1 className="text-[26px] font-bold">المنتجات</h1>
+								<CustomInput
+									wrapperClassName="md:w-[395px]"
+									className="md:min-w-[395px] h-[40px]"
+									placeholder="ابحث هنا.."
+								/>
+							</div>
+						);
+					},
+					loading: ProductDataLoading,
+					withPrinter: true,
+				},
+			]}
+			withTopPrinter={false}
 		/>
 	);
 }

@@ -9,7 +9,7 @@ export default function SearchBar() {
 	const [query, setQuery] = useState("");
 
 	return (
-		<div className="w-[360px]  p-4">
+		<div className="md:w-[360px] w-full  md:p-4">
 			<div className="relative bg-white border-gray-200 border rounded-lg">
 				<CustomInput
 					type="text"

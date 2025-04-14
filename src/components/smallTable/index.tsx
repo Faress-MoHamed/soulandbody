@@ -56,8 +56,8 @@ export default function SmallTable<TData>({
 
 	return (
 		<>
-			<Card className="border-none shadow-none ">
-				<CardHeader className="flex flex-row items-center justify-between">
+			<Card className="border-none shadow-none bg-[#F9F9F9]">
+				<CardHeader className="flex flex-col gap-4 justify-between">
 					<CardTitle className="text-[26px]">{title}</CardTitle>
 					{ButtonTrigger ? (
 						<ButtonTrigger />
@@ -72,7 +72,7 @@ export default function SmallTable<TData>({
 							<LoadingIndicator />
 						) : (
 							<>
-								<div className="overflow-x-auto rounded-[8px] border-[1px] border-[#16C47F] ">
+								<div className="overflow-x-auto rounded-[8px]  border-[1px] border-[#16C47F] ">
 									<table className="w-full border-collapse ">
 										<thead className="bg-[#E8F9F2] ">
 											{table.getHeaderGroups().map((headerGroup) => (
@@ -101,8 +101,7 @@ export default function SmallTable<TData>({
 														<td
 															key={cell.id}
 															className={cn(
-																`p-3 text-[16px] tec border-x-[1px] border-t border-[#16C47F]`,
-																
+																`p-3 text-[16px] tec border-x-[1px] border-t border-[#16C47F]`
 															)}
 														>
 															{" "}

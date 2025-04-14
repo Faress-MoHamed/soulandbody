@@ -209,19 +209,19 @@ export default function EmployeesTable() {
 									<CustomSelect
 										label="الموظف"
 										options={["فارس", "محمد", "احمد", "علي"]}
-										triggerClassName="!h-[48px] w-[302px] bg-white"
+										triggerClassName="!h-[48px] md:w-[302px] w-[100%] bg-white"
 									/>
 									<div className="flex md:flex-row flex-col gap-4 items-end">
 										<CustomInput
 											label="من فترة"
 											type="date"
-											wrapperClassName="w-[302px] "
+											wrapperClassName="md:w-[302px] "
 											className="h-[48px]"
 										/>
 										<CustomInput
 											label="الي فترة"
 											type="date"
-											wrapperClassName="w-[302px] "
+											wrapperClassName="md:w-[302px] "
 											className="h-[48px]"
 										/>
 										<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
@@ -238,11 +238,12 @@ export default function EmployeesTable() {
 						data: EmployeesData as any,
 						label: "الموظفين",
 						withFilter: false,
+						title: "الموظفين",
 						AddTitle: "اضافة موظف ",
 						UserComponent: () => {
 							return (
-								<div className="flex justify-between items-center p-6 ">
-									<SearchBar/>
+								<div className="flex md:flex-row flex-col justify-between gap-4 md:items-center px-5 md:py-0 py-5">
+									<SearchBar />
 									<CustomPopUp
 										DialogTriggerComponent={() => (
 											<div className="text-end flex justify-between">

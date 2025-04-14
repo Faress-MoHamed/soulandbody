@@ -1,5 +1,7 @@
 "use client";
 import ReusableTable from "@/components/ReusableTable";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
+import { Card, CardContent } from "@/components/ui/card";
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 
@@ -69,14 +71,29 @@ export default function OtherBranches() {
 		},
 	];
 	return (
-		<div className="flex flex-col gap-6">
-			<ReusableTable
-				withPrinter={false}
-				containerClassName="md:w-[943px] pt-[35px] pr-[51px] pb-[60px] pl-[67px]"
-				data={branches}
-				UserComponent={() => <p className=" pb-6 text-start font-[500] text-[24px]">لاب توب </p>}
-				columns={columns}
-			/>
-		</div>
+		<Card className="overflow-x-auto max-w-full">
+			<CardContent >
+				<ReusableManyTable
+					dataSets={[
+						{
+							withPrinter: false,
+
+							containerClassName:
+								"md:w-[943px] h-[80vh] w-full overflow-x-auto pt-[35px] md:pr-[51px] px-8 pb-[60px] md:pl-[67px]",
+							data: branches,
+							UserComponent: () => (
+								<p className=" pb-6 text-start font-[500] text-[24px]">
+									لاب توب{" "}
+								</p>
+							),
+							columns,
+							withPagination: false,
+							
+						},
+					]}
+					withTopPrinter={false}
+				/>
+			</CardContent>
+		</Card>
 	);
 }

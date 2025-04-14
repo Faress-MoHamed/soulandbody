@@ -48,7 +48,7 @@ export default function TablePagination({
 				</svg>
 				التالي
 			</Button>
-			<div className="flex flex-col items-center justify-center gap-4">
+			<div className="md:flex hidden flex-col items-center justify-center gap-4">
 				<div className="flex items-center justify-center">
 					{(() => {
 						const totalPages = Math.ceil(filteredData.length / pageSize) || 1;
