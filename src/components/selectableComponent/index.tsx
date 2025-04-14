@@ -90,7 +90,7 @@ export default function SelectableComponent({
 					</div>
 				)}
 			</div>
-			<div className={cn("border-t", contentClassName)} role="tabpanel">
+			<div className={cn("border-t max-w-full", contentClassName)} role="tabpanel">
 				{items[activeIndex]?.component}
 			</div>
 		</div>

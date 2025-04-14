@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import AddNewEmployee from "./component/AddNewEmployee";
+import SalesRecord from "./component/SalesRecord";
+import SearchBar from "@/components/searchInput";
 
 export default function EmployeesTable() {
 	const generateRandomEmployeeData = (count: number) => {
@@ -89,39 +91,44 @@ export default function EmployeesTable() {
 					{" "}
 					<div className="flex justify-center gap-1 ">
 						{" "}
-						<Button
-							// onClick={() => onEdit(row?.original?.id)}
-							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85  rounded-[8px] border border-[#16C47F]"
-						>
-							<svg
-								width="17"
-								height="16"
-								viewBox="0 0 17 16"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<g clip-path="url(#clip0_2147_3598)">
-									<path
-										d="M7.83203 2.66665H3.16536C2.81174 2.66665 2.4726 2.80713 2.22256 3.05718C1.97251 3.30723 1.83203 3.64637 1.83203 3.99999V13.3333C1.83203 13.6869 1.97251 14.0261 2.22256 14.2761C2.4726 14.5262 2.81174 14.6667 3.16536 14.6667H12.4987C12.8523 14.6667 13.1915 14.5262 13.4415 14.2761C13.6916 14.0261 13.832 13.6869 13.832 13.3333V8.66666M12.832 1.66665C13.0972 1.40144 13.457 1.25244 13.832 1.25244C14.2071 1.25244 14.5668 1.40144 14.832 1.66665C15.0972 1.93187 15.2462 2.29158 15.2462 2.66665C15.2462 3.04173 15.0972 3.40144 14.832 3.66665L8.4987 9.99999L5.83203 10.6667L6.4987 7.99999L12.832 1.66665Z"
-										stroke="#16C47F"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</g>
-								<defs>
-									<clipPath id="clip0_2147_3598">
-										<rect
-											width="16"
-											height="16"
-											fill="white"
-											transform="translate(0.5)"
-										/>
-									</clipPath>
-								</defs>
-							</svg>
-							سجل البيع
-						</Button>
+						<CustomPopUp
+							DialogTriggerComponent={() => (
+								<Button
+									// onClick={() => onEdit(row?.original?.id)}
+									className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85  rounded-[8px] border border-[#16C47F]"
+								>
+									<svg
+										width="17"
+										height="16"
+										viewBox="0 0 17 16"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<g clip-path="url(#clip0_2147_3598)">
+											<path
+												d="M7.83203 2.66665H3.16536C2.81174 2.66665 2.4726 2.80713 2.22256 3.05718C1.97251 3.30723 1.83203 3.64637 1.83203 3.99999V13.3333C1.83203 13.6869 1.97251 14.0261 2.22256 14.2761C2.4726 14.5262 2.81174 14.6667 3.16536 14.6667H12.4987C12.8523 14.6667 13.1915 14.5262 13.4415 14.2761C13.6916 14.0261 13.832 13.6869 13.832 13.3333V8.66666M12.832 1.66665C13.0972 1.40144 13.457 1.25244 13.832 1.25244C14.2071 1.25244 14.5668 1.40144 14.832 1.66665C15.0972 1.93187 15.2462 2.29158 15.2462 2.66665C15.2462 3.04173 15.0972 3.40144 14.832 3.66665L8.4987 9.99999L5.83203 10.6667L6.4987 7.99999L12.832 1.66665Z"
+												stroke="#16C47F"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</g>
+										<defs>
+											<clipPath id="clip0_2147_3598">
+												<rect
+													width="16"
+													height="16"
+													fill="white"
+													transform="translate(0.5)"
+												/>
+											</clipPath>
+										</defs>
+									</svg>
+									سجل البيع
+								</Button>
+							)}
+							DialogContentComponent={() => <SalesRecord />}
+						/>
 						<Button
 							// onClick={() => onEdit(row?.original?.id)}
 							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85  rounded-[8px] border border-[#16C47F]"
@@ -234,15 +241,20 @@ export default function EmployeesTable() {
 						AddTitle: "اضافة موظف ",
 						UserComponent: () => {
 							return (
-								<CustomPopUp
-									DialogTriggerComponent={() => (
-										<div className="p-6 text-end flex justify-between">
-											<CustomInput label="" />
-											<AddButton AddTitle="اضافة موظف " onClickAdd={() => {}} />
-										</div>
-									)}
-									DialogContentComponent={() => <AddNewEmployee />}
-								/>
+								<div className="flex justify-between items-center p-6 ">
+									<SearchBar/>
+									<CustomPopUp
+										DialogTriggerComponent={() => (
+											<div className="text-end flex justify-between">
+												<AddButton
+													AddTitle="اضافة موظف "
+													onClickAdd={() => {}}
+												/>
+											</div>
+										)}
+										DialogContentComponent={() => <AddNewEmployee />}
+									/>
+								</div>
 							);
 						},
 						// ButtonTrigger: () => {

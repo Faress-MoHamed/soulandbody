@@ -383,7 +383,7 @@ function Deduction() {
 				employees={distinctEmployees}
 				withActionButtons={false}
 				loading={deductionLoading}
-				error={deductionError}
+				// error={deductionError}
 				ButtonTrigger={() => (
 					<CustomPopUp
 						DialogTriggerComponent={() => {

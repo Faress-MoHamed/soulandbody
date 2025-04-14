@@ -25,7 +25,7 @@ export default function WarningPopUp() {
 	};
 
 	return (
-		<Card className="flex flex-col   bg-gray-100 p-4 gap-6 lg:w-[923px] w-[300px] lg:h-[325px] h-fit">
+		<Card className="flex flex-col   bg-white p-4 gap-6 lg:w-[923px] w-[300px] lg:h-[325px] h-fit">
 			<CardHeader className="flex flex-row items-center justify-between ">
 				<CardTitle className="text-center flex-1 text-xl">
 					إجراءات تأديبية

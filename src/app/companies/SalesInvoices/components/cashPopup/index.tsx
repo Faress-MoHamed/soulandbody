@@ -5,7 +5,7 @@ import React from "react";
 
 const CashPayment = () => {
 	return (
-		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+		<Card className="flex flex-col p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[246px] h-fit">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 					دفع نقدي

@@ -3,6 +3,7 @@ import { Select, SelectContent, SelectItem } from "../ui/select";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon } from "lucide-react";
+import LoadingIndicator from "../loadingIndicator";
 
 function SelectGroup({
 	...props
@@ -46,38 +47,47 @@ function SelectTrigger({
 interface CustomSelectProps
 	extends React.ComponentProps<typeof SelectPrimitive.Root> {
 	label?: string;
-	placeholder?: string;
-	options?: { value: string; label: string }[] | string[];
 	size?: "sm" | "default";
 	dir?: "rtl" | "ltr";
 	className?: string;
+	placeholder?: string;
+	options?: { value: string; label: string }[] | string[];
 	triggerClassName?: string;
+	loading?: boolean;
 }
 
 export default function CustomSelect({
-	label = "الموظف",
+	label,
 	placeholder = "الكل",
 	options = ["أحمد محمود", "محمد علي", "خالد حسن", "ياسر عبد الله", "سعيد عمر"],
 	size = "default",
 	dir = "rtl",
 	className,
 	triggerClassName,
+	loading,
 	...props
 }: CustomSelectProps) {
 	return (
 		<div className={cn("flex flex-col gap-2", className)}>
 			{label && (
-				<label className="text-[16px] text-[#1E1E1E] font-[400] text-start">{label}</label>
+				<label className="text-[16px] text-[#1E1E1E] font-[400] text-start">
+					{label}
+				</label>
 			)}
 			<Select dir={dir} {...props}>
-				<SelectTrigger size={size} className={triggerClassName}>
+				<SelectTrigger
+					size={size}
+					className={cn("!h-[48px] w-[302px] bg-white", triggerClassName)}
+				>
 					<SelectValue placeholder={placeholder} />
 				</SelectTrigger>
 				<SelectContent className="z-[+99999]">
 					{options?.map((option) => {
 						const value = typeof option === "string" ? option : option.value;
 						const label = typeof option === "string" ? option : option.label;
-						return (
+						return loading ? (
+							<LoadingIndicator />
+						) : (
 							<SelectItem key={value} value={value}>
 								{label}
 							</SelectItem>

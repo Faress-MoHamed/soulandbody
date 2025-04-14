@@ -16,7 +16,7 @@ export const CustomHomeCard = ({
 	return (
 		<Link
 			href={LinkUrl || "/"}
-			className="p-6 rounded-[8px] shadow-md flex flex-col md:w-[435px] md:h-[251px] bg-white"
+			className="p-6 rounded-[8px] shadow-md flex flex-col md:w-[435px] w-full md:h-[251px] bg-white"
 		>
 			<div className="w-[64px] h-[64px] self-end">
 				<Image src={Icon} alt="icon" width={64} height={64} />
@@ -47,11 +47,13 @@ export default function Page() {
 			title: "استبدال ومرتجعات",
 			subTitle: "عرض حركات الحسابات المختلفة",
 			Icon: "/companies/Returns&Exchanges.png",
+			LinkUrl: "/companies/ReturnsAndExchanges",
 		},
 		{
 			title: "المنتجات",
 			subTitle: "إدارة الفواتير وعمليات البيع وكشف حساب",
 			Icon: "/companies/Products.png",
+			LinkUrl: "/companies/Products",
 		},
 		{
 			title: "الموظفين",
@@ -63,6 +65,7 @@ export default function Page() {
 			title: "العملاء",
 			subTitle: "إدارة المخزون ومتابعة الكميات المتوفرة من المنتجات",
 			Icon: "/companies/Customers.png",
+			LinkUrl: "/companies/Customers",
 		},
 		{
 			title: "تقارير",
