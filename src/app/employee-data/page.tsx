@@ -69,8 +69,8 @@ function Salaries() {
 						UserComponent: ({ selectedEmployee }: any) => {
 							return (
 								<div className="p-6 border-t border-x border-[#02140D4D] mb-4 flex justify-between in-checked:">
-									<p className="text-[26px] font-bold">{"فارس محمد"}</p>
 									<p className="text-[36px] font-[600]">S00026</p>
+									<p className="text-[26px] font-bold">{"فارس محمد"}</p>
 								</div>
 							);
 						},

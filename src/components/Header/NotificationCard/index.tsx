@@ -33,15 +33,13 @@ const NotificationCard: FC<PermissionCardProps> = ({
 }) => {
 	return (
 		<>
-			<Card
-				className={`w-full h-[200px]  ${isRtl ? "text-right" : "text-left"}`}
-			>
+			<Card className={`w-full h-[200px]  text-end border-none shadow-none`}>
 				<CardContent className="p-0">
 					<div className="relative">
 						{/* Header with icon */}
-						<div className="flex items-center justify-between p-4 pb-2">
+						<div className="flex items-center justify-end p-4 pb-2">
 							<div
-								className={`text-lg font-medium ${
+								className={`text-lg text-end font-medium ${
 									isRtl ? "order-2" : "order-1"
 								}`}
 							>
@@ -78,31 +76,31 @@ const NotificationCard: FC<PermissionCardProps> = ({
 							</p>
 
 							{timeElapsed && (
-								<div className="flex items-center mt-2 text-xs text-gray-500">
-									<Clock className="h-3 w-3 mr-1" />
+								<div className="flex items-center mt-2 text-xs text-gray-500 justify-end">
 									<span>{timeElapsed}</span>
+									<Clock className="h-3 w-3 mr-1" />
 								</div>
 							)}
 						</div>
 
 						{/* Actions */}
 						<div
-							className={`flex gap-2 p-4 ${
+							className={`flex gap-2 justify-end ${
 								isRtl ? "flex-row-reverse" : "flex-row"
 							}`}
 						>
 							<Button
-								variant="outline"
-								className="flex-1 border-gray-300 hover:bg-gray-50 hover:text-gray-900"
-								onClick={onReject}
-							>
-								{rejectLabel}
-							</Button>
-							<Button
-								className="flex-1 bg-emerald-500 hover:bg-emerald-600"
+								className="w-[115px] bg-[#16C47F] hover:bg-emerald-600"
 								onClick={onAccept}
 							>
 								{acceptLabel}
+							</Button>
+							<Button
+								variant="outline"
+								className="w-[115px] border-[#16C47F] text-[#16C47F]"
+								onClick={onReject}
+							>
+								{rejectLabel}
 							</Button>
 						</div>
 					</div>

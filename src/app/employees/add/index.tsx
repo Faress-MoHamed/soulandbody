@@ -79,7 +79,7 @@ export default function EmployeesForm({
 					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
 						<label>{t("employeeForm.leave.days_count")}</label>
 						<Input
-							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start justify-end"
 							type="number"
 						/>
 					</div>
@@ -108,7 +108,7 @@ export default function EmployeesForm({
 					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
 						<label>{t("employeeForm.leave.days_count")}</label>
 						<Input
-							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
 							type="number"
 						/>
 					</div>
@@ -131,7 +131,7 @@ export default function EmployeesForm({
 					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
 						<label>{t("employeeForm.leave.days_count")}</label>
 						<Input
-							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
 							type="number"
 						/>
 					</div>
@@ -154,7 +154,7 @@ export default function EmployeesForm({
 					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
 						<label>{t("employeeForm.leave.days_count")}</label>
 						<Input
-							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
 							type="number"
 						/>
 					</div>
@@ -177,7 +177,7 @@ export default function EmployeesForm({
 					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
 						<label>{t("employeeForm.leave.days_count")}</label>
 						<Input
-							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
 							type="number"
 						/>
 					</div>
@@ -200,7 +200,7 @@ export default function EmployeesForm({
 					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
 						<label>{t("employeeForm.leave.days_count")}</label>
 						<Input
-							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
 							type="number"
 						/>
 					</div>
@@ -325,14 +325,15 @@ export default function EmployeesForm({
 											},
 										].map(({ name, label, type = "text" }) => (
 											<div className="flex flex-col gap-2" key={name}>
-												<label className="block text-right font-semibold">
+												<label className="block text-start font-semibold">
 													{label}
 												</label>
 												<Field
 													as={Input}
 													type={type}
 													name={name}
-													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
+													dir="ltr"
+													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start "
 												/>
 												<ErrorMessage
 													name={name}
@@ -364,14 +365,14 @@ export default function EmployeesForm({
 											},
 										].map(({ name, label, type = "text" }) => (
 											<div className="flex flex-col gap-2" key={name}>
-												<label className="block text-right font-semibold">
+												<label className="block text-start font-semibold">
 													{label}
 												</label>
 												<Field
 													as={Input}
 													type={type}
 													name={name}
-													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
+													className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start "
 												/>
 												<ErrorMessage
 													name={name}
@@ -382,18 +383,19 @@ export default function EmployeesForm({
 										))}
 
 										<div className="flex flex-col gap-2">
-											<label className="block text-right font-semibold">
+											<label className="block text-start font-semibold">
 												{t("employeeForm.fields.work_nature")}
 											</label>
 											<Field name="work_nature">
 												{({ field, form }: any) => (
-													<select
+														<select
+														dir="ltr"
 														{...field}
 														onChange={(e) => {
 															form.setFieldValue("work_nature", e.target.value);
 															setSelectedWorkNature(e.target.value);
 														}}
-														className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border border-[#D9D9D9] text-right"
+														className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border border-[#D9D9D9] text-start"
 													>
 														<option value="">
 															{t("employeeForm.fields.work_nature_placeholder")}
@@ -426,7 +428,7 @@ export default function EmployeesForm({
 
 									<div
 										className={cn(
-											"text-right mt-6",
+											"text-start mt-6",
 											`${
 												selectedWorkNature ===
 												t("employeeForm.fields.work_nature_options.varied")
@@ -473,7 +475,7 @@ export default function EmployeesForm({
 							<Button
 								type="button"
 								variant={"link"}
-								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
 								{t("employeeForm.leave.policy.total_days")}
 							</Button>
@@ -486,7 +488,7 @@ export default function EmployeesForm({
 							<Button
 								type="button"
 								variant={"link"}
-								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
 								{t("employeeForm.leave.policy.regular_days")}
 							</Button>
@@ -499,7 +501,7 @@ export default function EmployeesForm({
 							<Button
 								type="button"
 								variant={"link"}
-								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
 								{t("employeeForm.leave.policy.emergency_days")}
 							</Button>
@@ -512,7 +514,7 @@ export default function EmployeesForm({
 							<Button
 								type="button"
 								variant={"link"}
-								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
 								{t("employeeForm.leave.policy.sick_days")}
 							</Button>
@@ -528,7 +530,7 @@ export default function EmployeesForm({
 							<Button
 								type="button"
 								variant={"link"}
-								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
 								{t("employeeForm.leave.policy.continuous_absence")}
 							</Button>
@@ -541,7 +543,7 @@ export default function EmployeesForm({
 							<Button
 								type="button"
 								variant={"link"}
-								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
 								{t("employeeForm.leave.policy.separate_absence")}
 							</Button>

@@ -330,7 +330,7 @@ export function Table<TData>({
 		<>
 			<Card
 				className={cn(
-					"border shadow-none rounded-none bg-[#F9F9F9]",
+					"border shadow-none rounded-none bg-[#fafafa]",
 					containerClassName
 				)}
 			>
