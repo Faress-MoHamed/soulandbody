@@ -217,6 +217,7 @@ export default function page() {
 						component: <Salaries />,
 					},
 				]}
+				withTopPrinter={false}
 			/>
 		</>
 	);

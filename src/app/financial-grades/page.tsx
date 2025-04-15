@@ -100,7 +100,7 @@ const LeaveForm = () => {
 		<Card className="p-6">
 			<CardTitle>{t("financial.transactionsTitle")}</CardTitle>
 			{/* <form onSubmit={handleSubmit}> */}
-			<CardContent className="grid grid-cols-3 gap-4">
+			<CardContent className="grid md:grid-cols-3 grid-cols-1 gap-4">
 				{/* Employee Field */}
 				<CustomSelect
 					label={t("financial.employee")}
