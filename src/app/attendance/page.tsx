@@ -3,24 +3,37 @@
 import ReusableTable from "@/components/ReusableTable";
 import React from "react";
 import { useAttendance } from "./useAttendance";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
+import { useTypedTranslation } from "../hooks/useTypedTranslation";
 
-export default function page() {
+export default function AttendancePage() {
+	const { t } = useTypedTranslation();
 	const { data: attendanceData } = useAttendance();
-  console.log(attendanceData);
+
+	// Define columns using translations
 	const columns = [
-		{ accessorKey: "date", header: "التاريخ" },
-		{ accessorKey: "employee", header: "الموظف" },
-		{ accessorKey: "check_in", header: "تسجيل دخول" },
-		{ accessorKey: "check_out", header: "تسجيل خروج" },
-		{ accessorKey: "notes", header: "ملاحظات" },
-		{ accessorKey: "deduction", header: "خصم" },
+		{ accessorKey: "date", header: t("attendance.columns.date") },
+		{ accessorKey: "employee", header: t("attendance.columns.employee") },
+		{ accessorKey: "check_in", header: t("attendance.columns.check_in") },
+		{ accessorKey: "check_out", header: t("attendance.columns.check_out") },
+		{ accessorKey: "notes", header: t("attendance.columns.notes") },
+		{ accessorKey: "deduction", header: t("attendance.columns.deduction") },
 	];
+
 	return (
 		<div>
-			<ReusableTable
-				title="سجل الحضور"
-				data={attendanceData ?? []}
-				columns={columns}
+			<ReusableManyTable
+				dataSets={[
+					{
+						columns,
+						data: attendanceData ?? [],
+						title: t("attendance.title"),
+						withFilter: false,
+						withPrinter: true,
+						containerClassName: "border-none",
+					},
+				]}
+				withTopPrinter={false}
 			/>
 		</div>
 	);

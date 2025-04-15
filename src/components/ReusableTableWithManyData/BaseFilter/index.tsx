@@ -3,6 +3,8 @@ import CustomInput from "@/components/customInput";
 import CustomSelect from "@/components/customSelect";
 import React from "react";
 import { parseDate, type DateValue } from "@internationalized/date";
+import { MonthPicker } from "@/components/monthPicker";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 export default function BaseFilter({
 	selectedEmployee,
@@ -25,14 +27,16 @@ export default function BaseFilter({
 	const selectedDateValue: DateValue | undefined = selectedMonth
 		? parseDate(selectedMonth)
 		: undefined;
-
+	const { t } = useTypedTranslation();
+	console.log(t("filter.employee"));
 	return (
 		<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
 			<div className="flex flex-col lg:flex-row gap-5">
 				<CustomSelect
+					
 					value={selectedEmployee}
 					options={employees}
-					label="الموظف"
+					label={t("filter.employee")}
 					loading={loading}
 					onValueChange={(e) => {
 						setSelectedEmployee((prev) => (prev === e ? "" : e));
@@ -40,20 +44,7 @@ export default function BaseFilter({
 					}}
 				/>
 
-				<CustomDatePicker
-					label="التاريخ"
-					value={selectedDateValue}
-					onChange={(e) => {
-						// Convert to ISO string and set it
-						const isoDate = e?.toString(); // "2025-04-14"
-						setSelectedMonth((prev) =>
-							prev === isoDate ? undefined : isoDate
-						);
-					}}
-					wrapperClassName="min-w-[240px]"
-				/>
-
-				<CustomInput label="التاريخ" value={selectedMonth} />
+				<MonthPicker label={t("filter.date")} wrapperClassName="min-w-[240px]" />
 			</div>
 		</div>
 	);

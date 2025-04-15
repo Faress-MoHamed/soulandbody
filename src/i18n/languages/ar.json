@@ -1,0 +1,320 @@
+{
+	"dir": "rtl",
+	"print": "طباعة",
+	"home": {
+		"employees": "الموظفين",
+		"employeeData": "بيانات موظف",
+		"financialGrades": "الدرجات المالية بشؤون الموظفين",
+		"workHours": "ساعات دوام الشركة",
+		"permission": "استئذان",
+		"breakTime": "وقت راحة",
+		"attendance": "سجلات حضور",
+		"vacations": "إجازات",
+		"disciplinaryVacations": "إجازات تأديبية",
+		"fares": "fares"
+	},
+	"employees": {
+		"title": "الموظفين",
+		"newEmployee": "موظف جديد",
+		"date": "التاريخ",
+		"employee": "الموظف",
+		"workNature": "طبيعة العمل",
+		"netSalary": "صافي المرتب",
+		"phoneNumber": "رقم الهاتف",
+		"address": "العنوان",
+		"form": {
+			"title": "معلومات الموظف",
+			"personalInfo": "معلومات شخصية",
+			"add": "اضافة موظف",
+			"save": "حفظ"
+		}
+	},
+	"pagination": {
+		"next": "التالي",
+		"prev": "السابق"
+	},
+	"filter": {
+		"employee": "الموظف",
+		"date": "التاريخ",
+		"placeholder": "الكل"
+	},
+	"errors": {
+		"requiredField": "هذا الحقل مطلوب",
+		"invalidAmount": "الرجاء إدخال مبلغ صحيح"
+	},
+	"financial": {
+		"transactionsTitle": "المعاملات المالية",
+		"employee": "الموظف",
+		"date": "التاريخ",
+		"type": "النوع",
+		"amount": "المبلغ",
+		"reason": "السبب",
+		"submit": "إرسال",
+		"salaryTitle": "إدارة الرواتب",
+		"sendSalaries": "إرسال الرواتب",
+		"deduction": "خصم",
+		"advance": "سلفة",
+		"netSalary": "صافي الراتب",
+		"extras": "الإضافات",
+		"allowances": "البدلات",
+		"totalSalary": "إجمالي الراتب",
+		"addSalary": "إضافة راتب",
+		"addTransaction": "إضافة معاملة",
+		"salaries": "الرواتب",
+		"deductions": "الخصومات",
+		"salary": "الراتب"
+	},
+	"workHours": {
+		"title": "ساعات الدوام",
+		"save": "حفظ التغييرات",
+		"columns": {
+			"day": "اليوم",
+			"is_active": "دوام",
+			"start_time": "بداية الدوام",
+			"end_time": "انتهاء الدوام",
+			"break_hours": "الراحه"
+		}
+	},
+	"permissions": {
+		"title": "استأذان",
+		"form": {
+			"employee": "الموظف",
+			"from": "بداية",
+			"to": "نهاية",
+			"actualEnd": "وقت الأنتهاء الفعلي",
+			"reason": "السبب",
+			"submit": "حفظ"
+		},
+		"placeholders": {
+			"employee": "اختر الموظف"
+		},
+		"errors": {
+			"employee": "يرجى اختيار الموظف",
+			"from": "يرجى اختيار وقت البداية",
+			"to": "يرجى اختيار وقت النهاية",
+			"actualEnd": "يرجى اختيار وقت الانتهاء الفعلي",
+			"reason": "يرجى إدخال السبب"
+		},
+		"table": {
+			"title": "سجل استاذان",
+			"columns": {
+				"date": "التاريخ",
+				"employee": "الموظف",
+				"from": "من",
+				"to": "الي",
+				"actual_end": "وقت الأنتهاء الفعلي",
+				"reason": "السبب",
+				"deduction": "الخصم"
+			}
+		},
+		"add": " استأذان"
+	},
+	"hrVacations": {
+		"table": {
+			"date": "التاريخ",
+			"employee": "الموظف",
+			"leaveStart": "بداية الأجازة",
+			"leaveEnd": "نهاية الأجازة",
+			"leaveDays": "عدد الأيام",
+			"leaveType": "نوع الأجازة",
+			"attachment": "ملحقات",
+			"deduction": "الخصم"
+		},
+		"titles": {
+			"vacationLog": "سجل الاجاازات",
+			"addVacation": "اضافة اجازة"
+		},
+		"inputs": {
+			"employees": "الموظقين",
+			"date": "التاريح"
+		},
+		"vacation": "اجازات",
+		"record": "السجل",
+		"deduction": "الخصم",
+		"employee": "الموظف",
+		"leaveDays": "عدد الأيام",
+		"leaveStart": "تاريخ البدء",
+		"leaveEnd": "تاريخ العودة",
+		"leaveType": "نوع الأجازة",
+		"medicalAttachments": "ملحقات طبية",
+		"save": "حفظ",
+		"errors": {
+			"employeeRequired": "يرجى اختيار الموظف",
+			"leaveTypeRequired": "يرجى اختيار نوع الأجازة",
+			"validLeaveDays": "يرجى إدخال عدد أيام صالح",
+			"leaveStartRequired": "يرجى اختيار تاريخ البدء",
+			"leaveEndRequired": "يرجى اختيار تاريخ العودة",
+			"endDateAfterStart": "تاريخ العودة يجب أن يكون بعد تاريخ البدء",
+			"validDeduction": "يرجى إدخال قيمة خصم صالحة"
+		}
+	},
+	"attendance": {
+		"title": "سجل الحضور",
+		"save": "حفظ التغييرات",
+		"columns": {
+			"date": "التاريخ",
+			"employee": "الموظف",
+			"check_in": "تسجيل دخول",
+			"check_out": "تسجيل خروج",
+			"notes": "ملاحظات",
+			"deduction": "خصم"
+		}
+	},
+	"breakTime": {
+		"title": "سجل وقت الراحة",
+		"form": {
+			"title": "راحة",
+			"employee": "الموظف",
+			"from": "بداية",
+			"to": "الي",
+			"actualEnd": "وقت الأنتهاء الفعلي",
+			"save": "حفظ",
+			"deduction": "الخصم",
+			"add": " راحة"
+		},
+		"validation": {
+			"employeeRequired": "يرجى اختيار الموظف",
+			"fromRequired": "يرجى اختيار وقت البداية",
+			"actualEndRequired": "يرجى اختيار وقت الانتهاء"
+		},
+		"columns": {
+			"date": "التاريخ",
+			"employee": "الموظف",
+			"from": "من",
+			"to": "الي",
+			"actual_end": "وقت الأنتهاء الفعلي",
+			"deduction": "الخصم"
+		}
+	},
+	"employeeForm": {
+		"title": "بيانات موظف",
+		"subtitle": {
+			"edit": "تعديل بيانات الموظف",
+			"add": "إضافة موظف جديد"
+		},
+		"loading": "Loading employee data...",
+		"fields": {
+			"employee": "الاسم",
+			"phoneNumber": "رقم الهاتف",
+			"address": "العنوان",
+			"birthDate": "تاريخ الميلاد",
+			"qualification": "المؤهل",
+			"position": "الوظيفة",
+			"net_salary": "صافي المرتب",
+			"extras": "بدلات",
+			"date": "تاريخ بدء العمل",
+			"netSalary": "اجمالي الراتب",
+			"work_nature": "طبيعة العمل",
+			"work_nature_placeholder": "اختر طبيعة العمل",
+			"work_nature_options": {
+				"full_time": "دوام كامل",
+				"part_time": "دوام جزئي",
+				"varied": "متنوع"
+			}
+		},
+		"buttons": {
+			"update": "تحديث البيانات",
+			"save": "حفظ",
+			"attachments": "الملحقات"
+		},
+		"validation": {
+			"employee_required": "الاسم مطلوب",
+			"birthDate_required": "تاريخ الميلاد مطلوب",
+			"qualification_required": "المؤهل مطلوب",
+			"position_required": "الوظيفة مطلوبة",
+			"net_salary_required": "الراتب مطلوب",
+			"net_salary_positive": "يجب أن يكون الراتب قيمة موجبة",
+			"date_required": "تاريخ بدء العمل مطلوب",
+			"work_nature_required": "طبيعة العمل مطلوبة",
+			"extras_required": "البدلات مطلوبة"
+		},
+		"leave": {
+			"header": {
+				"total": "رصيد الأجازات الكلي",
+				"regular": "رصيد الإجازة الاعتيادية",
+				"emergency": "رصيد الإجازة العارضة",
+				"sick": "عدد الأيام المرضي",
+				"continuous_absence": "الغياب المتصل",
+				"separate_absence": "الغياب المنفصل"
+			},
+			"days_count": "عدد الأيام",
+			"buttons": {
+				"save": "حفظ"
+			},
+			"policy": {
+				"intro": "-رصيد الأجازات الكلي المسموحه للموظف",
+				"total_days": "40 يوم",
+				"divided_into": "منقسم الى",
+				"regular_days": "21 يوم اعتيادي",
+				"and": "و",
+				"emergency_days": "7 ايام عارضة",
+				"sick_days": "12 يوم مرضي",
+				"exceed_notice": "-في حالة تخطي عدد ايام الأجازة المسموح بها يتم تطبيق الخصم على حسب نظام الشركة",
+				"absence_intro": "-في حالةغياب الموظف",
+				"continuous_absence": "15 يوم متصلة",
+				"or": "او",
+				"separate_absence": "30 يوم منفصلة",
+				"termination_notice": "يتم اتخاذ اجراءات الفصل في اليوم الأخير"
+			}
+		}
+	},
+	"salaries": {
+		"title": "تفاصيل المرتب",
+		"hours": "ساعات الدوام",
+		"of": "من",
+		"form": {
+			"title": "تفاصيل المرتب",
+			"employee": "الموظف",
+			"date": "التاريخ",
+			"amount": "المبلغ",
+			"save": "حفظ"
+		},
+		"columns": {
+			"date": "التاريخ",
+			"type": "نوع الحركة",
+			"amount": "المبلغ",
+			"reason": "السبب"
+		}
+	},
+	"employeeData": {
+		"title": "بيانات موظف",
+		"filter": {
+			"employee": "الموظف",
+			"date": "التاريخ",
+			"all": "الكل"
+		}
+	},
+	"attendanceEmployeeData": {
+		"title": "سجلات حضور",
+		"form": {
+			"title": "تسجيل حضور",
+			"employee": "الموظف",
+			"date": "التاريخ",
+			"checkIn": "تسجيل دخول",
+			"checkOut": "تسجيل خروج",
+			"save": "حفظ"
+		},
+		"columns": {
+			"date": "التاريخ",
+			"checkIn": "تسجيل دخول",
+			"checkOut": "تسجيل خروج",
+			"breakTime": "الراحة",
+			"permission": "أذن",
+			"hoursWorked": "عدد الساعات",
+			"workLocation": "موقع الدوام"
+		}
+	},
+	"warningPopup":{
+		"disciplinaryActions": "إجراءات تأديبية",
+		"employeeName": "اسم الموظف",
+		"warningType": "نوع الإنذار",
+		"fromDate": "من تاريخ",
+		"toDate": "إلى تاريخ",
+		"save": "حفظ",
+		"warningTypes": {
+			"warning": "تنبيه",
+			"suspension": "إيقاف عن العمل",
+			"termination": "إنهاء خدمة"
+		}
+	}
+}

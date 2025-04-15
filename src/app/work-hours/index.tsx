@@ -10,12 +10,16 @@ import {
 	useUpdateWorkHours,
 	useWorkHours,
 } from "./useWorkHours";
+import { useTypedTranslation } from "../hooks/useTypedTranslation";
+
 export default function EmployeeManagement({
 	saveHandler,
 }: {
 	saveHandler?: any;
 }) {
-	const { data: workHours, isLoading, error } = useWorkHours();
+	const { t } = useTypedTranslation();
+
+	const { data: workHours, isLoading } = useWorkHours();
 	const { mutate: toggleWorkDay, isPending: toggleWorkDayPending } =
 		useToggleWorkDay();
 	const { mutate: updateWorkHours, isPending: updateWorkHoursPending } =
@@ -25,7 +29,6 @@ export default function EmployeeManagement({
 
 	const [pendingChanges, setPendingChanges] = useState<Record<string, any>>({});
 
-	// Function to handle changes in state
 	const handleChange = (day: string, field: string, value: any) => {
 		setPendingChanges((prev) => ({
 			...prev,
@@ -36,7 +39,6 @@ export default function EmployeeManagement({
 		}));
 	};
 
-	// Function to save changes
 	const handleSave = () => {
 		Object.entries(pendingChanges).forEach(([day, changes]: any) => {
 			if (changes.is_active !== undefined) {
@@ -66,12 +68,12 @@ export default function EmployeeManagement({
 	const columns = [
 		{
 			accessorKey: "day",
-			header: "اليوم",
+			header: t("workHours.columns.day"),
 			enableSorting: false,
 		},
 		{
 			accessorKey: "is_active",
-			header: "دوام",
+			header: t("workHours.columns.is_active"),
 			cell: ({ row }: any) => (
 				<Switch
 					checked={
@@ -86,7 +88,7 @@ export default function EmployeeManagement({
 		},
 		{
 			accessorKey: "start_time",
-			header: "بداية الدوام",
+			header: t("workHours.columns.start_time"),
 			cell: ({ row }: any) => (
 				<input
 					type="time"
@@ -102,7 +104,7 @@ export default function EmployeeManagement({
 		},
 		{
 			accessorKey: "end_time",
-			header: "انتهاء الدوام",
+			header: t("workHours.columns.end_time"),
 			cell: ({ row }: any) => (
 				<input
 					type="time"
@@ -117,7 +119,7 @@ export default function EmployeeManagement({
 		},
 		{
 			accessorKey: "break_hours",
-			header: "الراحه",
+			header: t("workHours.columns.break_hours"),
 			cell: ({ row }: any) => (
 				<input
 					type="number"
@@ -145,7 +147,7 @@ export default function EmployeeManagement({
 				}
 				columns={columns}
 				data={workHours}
-				title="ساعات الدوام"
+				title={t("workHours.title")}
 			/>
 			<Button
 				type="submit"
@@ -156,7 +158,7 @@ export default function EmployeeManagement({
 				}}
 				disabled={Object.keys(pendingChanges).length === 0 && !saveHandler}
 			>
-				حفظ التغييرات
+				{t("workHours.save")}
 			</Button>
 		</div>
 	);

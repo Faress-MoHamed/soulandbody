@@ -25,6 +25,11 @@ import SelectableComponent from "@/components/selectableComponent";
 import { useDeductions } from "./useDeductions";
 import { useSalaries } from "./useSalaries";
 import ReusableTable from "@/components/ReusableTable";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
+import { useTypedTranslation } from "../hooks/useTypedTranslation";
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
+import CustomSelect from "@/components/customSelect";
+import CustomInput from "@/components/customInput";
 
 const employees = [
 	"أحمد محمود",
@@ -35,14 +40,14 @@ const employees = [
 ];
 const leaveTypes = ["عادية", "مرضية", "طارئة"];
 
-type FormDataType = {
+type DeductionFormType = {
 	employee: string;
-	leaveType: string;
-	leaveDays: string;
-	leaveStart: string;
-	leaveEnd: string;
-	deduction: string;
+	date: string;
+	type: string;
+	amount: string;
+	reason: string;
 };
+
 type SalaryFormType = {
 	employee: string;
 	date: string;
@@ -51,14 +56,9 @@ type SalaryFormType = {
 	allowances: string;
 	totalSalary: string;
 };
-interface DeductionFormType {
-	date: string;
-	employee: string;
-	type: string;
-	amount: string;
-	reason: string;
-}
+
 const LeaveForm = () => {
+	const { t } = useTypedTranslation();
 	const [formData, setFormData] = useState<DeductionFormType>({
 		date: "",
 		employee: "",
@@ -70,17 +70,16 @@ const LeaveForm = () => {
 
 	const validateForm = () => {
 		let newErrors: Partial<DeductionFormType> = {};
-
-		if (!formData.date) newErrors.date = "يرجى اختيار التاريخ";
-		if (!formData.employee) newErrors.employee = "يرجى اختيار الموظف";
-		if (!formData.type) newErrors.type = "يرجى اختيار نوع الحركة";
+		if (!formData.date) newErrors.date = t("errors.requiredField");
+		if (!formData.employee) newErrors.employee = t("errors.requiredField");
+		if (!formData.type) newErrors.type = t("errors.requiredField");
 		if (
 			!formData.amount ||
 			isNaN(Number(formData.amount)) ||
 			Number(formData.amount) <= 0
 		)
-			newErrors.amount = "يرجى إدخال مبلغ صحيح";
-		if (!formData.reason) newErrors.reason = "يرجى إدخال السبب";
+			newErrors.amount = t("errors.invalidAmount");
+		if (!formData.reason) newErrors.reason = t("errors.requiredField");
 
 		setErrors(newErrors);
 		return Object.keys(newErrors).length === 0;
@@ -90,7 +89,6 @@ const LeaveForm = () => {
 		e.preventDefault();
 		if (validateForm()) {
 			console.log("Form submitted", formData);
-			// Handle submit
 		}
 	};
 
@@ -99,118 +97,65 @@ const LeaveForm = () => {
 	};
 
 	return (
-		<CustomCard
-			title="الحركات المالية لشئون الموظفين"
-			width={1010}
-			height={400}
-			className={`lg:w-[1010px] lg:h-[350px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
-			// className="lg:w-[1010px] w-[350px] md:h-auto overflow-auto md:min-h-[350px] h-[30%]"
-			Content={
-				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-					<div className="grid lg:grid-cols-3 gap-4">
-						{" "}
-						{/* Employee */}
-						<div>
-							<label>الموظف</label>
-							<Select
-								dir="rtl"
-								value={formData.employee}
-								onValueChange={(val) => handleChange("employee", val)}
-							>
-								<SelectTrigger className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex  w-full ">
-									{" "}
-									<SelectValue placeholder="اختر الموظف" />
-								</SelectTrigger>
-								<SelectContent>
-									{employees.map((emp) => (
-										<SelectItem key={emp} value={emp}>
-											{emp}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
-							{errors.employee && (
-								<span className="text-red-500">{errors.employee}</span>
-							)}
-						</div>
-						{/* Date */}
-						<div>
-							<label>التاريخ</label>
-							<Input
-								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-								type="date"
-								value={formData.date}
-								onChange={(e) => handleChange("date", e.target.value)}
-								// className="form-input"
-							/>
-							{errors.date && (
-								<span className="text-red-500">{errors.date}</span>
-							)}
-						</div>
-						{/* Type */}
-						<div>
-							<label>نوع الحركة</label>
-							<Select
-								dir="rtl"
-								value={formData.type}
-								onValueChange={(val) => handleChange("type", val)}
-							>
-								<SelectTrigger className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4  bg-white border-[#D9D9D9] placeholder:text-black text-right flex  w-full ">
-									{" "}
-									<SelectValue placeholder="اختر النوع" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectItem value="خصم">خصم</SelectItem>
-									<SelectItem value="سلفة">سلفة</SelectItem>
-								</SelectContent>
-							</Select>
-							{errors.type && (
-								<span className="text-red-500">{errors.type}</span>
-							)}
-						</div>
-						{/* Amount */}
-						<div>
-							<label>المبلغ</label>
-							<Input
-								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-								type="number"
-								value={formData.amount}
-								onChange={(e) => handleChange("amount", e.target.value)}
-							/>
-							{errors.amount && (
-								<span className="text-red-500">{errors.amount}</span>
-							)}
-						</div>
-						{/* Reason */}
-						<div>
-							<label>السبب</label>
-							<Input
-								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-								type="text"
-								value={formData.reason}
-								onChange={(e) => handleChange("reason", e.target.value)}
-							/>
-							{errors.reason && (
-								<span className="text-red-500">{errors.reason}</span>
-							)}
-						</div>
-						<div className="pt-6 flex ">
-							<Button
-								type="submit"
-								className="text-white bg-[#16C47F] p-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none"
-							>
-								حفظ
-							</Button>
-						</div>
-					</div>
-				</form>
-			}
-		/>
+		<Card className="p-6">
+			<CardTitle>{t("financial.transactionsTitle")}</CardTitle>
+			{/* <form onSubmit={handleSubmit}> */}
+			<CardContent className="grid grid-cols-3 gap-4">
+				{/* Employee Field */}
+				<CustomSelect
+					label={t("financial.employee")}
+					placeholder={t("financial.employee")}
+					options={employees}
+					error={errors.employee}
+				/>
+
+				<CustomInput
+					onChange={(e) => handleChange("date", e.target.value)}
+					value={formData.date}
+					label={t("financial.date")}
+					error={errors.date}
+				/>
+				<CustomSelect
+					label={t("financial.type")}
+					placeholder={t("financial.advance")}
+					options={employees}
+					value={formData.type}
+					onValueChange={(val) => handleChange("type", val)}
+					error={errors.type}
+				/>
+				<CustomInput
+					type="number"
+					value={formData.amount}
+					onChange={(e) => handleChange("amount", e.target.value)}
+					label={t("financial.amount")}
+					error={errors.amount}
+				/>
+				<CustomInput
+					type="text"
+					value={formData.reason}
+					onChange={(e) => handleChange("reason", e.target.value)}
+					label={t("financial.reason")}
+					error={errors.reason}
+				/>
+				{/* Submit Button */}
+			</CardContent>
+			{/* </form> */}
+			<CardFooter>
+				<div className="pt-6 flex">
+					<Button
+						type="submit"
+						className="text-white bg-[#16C47F] p-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none"
+					>
+						{t("financial.submit")}
+					</Button>
+				</div>
+			</CardFooter>
+		</Card>
 	);
 };
 
 function SalariesForm() {
+	const { t } = useTypedTranslation();
 	const [formData, setFormData] = useState<SalaryFormType>({
 		employee: "",
 		date: "",
@@ -223,33 +168,32 @@ function SalariesForm() {
 
 	const validateForm = (): boolean => {
 		let newErrors: Partial<SalaryFormType> = {};
-
-		if (!formData.employee) newErrors.employee = "يرجى اختيار الموظف";
-		if (!formData.date) newErrors.date = "يرجى اختيار التاريخ";
+		if (!formData.employee) newErrors.employee = t("errors.requiredField");
+		if (!formData.date) newErrors.date = t("errors.requiredField");
 		if (
 			!formData.netSalary ||
 			isNaN(Number(formData.netSalary)) ||
 			Number(formData.netSalary) < 0
 		)
-			newErrors.netSalary = "يرجى إدخال صافي راتب صالح";
+			newErrors.netSalary = t("errors.invalidAmount");
 		if (
 			!formData.extras ||
 			isNaN(Number(formData.extras)) ||
 			Number(formData.extras) < 0
 		)
-			newErrors.extras = "يرجى إدخال قيمة زيادات صالحة";
+			newErrors.extras = t("errors.invalidAmount");
 		if (
 			!formData.allowances ||
 			isNaN(Number(formData.allowances)) ||
 			Number(formData.allowances) < 0
 		)
-			newErrors.allowances = "يرجى إدخال قيمة بدلات صالحة";
+			newErrors.allowances = t("errors.invalidAmount");
 		if (
 			!formData.totalSalary ||
 			isNaN(Number(formData.totalSalary)) ||
 			Number(formData.totalSalary) < 0
 		)
-			newErrors.totalSalary = "يرجى إدخال إجمالي راتب صالح";
+			newErrors.totalSalary = t("errors.invalidAmount");
 
 		setErrors(newErrors);
 		return Object.keys(newErrors).length === 0;
@@ -263,83 +207,49 @@ function SalariesForm() {
 		e.preventDefault();
 		if (validateForm()) {
 			console.log("Salary Form Submitted", formData);
-			// Handle salary submission logic here
 		}
 	};
-
 	return (
-		<CustomCard
-			title="رواتب موظفين"
-			ButtonTitle="ارسال الرواتب"
-			className={`lg:w-[1010px] lg:h-[450px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
-			Content={
+		<Card className="p-6">
+			<CardTitle>{t("financial.salaryTitle")}</CardTitle>
+			<CardContent>
 				<form onSubmit={handleSubmit} className="flex flex-col gap-4 lg:pl-6">
 					<div className="grid lg:grid-cols-3 grid-cols-1 items-center gap-4">
-						{/* Employee Select */}
-						<div className="flex flex-col gap-2 w-[200px]">
-							<label>الموظف</label>
-							<Select
-								dir="rtl"
-								value={formData.employee}
-								onValueChange={(value) => handleChange("employee", value)}
-							>
-								<SelectTrigger className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex">
-									<SelectValue placeholder="اختر الموظف" />
-								</SelectTrigger>
-								<SelectContent>
-									{employees.map((el) => (
-										<SelectItem key={el} value={el}>
-											{el}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
-							{errors.employee && (
-								<span className="text-red-500">{errors.employee}</span>
-							)}
-						</div>
+						{/* Employee Field */}
+						<CustomSelect
+							label={t("financial.employee")}
+							className=""
+							value={formData.employee}
+							onValueChange={(value) => handleChange("employee", value)}
+							options={employees}
+							placeholder={t("financial.employee")}
+						/>
+						<CustomInput
+							label={t("financial.date")}
+							type="date"
+							value={formData.date}
+							wrapperClassName=""
+							onChange={(e) => handleChange("date", e.target.value)}
+							error={errors.date}
+						/>
 
-						{/* Date Input */}
-						<div className="flex flex-col gap-1 min-w-[200px] w-full">
-							<label>التاريخ</label>
-							<Input
-								type="date"
-								value={formData.date}
-								onChange={(e) => handleChange("date", e.target.value)}
-								className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
-							/>
-							{errors.date && (
-								<span className="text-red-500">{errors.date}</span>
-							)}
-						</div>
-
-						{/* Salary Inputs */}
+						{/* Salary Fields */}
 						{[
-							{ label: "صافي المرتب", field: "netSalary" },
-							{ label: "زيادات", field: "extras" },
-							{ label: "بدلات", field: "allowances" },
-							{ label: "اجمالي المرتب", field: "totalSalary" },
+							{ label: t("financial.netSalary"), field: "netSalary" },
+							{ label: t("financial.extras"), field: "extras" },
+							{ label: t("financial.allowances"), field: "allowances" },
+							{ label: t("financial.totalSalary"), field: "totalSalary" },
 						].map(({ label, field }) => (
-							<div
-								key={field}
-								className="flex flex-col gap-1 min-w-[200px] w-full"
-							>
-								<label>{label}</label>
-								<Input
-									type="number"
-									value={formData[field as keyof SalaryFormType]}
-									onChange={(e) =>
-										handleChange(field as keyof SalaryFormType, e.target.value)
-									}
-									className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right"
-								/>
-								{errors[field as keyof SalaryFormType] && (
-									<span className="text-red-500">
-										{errors[field as keyof SalaryFormType]}
-									</span>
-								)}
-							</div>
+							<CustomInput
+								label={label}
+								type="number"
+								value={formData[field as keyof SalaryFormType]}
+								onChange={(e) =>
+									handleChange(field as keyof SalaryFormType, e.target.value)
+								}
+								wrapperClassName=""
+								error={errors[field as keyof SalaryFormType]}
+							/>
 						))}
 					</div>
 
@@ -349,103 +259,93 @@ function SalariesForm() {
 							type="submit"
 							className="text-white bg-[#16C47F] p-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none"
 						>
-							حفظ
+							{t("financial.submit")}
 						</Button>
 					</div>
 				</form>
-			}
-		/>
+			</CardContent>
+		</Card>
 	);
 }
 
-function Deduction() {
-	const {
-		data: deductionData,
-		isLoading: deductionLoading,
-		error: deductionError,
-	} = useDeductions();
-	const columns = [
-		{ accessorKey: "date", header: "التاريخ" },
-		{ accessorKey: "employee", header: "الموظف" },
-		{ accessorKey: "type", header: "نوع الحركة" },
-		{ accessorKey: "amount", header: "المبلغ" },
-		{ accessorKey: "reason", header: "السبب" },
+export default function Page() {
+	const { t } = useTypedTranslation();
+	const { data: salaryData, isLoading: salaryLoading } = useSalaries();
+	const { data: deductionData, isLoading: deductionLoading } = useDeductions();
+
+	const salaryColumns = [
+		{ accessorKey: "date", header: t("financial.date") },
+		{ accessorKey: "employee", header: t("financial.employee") },
+		{ accessorKey: "salary", header: t("financial.salary") },
+		{ accessorKey: "net_salary", header: t("financial.netSalary") },
+		{ accessorKey: "extras", header: t("financial.extras") },
+		{ accessorKey: "allowances", header: t("financial.allowances") },
 	];
+
+	const deductionColumns = [
+		{ accessorKey: "date", header: t("financial.date") },
+		{ accessorKey: "employee", header: t("financial.employee") },
+		{ accessorKey: "type", header: t("financial.type") },
+		{ accessorKey: "amount", header: t("financial.amount") },
+		{ accessorKey: "reason", header: t("financial.reason") },
+	];
+
 	const distinctEmployees = [
+		...new Set(salaryData?.map((el: any) => el?.employee)),
+	];
+	const distinctDeductionEmployees = [
 		...new Set(deductionData?.map((el: any) => el?.employee)),
 	];
 
 	return (
 		<>
-			<ReusableTable
-				columns={columns}
-				data={deductionData ?? []}
-				employees={distinctEmployees}
-				withActionButtons={false}
-				loading={deductionLoading}
-				// error={deductionError}
-				ButtonTrigger={() => (
-					<CustomPopUp
-						DialogTriggerComponent={() => {
-							return (
-								<AddButton
-									onClickAdd={() => {}}
-									AddTitle=" حركة حسابية جديدة"
-								/>
-							);
-						}}
-						DialogContentComponent={() => <LeaveForm />}
-					/>
-				)}
-			/>
-		</>
-	);
-}
-function Salaries() {
-	const { data: salaryData, isLoading: salaryLoading } = useSalaries();
-
-	const columns = [
-		{ accessorKey: "date", header: "التاريخ" },
-		{ accessorKey: "employee", header: "الموظف" },
-		{ accessorKey: "salary", header: "الراتب" },
-		{ accessorKey: "net_salary", header: "صافي المرتب" },
-		{ accessorKey: "extras", header: "زيادات" },
-		{ accessorKey: "allowances", header: "بدلات" },
-	];
-	const distinctEmployees = [
-		...new Set(salaryData?.map((el: any) => el?.employee)),
-	];
-
-	return (
-		<ReusableTable
-			columns={columns}
-			data={salaryData ?? []}
-			employees={distinctEmployees}
-			withActionButtons={false}
-			// title="الموظفين"
-			loading={salaryLoading}
-			ButtonTrigger={() => (
-				<CustomPopUp
-					DialogTriggerComponent={() => {
-						return <AddButton onClickAdd={() => {}} AddTitle="اضافة راتب" />;
-					}}
-					DialogContentComponent={() => <SalariesForm />}
-				/>
-			)}
-		/>
-	);
-}
-
-export default function Page() {
-	return (
-		<>
-			<h2 className="text-[26px] font-bold">سجل الحركات</h2>
-			<SelectableComponent
-				contentClassName="border-2 p-6 mt-0 "
-				items={[
-					{ label: "خصم واضافة", component: <Deduction /> },
-					{ label: "مرتبات", component: <Salaries /> },
+			<h2 className="text-[26px] font-bold">
+				{t("financial.transactionsTitle")}
+			</h2>
+			<ReusableManyTable
+				dataSets={[
+					{
+						label: t("financial.salaries"),
+						columns: salaryColumns,
+						data: salaryData ?? [],
+						employees: distinctEmployees,
+						withActionButtons: false,
+						loading: salaryLoading,
+						ButtonTrigger: () => (
+							<CustomPopUp
+								DialogTriggerComponent={() => (
+									<AddButton
+										onClickAdd={() => {}}
+										AddTitle={t("financial.addSalary")}
+									/>
+								)}
+								DialogContentComponent={() => <SalariesForm />}
+							/>
+						),
+						withPrinter: true,
+					},
+					{
+						label: t("financial.deductions"),
+						columns: deductionColumns,
+						data: (deductionData as any) ?? [],
+						employees: distinctDeductionEmployees,
+						withActionButtons: false,
+						loading: deductionLoading,
+						ButtonTrigger: () => (
+							<CustomPopUp
+								DialogTriggerComponent={() => (
+									<AddButton
+										onClickAdd={() => {}}
+										AddTitle={t("financial.addTransaction")}
+									/>
+								)}
+								DialogContentComponent={() => <LeaveForm />}
+							/>
+						),
+						withPrinter: true,
+					},
 				]}
+				withTopPrinter={false}
 			/>
 		</>
 	);

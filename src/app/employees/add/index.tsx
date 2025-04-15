@@ -17,171 +17,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import LoadingIndicator from "@/components/loadingIndicator";
 import { Suspense, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-
-// Validation schema using Yup
-const EmployeeSchema = Yup.object().shape({
-	employee: Yup.string().required("الاسم مطلوب"),
-	birthDate: Yup.date().required("تاريخ الميلاد مطلوب"),
-	qualification: Yup.string().required("المؤهل مطلوب"),
-	position: Yup.string().required("الوظيفة مطلوبة"),
-	net_salary: Yup.number()
-		.required("الراتب مطلوب")
-		.positive("يجب أن يكون الراتب قيمة موجبة"),
-	date: Yup.date().required("تاريخ بدء العمل مطلوب"),
-	work_nature: Yup.string().required("طبيعة العمل مطلوبة"),
-	extras: Yup.string().required("البدلات مطلوبة"),
-});
-
-const SickLeave = () => {
-	return (
-		<Card className="flex flex-col   bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
-			<CardHeader className="flex flex-row items-center justify-between ">
-				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
-					عدد الأيام المرضي
-				</CardTitle>
-			</CardHeader>
-						<CardContent className="flex md:flex-row flex-col items-end gap-4">
-
-				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
-					<label>عدد ايام</label>
-					<Input
-						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
-						type="number"
-					/>
-				</div>
-				<div>
-					<Button
-						type="submit"
-						// ref={buttonRef}
-						className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]"
-					>
-						{"حفظ"}
-					</Button>
-				</div>
-			</CardContent>
-		</Card>
-	);
-};
-const TotalLeave = () => {
-	return (
-		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
-			<CardHeader className="flex flex-row items-center justify-between">
-				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
-					رصيد الأجازات الكلي
-				</CardTitle>
-			</CardHeader>
-						<CardContent className="flex md:flex-row flex-col items-end gap-4">
-
-				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
-					<label>عدد الأيام</label>
-					<Input
-						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
-						type="number"
-					/>
-				</div>
-				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
-					حفظ
-				</Button>
-			</CardContent>
-		</Card>
-	);
-};
-const RegularLeave = () => {
-	return (
-		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
-			<CardHeader className="flex flex-row items-center justify-between">
-				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
-					رصيد الإجازة الاعتيادية
-				</CardTitle>
-			</CardHeader>
-			<CardContent className="flex md:flex-row flex-col items-end gap-4">
-				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
-					<label>عدد الأيام</label>
-					<Input
-						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
-						type="number"
-					/>
-				</div>
-				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
-					حفظ
-				</Button>
-			</CardContent>
-		</Card>
-	);
-};
-const EmergencyLeave = () => {
-	return (
-		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
-			<CardHeader className="flex flex-row items-center justify-between">
-				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
-					رصيد الإجازة العارضة
-				</CardTitle>
-			</CardHeader>
-						<CardContent className="flex md:flex-row flex-col items-end gap-4">
-
-				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
-					<label>عدد الأيام</label>
-					<Input
-						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
-						type="number"
-					/>
-				</div>
-				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
-					حفظ
-				</Button>
-			</CardContent>
-		</Card>
-	);
-};
-const ContinuousAbsence = () => {
-	return (
-		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
-			<CardHeader className="flex flex-row items-center justify-between">
-				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
-					الغياب المتصل
-				</CardTitle>
-			</CardHeader>
-						<CardContent className="flex md:flex-row flex-col items-end gap-4">
-
-				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
-					<label>عدد الأيام</label>
-					<Input
-						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
-						type="number"
-					/>
-				</div>
-				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
-					حفظ
-				</Button>
-			</CardContent>
-		</Card>
-	);
-};
-const SeparateAbsence = () => {
-	return (
-		<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
-			<CardHeader className="flex flex-row items-center justify-between">
-				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
-					الغياب المنفصل
-				</CardTitle>
-			</CardHeader>
-						<CardContent className="flex md:flex-row flex-col items-end gap-4">
-
-				<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
-					<label>عدد الأيام</label>
-					<Input
-						className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
-						type="number"
-					/>
-				</div>
-				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
-					حفظ
-				</Button>
-			</CardContent>
-		</Card>
-	);
-};
-
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation"; // Import the translation hook
 
 export default function EmployeesForm({
 	employeeId,
@@ -194,8 +30,7 @@ export default function EmployeesForm({
 	withTitle?: boolean;
 	withEmployeeManagement?: boolean;
 }) {
-	// const searchParams = useSearchParams();
-	// const employeeId = searchParams.get("id");
+	const { t } = useTypedTranslation(); // Use the translation hook
 	const router = useRouter();
 	const [navigateLoading, setNavigateLoading] = useState(false);
 	const [selectedWorkNature, setSelectedWorkNature] = useState("");
@@ -205,16 +40,191 @@ export default function EmployeesForm({
 		useUpdateEmployee();
 	const { data: employee, isLoading } = useEmployee(employeeId ?? "");
 	const buttonRef = useRef(null);
-	// Loading state for existing employee
-	if (employeeId && isLoading) return <p>Loading employee data...</p>;
+
+	// Validation schema using Yup
+	const EmployeeSchema = Yup.object().shape({
+		employee: Yup.string().required(
+			t("employeeForm.validation.employee_required")
+		),
+		birthDate: Yup.date().required(
+			t("employeeForm.validation.birthDate_required")
+		),
+		qualification: Yup.string().required(
+			t("employeeForm.validation.qualification_required")
+		),
+		position: Yup.string().required(
+			t("employeeForm.validation.position_required")
+		),
+		net_salary: Yup.number()
+			.required(t("employeeForm.validation.net_salary_required"))
+			.positive(t("employeeForm.validation.net_salary_positive")),
+		date: Yup.date().required(t("employeeForm.validation.date_required")),
+		work_nature: Yup.string().required(
+			t("employeeForm.validation.work_nature_required")
+		),
+		extras: Yup.string().required(t("employeeForm.validation.extras_required")),
+	});
+
+	if (employeeId && isLoading) return <p>{t("employeeForm.loading")}</p>;
+
+	const SickLeave = () => {
+		return (
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+				<CardHeader className="flex flex-row items-center justify-between">
+					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+						{t("employeeForm.leave.header.sick")}
+					</CardTitle>
+				</CardHeader>
+				<CardContent className="flex md:flex-row flex-col items-end gap-4">
+					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+						<label>{t("employeeForm.leave.days_count")}</label>
+						<Input
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right justify-end"
+							type="number"
+						/>
+					</div>
+					<div>
+						<Button
+							type="submit"
+							className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]"
+						>
+							{t("employeeForm.leave.buttons.save")}
+						</Button>
+					</div>
+				</CardContent>
+			</Card>
+		);
+	};
+
+	const TotalLeave = () => {
+		return (
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+				<CardHeader className="flex flex-row items-center justify-between">
+					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+						{t("employeeForm.leave.header.total")}
+					</CardTitle>
+				</CardHeader>
+				<CardContent className="flex md:flex-row flex-col items-end gap-4">
+					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+						<label>{t("employeeForm.leave.days_count")}</label>
+						<Input
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							type="number"
+						/>
+					</div>
+					<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+						{t("employeeForm.leave.buttons.save")}
+					</Button>
+				</CardContent>
+			</Card>
+		);
+	};
+	const RegularLeave = () => {
+		return (
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+				<CardHeader className="flex flex-row items-center justify-between">
+					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+						<label>{t("employeeForm.leave.header.regular")}</label>
+					</CardTitle>
+				</CardHeader>
+				<CardContent className="flex md:flex-row flex-col items-end gap-4">
+					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+						<label>{t("employeeForm.leave.days_count")}</label>
+						<Input
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							type="number"
+						/>
+					</div>
+					<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+						{t("employeeForm.leave.buttons.save")}
+					</Button>
+				</CardContent>
+			</Card>
+		);
+	};
+	const ContinuousAbsence = () => {
+		return (
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+				<CardHeader className="flex flex-row items-center justify-between">
+					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+						<label>{t("employeeForm.leave.header.continuous_absence")}</label>
+					</CardTitle>
+				</CardHeader>
+				<CardContent className="flex md:flex-row flex-col items-end gap-4">
+					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+						<label>{t("employeeForm.leave.days_count")}</label>
+						<Input
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							type="number"
+						/>
+					</div>
+					<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+						{t("employeeForm.leave.buttons.save")}
+					</Button>
+				</CardContent>
+			</Card>
+		);
+	};
+	const SeparateAbsence = () => {
+		return (
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+				<CardHeader className="flex flex-row items-center justify-between">
+					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+						<label>{t("employeeForm.leave.header.separate_absence")}</label>
+					</CardTitle>
+				</CardHeader>
+				<CardContent className="flex md:flex-row flex-col items-end gap-4">
+					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+						<label>{t("employeeForm.leave.days_count")}</label>
+						<Input
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							type="number"
+						/>
+					</div>
+					<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+						{t("employeeForm.leave.buttons.save")}
+					</Button>
+				</CardContent>
+			</Card>
+		);
+	};
+	const EmergencyLeave = () => {
+		return (
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+				<CardHeader className="flex flex-row items-center justify-between">
+					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
+						{t("employeeForm.leave.header.emergency")}
+					</CardTitle>
+				</CardHeader>
+				<CardContent className="flex md:flex-row flex-col items-end gap-4">
+					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
+						<label>{t("employeeForm.leave.days_count")}</label>
+						<Input
+							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
+							type="number"
+						/>
+					</div>
+					<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
+						{t("employeeForm.leave.buttons.save")}
+					</Button>
+				</CardContent>
+			</Card>
+		);
+	};
+	// Similarly update RegularLeave, EmergencyLeave, ContinuousAbsence, and SeparateAbsence components
+	// with t() function for translations...
 
 	return (
 		<div className="space-y-2">
 			{withTitle && (
 				<>
-					<p className="text-2xl font-bold mb-4 text-right">بيانات موظف</p>
-					<h1 className="text-2xl  text-right">
-						{employeeId ? "تعديل بيانات الموظف" : "إضافة موظف جديد"}
+					<p className="text-2xl font-bold mb-4 text-start">
+						{t("employeeForm.title")}
+					</p>
+					<h1 className="text-2xl text-start">
+						{employeeId
+							? t("employeeForm.subtitle.edit")
+							: t("employeeForm.subtitle.add")}
 					</h1>
 				</>
 			)}
@@ -235,10 +245,9 @@ export default function EmployeesForm({
 								work_nature: employee?.work_nature || "",
 								extras: employee?.extras || "",
 							}}
-							enableReinitialize={true} // Update values when `employee` changes
+							enableReinitialize={true}
 							validationSchema={EmployeeSchema}
 							onSubmit={async (values, { resetForm }) => {
-								// Convert all values to strings
 								const stringifiedValues = Object.fromEntries(
 									Object.entries(values).map(([key, value]) => [
 										key,
@@ -247,19 +256,17 @@ export default function EmployeesForm({
 								);
 
 								if (employeeId) {
-									// Update existing employee
 									await updateEmployee({
 										id: Number(employeeId),
 										employee: stringifiedValues,
 									});
 								} else {
-									// Create new employee
 									await createEmployee(stringifiedValues);
 								}
 
 								setNavigateLoading(true);
 								resetForm();
-								router.push("/employees"); // Redirect after submission
+								router.push("/employees");
 							}}
 						>
 							{({ handleSubmit }) => (
@@ -274,44 +281,49 @@ export default function EmployeesForm({
 													type="button"
 													className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-md px-4 py-2"
 												>
-													{"الملحقات"}
+													{t("employeeForm.buttons.attachments")}
 												</Button>
 											)}
 											DialogContentComponent={() => (
-												<CustomCard
-													withButton={false}
-													width={556}
-													height={450}
-													className={`lg:w-[600px] lg:h-[450px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
-													Content={<FileUpload />}
-												/>
+												<Card className="lg:w-[650px]">
+													<CardHeader>
+														{t("employeeForm.buttons.attachments")}
+													</CardHeader>
+													<CardContent className="p-6 max-h-full overflow-auto">
+														<FileUpload />
+													</CardContent>
+												</Card>
 											)}
 										/>
 									</div>
 									<div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center">
-										{/* Employee Information */}
-										{/* <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center"> */}
 										{[
-											{ name: "employee", label: "الاسم", type: "text" },
+											{
+												name: "employee",
+												label: t("employeeForm.fields.employee"),
+											},
 											{
 												name: "phoneNumber",
-												label: "رقم الهاتف",
-												type: "text",
+												label: t("employeeForm.fields.phoneNumber"),
 											},
-											{ name: "address", label: "العنوان", type: "text" },
+											{
+												name: "address",
+												label: t("employeeForm.fields.address"),
+											},
 											{
 												name: "birthDate",
-												label: "تاريخ الميلاد",
+												label: t("employeeForm.fields.birthDate"),
 												type: "date",
 											},
 											{
 												name: "qualification",
-												label: "المؤهل",
-												type: "text",
+												label: t("employeeForm.fields.qualification"),
 											},
-											{ name: "position", label: "الوظيفة", type: "text" },
-										].map(({ name, label, type }) => (
+											{
+												name: "position",
+												label: t("employeeForm.fields.position"),
+											},
+										].map(({ name, label, type = "text" }) => (
 											<div className="flex flex-col gap-2" key={name}>
 												<label className="block text-right font-semibold">
 													{label}
@@ -329,28 +341,28 @@ export default function EmployeesForm({
 												/>
 											</div>
 										))}
-										{/* </div> */}
 
-										{/* Salary & Work Info */}
-										{/* <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center"> */}
 										{[
 											{
 												name: "net_salary",
-												label: "صافي المرتب",
+												label: t("employeeForm.fields.net_salary"),
 												type: "number",
 											},
-											{ name: "extras", label: "بدلات", type: "number" },
+											{
+												name: "extras",
+												label: t("employeeForm.fields.extras"),
+												type: "number",
+											},
 											{
 												name: "date",
-												label: "تاريخ بدء العمل",
+												label: t("employeeForm.fields.date"),
 												type: "date",
 											},
 											{
 												name: "netSalary",
-												label: "اجمالي الراتب",
-												type: "text",
+												label: t("employeeForm.fields.netSalary"),
 											},
-										].map(({ name, label, type }) => (
+										].map(({ name, label, type = "text" }) => (
 											<div className="flex flex-col gap-2" key={name}>
 												<label className="block text-right font-semibold">
 													{label}
@@ -368,10 +380,10 @@ export default function EmployeesForm({
 												/>
 											</div>
 										))}
-										{/* Work Nature */}
+
 										<div className="flex flex-col gap-2">
 											<label className="block text-right font-semibold">
-												طبيعة العمل
+												{t("employeeForm.fields.work_nature")}
 											</label>
 											<Field name="work_nature">
 												{({ field, form }: any) => (
@@ -383,18 +395,27 @@ export default function EmployeesForm({
 														}}
 														className="md:min-w-[200px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border border-[#D9D9D9] text-right"
 													>
-														<option value="">اختر طبيعة العمل</option>
-														{["دوام كامل", "دوام جزئي", "متنوع"].map(
-															(el, index) => (
-																<option key={index} value={el}>
-																	{el}
-																</option>
-															)
-														)}
+														<option value="">
+															{t("employeeForm.fields.work_nature_placeholder")}
+														</option>
+														{[
+															t(
+																"employeeForm.fields.work_nature_options.full_time"
+															),
+															t(
+																"employeeForm.fields.work_nature_options.part_time"
+															),
+															t(
+																"employeeForm.fields.work_nature_options.varied"
+															),
+														].map((option: string, index: number) => (
+															<option key={index} value={option}>
+																{option}
+															</option>
+														))}
 													</select>
 												)}
 											</Field>
-
 											<ErrorMessage
 												name="work_nature"
 												component="div"
@@ -402,12 +423,16 @@ export default function EmployeesForm({
 											/>
 										</div>
 									</div>
-									{/* </div> */}
-									{/* Submit Button */}
+
 									<div
 										className={cn(
 											"text-right mt-6",
-											`${selectedWorkNature === "متنوع" ? "hidden" : ""}`
+											`${
+												selectedWorkNature ===
+												t("employeeForm.fields.work_nature_options.varied")
+													? "hidden"
+													: ""
+											}`
 										)}
 									>
 										<Button
@@ -415,12 +440,14 @@ export default function EmployeesForm({
 											ref={buttonRef}
 											className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
 										>
-											{employeeId ? "تحديث البيانات" : "حفظ"}
+											{employeeId
+												? t("employeeForm.buttons.update")
+												: t("employeeForm.buttons.save")}
 										</Button>
 									</div>
 
-									{/* Work Schedule */}
-									{selectedWorkNature === "متنوع" && (
+									{selectedWorkNature ===
+										t("employeeForm.fields.work_nature_options.varied") && (
 										<div className="mt-8">
 											<EmployeeManagement
 												saveHandler={() => {
@@ -437,93 +464,91 @@ export default function EmployeesForm({
 					</CardContent>
 				)}
 			</Card>
+
 			<ul className="pt-9 text-[18px] flex flex-col md:gap-1 gap-1">
 				<li className="flex flex-wrap">
-					-رصيد الأجازات الكلي المسموحه للموظف{" "}
+					{t("employeeForm.leave.policy.intro")}
 					<CustomPopUp
 						DialogTriggerComponent={() => (
 							<Button
 								type="button"
 								variant={"link"}
-								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
 							>
-								{"40 يوم"}
+								{t("employeeForm.leave.policy.total_days")}
 							</Button>
 						)}
 						DialogContentComponent={() => <TotalLeave />}
 					/>
-					منقسم الى
+					{t("employeeForm.leave.policy.divided_into")}
 					<CustomPopUp
 						DialogTriggerComponent={() => (
 							<Button
 								type="button"
 								variant={"link"}
-								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
 							>
-								{"21 يوم اعتيادي"}
+								{t("employeeForm.leave.policy.regular_days")}
 							</Button>
 						)}
 						DialogContentComponent={() => <RegularLeave />}
 					/>
-					و
+					{t("employeeForm.leave.policy.and")}
 					<CustomPopUp
 						DialogTriggerComponent={() => (
 							<Button
 								type="button"
 								variant={"link"}
-								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
 							>
-								7 ايام عارضة
+								{t("employeeForm.leave.policy.emergency_days")}
 							</Button>
 						)}
 						DialogContentComponent={() => <EmergencyLeave />}
 					/>
-					و
+					{t("employeeForm.leave.policy.and")}
 					<CustomPopUp
 						DialogTriggerComponent={() => (
 							<Button
 								type="button"
 								variant={"link"}
-								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
 							>
-								12 يوم مرضي
+								{t("employeeForm.leave.policy.sick_days")}
 							</Button>
 						)}
 						DialogContentComponent={() => <SickLeave />}
 					/>
 				</li>
-				<li>
-					-في حالة تخطي عدد ايام الأجازة المسموح بها يتم تطبيق الخصم على حسب
-					نظام الشركة
-				</li>
+				<li>{t("employeeForm.leave.policy.exceed_notice")}</li>
 				<li className="flex flex-wrap">
-					-في حالةغياب الموظف
+					{t("employeeForm.leave.policy.absence_intro")}
 					<CustomPopUp
 						DialogTriggerComponent={() => (
 							<Button
 								type="button"
 								variant={"link"}
-								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
 							>
-								15 يوم متصلة
+								{t("employeeForm.leave.policy.continuous_absence")}
 							</Button>
 						)}
 						DialogContentComponent={() => <ContinuousAbsence />}
-					/>{" "}
-					او{" "}
+					/>
+					{t("employeeForm.leave.policy.or")}
 					<CustomPopUp
 						DialogTriggerComponent={() => (
 							<Button
 								type="button"
 								variant={"link"}
-								className=" px-1 text-[#129D66] text-[18px] py-0 h-fit"
+								className="px-1 text-[#129D66] text-[18px] py-0 h-fit"
 							>
-								30 يوم منفصلة
+								{t("employeeForm.leave.policy.separate_absence")}
 							</Button>
 						)}
 						DialogContentComponent={() => <SeparateAbsence />}
-					/>{" "}
-					يتم اتخاذ اجراءات الفصل في اليوم الأخير
+					/>
+					{t("employeeForm.leave.policy.termination_notice")}
 				</li>
 			</ul>
 		</div>

@@ -36,7 +36,6 @@ import CustomInput from "../customInput";
 import CustomSelect from "../customSelect";
 import type { TableProps } from "../ReusableTableWithManyData/table.types";
 
-
 export default function ReusableTable<TData>({
 	columns,
 	data,
@@ -239,7 +238,7 @@ export default function ReusableTable<TData>({
 					const toggleExpand = () => {
 						toggleRow(row.id);
 						setIsAddingRow((e) => !e);
-						console.log(isAddingRow)
+						console.log(isAddingRow);
 					};
 
 					return expandedContent?.expandButton
@@ -584,7 +583,7 @@ export default function ReusableTable<TData>({
 										<path
 											d="M1.33301 5.99992H10.6663M10.6663 5.99992L5.99967 1.33325M10.6663 5.99992L5.99967 10.6666"
 											stroke="#1E1E1E"
-											stroke-width="1.6"
+											strokeWidth="1.6"
 											strokeLinecap="round"
 											strokeLinejoin="round"
 										/>
@@ -686,7 +685,7 @@ export default function ReusableTable<TData>({
 										<path
 											d="M10.6663 5.99992H1.33301M1.33301 5.99992L5.99967 10.6666M1.33301 5.99992L5.99967 1.33325"
 											stroke="#1E1E1E"
-											stroke-width="1.6"
+											strokeWidth="1.6"
 											strokeLinecap="round"
 											strokeLinejoin="round"
 										/>

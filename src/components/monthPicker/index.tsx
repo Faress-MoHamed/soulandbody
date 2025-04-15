@@ -11,6 +11,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 interface MonthPickerProps {
 	value?: Date;
@@ -57,7 +58,7 @@ export function MonthPicker({
 		const newDate = increment > 0 ? addYears(date, 1) : subYears(date, 1);
 		setDate(newDate);
 	};
-
+	const { t } = useTypedTranslation();
 	return (
 		<div className="flex flex-col gap-2">
 			{label && <label>{label}</label>}
@@ -66,7 +67,7 @@ export function MonthPicker({
 					<Button
 						variant="outline"
 						className={cn(
-							"w-[240px] justify-start text-left font-normal",
+							"	!h-[48px] lg:w-[302px] w-full bg-white justify-start text-left font-normal",
 							!date && "text-muted-foreground",
 							className
 						)}
@@ -77,7 +78,12 @@ export function MonthPicker({
 				</PopoverTrigger>
 				<PopoverContent className="w-auto p-0" align="start">
 					<div className="p-2 space-y-4">
-						<div className="flex flex-row-reverse items-center justify-between px-1">
+						<div
+							className={cn(
+								"flex items-center justify-between px-1",
+								t("dir") === "rtl" ? "flex-row-reverse " : "flex-row"
+							)}
+						>
 							<Button
 								variant="outline"
 								size="icon"

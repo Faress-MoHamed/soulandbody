@@ -1,72 +1,66 @@
 "use client";
 
 import { DashboardCard } from "@/components/dashboardCard";
-import CustomPopUp from "@/components/popups";
 import WarningPopUp from "@/components/warningPopUp";
-import Image from "next/image";
+import { useTypedTranslation } from "./hooks/useTypedTranslation";
 
 export default function Home() {
+	const { t } = useTypedTranslation();
+
 	const dashboardItems = [
 		{
-			title: "الموظفين",
+			title: t("home.employees"),
 			icon: "/icons/employee.png",
 			href: "/employees",
 		},
 		{
-			title: "بيانات موظف",
+			title: t("home.employeeData"),
 			icon: "/icons/emplyeeDetails.png",
 			href: "/employee-data",
 		},
 		{
-			title: "الدرجات المالية بشؤون الموظفين",
+			title: t("home.financialGrades"),
 			icon: "/icons/fainancalEmployeeDetails.png",
 			href: "/financial-grades",
 		},
 		{
-			title: "ساعات دوام الشركة",
+			title: t("home.workHours"),
 			icon: "/icons/jobTime.png",
 			href: "/work-hours",
 		},
 		{
-			title: "استئذان",
+			title: t("home.permission"),
 			icon: "/icons/execuse.png",
 			href: "/permission",
 		},
 		{
-			title: "وقت راحة",
+			title: t("home.breakTime"),
 			icon: "/icons/breakTime.png",
 			href: "/break-time",
 		},
 		{
-			title: "سجلات حضور",
+			title: t("home.attendance"),
 			icon: "/icons/Time.png",
 			href: "/attendance",
 		},
 		{
-			title: "إجازات",
+			title: t("home.vacations"),
 			icon: "/icons/warnings.png",
 			href: "/vacations",
 		},
 		{
-			title: "إجازات تأديبية",
+			title: t("home.disciplinaryVacations"),
 			icon: "/icons/warnings.png",
 			DialogContentComponent: () => <WarningPopUp />,
 		},
 	];
+
 	return (
 		<>
-			{/* <CustomPopUp
-				DialogTriggerComponent={() => {
-					return <p>fares</p>;
-				}}
-				DialogContentComponent={() => {
-					return <WarningPopUp/>;
-				}}
-			/> */}
 			<div className="flex flex-wrap gap-6 justify-center lg:flex-row flex-col">
 				{dashboardItems.map((item) => (
 					<DashboardCard
-						key={item.href}
+						key={item.href ?? item.title}
 						title={item.title}
 						icon={item.icon}
 						href={item.href}

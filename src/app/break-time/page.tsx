@@ -14,6 +14,12 @@ import {
 import { Button } from "@/components/ui/button";
 import CustomPopUp from "@/components/popups";
 import AddButton from "@/components/AddButton";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import CustomSelect from "@/components/customSelect";
+import CustomInput from "@/components/customInput";
+import { useTypedTranslation } from "../hooks/useTypedTranslation";
+
 const employees = [
 	"أحمد محمود",
 	"محمد علي",
@@ -21,7 +27,9 @@ const employees = [
 	"ياسر عبد الله",
 	"سعيد عمر",
 ];
+
 function BreakTimeForm() {
+	const { t } = useTypedTranslation();
 	const [formData, setFormData] = useState<Record<any, any>>({
 		employee: "",
 		from: "",
@@ -31,9 +39,11 @@ function BreakTimeForm() {
 
 	const validateForm = () => {
 		let newErrors: any = {};
-		if (!formData.employee) newErrors.employee = "يرجى اختيار الموظف";
-		if (!formData.from) newErrors.from = "يرجى اختيار وقت البداية";
-		if (!formData.actualEnd) newErrors.actualEnd = "يرجى اختيار وقت الانتهاء";
+		if (!formData.employee)
+			newErrors.employee = t("breakTime.validation.employeeRequired");
+		if (!formData.from) newErrors.from = t("breakTime.validation.fromRequired");
+		if (!formData.actualEnd)
+			newErrors.actualEnd = t("breakTime.validation.actualEndRequired");
 		setErrors(newErrors);
 		return Object.keys(newErrors).length === 0;
 	};
@@ -50,110 +60,92 @@ function BreakTimeForm() {
 	};
 
 	return (
-		<CustomCard
-			title="راحة"
-			width={1010}
-			className={`lg:w-[1010px] lg:h-[350px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
-			Content={
+		<Card className="p-6">
+			<CardHeader>{t("breakTime.form.title")}</CardHeader>
+			<CardContent>
 				<form onSubmit={handleSubmit} className="flex flex-col gap-4 lg:pl-6">
 					<div className="grid lg:grid-cols-3 grid-cols-1 items-center gap-4">
-						<div className="flex flex-col gap-2 w-[302px]">
-							<label>الموظف</label>
-							<Select
-								dir="rtl"
-								value={formData.employee}
-								onValueChange={(value) => handleChange("employee", value)}
-							>
-								<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right flex">
-									{" "}
-									<SelectValue placeholder="الكل" />
-								</SelectTrigger>
-								<SelectContent>
-									{employees.map((el) => (
-										<SelectItem key={el} value={el}>
-											{el}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
-							{errors.employee && (
-								<span className="text-red-500">{errors.employee}</span>
-							)}
-						</div>
-
-						<div className="flex flex-col gap-1 w-[302px]">
-							<label>بداية</label>
-							<Input
-								type="time"
-								value={formData.from}
-								onChange={(e) => handleChange("from", e.target.value)}
-								className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right justify-end"
-							/>
-							{errors.from && (
-								<span className="text-red-500">{errors.from}</span>
-							)}
-						</div>
-
-						<div className="flex flex-col gap-1 w-[302px]">
-							<label>وقت الأنتهاء الفعلي</label>
-							<Input
-								type="time"
-								value={formData.actualEnd}
-								onChange={(e) => handleChange("actualEnd", e.target.value)}
-								className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] placeholder:text-black text-right justify-end"
-							/>
-							{errors.actualEnd && (
-								<span className="text-red-500">{errors.actualEnd}</span>
-							)}
-						</div>
+						<CustomSelect
+							label={t("breakTime.form.employee")}
+							value={formData.employee}
+							onValueChange={(value) => handleChange("employee", value)}
+							options={employees}
+							error={errors.employee}
+						/>
+						<CustomInput
+							type="time"
+							value={formData.from}
+							onChange={(e) => handleChange("from", e.target.value)}
+							label={t("breakTime.form.from")}
+							error={errors.from}
+						/>
+						<CustomInput
+							type="time"
+							value={formData.actualEnd}
+							onChange={(e) => handleChange("actualEnd", e.target.value)}
+							label={t("breakTime.form.actualEnd")}
+							error={errors.actualEnd}
+						/>
 					</div>
-
 					<div className="pt-7 flex justify-end">
 						<Button
 							type="submit"
 							className="bg-[#16C47F] text-white px-3 w-[148px] h-[48px]"
 						>
-							حفظ
+							{t("breakTime.form.save")}
 						</Button>
 					</div>
 				</form>
-			}
-		/>
+			</CardContent>
+		</Card>
 	);
 }
 
-export default function page() {
+export default function BreakTimePage() {
+	const { t } = useTypedTranslation();
 	const { data: BreakData } = useBreakTimes();
-	console.log(BreakData);
+
 	const columns = [
-		{ accessorKey: "date", header: "التاريخ" },
-		{ accessorKey: "employee", header: "الموظف" },
-		{ accessorKey: "from", header: "من" },
-		{ accessorKey: "to", header: "الي" },
-		{ accessorKey: "actual_end", header: "وقت الأنتهاء الفعلي" },
-		{ accessorKey: "deduction", header: "الخصم" },
+		{ accessorKey: "date", header: t("breakTime.columns.date") },
+		{ accessorKey: "employee", header: t("breakTime.columns.employee") },
+		{ accessorKey: "from", header: t("breakTime.columns.from") },
+		{ accessorKey: "to", header: t("breakTime.columns.to") },
+		{ accessorKey: "actual_end", header: t("breakTime.columns.actual_end") },
+		{ accessorKey: "deduction", header: t("breakTime.columns.deduction") },
 	];
+
 	const distinctEmployees = [
 		...new Set(BreakData?.map((el: any) => el?.employee)),
 	];
 
 	return (
 		<div>
-			<ReusableTable
-				title="سجل وقت الراحة"
-				data={BreakData ?? []}
-				columns={columns}
-				withActionButtons={false}
-				employees={distinctEmployees}
-				ButtonTrigger={() => (
-					<CustomPopUp
-						DialogTriggerComponent={() => {
-							return <AddButton onClickAdd={() => {}} AddTitle=" راحة" />;
-						}}
-						DialogContentComponent={() => <BreakTimeForm />}
-					/>
-				)}
+			<ReusableManyTable
+				dataSets={[
+					{
+						columns,
+						data: BreakData ?? [],
+						title: t("breakTime.title"),
+						withActionButtons: false,
+						employees: distinctEmployees,
+						ButtonTrigger: () => (
+							<CustomPopUp
+								DialogTriggerComponent={() => {
+									return (
+										<AddButton
+											onClickAdd={() => {}}
+											AddTitle={t("breakTime.form.add")}
+										/>
+									);
+								}}
+								DialogContentComponent={() => <BreakTimeForm />}
+							/>
+						),
+						withPrinter: true,
+						containerClassName: "border-none",
+					},
+				]}
+				withTopPrinter={false}
 			/>
 		</div>
 	);

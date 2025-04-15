@@ -335,16 +335,15 @@ export function Table<TData>({
 				)}
 			>
 				{(title || ButtonTrigger || (withFilter && employees.length !== 0)) && (
-					<CardHeader className="flex flex-row items-center justify-between">
+					<CardHeader className="flex flex-row items-center justify-between lg:px-0">
 						<div className="flex flex-col w-full gap-4  mt-6">
-							{" "}
 							{title && (
 								<CardTitle className="lg:text-[26px] text-[20px] font-bold w-full">
 									{title}
 								</CardTitle>
 							)}
 							{withFilter && (
-								<div className="flex justify-between md:items-center w-full">
+								<div className="flex md:flex-row flex-col  justify-between md:items-center w-full px-6">
 									<BaseFilter
 										employees={employees}
 										selectedEmployee={selectedEmployee}
@@ -356,7 +355,7 @@ export function Table<TData>({
 									/>
 
 									{ButtonTrigger ? (
-										<div className="w-full flex justify-end">
+										<div className="w-full flex md:justify-end">
 											<ButtonTrigger />
 										</div>
 									) : (
@@ -374,7 +373,7 @@ export function Table<TData>({
 					) : (
 						<>
 							<div className="">
-								<div className="flex flex-col gap-4">
+								<div className="flex flex-col gap-9">
 									{UserComponent && (
 										<UserComponent selectedEmployee={selectedEmployee} />
 									)}

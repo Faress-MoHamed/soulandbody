@@ -19,17 +19,21 @@ import SalaryDetailsTable from "@/components/salaryDetails";
 import { Input } from "@/components/ui/input";
 import { useAttendanceData } from "./useAttendanceEmployee";
 import EmployeesForm from "../employees/add";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
+import { useTypedTranslation } from "../hooks/useTypedTranslation";
+
 function Salaries() {
+	const { t } = useTypedTranslation();
 	const { data: salaryData, isLoading: salaryLoading } = useTransactions();
 
 	const columns: ColumnDef<any>[] = [
 		{
 			accessorKey: "date",
-			header: "التاريخ",
+			header: t("salaries.columns.date"),
 		},
 		{
 			accessorKey: "type",
-			header: "نوع الحركة",
+			header: t("salaries.columns.type"),
 			cell: ({ row }) => {
 				return (
 					<div className="flex gap-2.5 items-center justify-center w-full ">
@@ -43,8 +47,8 @@ function Salaries() {
 				);
 			},
 		},
-		{ accessorKey: "amount", header: "المبلغ" },
-		{ accessorKey: "reason", header: "السبب" },
+		{ accessorKey: "amount", header: t("salaries.columns.amount") },
+		{ accessorKey: "reason", header: t("salaries.columns.reason") },
 	];
 	const distinctEmployees = [
 		...new Set(salaryData?.map((el: any) => el?.employee)),
@@ -52,24 +56,27 @@ function Salaries() {
 
 	return (
 		<>
-			<ReusableTable
-				columns={columns}
-				data={salaryData ?? []}
-				employees={distinctEmployees}
-				withActionButtons={false}
-				withPrinter={false}
-				// title="الموظفين"
-				withColspan
-				loading={salaryLoading}
-				UserComponent={({ selectedEmployee }: any) => {
-					return (
-						<div className="p-6 border-t border-x border-[#02140D4D] mb-4 flex justify-between in-checked:">
-							<p className="text-[26px] font-bold">{"فارس محمد"}</p>
-							<p className="text-[36px] font-[600]">S00026</p>
-						</div>
-					);
-				}}
-				withFilter={false}
+			<ReusableManyTable
+				dataSets={[
+					{
+						columns,
+						data: salaryData ?? [],
+						employees: distinctEmployees,
+						withActionButtons: false,
+						withPrinter: false,
+						withFilter: false,
+						loading: salaryLoading,
+						UserComponent: ({ selectedEmployee }: any) => {
+							return (
+								<div className="p-6 border-t border-x border-[#02140D4D] mb-4 flex justify-between in-checked:">
+									<p className="text-[26px] font-bold">{"فارس محمد"}</p>
+									<p className="text-[36px] font-[600]">S00026</p>
+								</div>
+							);
+						},
+					},
+				]}
+				withTopPrinter={false}
 			/>
 			<SalaryDetailsTable />
 		</>
@@ -77,63 +84,84 @@ function Salaries() {
 }
 
 function AttendanceEmployee() {
+	const { t } = useTypedTranslation();
 	const { data } = useAttendanceData();
 
 	const columns: ColumnDef<any>[] = [
 		{
 			accessorKey: "date",
-			header: "التاريخ",
+			header: t("attendanceEmployeeData.columns.date"),
 		},
-		{ accessorKey: "checkIn", header: "تسجيل دخول" },
-		{ accessorKey: "checkOut", header: "تسجيل خروج" },
-		{ accessorKey: "breakTime", header: "الراحة" },
-		{ accessorKey: "permission", header: "أذن" },
-		{ accessorKey: "hoursWorked", header: "عدد الساعات" },
-		{ accessorKey: "workLocation", header: "موقع الدوام" },
+		{
+			accessorKey: "checkIn",
+			header: t("attendanceEmployeeData.columns.checkIn"),
+		},
+		{
+			accessorKey: "checkOut",
+			header: t("attendanceEmployeeData.columns.checkOut"),
+		},
+		{
+			accessorKey: "breakTime",
+			header: t("attendanceEmployeeData.columns.breakTime"),
+		},
+		{
+			accessorKey: "permission",
+			header: t("attendanceEmployeeData.columns.permission"),
+		},
+		{
+			accessorKey: "hoursWorked",
+			header: t("attendanceEmployeeData.columns.hoursWorked"),
+		},
+		{
+			accessorKey: "workLocation",
+			header: t("attendanceEmployeeData.columns.workLocation"),
+		},
 	];
 	return (
 		<>
-			<ReusableTable
-				columns={columns}
-				data={data ?? []}
-				withActionButtons={false}
-				withPrinter={false}
-				// title="الموظفين"
-				withColspan
-				loading={false}
-				UserComponent={({ selectedEmployee }: any) => {
-					return (
-						<div className="p-6 border-t border-x border-[#02140D4D] mb-4 flex lg:flex-row flex-col justify-between in-checked:">
-							<p className="text-[26px] font-bold">{"فارس محمد"}</p>
-							<p className="text-[24px] font-[500]">
-								{" "}
-								ساعات الدوام : 15 /64 ساعة
-							</p>
-						</div>
-					);
-				}}
-				withFilter={false}
+			<ReusableManyTable
+				dataSets={[
+					{
+						columns,
+						data: data ?? [],
+						withActionButtons: false,
+						withPrinter: false,
+						UserComponent: ({ selectedEmployee }: any) => {
+							return (
+								<div className="p-6 border-t border-x border-[#02140D4D] mb-4 flex lg:flex-row flex-col justify-between in-checked:">
+									<p className="text-[26px] font-bold">{"فارس محمد"}</p>
+									<p className="text-[24px] font-[500]">
+										{" "}
+										{t("salaries.hours")}: 15 /{t("salaries.of")} 64 ساعة
+									</p>
+								</div>
+							);
+						},
+						withFilter: false,
+					},
+				]}
+				withTopPrinter={false}
 			/>
-			{/* <SalaryDetailsTable /> */}
 		</>
 	);
 }
 
 export default function page() {
+	const { t } = useTypedTranslation();
 	const [selectedEmployee, setSelectedEmployee] = useState<
 		string | undefined
 	>();
 	const [selectedMonth, setSelectedMonth] = useState<string | undefined>();
 	return (
 		<>
-			<h2 className="text-[26px] font-bold">بيانات موظف</h2>
+			<h2 className="text-[26px] font-bold">{t("employeeData.title")}</h2>
 
 			<div className="flex justify-between items-center">
 				<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6 rounded-none">
 					<div className="flex flex-col lg:flex-row gap-5">
 						<div className="flex flex-col gap-2">
 							<label className="text-[16px] text-black font-[500]">
-								الموظف
+								{t("employeeData.filter.employee")}
 							</label>
 							<Select
 								value={selectedEmployee}
@@ -143,7 +171,7 @@ export default function page() {
 								}}
 							>
 								<SelectTrigger className="min-w-[240px]">
-									<SelectValue placeholder="الكل" />
+									<SelectValue placeholder={t("employeeData.filter.all")} />
 								</SelectTrigger>
 								<SelectContent>
 									{[
@@ -160,7 +188,7 @@ export default function page() {
 						</div>
 						<div className="flex flex-col gap-2">
 							<label className="text-[16px] text-black font-[500]">
-								التاريخ
+								{t("employeeData.filter.date")}
 							</label>
 							<Input
 								type="month"
@@ -181,16 +209,15 @@ export default function page() {
 					className="bg-emerald-500 hover:bg-emerald-600 lg:min-w-[148px] min-w-[140px] lg:h-[44px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px] px-4 py-2 has-[>svg]:px-3 text-white"
 				>
 					<img src="./add.svg" className="h-6 w-6" />
-					{"اضافة موظف"}
+					{t("employees.form.add")}
 				</Link>
-				{/* <AddButton AddTitle={"اضافة موظف"} onClickAdd={() => {}} /> */}
 			</div>
 			<SelectableComponent
 				contentClassName="border-0 mt-0 rounded-lg"
 				className=""
 				items={[
 					{
-						label: "معلومات شخصية",
+						label: t("employees.form.personalInfo"),
 						component: (
 							<EmployeesForm
 								CardStyle={"rounded-none"}
@@ -200,9 +227,9 @@ export default function page() {
 							/>
 						),
 					},
-					{ label: "سجلات حضور", component: <AttendanceEmployee /> },
+					{ label: t("attendance.title"), component: <AttendanceEmployee /> },
 					{
-						label: "تفاصيل المرتب",
+						label: t("salaries.title"),
 						component: <Salaries />,
 					},
 				]}

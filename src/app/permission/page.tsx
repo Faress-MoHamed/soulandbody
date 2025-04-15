@@ -1,21 +1,18 @@
 "use client";
 import React, { useState } from "react";
 import { usePermissions } from "./usePermissions";
-import ReusableTable from "@/components/ReusableTable";
-import CustomCard from "@/components/customCard";
-import { Input } from "@/components/ui/input";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import CustomPopUp from "@/components/popups";
 import AddButton from "@/components/AddButton";
+import CustomSelect from "@/components/customSelect";
+import CustomInput from "@/components/customInput";
+import { useTypedTranslation } from "../hooks/useTypedTranslation";
 
 function PermissionForm() {
+	const { t } = useTypedTranslation();
+
 	const [formData, setFormData] = useState<Record<any, any>>({
 		employee: "",
 		from: "",
@@ -27,12 +24,13 @@ function PermissionForm() {
 
 	const validateForm = () => {
 		let newErrors: any = {};
-		if (!formData.employee) newErrors.employee = "يرجى اختيار الموظف";
-		if (!formData.from) newErrors.from = "يرجى اختيار وقت البداية";
-		if (!formData.to) newErrors.to = "يرجى اختيار وقت النهاية";
+		if (!formData.employee)
+			newErrors.employee = t("permissions.errors.employee");
+		if (!formData.from) newErrors.from = t("permissions.errors.from");
+		if (!formData.to) newErrors.to = t("permissions.errors.to");
 		if (!formData.actualEnd)
-			newErrors.actualEnd = "يرجى اختيار وقت الانتهاء الفعلي";
-		if (!formData.reason) newErrors.reason = "يرجى إدخال السبب";
+			newErrors.actualEnd = t("permissions.errors.actualEnd");
+		if (!formData.reason) newErrors.reason = t("permissions.errors.reason");
 
 		setErrors(newErrors);
 		return Object.keys(newErrors).length === 0;
@@ -51,114 +49,103 @@ function PermissionForm() {
 	};
 
 	return (
-		<CustomCard
-			title="استأذان"
-			ButtonTitle="إرسال الاستئذان"
-			className={`lg:w-[1010px] lg:h-[380px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
-			Content={
+		<Card className="p-6">
+			<CardHeader>{t("permissions.title")}</CardHeader>
+			<CardContent>
 				<form onSubmit={handleSubmit} className="flex flex-col gap-4 lg:pl-6">
 					<div className="grid lg:grid-cols-3 grid-cols-1 items-center gap-4">
-						<div className="flex flex-col gap-2 w-[302px]">
-							<label>الموظف</label>
-							<Select
-								value={formData.employee}
-								onValueChange={(value) => handleChange("employee", value)}
-							>
-								<SelectTrigger className="md:min-w-[302px] min-w-full min-h-[48px] rounded-[8px] bg-white border-[#D9D9D9] text-right">
-									<SelectValue placeholder="اختر الموظف" />
-								</SelectTrigger>
-								<SelectContent>
-									{["fares", "moahmed", "ahmed"].map((el) => (
-										<SelectItem key={el} value={el}>
-											{el}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
-							{errors.employee && (
-								<span className="text-red-500">{errors.employee}</span>
-							)}
-						</div>
+						<CustomSelect
+							label={t("permissions.form.employee")}
+							value={formData.employee}
+							options={["fares", "moahmed", "ahmed"]}
+							placeholder={t("permissions.placeholders.employee")}
+							onValueChange={(value) => handleChange("employee", value)}
+						/>
 						{["from", "to", "actualEnd"].map((field) => (
-							<div key={field} className="flex flex-col gap-1 w-[302px]">
-								<label>
-									{field === "from"
-										? "بداية"
-										: field === "to"
-										? "نهاية"
-										: "وقت الأنتهاء الفعلي"}
-								</label>
-								<Input
-									type="time"
-									value={formData[field]}
-									onChange={(e) => handleChange(field, e.target.value)}
-									className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] bg-white border-[#D9D9D9] text-right justify-end"
-								/>
-								{errors[field] && (
-									<span className="text-red-500">{errors[field]}</span>
-								)}
-							</div>
-						))}
-						<div className="flex flex-col gap-1 w-[302px]">
-							<label>السبب</label>
-							<Input
-								type="text"
-								value={formData.reason}
-								onChange={(e) => handleChange("reason", e.target.value)}
-								className="md:min-w-[302px] min-w-full h-[48px] rounded-[8px] bg-white border-[#D9D9D9] text-right justify-end"
+							<CustomInput
+								key={field}
+								label={t(`permissions.form.${field}` as any)}
+								type="time"
+								value={formData[field]}
+								onChange={(e) => handleChange(field, e.target.value)}
+								error={errors[field]}
 							/>
-							{errors.reason && (
-								<span className="text-red-500">{errors.reason}</span>
-							)}
-						</div>
-						<div className="pt-7 flex ">
+						))}
+						<CustomInput
+							label={t("permissions.form.reason")}
+							type="text"
+							value={formData.reason}
+							onChange={(e) => handleChange("reason", e.target.value)}
+							error={errors.reason}
+						/>
+						<div className="pt-7 flex">
 							<Button
 								type="submit"
 								className="bg-[#16C47F] text-white px-3 w-[148px] h-[48px]"
 							>
-								حفظ
+								{t("permissions.form.submit")}
 							</Button>
 						</div>
 					</div>
 				</form>
-			}
-		/>
+			</CardContent>
+		</Card>
 	);
 }
 
-export default function page() {
+export default function Page() {
+	const { t } = useTypedTranslation();
 	const { data: permessions } = usePermissions();
-	console.log(permessions);
+
 	const columns = [
-		{ accessorKey: "date", header: "التاريخ" },
-		{ accessorKey: "employee", header: "الموظف" },
-		{ accessorKey: "from", header: "من" },
-		{ accessorKey: "to", header: "الي" },
-		{ accessorKey: "actual_end", header: "وقت الأنتهاء الفعلي" },
-		{ accessorKey: "reason", header: "السبب" },
-		{ accessorKey: "deduction", header: "الخصم" },
+		{ accessorKey: "date", header: t("permissions.table.columns.date") },
+		{
+			accessorKey: "employee",
+			header: t("permissions.table.columns.employee"),
+		},
+		{ accessorKey: "from", header: t("permissions.table.columns.from") },
+		{ accessorKey: "to", header: t("permissions.table.columns.to") },
+		{
+			accessorKey: "actual_end",
+			header: t("permissions.table.columns.actual_end"),
+		},
+		{ accessorKey: "reason", header: t("permissions.table.columns.reason") },
+		{
+			accessorKey: "deduction",
+			header: t("permissions.table.columns.deduction"),
+		},
 	];
+
 	const distinctEmployees = [
 		...new Set(permessions?.map((el: any) => el?.employee)),
 	];
 
 	return (
 		<div>
-			<ReusableTable
-				title="سجل استاذان"
-				data={permessions ?? []}
-				columns={columns}
-				withActionButtons={false}
-				employees={distinctEmployees}
-				ButtonTrigger={() => (
-					<CustomPopUp
-						DialogTriggerComponent={() => {
-							return <AddButton onClickAdd={() => {}} AddTitle=" استأذان" />;
-						}}
-						DialogContentComponent={() => <PermissionForm />}
-					/>
-				)}
+			<ReusableManyTable
+				dataSets={[
+					{
+						columns,
+						data: permessions ?? [],
+						containerClassName: "border-none mt-9",
+						title: t("permissions.table.title"),
+						withActionButtons: false,
+						employees: distinctEmployees,
+						ButtonTrigger: () => (
+							<CustomPopUp
+								DialogTriggerComponent={() => (
+									<AddButton
+										onClickAdd={() => {}}
+										AddTitle={t("permissions.add")}
+									/>
+								)}
+								DialogContentComponent={() => <PermissionForm />}
+							/>
+						),
+						withPrinter: true,
+					},
+				]}
+				withTopPrinter={false}
 			/>
 		</div>
 	);

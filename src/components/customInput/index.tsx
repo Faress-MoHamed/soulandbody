@@ -21,7 +21,7 @@ export default function CustomInput({
 	return (
 		<div
 			className={cn(
-				"flex flex-col gap-2 md:w-[302px] w-full",
+				"flex flex-col gap-2 lg:w-[302px] w-full",
 				wrapperClassName
 			)}
 		>

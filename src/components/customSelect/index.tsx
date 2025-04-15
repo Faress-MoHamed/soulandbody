@@ -4,6 +4,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon } from "lucide-react";
 import LoadingIndicator from "../loadingIndicator";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 function SelectGroup({
 	...props
@@ -46,40 +47,49 @@ function SelectTrigger({
 
 interface CustomSelectProps
 	extends React.ComponentProps<typeof SelectPrimitive.Root> {
-	label?: string;
+	label?: any;
 	size?: "sm" | "default";
 	dir?: "rtl" | "ltr";
 	className?: string;
 	placeholder?: string;
 	options?: { value: string; label: string }[] | string[];
 	triggerClassName?: string;
+	error?: string;
 	loading?: boolean;
 }
 
 export default function CustomSelect({
 	label,
-	placeholder = "الكل",
+	placeholder,
 	options = ["أحمد محمود", "محمد علي", "خالد حسن", "ياسر عبد الله", "سعيد عمر"],
 	size = "default",
 	dir = "rtl",
 	className,
 	triggerClassName,
 	loading,
+	error,
 	...props
 }: CustomSelectProps) {
+	const { t } = useTypedTranslation();
+	console.log(label)
 	return (
-		<div className={cn("flex flex-col gap-2", className)}>
+		<div className={cn("flex flex-col gap-2 lg:w-[302px] w-full", className)}>
 			{label && (
 				<label className="text-[16px] text-[#1E1E1E] font-[400] text-start">
 					{label}
 				</label>
 			)}
-			<Select dir={dir} {...props}>
+			<Select dir={t("dir") as "rtl" | "ltr"} {...props}>
 				<SelectTrigger
 					size={size}
-					className={cn("!h-[48px] w-[302px] bg-white", triggerClassName)}
+					className={cn(
+						"!h-[48px] lg:w-[302px] w-full bg-white",
+						triggerClassName
+					)}
 				>
-					<SelectValue placeholder={placeholder} />
+					<SelectValue
+						placeholder={placeholder ? placeholder : t("filter.placeholder")}
+					/>
 				</SelectTrigger>
 				<SelectContent className="z-[+99999]">
 					{options?.map((option) => {
@@ -95,6 +105,7 @@ export default function CustomSelect({
 					})}
 				</SelectContent>
 			</Select>
+			{error && <p>{error}</p>}
 		</div>
 	);
 }

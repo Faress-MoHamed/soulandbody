@@ -1,0 +1,320 @@
+{
+	"dir": "ltr",
+	"print": "Print",
+	"home": {
+		"employees": "Employees",
+		"employeeData": "Employee Data",
+		"financialGrades": "Financial Grades",
+		"workHours": "Company Work Hours",
+		"permission": "Permission",
+		"breakTime": "Break Time",
+		"attendance": "Attendance Records",
+		"vacations": "Vacations",
+		"disciplinaryVacations": "Disciplinary Vacations",
+		"fares": "Fares"
+	},
+	"employees": {
+		"title": "Employees",
+		"newEmployee": "New Employee",
+		"date": "Date",
+		"employee": "Employee",
+		"workNature": "Work Nature",
+		"netSalary": "Net Salary",
+		"phoneNumber": "Phone Number",
+		"address": "Address",
+		"form": {
+			"title": "Employee Information",
+			"personalInfo": "Personal Information",
+			"add": "Add Employee",
+			"save": "Save"
+		}
+	},
+	"pagination": {
+		"next": "Next",
+		"prev": "Previous"
+	},
+	"filter": {
+		"employee": "Employee",
+		"date": "Date",
+		"placeholder": "All"
+	},
+	"errors": {
+		"requiredField": "This field is required",
+		"invalidAmount": "Please enter a valid amount"
+	},
+	"financial": {
+		"transactionsTitle": "Financial Transactions",
+		"employee": "Employee",
+		"date": "Date",
+		"type": "Type",
+		"amount": "Amount",
+		"reason": "Reason",
+		"submit": "Submit",
+		"salaryTitle": "Salary Management",
+		"sendSalaries": "Send Salaries",
+		"deduction": "Deduction",
+		"advance": "Advance",
+		"netSalary": "Net Salary",
+		"extras": "Extras",
+		"allowances": "Allowances",
+		"totalSalary": "Total Salary",
+		"addSalary": "Add Salary",
+		"addTransaction": "Add Transaction",
+		"salaries": "Salaries",
+		"deductions": "Deductions",
+		"salary": "Salary"
+	},
+	"workHours": {
+		"title": "Working Hours",
+		"save": "Save Changes",
+		"columns": {
+			"day": "Day",
+			"is_active": "Active",
+			"start_time": "Start Time",
+			"end_time": "End Time",
+			"break_hours": "Break Hours"
+		}
+	},
+	"permissions": {
+		"title": "Permission",
+		"form": {
+			"employee": "Employee",
+			"from": "From",
+			"to": "To",
+			"actualEnd": "Actual End",
+			"reason": "Reason",
+			"submit": "Save"
+		},
+		"placeholders": {
+			"employee": "Select employee"
+		},
+		"errors": {
+			"employee": "Please select an employee",
+			"from": "Please select start time",
+			"to": "Please select end time",
+			"actualEnd": "Please select actual end time",
+			"reason": "Please enter a reason"
+		},
+		"table": {
+			"title": "Permission Records",
+			"columns": {
+				"date": "Date",
+				"employee": "Employee",
+				"from": "From",
+				"to": "To",
+				"actual_end": "Actual End",
+				"reason": "Reason",
+				"deduction": "Deduction"
+			}
+		},
+		"add": "Permission"
+	},
+	"hrVacations": {
+		"table": {
+			"date": "Date",
+			"employee": "Employee",
+			"leaveStart": "Leave Start",
+			"leaveEnd": "Leave End",
+			"leaveDays": "Number of Days",
+			"leaveType": "Leave Type",
+			"attachment": "Attachment",
+			"deduction": "Deduction"
+		},
+		"titles": {
+			"vacationLog": "Vacation Log",
+			"addVacation": "Add Vacation"
+		},
+		"inputs": {
+			"employees": "Employees",
+			"date": "Date"
+		},
+		"vacation": "Vacation",
+		"record": "Record",
+		"deduction": "Deduction",
+		"employee": "Employee",
+		"leaveDays": "Leave Days",
+		"leaveStart": "Start Date",
+		"leaveEnd": "End Date",
+		"leaveType": "Leave Type",
+		"medicalAttachments": "Medical Attachments",
+		"save": "Save",
+		"errors": {
+			"employeeRequired": "Please select an employee",
+			"leaveTypeRequired": "Please select a leave type",
+			"validLeaveDays": "Please enter a valid number of days",
+			"leaveStartRequired": "Please select a start date",
+			"leaveEndRequired": "Please select an end date",
+			"endDateAfterStart": "End date must be after start date",
+			"validDeduction": "Please enter a valid deduction amount"
+		}
+	},
+	"attendance": {
+		"title": "Attendance Record",
+		"save": "Save Changes",
+		"columns": {
+			"date": "Date",
+			"employee": "Employee",
+			"check_in": "Check In",
+			"check_out": "Check Out",
+			"notes": "Notes",
+			"deduction": "Deduction"
+		}
+	},
+	"breakTime": {
+		"title": "Break Time Records",
+		"form": {
+			"title": "Break",
+			"employee": "Employee",
+			"from": "Start",
+			"to": "To",
+			"actualEnd": "Actual End Time",
+			"save": "Save",
+			"deduction": "Deduction",
+			"add": "Break"
+		},
+		"validation": {
+			"employeeRequired": "Please select an employee",
+			"fromRequired": "Please select a start time",
+			"actualEndRequired": "Please select an actual end time"
+		},
+		"columns": {
+			"date": "Date",
+			"employee": "Employee",
+			"from": "From",
+			"to": "To",
+			"actual_end": "Actual End Time",
+			"deduction": "Deduction"
+		}
+	},
+	"employeeForm": {
+		"title": "Employee Information",
+		"subtitle": {
+			"edit": "Edit Employee Information",
+			"add": "Add New Employee"
+		},
+		"loading": "Loading employee data...",
+		"fields": {
+			"employee": "Name",
+			"phoneNumber": "Phone Number",
+			"address": "Address",
+			"birthDate": "Birth Date",
+			"qualification": "Qualification",
+			"position": "Position",
+			"net_salary": "Net Salary",
+			"extras": "Allowances",
+			"date": "Start Date",
+			"netSalary": "Total Salary",
+			"work_nature": "Work Nature",
+			"work_nature_placeholder": "Select Work Nature",
+			"work_nature_options": {
+				"full_time": "Full Time",
+				"part_time": "Part Time",
+				"varied": "Varied"
+			}
+		},
+		"buttons": {
+			"update": "Update Information",
+			"save": "Save",
+			"attachments": "Attachments"
+		},
+		"validation": {
+			"employee_required": "Name is required",
+			"birthDate_required": "Birth date is required",
+			"qualification_required": "Qualification is required",
+			"position_required": "Position is required",
+			"net_salary_required": "Salary is required",
+			"net_salary_positive": "Salary must be a positive value",
+			"date_required": "Start date is required",
+			"work_nature_required": "Work nature is required",
+			"extras_required": "Allowances are required"
+		},
+		"leave": {
+			"header": {
+				"total": "Total Leave Balance",
+				"regular": "Regular Leave Balance",
+				"emergency": "Emergency Leave Balance",
+				"sick": "Sick Days",
+				"continuous_absence": "Continuous Absence",
+				"separate_absence": "Separate Absence"
+			},
+			"days_count": "Number of Days",
+			"buttons": {
+				"save": "Save"
+			},
+			"policy": {
+				"intro": "-Total leave balance allowed for the employee",
+				"total_days": "40 days",
+				"divided_into": "divided into",
+				"regular_days": "21 regular days",
+				"and": "and",
+				"emergency_days": "7 emergency days",
+				"sick_days": "12 sick days",
+				"exceed_notice": "-In case of exceeding the allowed leave days, deductions will be applied according to the company policy",
+				"absence_intro": "-In case of employee absence",
+				"continuous_absence": "15 connected days",
+				"or": "or",
+				"separate_absence": "30 separate days",
+				"termination_notice": "termination procedures will be taken on the last day"
+			}
+		}
+	},
+	"salaries": {
+		"title": "Salary Details",
+		"hours": "Working Hours",
+		"of": "of",
+		"form": {
+			"title": "Salary Details",
+			"employee": "Employee",
+			"date": "Date",
+			"amount": "Amount",
+			"save": "Save"
+		},
+		"columns": {
+			"date": "Date",
+			"type": "Transaction Type",
+			"amount": "Amount",
+			"reason": "Reason"
+		}
+	},
+	"employeeData": {
+		"title": "Employee Data",
+		"filter": {
+			"employee": "Employee",
+			"date": "Date",
+			"all": "All"
+		}
+	},
+	"attendanceEmployeeData": {
+		"title": "Attendance Records",
+		"form": {
+			"title": "Record Attendance",
+			"employee": "Employee",
+			"date": "Date",
+			"checkIn": "Check In",
+			"checkOut": "Check Out",
+			"save": "Save"
+		},
+		"columns": {
+			"date": "Date",
+			"checkIn": "Check In",
+			"checkOut": "Check Out",
+			"breakTime": "Break",
+			"permission": "Permission",
+			"hoursWorked": "Hours Worked",
+			"workLocation": "Work Location"
+		}
+	},
+	"warningPopup": {
+		"disciplinaryActions": "Disciplinary Actions",
+		"employeeName": "Employee Name",
+		"warningType": "Warning Type",
+		"fromDate": "From Date",
+		"toDate": "To Date",
+		"save": "Save",
+		"warningTypes": {
+			"warning": "Warning",
+			"suspension": "Suspension",
+			"termination": "Termination"
+		}
+	}
+}

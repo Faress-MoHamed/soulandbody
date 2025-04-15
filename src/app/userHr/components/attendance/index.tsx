@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Clock } from "lucide-react";
 import CustomPopUp from "@/components/popups";
+import AdditionalTimeRequest from "../additionalTimeRequest";
 
 export default function Attendance() {
 	// Constants for time tracking
@@ -225,11 +226,7 @@ export default function Attendance() {
 							</p>
 						);
 					}}
-					DialogContentComponent={() => (
-						<>
-							<p>faes</p>
-						</>
-					)}
+					DialogContentComponent={() => <AdditionalTimeRequest />}
 				/>
 			</CardFooter>
 		</Card>

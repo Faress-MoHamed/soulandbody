@@ -1,3 +1,4 @@
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import React from "react";
@@ -13,12 +14,21 @@ export default function TablePagination({
 	pageIndex: number;
 	pageSize: any;
 }) {
+	const { t } = useTypedTranslation();
 	return (
-		<div className="flex items-start justify-between mt-4 w-full">
+		<div
+			className={cn(
+				"flex items-start justify-between mt-4 w-full p-6",
+				t("dir") === "ltr" ? "flex-row-reverse " : "flex-row"
+			)}
+		>
 			{" "}
 			<Button
 				variant={"secondary"}
-				className="cursor-pointer"
+				className={cn(
+					"cursor-pointer",
+					t("dir") === "ltr" ? "flex-row-reverse " : "flex-row"
+				)}
 				onClick={() =>
 					setPageIndex((prev) =>
 						prev + 1 < Math.ceil(filteredData?.length / pageSize)
@@ -41,12 +51,12 @@ export default function TablePagination({
 					<path
 						d="M1.33301 5.99992H10.6663M10.6663 5.99992L5.99967 1.33325M10.6663 5.99992L5.99967 10.6666"
 						stroke="#1E1E1E"
-						stroke-width="1.6"
+						strokeWidth="1.6"
 						strokeLinecap="round"
-						stroke-linejoin="round"
+						strokeLinejoin="round"
 					/>
 				</svg>
-				التالي
+				{t("pagination.next")}
 			</Button>
 			<div className="md:flex hidden flex-col items-center justify-center gap-4">
 				<div className="flex items-center justify-center">
@@ -79,7 +89,12 @@ export default function TablePagination({
 						);
 
 						return (
-							<div className="flex flex-row-reverse items-center gap-1 rtl">
+							<div
+								className={cn(
+									"flex flex-row items-center gap-1",
+									t("dir") === "rtl" ? "flex-row-reverse " : "flex-row"
+								)}
+							>
 								{uniquePages.map((page, index) => {
 									if (typeof page === "string" && page.startsWith("ellipsis")) {
 										return (
@@ -112,11 +127,14 @@ export default function TablePagination({
 			</div>
 			<Button
 				variant={"secondary"}
-				className="cursor-pointer"
+				className={cn(
+					"cursor-pointer",
+					t("dir") === "ltr" ? "flex-row-reverse " : "flex-row"
+				)}
 				onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
 				disabled={pageIndex === 0 || filteredData.length <= pageSize}
 			>
-				السابق
+				{t("pagination.prev")}
 				<svg
 					width="12"
 					height="12"
@@ -127,9 +145,9 @@ export default function TablePagination({
 					<path
 						d="M10.6663 5.99992H1.33301M1.33301 5.99992L5.99967 10.6666M1.33301 5.99992L5.99967 1.33325"
 						stroke="#1E1E1E"
-						stroke-width="1.6"
+						strokeWidth="1.6"
 						strokeLinecap="round"
-						stroke-linejoin="round"
+						strokeLinejoin="round"
 					/>
 				</svg>
 			</Button>

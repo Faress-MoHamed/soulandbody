@@ -179,7 +179,7 @@ export default function Test() {
 		setFiles(files.filter((file) => file.id !== id));
 	};
 	return (
-		<div className="">
+		<div className="overflow-y-auto">
 			<div className="flex items-center justify-between p-4 bg-[#E8F9F2] rounded-[12px] mb-4">
 				{" "}
 				<div className="flex items-center">
@@ -210,10 +210,7 @@ export default function Test() {
 							<CustomCard
 								withButton={false}
 								title={"رفع ملف، شهادة النجاح"}
-								width={556}
-								height={450}
-								className={`lg:w-[556px] lg:h-[350px] h-[300px] overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-100
-						[&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
+								
 								Content={<FileUpload />}
 							/>
 						)}

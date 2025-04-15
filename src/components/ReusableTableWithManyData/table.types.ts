@@ -16,7 +16,7 @@ export type TableProps<TData> = {
 	employees?: string[];
 	loading?: boolean;
 	withColspan?: boolean;
-	error?: string;
+	error?: string | null;
 	deleteLoading?: boolean;
 	onDelete?: (id: string) => void;
 	onEdit?: (id: string) => void;

@@ -7,6 +7,9 @@ import withReactContent from "sweetalert2-react-content";
 import { cn } from "@/lib/utils";
 import type { JSX } from "react";
 import "./popup.css";
+import { NextIntlClientProvider } from "next-intl";
+import { useLocale, useMessages } from "next-intl";
+
 const SweetAlert = withReactContent(Swal);
 
 export default function CustomPopUp({
@@ -18,29 +21,34 @@ export default function CustomPopUp({
 	DialogContentclassName?: string;
 	DialogContentComponent: () => JSX.Element;
 }) {
+	const locale = useLocale();
+	const messages = useMessages();
+
 	const openPopup = React.useCallback(() => {
 		SweetAlert.fire({
-			html: <DialogContentComponent />,
 			showConfirmButton: false,
 			showCloseButton: true,
 			customClass: {
-				container: cn("swal2-container", DialogContentclassName),
-				popup: "swalPopup",
+				container: cn("swal2-container ", DialogContentclassName),
+				popup: "swalPopup bg-red-400",
 				closeButton: "",
-				htmlContainer: "htmlContainer",
-
+				htmlContainer: "htmlContainer ",
+				title: "bg-red-400",
 			},
-			// titleText:"fares",
 			didOpen: () => {
 				const contentContainer = Swal.getHtmlContainer();
 				if (contentContainer) {
 					const root = createRoot(contentContainer);
-					root.render(<DialogContentComponent />);
+					root.render(
+						<NextIntlClientProvider locale={locale} messages={messages}>
+							<DialogContentComponent />
+						</NextIntlClientProvider>
+					);
 				}
 			},
 			padding: 0,
 		});
-	}, [DialogContentComponent, DialogContentclassName]);
+	}, [DialogContentComponent, DialogContentclassName, locale, messages]);
 
 	return (
 		<div className="cursor-pointer" onClick={openPopup}>
