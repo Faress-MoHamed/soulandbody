@@ -14,10 +14,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useLocale } from "next-intl";
 import NotificationsSheet from "./NotificationSheet";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 export function DropdownMenuCheckboxes() {
 	const [ischoosed, setIschoosed] = useState("");
 	const locale = useLocale();
+	const { t } = useTypedTranslation();
 	const languageOptions = [
 		{
 			id: 1,
@@ -68,7 +70,7 @@ export function DropdownMenuCheckboxes() {
 				</svg>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
-				<DropdownMenuLabel>Languages</DropdownMenuLabel>
+				<DropdownMenuLabel>{t('header.languages')}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				{languageOptions?.map((item) => (
 					<DropdownMenuCheckboxItem
@@ -94,6 +96,7 @@ export function DropdownMenuCheckboxes() {
 }
 
 export default function Header() {
+	const {t}=useTypedTranslation()
 	return (
 		<div className="flex lg:flex-row flex-col justify-between lg:gap-0 gap-2 lg:items-center lg:px-12">
 			{/* logo */}
@@ -107,13 +110,13 @@ export default function Header() {
 						alt=""
 					/>
 				</div>
-				<p className="md:text-[24px] text-[20px]">مرحبا بك في شركة SB</p>
+				<p className="md:text-[24px] text-[20px]">{t("header.welcome")}</p>
 			</Link>
 			{/* seatch */}
 			<div className="relative text-black lg:block hidden">
 				<Search className="absolute right-3 top-3.5 h-4 w-4 text-black" />
 				<Input
-					placeholder="ابحث هنا"
+					placeholder={t("header.searchHere")}
 					className="pr-9 min-w-[360px] h-[46px] max-[720px] rounded-[16px] lg:w-1/3 bg-[#007DFC1A] border-none placeholder:text-black"
 
 					// value={globalFilter}
@@ -128,11 +131,11 @@ export default function Header() {
 					className="w-[47px] h-[47px]"
 					alt=""
 				/>
-				<p className="text-[18px] font-cairo">د/احمد ابراهيم</p>
+				<p className="text-[18px] font-cairo">{t("header.dr")}</p>
 			</div>
 			<div className="flex gap-2 items-center">
 				<DropdownMenuCheckboxes />
-				<NotificationsSheet/>
+				<NotificationsSheet />
 			</div>
 		</div>
 	);

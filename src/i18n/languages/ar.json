@@ -304,7 +304,7 @@
 			"workLocation": "موقع الدوام"
 		}
 	},
-	"warningPopup":{
+	"warningPopup": {
 		"disciplinaryActions": "إجراءات تأديبية",
 		"employeeName": "اسم الموظف",
 		"warningType": "نوع الإنذار",
@@ -316,5 +316,12 @@
 			"suspension": "إيقاف عن العمل",
 			"termination": "إنهاء خدمة"
 		}
+	},
+		"header":{
+		"welcome": "مرحبا بك في شركة SB",
+		"searchHere": "ابحث هنا",
+		"languages": "اللغات",
+		"dr": "د/احمد ابراهيم"
 	}
+
 }

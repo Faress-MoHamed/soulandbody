@@ -316,5 +316,11 @@
 			"suspension": "Suspension",
 			"termination": "Termination"
 		}
+	},
+	"header": {
+		"welcome": "Welcome to SB Company",
+		"searchHere": "Search here",
+		"languages": "Languages",
+		"dr": "Dr. Ahmed Ibrahim"
 	}
 }
