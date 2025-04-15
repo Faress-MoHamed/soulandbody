@@ -21,6 +21,8 @@ import { useAttendanceData } from "./useAttendanceEmployee";
 import EmployeesForm from "../employees/add";
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import { useTypedTranslation } from "../hooks/useTypedTranslation";
+import CustomSelect from "@/components/customSelect";
+import { MonthPicker } from "@/components/monthPicker";
 
 function Salaries() {
 	const { t } = useTypedTranslation();
@@ -156,57 +158,39 @@ export default function page() {
 		<>
 			<h2 className="text-[26px] font-bold">{t("employeeData.title")}</h2>
 
-			<div className="flex justify-between items-center">
+			<div className="flex md:flex-row flex-col justify-between md:items-center">
 				<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6 rounded-none">
 					<div className="flex flex-col lg:flex-row gap-5">
-						<div className="flex flex-col gap-2">
-							<label className="text-[16px] text-black font-[500]">
-								{t("employeeData.filter.employee")}
-							</label>
-							<Select
-								value={selectedEmployee}
-								dir="rtl"
-								onValueChange={(e) => {
-									setSelectedEmployee((prev) => (prev === e ? "" : e));
-								}}
-							>
-								<SelectTrigger className="min-w-[240px]">
-									<SelectValue placeholder={t("employeeData.filter.all")} />
-								</SelectTrigger>
-								<SelectContent>
-									{[
-										"أحمد محمود",
-										"محمد علي",
-										"خالد حسن",
-										"ياسر عبد الله",
-										"سعيد عمر",
-									]?.map((el: any) => (
-										<SelectItem value={el}>{el}</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
-						</div>
-						<div className="flex flex-col gap-2">
-							<label className="text-[16px] text-black font-[500]">
-								{t("employeeData.filter.date")}
-							</label>
-							<Input
-								type="month"
-								className="min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end"
-								value={selectedMonth}
-								onChange={(e) => {
-									console.log(e?.target.value);
-									setSelectedMonth((prev) =>
-										prev === e.target.value ? undefined : e.target.value
-									);
-								}}
-							/>
-						</div>
+						<CustomSelect
+							options={[
+								"أحمد محمود",
+								"محمد علي",
+								"خالد حسن",
+								"ياسر عبد الله",
+								"سعيد عمر",
+							]}
+							label={t("employeeData.filter.employee")}
+							value={selectedEmployee}
+							onValueChange={(e) => {
+								setSelectedEmployee((prev) => (prev === e ? "" : e));
+							}}
+							placeholder={t("employeeData.filter.all")}
+						/>
+						<MonthPicker
+							// value={selectedMonth}
+							// onChange={(e) => {
+							// 	console.log(e?.target.value);
+							// 	setSelectedMonth((prev) =>
+							// 		prev === e.target.value ? undefined : e.target.value
+							// 	);
+							// }}
+							label={t("employeeData.filter.date")}
+						/>
 					</div>
 				</div>
 				<Link
 					href={"/employees/add"}
-					className="bg-emerald-500 hover:bg-emerald-600 lg:min-w-[148px] min-w-[140px] lg:h-[44px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px] px-4 py-2 has-[>svg]:px-3 text-white"
+					className="bg-emerald-500 hover:bg-emerald-600 lg:w-[148px] w-[180px] lg:h-[44px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px] px-4 py-2 has-[>svg]:px-3 text-white"
 				>
 					<img src="./add.svg" className="h-6 w-6" />
 					{t("employees.form.add")}
