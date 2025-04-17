@@ -110,6 +110,48 @@ export default function Page() {
 						data: data || [],
 						columns: columns,
 						FooterComponent: () => <FinalInvoicesTable />,
+						withInlineAdd: true,
+						withInlineAddContent: [
+							{
+								type: "null",
+							},
+							{
+								type: "custom",
+								Component: <p>fares</p>,
+							},
+							{
+								type: "custom",
+								Component: <p>fares</p>,
+							},
+							{
+								type: "custom",
+								Component: <p>fares</p>,
+							},
+							{
+								type: "custom",
+								Component: <p>fares</p>,
+							},
+							{
+								type: "custom",
+								Component: <p>fares</p>,
+							},
+							{
+								type: "custom",
+								Component: <p>fares</p>,
+							},
+							{
+								type: "custom",
+								Component: <p>fares</p>,
+							},
+							{
+								type: "custom",
+								Component: <p>fares</p>,
+							},
+							{
+								type: "custom",
+								Component: <p>fares</p>,
+							},
+						],
 						// expandableRow: !!selectedInvoice,
 					},
 				]}

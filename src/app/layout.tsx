@@ -33,7 +33,7 @@ export default async function RootLayout({
 	const locale = await getLocale();
 	const t = await getTranslations();
 	return (
-		<html lang={locale} dir={t("dir")}>
+		<html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
 			<head>
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link rel="preconnect" href="https://fonts.gstatic.com" />

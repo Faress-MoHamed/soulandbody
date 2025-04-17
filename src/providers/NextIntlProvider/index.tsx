@@ -5,7 +5,7 @@ export default async function RootLocaleLayout({ children }: { children: any }) 
 	const locale = await getLocale();
 
 	return (
-		<html lang={locale}>
+		<html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
 			<body>
 				<NextIntlClientProvider>{children}</NextIntlClientProvider>
 			</body>

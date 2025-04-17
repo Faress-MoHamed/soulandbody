@@ -30,6 +30,7 @@ export type TableProps<TData> = {
 	CardFooterClassName?: string;
 	containerClassName?: string;
 	withInlineAdd?: boolean;
+	withInlineAddContent?: SchemaObject[];
 	onSaveNewRow?: (data: any) => void;
 	expandableRow?: boolean;
 	expandedContent?: {

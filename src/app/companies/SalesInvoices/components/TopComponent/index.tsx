@@ -7,6 +7,7 @@ import TaxOnInvoice from "../TaxOnInvoice";
 import CustomSelect from "@/components/customSelect";
 import { CustomDatePicker } from "@/components/customDatePicker";
 import { useSalesInvoice } from "../../hooks/useSalesInvoices";
+import { MonthPicker } from "@/components/monthPicker";
 
 export default function TopComponent({
 	selectedInvoice,
@@ -151,7 +152,7 @@ export default function TopComponent({
 				<h1 className="text-[26px] font-[700] text-[#02140D]">فاتورة بيع</h1>
 				<h1 className="text-[36px] font-[600] text-[#02140D]">S00026</h1>
 			</div>
-			<div className="self-end flex gap-4">
+			<div className="self-end flex md:flex-row flex-col gap-4">
 				<CustomPopUp
 					DialogTriggerComponent={() => (
 						<Button
@@ -202,10 +203,10 @@ export default function TopComponent({
 				/>
 			</div>
 			<form onSubmit={handleSubmit}>
-				<div className="flex gap-5">
-					<CustomDatePicker
+				<div className="flex md:flex-row flex-col gap-5">
+					<MonthPicker
 						label="التاريخ"
-						wrapperClassName="w-[302px] h-[48px]"
+						wrapperClassName="lg:w-[302px] !h-[48px]"
 						// value={formValues.date}
 						// onSelect={handleDateChange}
 					/>
@@ -220,7 +221,7 @@ export default function TopComponent({
 				</div>
 				<div className="flex flex-col gap-1">
 					<h1 className="text-[22px] font-[500]">معلومات العميل</h1>
-					<div className="flex gap-5 items-center">
+					<div className="flex md:flex-row flex-col gap-5 items-center">
 						<CustomInput
 							label="أسم العميل"
 							type="text"

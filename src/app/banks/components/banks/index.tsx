@@ -40,7 +40,7 @@ export default function BankAccountsTable() {
 					withFilter: false,
 					UserComponent: () => (
 						<div className="flex md:flex-col flex-col-reverse gap-4 mb-6">
-							<div className="flex md:flex-row flex-col justify-between items-center gap-5">
+							<div className="flex flex-row justify-between items-center gap-5">
 								<h2 className="text-[26px] font-bold">{t("bankAccounts.tabs.banks")}</h2>
 								<CustomPopUp
 									DialogTriggerComponent={() => (

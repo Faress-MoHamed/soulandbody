@@ -121,7 +121,7 @@ export default function FinalInvoicesTable() {
 									{headerGroup.headers.map((header) => (
 										<th
 											key={header.id}
-											className="text-[16px] text-start font-[500] px-3 py-[10px] w-[187px] h-[62px] bg-[#00000014] border-t align-top border-l border-[#B9EDD9]"
+											className="text-[16px] text-start font-[500] px-3 py-[10px] w-[187px] h-[62px] bg-[#00000014] border-t align-top border-l border-[#B9EDD9] text-nowrap"
 										>
 											{header.isPlaceholder
 												? null

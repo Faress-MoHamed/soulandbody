@@ -7,7 +7,7 @@ import React from "react";
 
 const TaxOnInvoice = () => {
 	return (
-		<Card className="flex flex-col  p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[246px] h-fit">
+		<Card className="flex flex-col  p-4 gap-6 ">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 					اضافة ضريبة على الفاتورة
@@ -18,12 +18,12 @@ const TaxOnInvoice = () => {
 					<CustomSelect
 						label="ضريبة مبيعات "
 						options={["لا يوجد", "يوجد"]}
-						triggerClassName="w-[256px]"
+						triggerClassName="md:w-[256px]"
 					/>
 					<CustomSelect
 						label="ضريبة الدخل "
 						options={["لا يوجد", "يوجد"]}
-						triggerClassName="w-[256px]"
+						triggerClassName="md:w-[256px]"
 					/>
 				</div>
 				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">

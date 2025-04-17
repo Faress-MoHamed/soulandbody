@@ -46,7 +46,7 @@ return (
 			onSubmit={formik.handleSubmit}
 			className="flex flex-col gap-6 justify-center items-center"
 		>
-			<div className="grid grid-cols-3 gap-6 content-center">
+			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 				<CustomInput
 					label={t("IncomingChecks.forms.date")}
 					type="date"
@@ -70,7 +70,7 @@ return (
 					error={formik.touched.accountName && formik.errors.accountName}
 				/>
 			</div>
-			<div className="grid grid-cols-3 gap-6 content-center">
+			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 				<CustomInput
 					label={t("IncomingChecks.forms.checkNumber")}
 					name="checkNumber"

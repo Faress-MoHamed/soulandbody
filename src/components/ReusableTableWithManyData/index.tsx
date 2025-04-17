@@ -30,6 +30,9 @@ import ColSpanTbody from "./ColSpanTBody";
 import MainBody from "./MainBody";
 import BaseFilter from "./BaseFilter";
 import HorizontalTable from "../HorizontalTable";
+import CustomInput from "../customInput";
+import CustomSelect from "../customSelect";
+import { Minus, Plus } from "lucide-react";
 
 export function Table<TData>({
 	columns,
@@ -60,6 +63,7 @@ export function Table<TData>({
 	expandableRow = false,
 	expandedContent,
 	columnGroups,
+	withInlineAddContent,
 }: TableProps<TData>) {
 	const [selectedEmployee, setSelectedEmployee] = useState<string>("");
 	const [selectedMonth, setSelectedMonth] = useState<string | undefined>();
@@ -240,7 +244,7 @@ export function Table<TData>({
 			});
 		}
 
-		if (withInlineAdd && !isAddingRow) {
+		if (withInlineAdd) {
 			updatedColumns.unshift({
 				id: "addRowButton",
 				header: "",
@@ -249,23 +253,11 @@ export function Table<TData>({
 					if (isLastRow) {
 						return (
 							<button
-								onClick={() => setIsAddingRow(true)}
+								onClick={() => setIsAddingRow((e) => !e)}
 								className="flex items-center justify-center w-6 h-6 rounded-full bg-[#16C47F] text-white hover:bg-[#13B374]"
 								aria-label="Add row"
 							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="16"
-									height="16"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<path d="M12 5v14M5 12h14" />
-								</svg>
+								{!isAddingRow ? <Plus /> : <Minus />}
 							</button>
 						);
 					}
@@ -289,34 +281,51 @@ export function Table<TData>({
 	]);
 
 	const NewRowComponent = () => (
-		<tr className="border-b bg-[#F0FFF7] text-center w-full">
-			{columns.map((column: any) => {
-				console.log(column.accessorKey);
-				return column.accessorKey !== "id" ? (
+		<>
+			<tr className={cn("border-b hover:bg-muted/50 text-center w-full")}>
+				{withInlineAddContent?.map((element, i) => (
 					<td
-						key={column.accessorKey}
-						className="p-3 text-center border-y-[1px] border-[#14250D66]"
+						key={i}
+						className="p-3 text-[16px] border-y-[1px] border-[#14250D66] max-w-[120px]"
 					>
-						<Input
-							type="text"
-							className="bg-white border-[#D9D9D9] placeholder:text-gray-400 text-right"
-							placeholder={`أدخل ${column.header}`}
-							value={newRowData[column.accessorKey] || ""}
-							onChange={(e) =>
-								handleNewRowInputChange(column.accessorKey, e.target.value)
+						{(() => {
+							switch (element?.type) {
+								case "input":
+									return (
+										<CustomInput
+											type={element.inputType || "text"}
+											value={element.value}
+											label={element.label}
+											onChange={(e) =>
+												element?.onChange && element?.onChange(e)
+											}
+											className="max-w-[240px] min-w-auto"
+											wrapperClassName={cn(
+												"md:w-auto md:max-w-[302px]",
+												element.wrapperClassName
+											)}
+											labelClassName={cn(element.labelClassName)}
+										/>
+									);
+								case "select":
+									return (
+										<CustomSelect
+											triggerClassName="!h-[48px] w-[302px] bg-white"
+											{...element}
+										/>
+									);
+								case "custom":
+									return element.Component;
+								case "null":
+									return null;
+								default:
+									return null;
 							}
-						/>
+						})()}
 					</td>
-				) : (
-					<td
-						key={column.accessorKey}
-						className="p-3 text-center border-y-[1px] border-[#14250D66]"
-					>
-						{/* فارس */}
-					</td>
-				);
-			})}
-		</tr>
+				))}
+			</tr>
+		</>
 	);
 	const table = useReactTable({
 		data: finalData,
@@ -506,6 +515,8 @@ export default function ReusableManyTable<TData>({
 							deleteLoading={set.deleteLoading}
 							withPrinter={set.withPrinter}
 							onDelete={set.onDelete}
+							withInlineAdd={set.withInlineAdd}
+							withInlineAddContent={set.withInlineAddContent}
 							onEdit={set.onEdit}
 							withActionButtons={set.withActionButtons}
 							withFilter={set.withFilter}
