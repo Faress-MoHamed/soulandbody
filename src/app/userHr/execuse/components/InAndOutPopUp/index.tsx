@@ -46,7 +46,7 @@ export default function InOutPopUp() {
 	};
 
 	return (
-		<Card className="flex flex-col px-6 py-9 gap-6 w-fit h-fit">
+		<Card className="flex flex-col px-6 py-9 gap-6  md:w-fit md:h-fit">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 					دخول / خروج

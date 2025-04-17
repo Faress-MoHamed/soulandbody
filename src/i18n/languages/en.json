@@ -322,5 +322,118 @@
 		"searchHere": "Search here",
 		"languages": "Languages",
 		"dr": "Dr. Ahmed Ibrahim"
+	},
+	"expense": {
+		"title": "Expenses",
+		"newExpense": "New Expense",
+		"code": "Expense Code",
+		"name": "Expense Name",
+		"total": "Total",
+		"date": "Date",
+		"expenseName": "Expense Name",
+		"amount": "Amount",
+		"accountName": "Account Name",
+		"type": "Type",
+		"save": "Save",
+		"statement": {
+			"accountStatement": "Account Statement",
+			"incomeList": "Income List",
+			"dateFrom": "Date From",
+			"dateTo": "Date To",
+			"search": "Search",
+			"columns": {
+				"date": "Date",
+				"transactionId": "Transaction ID",
+				"description": "Description",
+				"debit": "Debit",
+				"credit": "Credit",
+				"balance": "Balance"
+			}
+		}
+	},
+	"reports": "Reports",
+	"accountsReport": {
+		"statement": "Account Statement",
+		"generalStatement": "General Account Statement",
+		"customStatement": "Custom Account Statement",
+		"name": "Account Name",
+		"value": "Value"
+	},
+	"financialReport": {
+		"balanceSheet": "Balance Sheet",
+		"incomeStatement": "Income Statement",
+		"trialBalance": "Trial Balance",
+		"ledger": "General Ledger"
+	},
+	"columns": {
+		"date": "Date",
+		"transactionId": "Transaction ID",
+		"description": "Description",
+		"debit": "Debit",
+		"credit": "Credit",
+		"balance": "Balance",
+		"username": "Username",
+		"notes": "Notes",
+		"accountName": "Account Name"
+	},
+	"balance": {
+		"openingBalance": "Opening Balance",
+		"yearMovements": "Year Movements",
+		"closingBalance": "Closing Balance",
+		"movements": "Movements"
+	},
+	"incomeStatement": {
+		"title": "Income Statement",
+		"year": "Year",
+		"revenue": "Revenue",
+		"costOfRevenue": "Cost of Revenue",
+		"grossProfit": "Gross Profit",
+		"otherRevenue": "Other Revenue",
+		"expenses": "Expenses",
+		"netProfit": "Net Profit"
+	},
+	"actions": {
+		"search": "Search",
+		"edit": "Edit",
+		"delete": "Delete"
+	},
+	"filters": {
+		"dateFrom": "Date From",
+		"dateTo": "Date To",
+		"incomeList": "Income List"
+	},
+	"accounts": {
+		"assets": "Assets",
+		"nonCurrentAssets": "Non-Current Assets",
+		"fixedAssets": "Fixed Assets",
+		"projectsInProgress": "Projects in Progress",
+		"intangibleAssets": "Intangible Assets",
+		"realEstateInvestments": "Real Estate Investments",
+		"currentAssets": "Current Assets",
+		"inventory": "Inventory"
+	},
+	"services": {
+		"internet": "Internet",
+		"internetPlan": "Internet Plan",
+		"internetCardRefill": "Internet Card Refill",
+		"accountRecharge": "Account Recharge",
+		"billPayment": "Bill Payment",
+		"phoneBill": "Phone Bill",
+		"electricity": "Electricity",
+		"waterBill": "Water Bill",
+		"homeGas": "Home Gas",
+		"rent": "Rent",
+		"walletRecharge": "Wallet Recharge",
+		"moneyTransfer": "Money Transfer",
+		"creditCard": "Credit Card",
+		"healthInsurance": "Health Insurance",
+		"taxesAndFees": "Taxes and Fees",
+		"miscellaneousPayments": "Miscellaneous Payments",
+		"groceries": "Groceries",
+		"clothing": "Clothing",
+		"restaurants": "Restaurants",
+		"homeServices": "Home Services",
+		"carMaintenance": "Car Maintenance",
+		"fuel": "Fuel"
 	}
 }

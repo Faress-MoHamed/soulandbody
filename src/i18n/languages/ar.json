@@ -317,11 +317,123 @@
 			"termination": "إنهاء خدمة"
 		}
 	},
-		"header":{
+	"header": {
 		"welcome": "مرحبا بك في شركة SB",
 		"searchHere": "ابحث هنا",
 		"languages": "اللغات",
 		"dr": "د/احمد ابراهيم"
+	},
+	"expense": {
+		"title": "مصروفات",
+		"newExpense": "مصروف جديد",
+		"code": "كود المصروف",
+		"name": "اسم المصروف",
+		"total": "الإجمالي",
+		"date": "التاريخ",
+		"expenseName": "أسم المصرف",
+		"amount": "المبلغ",
+		"accountName": "أسم الحساب",
+		"type": "النوع",
+		"save": "حفظ",
+		"statement": {
+			"accountStatement": "كشف حساب",
+			"incomeList": "قائمة الدخل",
+			"dateFrom": "تاريخ من",
+			"dateTo": "تاريخ إلى",
+			"search": "بحث",
+			"columns": {
+				"date": "تاريخ",
+				"transactionId": "رقم العملية",
+				"description": "البيان",
+				"debit": "مدين",
+				"credit": "دائن",
+				"balance": "رصيد"
+			}
+		}
+	},
+	"reports": "تقارير",
+	"accountsReport": {
+		"statement": "كشف حساب",
+		"generalStatement": "كشف حساب عام",
+		"customStatement": "كشف الحسابات المخصص",
+		"name": "اسم الحساب",
+		"value": "القيمة"
+	},
+	"financialReport": {
+		"balanceSheet": "قائمة مركز مالي",
+		"incomeStatement": "قائمة الدخل",
+		"trialBalance": "ميزان مراجعة",
+		"ledger": "دفتر أستاذ"
+	},
+	"columns": {
+		"date": "تاريخ",
+		"transactionId": "رقم العملية",
+		"description": "البيان",
+		"debit": "مدين",
+		"credit": "دائن",
+		"balance": "رصيد",
+		"username": "اسم المستخدم",
+		"notes": "ملاحظات",
+		"accountName": "اسم الحساب"
+	},
+	"balance": {
+		"openingBalance": "رصيد بداية المدة",
+		"yearMovements": "حركات العام",
+		"closingBalance": "رصيد نهاية المدة",
+		"movements": "حركات"
+	},
+	"incomeStatement": {
+		"title": "قائمة الدخل",
+		"year": "السنة",
+		"revenue": "الايرادات",
+		"costOfRevenue": "تكلفة الايرادات",
+		"grossProfit": "مجمل الربح",
+		"otherRevenue": "ايرادات اخرى",
+		"expenses": "مصروفات",
+		"netProfit": "صافي الربح"
+	},
+	"actions": {
+		"search": "بحث",
+		"edit": "تعديل",
+		"delete": "حذف"
+	},
+	"filters": {
+		"dateFrom": "من تاريخ",
+		"dateTo": "إلى تاريخ",
+		"incomeList": "قائمة الدخل"
+	},
+	"accounts": {
+		"assets": "أصول",
+		"nonCurrentAssets": "أصول غير متداولة",
+		"fixedAssets": "أصول ثابتة",
+		"projectsInProgress": "مشروعات تحت التنفيذ",
+		"intangibleAssets": "أصول غير ملموسة",
+		"realEstateInvestments": "استثمار عقاري",
+		"currentAssets": "أصول متداولة",
+		"inventory": "البضاعة"
+	},
+	"services": {
+		"internet": "شريحة الانترنت",
+		"internetPlan": "اشتراك نت",
+		"internetCardRefill": "شحن بطاقة الانترنت",
+		"accountRecharge": "شحن رصيد",
+		"billPayment": "تسديد فاتورة",
+		"phoneBill": "فاتورة الهاتف",
+		"electricity": "الكهرباء",
+		"waterBill": "فاتورة الماء",
+		"homeGas": "غاز المنزل",
+		"rent": "الايجار",
+		"walletRecharge": "شحن محفظة",
+		"moneyTransfer": "تحويل أموال",
+		"creditCard": "بطاقة الإئتمان",
+		"healthInsurance": "التأمين الصحي",
+		"taxesAndFees": "دفع ضرائب ورسوم",
+		"miscellaneousPayments": "مدفوعات مختلفة",
+		"groceries": "بقالة",
+		"clothing": "ملابس",
+		"restaurants": "مطاعم",
+		"homeServices": "خدمات منزلية",
+		"carMaintenance": "صيانة السيارة",
+		"fuel": "وقود"
 	}
-
 }

@@ -69,7 +69,7 @@ export default function EmployeesForm({
 
 	const SickLeave = () => {
 		return (
-			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6">
 				<CardHeader className="flex flex-row items-center justify-between">
 					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 						{t("employeeForm.leave.header.sick")}
@@ -98,7 +98,7 @@ export default function EmployeesForm({
 
 	const TotalLeave = () => {
 		return (
-			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6">
 				<CardHeader className="flex flex-row items-center justify-between">
 					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 						{t("employeeForm.leave.header.total")}
@@ -121,7 +121,7 @@ export default function EmployeesForm({
 	};
 	const RegularLeave = () => {
 		return (
-			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6">
 				<CardHeader className="flex flex-row items-center justify-between">
 					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 						<label>{t("employeeForm.leave.header.regular")}</label>
@@ -144,7 +144,7 @@ export default function EmployeesForm({
 	};
 	const ContinuousAbsence = () => {
 		return (
-			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6">
 				<CardHeader className="flex flex-row items-center justify-between">
 					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 						<label>{t("employeeForm.leave.header.continuous_absence")}</label>
@@ -167,7 +167,7 @@ export default function EmployeesForm({
 	};
 	const SeparateAbsence = () => {
 		return (
-			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6">
 				<CardHeader className="flex flex-row items-center justify-between">
 					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 						<label>{t("employeeForm.leave.header.separate_absence")}</label>
@@ -190,7 +190,7 @@ export default function EmployeesForm({
 	};
 	const EmergencyLeave = () => {
 		return (
-			<Card className="flex flex-col bg-gray-100 p-4 gap-6 lg:w-[597px] w-[300px] lg:h-[219px] h-fit">
+			<Card className="flex flex-col bg-gray-100 p-4 gap-6">
 				<CardHeader className="flex flex-row items-center justify-between">
 					<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 						{t("employeeForm.leave.header.emergency")}

@@ -29,11 +29,20 @@ import Printer from "./Printer";
 import ColSpanTbody from "./ColSpanTBody";
 import MainBody from "./MainBody";
 import BaseFilter from "./BaseFilter";
+import HorizontalTable, { type TableItem } from "../HorizontalTable";
 
 export function Table<TData>({
 	columns,
 	data,
 	title,
+	withActionButtons = true,
+	FooterComponent,
+	UserComponent,
+	CardFooterClassName,
+	containerClassName,
+	withPrinter,
+	withPagination = true,
+	withFilter = true,
 	AddTitle,
 	onClickAdd,
 	ButtonTrigger,
@@ -46,18 +55,11 @@ export function Table<TData>({
 	deleteLoading,
 	onDelete,
 	onEdit,
-	withActionButtons = true,
-	FooterComponent,
-	withFilter = true,
-	withPrinter,
-	withPagination = true,
-	UserComponent,
-	CardFooterClassName,
-	containerClassName,
 	withInlineAdd = false,
 	onSaveNewRow,
 	expandableRow = false,
 	expandedContent,
+	columnGroups,
 }: TableProps<TData>) {
 	const [selectedEmployee, setSelectedEmployee] = useState<string>("");
 	const [selectedMonth, setSelectedMonth] = useState<string | undefined>();
@@ -384,12 +386,28 @@ export function Table<TData>({
 									<div className="min-w-full inline-block align-middle">
 										<table className="min-w-full border-collapse">
 											<thead className="bg-[#D0F3E5] border-b-[1px] border-[#14250D66]">
+												{columnGroups && (
+													<tr className="bg-[#fafafa] space-x-5">
+														{columnGroups.map((group, index) => (
+															<th
+																key={`group-${index}`}
+																colSpan={group.columns}
+																className={cn(
+																	"p-3 text-center text-nowrap border-[1px]  md:border-x-[49px] border-x-[14px] border-[#fafafa] mx-5",
+																	group.className
+																)}
+															>
+																{group.title}
+															</th>
+														))}
+													</tr>
+												)}
 												{table.getHeaderGroups().map((headerGroup) => (
 													<tr key={headerGroup.id} className="text-center">
 														{headerGroup.headers.map((header) => (
 															<th
 																key={header.id}
-																className="p-3 text-center border-b"
+																className="p-3 text-center border-b text-nowrap"
 															>
 																{flexRender(
 																	header.column.columnDef.header,
@@ -447,7 +465,7 @@ export function Table<TData>({
 	);
 }
 
-export default function ReusableManyTable<TData>({
+export default function ReusableManyTable<TData extends TableItem>({
 	dataSets,
 	withTopPrinter,
 }: MultipleTableProps<TData>) {
@@ -456,7 +474,20 @@ export default function ReusableManyTable<TData>({
 			<SelectableComponent
 				items={dataSets.map((set, index) => ({
 					label: set.label || set.title || "title",
-					component: (
+					component: set.horizontal ? (
+						<HorizontalTable<TData>
+							key={index}
+							columns={set.columns}
+							data={set.data}
+							title={set.title}
+							withActionButtons={set.withActionButtons}
+							FooterComponent={set.FooterComponent}
+							ActionComponent={set.ActionComponent}
+							CardFooterClassName={set.CardFooterClassName}
+							containerClassName={set.containerClassName}
+							UserComponent={set.UserComponent}
+						/>
+					) : (
 						<Table<TData>
 							key={index}
 							columns={set.columns}
@@ -469,6 +500,7 @@ export default function ReusableManyTable<TData>({
 							onClickAdd={set.onClickAdd}
 							ButtonTrigger={set.ButtonTrigger}
 							loading={set.loading}
+							columnGroups={set.columnGroups}
 							withColspan={set.withColspan}
 							error={set.error}
 							deleteLoading={set.deleteLoading}

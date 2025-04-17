@@ -1,17 +1,17 @@
 import React from "react";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
 } from "@/components/ui/card";
 import CustomInput from "@/components/customInput";
 import { Button } from "@heroui/react";
 
 export default function RequestVacation() {
-  return (
-		<Card className="flex flex-col px-6 py-9 gap-6 w-fit h-fit">
+	return (
+		<Card className="flex flex-col px-6 py-9 gap-6  md:w-fit md:h-fit">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 					طلب الأجازة

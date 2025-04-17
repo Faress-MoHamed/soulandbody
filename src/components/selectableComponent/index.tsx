@@ -5,6 +5,7 @@ import { useState, useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { utils, writeFile } from "xlsx";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 interface SelectableComponentProps {
 	items: {
@@ -64,6 +65,7 @@ export default function SelectableComponent({
 		utils.book_append_sheet(workbook, worksheet, "Sheet1");
 		writeFile(workbook, "table_data.xlsx");
 	};
+	const {t}=useTypedTranslation()
 	return (
 		<div className={cn("w-full", className)}>
 			<div className="flex justify-between w-full">
@@ -74,14 +76,14 @@ export default function SelectableComponent({
 							className="bg-emerald-500 hover:bg-emerald-600 md:w-[148px] h-[44px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-none rounded-t-[8px]"
 						>
 							<img src="/print.svg" className="h-6 w-6 mr-2" />
-							{"طباعة"}
+							{t("print")}
 						</Button>
 					)}
 				</div>{" "}
 				{items?.length > 1 && (
 					<div
 						className={cn(
-							"flex justify-end pl-[1px]",
+							"flex md:justify-end  pl-[1px] overflow-x-auto max-w-full",
 							direction === "horizontal" ? "flex-row" : "flex-col"
 						)}
 						role="tablist"

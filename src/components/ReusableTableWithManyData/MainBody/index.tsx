@@ -40,7 +40,7 @@ export default function MainBody<TData>({
 								<td
 									key={cell.id}
 									className={cn(
-										`p-3 text-[16px] tec border-y-[1px] border-[#14250D66]`
+										`p-3 text-[16px] tec border-y-[1px] border-[#14250D66] text-nowrap`
 									)}
 								>
 									{flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -22,6 +22,7 @@ export type TableProps<TData> = {
 	onEdit?: (id: string) => void;
 	withActionButtons?: boolean;
 	FooterComponent?: React.FC;
+	ActionComponent?: React.FC<{ row: TData }>;
 	withFilter?: boolean;
 	withPrinter?: boolean;
 	withPagination?: boolean;
@@ -38,6 +39,12 @@ export type TableProps<TData> = {
 			toggleExpand: () => void
 		) => JSX.Element;
 	};
+	columnGroups?: {
+		title: string;
+		columns: number; // How many columns this group spans
+		className?: string;
+	}[];
+	horizontal?: boolean;
 };
 
 export type TextInput = {
@@ -84,3 +91,14 @@ export type MultipleTableProps<TData> = {
 	dataSets: CustomTableProps<TData>[];
 	withTopPrinter?: boolean;
 };
+export type HorizontalTableProps<TData> = Pick<
+	TableProps<TData>,
+	| "columns"
+	| "data"
+	| "title"
+	| "withActionButtons"
+	| "FooterComponent"
+	| "ActionComponent"
+	| "CardFooterClassName"
+	| "containerClassName"
+>;

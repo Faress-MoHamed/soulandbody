@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Clock } from "lucide-react";
@@ -14,7 +14,7 @@ import CustomInput from "@/components/customInput";
 
 export default function AdditionalTimeRequest() {
 	return (
-		<Card className="flex flex-col px-6 py-9 gap-6 w-fit h-fit">
+		<Card className="flex flex-col px-6 py-9 gap-6  md:w-fit md:h-fit">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 					الوقت الأضافي

@@ -60,8 +60,8 @@ export function MonthPicker({
 	};
 	const { t } = useTypedTranslation();
 	return (
-		<div className="flex flex-col gap-2">
-			{label && <label>{label}</label>}
+		<div className={cn("flex flex-col gap-2 w-full", wrapperClassName)}>
+			{label && <label className="text-start">{label}</label>}
 			<Popover open={open} onOpenChange={setOpen}>
 				<PopoverTrigger asChild>
 					<Button
