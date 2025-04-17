@@ -8,12 +8,8 @@ import {
 import { Card, CardTitle, CardHeader } from "../ui/card";
 import { cn } from "@/lib/utils";
 
-export interface TableItem {
-	name: string;
-	value: number;
-}
 
-interface HorizontalTableProps<TData extends TableItem> {
+interface HorizontalTableProps<TData> {
 	data: TData[];
 	title?: string;
 	withActionButtons?: boolean;
@@ -25,7 +21,7 @@ interface HorizontalTableProps<TData extends TableItem> {
 	columns?: ColumnDef<TData>[]; // Make columns optional
 }
 
-const HorizontalTable = <TData extends TableItem>({
+export default function HorizontalTable<TData>({
 	data,
 	title,
 	withActionButtons = false,
@@ -35,7 +31,7 @@ const HorizontalTable = <TData extends TableItem>({
 	containerClassName = "w-full max-w-2xl mx-auto ",
 	columns, // Now columns is optional
 	UserComponent,
-}: HorizontalTableProps<TData>) => {
+}: HorizontalTableProps<TData>) {
 	// Default columns if not provided
 	const defaultColumns: ColumnDef<TData>[] = [
 		{
@@ -140,6 +136,5 @@ const HorizontalTable = <TData extends TableItem>({
 			</div>
 		</Card>
 	);
-};
+}
 
-export default HorizontalTable;

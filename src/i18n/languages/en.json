@@ -435,5 +435,171 @@
 		"homeServices": "Home Services",
 		"carMaintenance": "Car Maintenance",
 		"fuel": "Fuel"
+	},
+	"AccountStatement": {
+		"tableHeaders": {
+			"date": "Date",
+			"transactionNumber": "Transaction Number",
+			"bankName": "Bank Name",
+			"description": "Description",
+			"debit": "Debit",
+			"credit": "Credit",
+			"balance": "Balance"
+		},
+		"labels": {
+			"accountStatement": "Account Statement"
+		},
+		"filters": {
+			"dateFrom": "Date From",
+			"dateTo": "Date To"
+		},
+		"actions": {
+			"search": "Search"
+		}
+	},
+	"IncomingChecks": {
+		"forms": {
+			"incomingChecks": "Incoming Checks",
+			"submit": "Submit",
+			"date": "Date",
+			"bankName": "Bank Name",
+			"accountName": "Account Name",
+			"checkNumber": "Check Number",
+			"amount": "Amount",
+			"collectionDate": "Collection Date",
+			"outgoingChecks": "Outgoing Checks",
+			"issue": "Issue"
+		},
+		"validation": {
+			"dateRequired": "Date is required",
+			"bankNameRequired": "Bank name is required",
+			"accountNameRequired": "Account name is required",
+			"checkNumberRequired": "Check number is required",
+			"amountRequired": "Amount is required",
+			"amountPositive": "Amount must be a positive number",
+			"collectionDateRequired": "Collection date is required"
+		}
+	},
+	"deposit": {
+		"forms": {
+			"deposit": "Deposit",
+			"date": "Date",
+			"bankName": "Bank Name",
+			"accountName": "Account Name",
+			"accountNumber": "Deposit Number",
+			"amount": "Amount"
+		},
+		"validation": {
+			"dateRequired": "Date is required",
+			"bankNameRequired": "Bank name is required",
+			"accountNameRequired": "Account name is required",
+			"accountNumberPositive": "Account number must be a positive number",
+			"accountNumberRequired": "Account number is required",
+			"amountPositive": "Amount must be a positive number",
+			"amountRequired": "Amount is required"
+		}
+	},
+	"withdrawal": {
+		"forms": {
+			"withdrawal": "Withdrawal",
+			"date": "Date",
+			"bankName": "Bank Name",
+			"accountName": "Account Name",
+			"withdrawalNumber": "Withdrawal Number",
+			"amount": "Amount"
+		},
+		"validation": {
+			"dateRequired": "Date is required",
+			"bankNameRequired": "Bank name is required",
+			"accountNameRequired": "Account name is required",
+			"accountNumberPositive": "Account number must be a positive number",
+			"accountNumberRequired": "Account number is required",
+			"amountPositive": "Amount must be a positive number",
+			"amountRequired": "Amount is required"
+		}
+	},
+	"IncomingTransfers": {
+		"forms": {
+			"incomingTransfer": "Incoming Transfer",
+			"date": "Date",
+			"bankName": "Bank Name",
+			"accountName": "Account Name",
+			"accountNumber": "Account Number",
+			"amount": "Amount",
+			"transfer": "Transfer"
+		},
+		"validation": {
+			"dateRequired": "Date is required",
+			"bankNameRequired": "Bank name is required",
+			"accountNameRequired": "Account name is required",
+			"accountNumberPositive": "Account number must be a positive number",
+			"accountNumberRequired": "Account number is required",
+			"amountPositive": "Amount must be a positive number",
+			"amountRequired": "Amount is required"
+		}
+	},
+	"OutgoingTransfers": {
+		"forms": {
+			"outgoingTransfer": "Outgoing Transfer",
+			"date": "Date",
+			"bankName": "Bank Name",
+			"accountName": "Account Name",
+			"accountNumber": "Account Number",
+			"amount": "Amount",
+			"transfer": "Transfer"
+		},
+		"validation": {
+			"dateRequired": "Date is required",
+			"bankNameRequired": "Bank name is required",
+			"accountNameRequired": "Account name is required",
+			"accountNumberRequired": "Account number is required",
+			"accountNumberPositive": "Account number must be a positive number",
+			"amountPositive": "Amount must be a positive number",
+			"amountRequired": "Amount is required"
+		}
+	},
+	"bankAccounts": {
+		"tabs": {
+			"accountStatement": "Account Statement",
+			"checks": "Checks",
+			"incoming": "Incoming",
+			"outgoing": "Outgoing",
+			"transfers": "Transfers",
+			"operations": "Operations",
+			"withdraw": "Withdraw",
+			"deposit": "Deposit",
+			"banks": "Banks"
+		}
+	},
+	"bank": {
+		"name": "Bank Name",
+		"branch": "Branch",
+		"accountNumber": "Account Number",
+		"balance": "Balance",
+		"add": "Add Bank"
+	},
+	"AddBank": {
+		"bank": {
+			"addNew": "Add New Bank",
+			"name": "Bank Name",
+			"branch": "Branch Name",
+			"accountNumber": "Account Number",
+			"initialBalance": "Initial Balance",
+			"type": "Type",
+			"credit": "Credit",
+			"debit": "Debit"
+		},
+		"formErrors": {
+			"bankName": "Bank name is required",
+			"branchName": "Branch name is required",
+			"accountNumber": "Account number is required",
+			"initialBalance": "Initial balance is required",
+			"initialBalanceType": "Initial balance must be a number",
+			"type": "Type is required"
+		},
+		"actions": {
+			"save": "Save"
+		}
 	}
+
 }

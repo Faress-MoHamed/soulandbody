@@ -68,8 +68,14 @@ function App() {
 }
 
 export default function page() {
+
+
+	
 	const { data: UserTransactionsData, isLoading: UserTransactionsLoading } =
 		useUserTransactions();
+	
+	
+	
 	const { t } = useTypedTranslation();
 	const { data: TrialBalanceData, isLoading: TrialBalanceLoading } =
 		useTrialBalance();

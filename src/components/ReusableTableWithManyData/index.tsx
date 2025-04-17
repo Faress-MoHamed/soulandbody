@@ -29,7 +29,7 @@ import Printer from "./Printer";
 import ColSpanTbody from "./ColSpanTBody";
 import MainBody from "./MainBody";
 import BaseFilter from "./BaseFilter";
-import HorizontalTable, { type TableItem } from "../HorizontalTable";
+import HorizontalTable from "../HorizontalTable";
 
 export function Table<TData>({
 	columns,
@@ -465,7 +465,7 @@ export function Table<TData>({
 	);
 }
 
-export default function ReusableManyTable<TData extends TableItem>({
+export default function ReusableManyTable<TData>({
 	dataSets,
 	withTopPrinter,
 }: MultipleTableProps<TData>) {

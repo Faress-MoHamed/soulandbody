@@ -6,7 +6,7 @@ interface CustomInputProps extends React.ComponentProps<"input"> {
 	label?: string;
 	labelClassName?: string;
 	wrapperClassName?: string;
-	error?: string;
+	error?: any;
 }
 
 export default function CustomInput({
@@ -43,7 +43,7 @@ export default function CustomInput({
 				)}
 				{...props}
 			/>
-			{error && <p>{error}</p>}
+			{error && <p className="text-[12px] text-red-500 text-start">{error}</p>}
 		</div>
 	);
 }

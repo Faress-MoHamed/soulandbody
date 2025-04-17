@@ -54,7 +54,7 @@ interface CustomSelectProps
 	placeholder?: string;
 	options?: { value: string; label: string }[] | string[];
 	triggerClassName?: string;
-	error?: string;
+	error?: any;
 	loading?: boolean;
 }
 
@@ -105,7 +105,7 @@ export default function CustomSelect({
 					})}
 				</SelectContent>
 			</Select>
-			{error && <p>{error}</p>}
+			{error && <p className="text-start">{error}</p>}
 		</div>
 	);
 }

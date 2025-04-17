@@ -435,5 +435,170 @@
 		"homeServices": "خدمات منزلية",
 		"carMaintenance": "صيانة السيارة",
 		"fuel": "وقود"
+	},
+	"AccountStatement": {
+		"tableHeaders": {
+			"date": "تاريخ",
+			"transactionNumber": "رقم العملية",
+			"bankName": "اسم البنك",
+			"description": "بيان",
+			"debit": "مدين",
+			"credit": "دائن",
+			"balance": "رصيد"
+		},
+		"labels": {
+			"accountStatement": "كشف حساب"
+		},
+		"filters": {
+			"dateFrom": "من تاريخ",
+			"dateTo": "إلى تاريخ"
+		},
+		"actions": {
+			"search": "بحث"
+		}
+	},
+	"IncomingChecks": {
+		"forms": {
+			"incomingChecks": "شيكات واردة",
+			"submit": "استلام",
+			"date": "التاريخ",
+			"bankName": "أسم البنك",
+			"accountName": "أسم الحساب",
+			"checkNumber": "رقم الشيك",
+			"amount": "المبلغ",
+			"collectionDate": "تاريخ التحصيل",
+			"outgoingChecks": "شيكات صادرة",
+			"issue": "اصدار"
+		},
+		"validation": {
+			"dateRequired": "التاريخ مطلوب",
+			"bankNameRequired": "أسم البنك مطلوب",
+			"accountNameRequired": "أسم الحساب مطلوب",
+			"checkNumberRequired": "رقم الشيك مطلوب",
+			"amountRequired": "المبلغ مطلوب",
+			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+			"collectionDateRequired": "تاريخ التحصيل مطلوب"
+		}
+	},
+	"deposit": {
+		"forms": {
+			"deposit": "ايداع",
+			"date": "التاريخ",
+			"bankName": "أسم البنك",
+			"accountName": "أسم الحساب",
+			"accountNumber": "رقم ايداع",
+			"amount": "المبلغ"
+		},
+		"validation": {
+			"dateRequired": "التاريخ مطلوب",
+			"bankNameRequired": "أسم البنك مطلوب",
+			"accountNameRequired": "أسم الحساب مطلوب",
+			"accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
+			"accountNumberRequired": "رقم الحساب مطلوب",
+			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+			"amountRequired": "المبلغ مطلوب"
+		}
+	},
+	"withdrawal": {
+		"forms": {
+			"withdrawal": "سحب",
+			"date": "التاريخ",
+			"bankName": "أسم البنك",
+			"accountName": "أسم الحساب",
+			"withdrawalNumber": "رقم سحب",
+			"amount": "المبلغ"
+		},
+		"validation": {
+			"dateRequired": "التاريخ مطلوب",
+			"bankNameRequired": "أسم البنك مطلوب",
+			"accountNameRequired": "أسم الحساب مطلوب",
+			"accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
+			"accountNumberRequired": "رقم الحساب مطلوب",
+			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+			"amountRequired": "المبلغ مطلوب"
+		}
+	},
+	"IncomingTransfers": {
+		"forms": {
+			"incomingTransfer": "تحويلات وارده",
+			"date": "التاريخ",
+			"bankName": "أسم البنك",
+			"accountName": "أسم الحساب",
+			"accountNumber": "رقم الحساب",
+			"amount": "المبلغ",
+			"transfer": "تحويل"
+		},
+		"validation": {
+			"dateRequired": "التاريخ مطلوب",
+			"bankNameRequired": "أسم البنك مطلوب",
+			"accountNameRequired": "أسم الحساب مطلوب",
+			"accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
+			"accountNumberRequired": "رقم الحساب مطلوب",
+			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+			"amountRequired": "المبلغ مطلوب"
+		}
+	},
+	"OutgoingTransfers": {
+		"forms": {
+			"outgoingTransfer": "تحويلات صادرة",
+			"date": "التاريخ",
+			"bankName": "أسم البنك",
+			"accountName": "أسم الحساب",
+			"accountNumber": "رقم الحساب",
+			"amount": "المبلغ",
+			"transfer": "تحويل"
+		},
+		"validation": {
+			"dateRequired": "التاريخ مطلوب",
+			"bankNameRequired": "أسم البنك مطلوب",
+			"accountNameRequired": "أسم الحساب مطلوب",
+			"accountNumberRequired": "رقم الحساب مطلوب",
+			"accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
+			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+			"amountRequired": "المبلغ مطلوب"
+		}
+	},
+	"bankAccounts": {
+		"tabs": {
+			"accountStatement": "كشف الحساب",
+			"checks": "الشيكات",
+			"incoming": "الوارده",
+			"outgoing": "الصادرة",
+			"transfers": "التحويلات",
+			"operations": "العمليات",
+			"withdraw": "سحب",
+			"deposit": "ايداع",
+			"banks": "بنوك"
+		}
+	},
+	"bank": {
+		"name": "اسم البنك",
+		"branch": "الفرع",
+		"accountNumber": "رقم الحساب",
+		"balance": "رصيد",
+		"add": "إضافة بنك"
+	},
+	"AddBank":{
+		"bank": {
+			"addNew": "اضافة بنك جديد",
+			"name": "أسم البنك",
+			"branch": "أسم الفرع",
+			"accountNumber": "رقم الحساب",
+			"initialBalance": "رصيد افتتاحي",
+			"type": "النوع",
+			"credit": "دائن",
+			"debit": "مدين"
+		},
+		"formErrors": {
+			"bankName": "أسم البنك مطلوب",
+			"branchName": "أسم الفرع مطلوب",
+			"accountNumber": "رقم الحساب مطلوب",
+			"initialBalance": "الرصيد الافتتاحي مطلوب",
+			"initialBalanceType": "يجب أن يكون الرصيد رقماً",
+			"type": "النوع مطلوب"
+		},
+		"actions": {
+			"save": "حفظ"
+		}
 	}
 }

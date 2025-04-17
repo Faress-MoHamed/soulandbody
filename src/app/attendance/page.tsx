@@ -26,7 +26,7 @@ export default function AttendancePage() {
 				dataSets={[
 					{
 						columns,
-						data: attendanceData ?? [],
+						data: (attendanceData as any) ?? [],
 						title: t("attendance.title"),
 						withFilter: false,
 						withPrinter: true,
