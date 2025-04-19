@@ -301,7 +301,7 @@ export function Table<TData>({
 											}
 											className="max-w-[240px] min-w-auto"
 											wrapperClassName={cn(
-												"md:w-auto md:max-w-[302px]",
+												"md:w-auto md:max-w-full",
 												element.wrapperClassName
 											)}
 											labelClassName={cn(element.labelClassName)}
@@ -348,11 +348,21 @@ export function Table<TData>({
 				{(title || ButtonTrigger || (withFilter && employees.length !== 0)) && (
 					<CardHeader className="flex flex-row items-center justify-between lg:px-0">
 						<div className="flex flex-col w-full gap-4  mt-6">
-							{title && (
-								<CardTitle className="lg:text-[26px] text-[20px] font-bold w-full">
-									{title}
-								</CardTitle>
-							)}
+							<div className="flex justify-between items-center">
+								{title && (
+									<CardTitle className="lg:text-[26px] text-[20px] font-bold w-full">
+										{title}
+									</CardTitle>
+								)}
+
+								{ButtonTrigger ? (
+									<div className="w-full flex md:justify-end">
+										<ButtonTrigger />
+									</div>
+								) : (
+									<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
+								)}
+							</div>
 							{withFilter && (
 								<div className="flex md:flex-row flex-col  justify-between md:items-center w-full px-6">
 									<BaseFilter
@@ -364,14 +374,6 @@ export function Table<TData>({
 										setSelectedMonth={setSelectedMonth}
 										loading={loading}
 									/>
-
-									{ButtonTrigger ? (
-										<div className="w-full flex md:justify-end">
-											<ButtonTrigger />
-										</div>
-									) : (
-										<AddButton AddTitle={AddTitle} onClickAdd={onClickAdd} />
-									)}
 								</div>
 							)}
 						</div>

@@ -1,82 +1,61 @@
 "use client";
 import CustomInput from "@/components/customInput";
 import CustomSelect from "@/components/customSelect";
-import ReusableTable from "@/components/ReusableTable";
-import SmallTable from "@/components/smallTable";
-import { Button } from "@/components/ui/button";
-import type { ColumnDef } from "@tanstack/react-table";
-import React, { useState } from "react";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import FinalInvoicesTable from "./components/FinalInvoicesTable";
 import CustomPopUp from "@/components/popups";
-import TaxOnInvoice from "./components/TaxOnInvoice";
 import TaxOnProduct from "./components/TaxOnProduct";
 import { useSalesInvoices, type SalesInvoice } from "./hooks/useSalesInvoices";
 import TopComponent from "./components/TopComponent";
-import ReusableManyTable from "@/components/ReusableTableWithManyData";
+import { Button } from "@/components/ui/button";
+import type { ColumnDef } from "@tanstack/react-table";
+import React, { useState } from "react";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 export default function Page() {
+	const { t } = useTypedTranslation();
 	const [selectedInvoice, setSelectedInvoice] = useState<string>("");
 	const { data: allData } = useSalesInvoices();
-
-	const emptyRow = {
-		code: "-",
-		itemName: "-",
-		quantity: "-",
-		unit: "-",
-		saleUnit: "-",
-		total: "-",
-		discount: "-",
-		tax: "-",
-		totalSale: "-",
-	};
-	const getData = () => {
-		if (!selectedInvoice) {
-			return [emptyRow];
-		}
-		return allData;
-	};
-	const data = getData();
 
 	const columns: ColumnDef<SalesInvoice>[] = [
 		{
 			accessorKey: "code",
-			header: "الكود",
+			header: t("salesInvoicesTable.columns.code"),
 		},
 		{
 			accessorKey: "itemName",
-			header: "اسم الصنف",
+			header: t("salesInvoicesTable.columns.itemName"),
 		},
 		{
 			accessorKey: "quantity",
-			header: "الكمية",
+			header: t("salesInvoicesTable.columns.quantity"),
 		},
 		{
 			accessorKey: "unit",
-			header: "وحدة القياس",
+			header: t("salesInvoicesTable.columns.unit"),
 		},
 		{
 			accessorKey: "saleUnit",
-			header: "وحدة البيع",
+			header: t("salesInvoicesTable.columns.saleUnit"),
 		},
 		{
 			accessorKey: "total",
-			header: "الإجمالي",
+			header: t("salesInvoicesTable.columns.total"),
 		},
 		{
 			accessorKey: "discount",
-			header: "الخصم",
+			header: t("salesInvoicesTable.columns.discount"),
 		},
 		{
 			accessorKey: "tax",
-			header: "الضريبة",
+			header: t("salesInvoicesTable.columns.tax"),
 			cell: ({ row }) =>
-				row.original.tax === "إضافة ضريبة" ? (
+				row.original.tax === t("salesInvoicesTable.columns.addTax") ? (
 					<CustomPopUp
 						DialogTriggerComponent={() => (
 							<span
 								style={{
-									color:
-										row.original.tax === "إضافة ضريبة" ? "green" : "inherit",
+									color: "green",
 									cursor: "pointer",
 									textDecoration: "underline",
 								}}
@@ -92,9 +71,24 @@ export default function Page() {
 		},
 		{
 			accessorKey: "totalSale",
-			header: "إجمالي البيع",
+			header: t("salesInvoicesTable.columns.totalSale"),
 		},
 	];
+
+	const emptyRow = {
+		code: "-",
+		itemName: "-",
+		quantity: "-",
+		unit: "-",
+		saleUnit: "-",
+		total: "-",
+		discount: "-",
+		tax: "-",
+		totalSale: "-",
+	};
+
+	const getData = () => (!selectedInvoice ? [emptyRow] : allData);
+	const data = getData();
 
 	return (
 		<div className="mt-[40px] flex flex-col gap-9">
@@ -108,56 +102,11 @@ export default function Page() {
 							/>
 						),
 						data: data || [],
-						columns: columns,
+						columns,
 						FooterComponent: () => <FinalInvoicesTable />,
-						withInlineAdd: true,
-						withInlineAddContent: [
-							{
-								type: "null",
-							},
-							{
-								type: "custom",
-								Component: <p>fares</p>,
-							},
-							{
-								type: "custom",
-								Component: <p>fares</p>,
-							},
-							{
-								type: "custom",
-								Component: <p>fares</p>,
-							},
-							{
-								type: "custom",
-								Component: <p>fares</p>,
-							},
-							{
-								type: "custom",
-								Component: <p>fares</p>,
-							},
-							{
-								type: "custom",
-								Component: <p>fares</p>,
-							},
-							{
-								type: "custom",
-								Component: <p>fares</p>,
-							},
-							{
-								type: "custom",
-								Component: <p>fares</p>,
-							},
-							{
-								type: "custom",
-								Component: <p>fares</p>,
-							},
-						],
-						// expandableRow: !!selectedInvoice,
 					},
 				]}
 			/>
-
-			{/* <FinalInvoicesTable /> */}
 		</div>
 	);
 }

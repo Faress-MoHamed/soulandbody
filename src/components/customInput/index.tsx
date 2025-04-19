@@ -1,6 +1,7 @@
 import React from "react";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 interface CustomInputProps extends React.ComponentProps<"input"> {
 	label?: string;
@@ -18,6 +19,8 @@ export default function CustomInput({
 	error,
 	...props
 }: CustomInputProps) {
+		const { t } = useTypedTranslation();
+	
 	return (
 		<div
 			className={cn(
@@ -36,9 +39,10 @@ export default function CustomInput({
 				</label>
 			)}
 			<Input
+				dir={t("dir") as "rtl" | "ltr"}
 				type={type}
 				className={cn(
-					"min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-right flex justify-end h-[48px]",
+					"min-w-[240px] bg-white border-[#D9D9D9] placeholder:text-black text-start flex justify-end h-[48px]",
 					className
 				)}
 				{...props}

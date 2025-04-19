@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
 	flexRender,
@@ -7,8 +8,6 @@ import {
 	useReactTable,
 	type ColumnDef,
 } from "@tanstack/react-table";
-import { ChevronDown } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -21,6 +20,7 @@ import {
 import CustomPopUp from "@/components/popups";
 import CashPayment from "../cashPopup";
 import Transaction from "../Transaction";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 interface InvoiceItem {
 	totalInvoice: string;
@@ -32,7 +32,13 @@ interface InvoiceItem {
 	paymentMethod: string;
 }
 
-export default function FinalInvoicesTable() {
+export default function FinalInvoicesTable({
+	withActions = true,
+}: {
+	withActions?: boolean;
+}) {
+	const { t } = useTypedTranslation();
+
 	const [data, setData] = useState<InvoiceItem[]>([
 		{
 			totalInvoice: "5454",
@@ -46,61 +52,65 @@ export default function FinalInvoicesTable() {
 	]);
 
 	const paymentMethods = [
-		{ value: "نقدي", label: "نقدي" },
-		{ value: "تحويل بنكي", label: "تحويل بنكي" },
+		{ value: "نقدي", label: t("salesInvoicesTable.invoiceSmallTable.cash") },
+		{
+			value: "تحويل بنكي",
+			label: t("salesInvoicesTable.invoiceSmallTable.bankTransfer"),
+		},
 	];
 	const [selectedType, setSelectedType] = useState(paymentMethods[0].value);
 
 	const columns: ColumnDef<InvoiceItem>[] = [
 		{
 			accessorKey: "totalInvoice",
-			header: "إجمالي الفاتورة",
+			header: t("salesInvoicesTable.invoiceSmallTable.totalInvoice"),
 		},
 		{
 			accessorKey: "totalDiscount",
-			header: "إجمالي الخصم",
+			header: t("salesInvoicesTable.invoiceSmallTable.totalDiscount"),
 		},
 		{
 			accessorKey: "totalVAT",
-			header: "إجمالي ضريبة القيمة المضافة",
+			header: t("salesInvoicesTable.invoiceSmallTable.totalVAT"),
 		},
 		{
 			accessorKey: "totalTableTax",
-			header: "إجمالي ضريبة جدول",
+			header: t("salesInvoicesTable.invoiceSmallTable.totalTableTax"),
 		},
 		{
 			accessorKey: "totalDiscountAndAdditionTax",
-			header: "إجمالي ضريبة خصم وإضافة",
+			header: t("salesInvoicesTable.invoiceSmallTable.discountAndAdditionTax"),
 		},
 		{
 			accessorKey: "netInvoice",
-			header: "صافي الفاتورة",
+			header: t("salesInvoicesTable.invoiceSmallTable.netInvoice"),
 		},
 		{
 			accessorKey: "paymentMethod",
-			header: "طريقة الدفع",
-			cell: ({ row }) => {
-				return (
-					<Select
-						dir="rtl"
-						value={selectedType}
-						onValueChange={(value) => {
-							setSelectedType(value);
-						}}
-					>
-						<SelectTrigger className="w-[180px] border-none shadow-none focus-visible:ring-0">
-							<SelectValue placeholder="طريقة الدفع" />
-						</SelectTrigger>
-						<SelectContent>
-							{paymentMethods.map((method) => (
-								<SelectItem key={method.value} value={method.value}>
-									{method.label}
-								</SelectItem>
-							))}
-						</SelectContent>
-					</Select>
-				);
-			},
+			header: t("salesInvoicesTable.invoiceSmallTable.paymentMethod"),
+			cell: () => (
+				<Select
+					value={selectedType}
+					onValueChange={(value) => {
+						setSelectedType(value);
+					}}
+				>
+					<SelectTrigger className="w-[180px] border-none shadow-none focus-visible:ring-0">
+						<SelectValue
+							placeholder={t(
+								"salesInvoicesTable.invoiceSmallTable.paymentMethodPlaceholder"
+							)}
+						/>
+					</SelectTrigger>
+					<SelectContent>
+						{paymentMethods.map((method) => (
+							<SelectItem key={method.value} value={method.value}>
+								{method.label}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
+			),
 		},
 	];
 
@@ -111,11 +121,11 @@ export default function FinalInvoicesTable() {
 	});
 
 	return (
-		<div className="w-full flex flex-col gap-4" dir="rtl">
+		<div className="w-full flex flex-col gap-4 p-4">
 			<Card className="border-none rounded-md">
 				<div className="w-full overflow-auto">
 					<table className="w-full caption-bottom text-sm border border-[#B9EDD9] rounded-[4px]">
-						<thead className="">
+						<thead>
 							{table.getHeaderGroups().map((headerGroup) => (
 								<tr key={headerGroup.id}>
 									{headerGroup.headers.map((header) => (
@@ -139,12 +149,12 @@ export default function FinalInvoicesTable() {
 								table.getRowModel().rows.map((row) => (
 									<tr
 										key={row.id}
-										className=" transition-colors hover:bg-muted/50"
+										className="transition-colors hover:bg-muted/50"
 									>
 										{row.getVisibleCells().map((cell) => (
 											<td
 												key={cell.id}
-												className="px-3 py-[10px] align-middle text-[12px] border-t border-l border-[#B9EDD9]"
+												className="px-3 py-[10px] text-start align-middle text-[12px] border-t border-l border-[#B9EDD9]"
 											>
 												{flexRender(
 													cell.column.columnDef.cell,
@@ -157,7 +167,7 @@ export default function FinalInvoicesTable() {
 							) : (
 								<tr>
 									<td colSpan={columns.length} className="h-24 text-center">
-										لا توجد نتائج.
+										{t("salesInvoicesTable.invoiceSmallTable.noResults")}
 									</td>
 								</tr>
 							)}
@@ -165,28 +175,35 @@ export default function FinalInvoicesTable() {
 					</table>
 				</div>
 			</Card>
+
 			<div className="flex gap-6">
-				<p>رقم الأيصال: 2542554854891</p>
-				<p>المبلغ: 5000</p>
+				<p>
+					{t("salesInvoicesTable.invoiceSmallTable.receiptNumber")}:
+					2542554854891
+				</p>
+				<p>{t("salesInvoicesTable.invoiceSmallTable.amount")}: 5000</p>
 			</div>
-			<div className="self-end flex gap-2">
-				<CustomPopUp
-					DialogTriggerComponent={() => (
-						<Button className="px-3 py-[10px] w-[148px] h-[44px] bg-[#16C47F] hover:bg-[#16C47F]/70">
-							حفظ الفاتوره
-						</Button>
-					)}
-					DialogContentComponent={() =>
-						selectedType === "نقدي" ? <CashPayment /> : <Transaction />
-					}
-				/>
-				<Button
-					variant={"outline"}
-					className="px-3 py-[10px] w-[148px] h-[44px] border-[#16C47F]"
-				>
-					الغاء
-				</Button>
-			</div>
+
+			{withActions && (
+				<div className="self-end flex gap-2">
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<Button className="px-3 py-[10px] w-[148px] h-[44px] bg-[#16C47F] hover:bg-[#16C47F]/70">
+								{t("salesInvoicesTable.invoiceSmallTable.saveInvoice")}
+							</Button>
+						)}
+						DialogContentComponent={() =>
+							selectedType === "نقدي" ? <CashPayment /> : <Transaction />
+						}
+					/>
+					<Button
+						variant="outline"
+						className="px-3 py-[10px] w-[148px] h-[44px] border-[#16C47F]"
+					>
+						{t("salesInvoicesTable.invoiceSmallTable.cancel")}
+					</Button>
+				</div>
+			)}
 		</div>
 	);
 }

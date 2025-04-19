@@ -600,6 +600,336 @@
 		"actions": {
 			"save": "Save"
 		}
+	},
+	"salesInvoices": {
+		"card1": {
+			"title": "Sales Invoices",
+			"subTitle": "Record all daily financial transactions such as sales and purchases."
+		},
+		"card2": {
+			"title": "Returns & Exchanges",
+			"subTitle": "View various account transactions."
+		},
+		"card3": {
+			"title": "Products",
+			"subTitle": "Manage invoices, sales operations, and account statements."
+		},
+		"card4": {
+			"title": "Employees",
+			"subTitle": "Record supplier purchases, manage due invoices, and view account statements."
+		},
+		"card5": {
+			"title": "Customers",
+			"subTitle": "Manage inventory and track available product quantities."
+		},
+		"card6": {
+			"title": "Reports",
+			"subTitle": "Manage cash transactions and bank accounts."
+		}
+	},
+	"salesInvoicesTable": {
+		"columns": {
+			"code": "Code",
+			"itemName": "Item Name",
+			"quantity": "Quantity",
+			"unit": "Unit",
+			"saleUnit": "Sale Unit",
+			"total": "Total",
+			"discount": "Discount",
+			"tax": "Tax",
+			"totalSale": "Total Sale",
+			"addTax": "Add Tax"
+		},
+		"filter": {
+			"pageTitle": "Sales Invoice",
+			"invoiceLabel": "Invoice Number",
+			"dateLabel": "Date",
+			"customerInfo": "Customer Information",
+			"customerName": "Customer Name",
+			"customerPhone": "Phone Number",
+			"customerAddress": "Address",
+			"customerDiscount": "Customer Discount",
+			"invoiceTax": "Invoice Tax",
+			"productTax": "Product Discount",
+			"errors": {
+				"invoiceNumber": "Invoice number is required",
+				"date": "Date is required",
+				"customerName": "Customer name is required",
+				"customerPhone": "Phone number is required",
+				"customerPhoneDigits": "Must be only digits",
+				"customerAddress": "Address is required",
+				"customerDiscount": "Discount is required"
+			}
+		},
+		"invoiceSmallTable": {
+			"totalInvoice": "Total Invoice",
+			"totalDiscount": "Total Discount",
+			"totalVAT": "Total VAT",
+			"totalTableTax": "Total Table Tax",
+			"discountAndAdditionTax": "Discount & Addition Tax",
+			"netInvoice": "Net Invoice",
+			"paymentMethod": "Payment Method",
+			"paymentMethodPlaceholder": "Select Payment Method",
+			"cash": "Cash",
+			"bankTransfer": "Bank Transfer",
+			"receiptNumber": "Receipt Number",
+			"amount": "Amount",
+			"saveInvoice": "Save Invoice",
+			"cancel": "Cancel",
+			"noResults": "No results."
+		},
+		"cashPayment": {
+			"title": "Cash Payment",
+			"paidLabel": "Paid",
+			"remainingLabel": "Remaining",
+			"saveButton": "Save"
+		},
+		"pankPayment": {
+			"title": "Bank Payment",
+			"checkNumberLabel": "Cheque Number",
+			"checkAmountLabel": "Cheque Amount",
+			"saveButton": "Save"
+		},
+		"taxOnInvoice": {
+			"title": "Add Tax to Invoice",
+			"salesTaxLabel": "Sales Tax",
+			"incomeTaxLabel": "Income Tax",
+			"saveButton": "Save"
+		},
+		"taxOnProduct": {
+			"title": "Add Tax to Product",
+			"salesTaxLabel": "Sales Tax",
+			"incomeTaxLabel": "Income Tax",
+			"saveButton": "Save"
+		},
+		"transaction": {
+			"title": "Transaction",
+			"checkNumberLabel": "Check Number",
+			"checkAmountLabel": "Check Amount",
+			"saveButton": "Save"
+		}
+	},
+	"ReturnsAndExchanges": {
+		"CustomPopUp": {
+			"dialogTriggerText": "Add Tax"
+		},
+		"exchangeTitle": "Exchange Invoice",
+		"ReturnTitle": "Return Invoice",
+		"ReusableManyTable": {
+			"invoiceLabel": "Invoice Label",
+			"footerLabel": "Returns Table",
+			"expandButtonText": "Expand"
+		},
+		"ReturnTopComponent": {
+			"selectInvoiceText": "Select Invoice"
+		},
+		"ReturnsTable": {
+			"code": "Code",
+			"itemName": "Item Name",
+			"quantity": "Quantity",
+			"unit": "Purchase Unit",
+			"total": "Total",
+			"discount": "Discount",
+			"tax": "Tax",
+			"totalSale": "Total Sale"
+		},
+		"ExchangeTopComponent": {
+			"selectInvoiceText": "Select Invoice for Exchange"
+		},
+		"ExchangeTable": {
+			"code": "Code",
+			"itemName": "Item Name",
+			"quantity": "Quantity",
+			"unit": "Purchase Unit",
+			"total": "Total",
+			"discount": "Discount",
+			"tax": "Tax",
+			"totalSale": "Total Sale"
+		},
+		"ExchangeIcon": {
+			"tooltipText": "Click to exchange"
+		},
+		"ReturnIcon": {
+			"tooltipText": "Click to return"
+		}
+	},
+	"returnsTable": {
+		"columns": {
+			"totalInvoice": "Total Returns",
+			"totalDiscount": "Total Discount",
+			"totalVAT": "Total VAT",
+			"totalTableTax": "Total Table Tax",
+			"totalDiscountAndAdditionTax": "Total Discount & Addition Tax",
+			"netInvoice": "Net Invoice",
+			"paymentMethod": "Payment Method"
+		},
+		"paymentMethods": {
+			"cash": "Cash",
+			"bankTransfer": "Bank Transfer"
+		},
+		"noResults": "No results found.",
+		"receiptNumber": "Receipt Number",
+		"amount": "Amount",
+		"buttons": {
+			"saveInvoice": "Save Invoice",
+			"cancel": "Cancel"
+		}
+	},
+	"returnTopComponent": {
+		"title": "Return Invoice",
+		"buttons": {
+			"taxOnInvoice": "Tax on Invoice",
+			"discountOnInvoice": "Discount on Invoice"
+		},
+		"inputs": {
+			"date": "Date",
+			"invoiceNumber": "Invoice Number"
+		},
+		"customerInfo": {
+			"title": "Customer Information",
+			"name": "Customer Name",
+			"number": "Number",
+			"address": "Address",
+			"discounts": "Customer Discounts"
+		},
+		"invoiceOptions": {
+			"invoice1": "Invoice 1",
+			"invoice2": "Invoice 2",
+			"invoice3": "Invoice 3"
+		}
+	},
+	"exchangeTopComponent": {
+		"title": "Exchange Invoice",
+		"buttons": {
+			"taxOnInvoice": "Tax on Invoice",
+			"discountOnInvoice": "Discount on Invoice"
+		},
+		"inputs": {
+			"date": "Date",
+			"invoiceNumber": "Invoice Number"
+		},
+		"customerInfo": {
+			"title": "Customer Information",
+			"name": "Customer Name",
+			"number": "Number",
+			"address": "Address",
+			"discounts": "Customer Discounts"
+		},
+		"invoiceOptions": {
+			"invoice1": "Invoice 1",
+			"invoice2": "Invoice 2",
+			"invoice3": "Invoice 3"
+		}
+	},
+	"products": {
+		"title": "Products",
+		"search": "Search here...",
+		"columns": {
+			"productCode": "Product Code",
+			"productName": "Product Name",
+			"productDescription": "Product Description",
+			"unit": "Unit",
+			"price": "Price",
+			"quantity": "Quantity",
+			"category": "Category",
+			"inStock": "In Stock",
+			"otherBranches": "Other Branches"
+		},
+		"buttons": {
+			"otherBranches": "Other Branches"
+		}
+	},
+	"employeesInvoices": {
+		"title": "Employees",
+		"addEmployee": "Add Employee",
+		"addNewEmployee": "Add New Employee",
+		"salesRecord": "Sales Record",
+		"searchPlaceholder": "Search here...",
+		"columns": {
+			"employeeName": "Employee Name",
+			"unitsCount": "Units Count",
+			"totalUnits": "Total Units",
+			"name": "Employee Name",
+			"phone": "Phone Number",
+			"address": "Address",
+			"job": "Job",
+			"permissions": "Permissions",
+			"options": "Options"
+		},
+		"filters": {
+			"employee": "Employee",
+			"dateFrom": "From Date",
+			"dateTo": "To Date"
+		},
+		"buttons": {
+			"save": "Save",
+			"view": "View",
+			"salesRecord": "Sales Record",
+			"edit": "Edit",
+			"delete": "Delete"
+		},
+		"employees": ["Faris", "Mohammed", "Ahmed", "Ali"]
+	},
+	"customers": {
+		"title": "Customers",
+		"addCustomer": "Add Customer",
+		"addNewCustomer": "Add New Customer",
+		"searchPlaceholder": "Search here...",
+		"columns": {
+			"customerName": "Customer Name",
+			"phone": "Phone",
+			"address": "Address",
+			"discounts": "Customer Discounts",
+			"options": "Options"
+		},
+		"form": {
+			"customerName": "Customer Name",
+			"phone": "Phone Number",
+			"address": "Address",
+			"discounts": "Customer Discounts",
+			"category": "Category"
+		},
+		"buttons": {
+			"save": "Save",
+			"edit": "Edit",
+			"delete": "Delete"
+		},
+		"sampleNames": [
+			"Ahmed",
+			"Sarah",
+			"Mohammed",
+			"Fatima",
+			"Yousef",
+			"Layla",
+			"Khalid",
+			"Hind",
+			"Salman",
+			"Nora"
+		],
+		"samplePhones": [
+			"0501234567",
+			"0559876543",
+			"0541122334",
+			"0539988776",
+			"0566655443"
+		],
+		"sampleAddresses": [
+			"Riyadh",
+			"Jeddah",
+			"Dammam",
+			"Mecca",
+			"Medina",
+			"Abha",
+			"Taif",
+			"Buraidah"
+		],
+		"sampleSales": [
+			"VIP Customer",
+			"Regular Customer",
+			"Special Discount",
+			"Cash Payment",
+			"Deferred Invoice",
+			"New Customer"
+		]
 	}
-
 }

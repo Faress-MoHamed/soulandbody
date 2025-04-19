@@ -2,51 +2,49 @@
 
 import React from "react";
 import CustomHomeCard from "./components/CustomHomeCard";
-
+import { useTypedTranslation } from "../hooks/useTypedTranslation";
 
 export default function Page() {
-	const HomeCards: {
-		title?: string;
-		subTitle?: string;
-		Icon?: any;
-		LinkUrl?: any;
-	}[] = [
+	const { t } = useTypedTranslation();
+
+	const HomeCards = [
 		{
-			title: "فواتير بيع",
-			subTitle: "تسجيل كافة الحركات المالية اليومية مثل المبيعات والمشتريات.",
+			title: t("salesInvoices.card1.title"),
+			subTitle: t("salesInvoices.card1.subTitle"),
 			Icon: "/companies/SalesInvoices.png",
 			LinkUrl: "/companies/SalesInvoices",
 		},
 		{
-			title: "استبدال ومرتجعات",
-			subTitle: "عرض حركات الحسابات المختلفة",
+			title: t("salesInvoices.card2.title"),
+			subTitle: t("salesInvoices.card2.subTitle"),
 			Icon: "/companies/Returns&Exchanges.png",
 			LinkUrl: "/companies/ReturnsAndExchanges",
 		},
 		{
-			title: "المنتجات",
-			subTitle: "إدارة الفواتير وعمليات البيع وكشف حساب",
+			title: t("salesInvoices.card3.title"),
+			subTitle: t("salesInvoices.card3.subTitle"),
 			Icon: "/companies/Products.png",
 			LinkUrl: "/companies/Products",
 		},
 		{
-			title: "الموظفين",
-			subTitle: "سجل مشترياتك من الموردين وإدارة الفواتير المستحقة وكشف حساب",
+			title: t("salesInvoices.card4.title"),
+			subTitle: t("salesInvoices.card4.subTitle"),
 			Icon: "/companies/Employees.png",
 			LinkUrl: "/companies/Employees",
 		},
 		{
-			title: "العملاء",
-			subTitle: "إدارة المخزون ومتابعة الكميات المتوفرة من المنتجات",
+			title: t("salesInvoices.card5.title"),
+			subTitle: t("salesInvoices.card5.subTitle"),
 			Icon: "/companies/Customers.png",
 			LinkUrl: "/companies/Customers",
 		},
 		{
-			title: "تقارير",
-			subTitle: "إدارة الحركات المالية النقدية والحسابات البنكية",
+			title: t("salesInvoices.card6.title"),
+			subTitle: t("salesInvoices.card6.subTitle"),
 			Icon: "/companies/Reports.png",
 		},
 	];
+
 	return (
 		<div className="flex flex-wrap gap-6">
 			{HomeCards.map((el) => (

@@ -9,6 +9,7 @@ import type { JSX } from "react";
 import "./popup.css";
 import { NextIntlClientProvider } from "next-intl";
 import { useLocale, useMessages } from "next-intl";
+import ReactQueryProvider from "@/providers/reactQuertProvider";
 
 const SweetAlert = withReactContent(Swal);
 
@@ -40,9 +41,11 @@ export default function CustomPopUp({
 				if (contentContainer) {
 					const root = createRoot(contentContainer);
 					root.render(
-						<NextIntlClientProvider locale={locale} messages={messages}>
-							<DialogContentComponent />
-						</NextIntlClientProvider>
+						<ReactQueryProvider>
+							<NextIntlClientProvider locale={locale} messages={messages}>
+								<DialogContentComponent />
+							</NextIntlClientProvider>
+						</ReactQueryProvider>
 					);
 				}
 			},

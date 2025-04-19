@@ -578,7 +578,7 @@
 		"balance": "رصيد",
 		"add": "إضافة بنك"
 	},
-	"AddBank":{
+	"AddBank": {
 		"bank": {
 			"addNew": "اضافة بنك جديد",
 			"name": "أسم البنك",
@@ -600,5 +600,337 @@
 		"actions": {
 			"save": "حفظ"
 		}
+	},
+	"salesInvoices": {
+		"card1": {
+			"title": "فواتير بيع",
+			"subTitle": "تسجيل كافة الحركات المالية اليومية مثل المبيعات والمشتريات."
+		},
+		"card2": {
+			"title": "استبدال ومرتجعات",
+			"subTitle": "عرض حركات الحسابات المختلفة"
+		},
+		"card3": {
+			"title": "المنتجات",
+			"subTitle": "إدارة الفواتير وعمليات البيع وكشف حساب"
+		},
+		"card4": {
+			"title": "الموظفين",
+			"subTitle": "سجل مشترياتك من الموردين وإدارة الفواتير المستحقة وكشف حساب"
+		},
+		"card5": {
+			"title": "العملاء",
+			"subTitle": "إدارة المخزون ومتابعة الكميات المتوفرة من المنتجات"
+		},
+		"card6": {
+			"title": "تقارير",
+			"subTitle": "إدارة الحركات المالية النقدية والحسابات البنكية"
+		}
+	},
+	"salesInvoicesTable": {
+		"columns": {
+			"code": "الكود",
+			"itemName": "اسم الصنف",
+			"quantity": "الكمية",
+			"unit": "وحدة القياس",
+			"saleUnit": "وحدة البيع",
+			"total": "الإجمالي",
+			"discount": "الخصم",
+			"tax": "الضريبة",
+			"totalSale": "إجمالي البيع",
+			"addTax": "إضافة ضريبة"
+		},
+		"filter": {
+			"pageTitle": "فاتورة بيع",
+			"invoiceLabel": "رقم الفاتورة",
+			"dateLabel": "التاريخ",
+			"customerInfo": "معلومات العميل",
+			"customerName": "أسم العميل",
+			"customerPhone": "الرقم",
+			"customerAddress": "العنوان",
+			"customerDiscount": "خصومات العميل",
+			"invoiceTax": "ضريبة على الفاتورة",
+			"productTax": "خصم على الفاتورة",
+			"errors": {
+				"invoiceNumber": "رقم الفاتورة مطلوب",
+				"date": "التاريخ مطلوب",
+				"customerName": "اسم العميل مطلوب",
+				"customerPhone": "رقم الهاتف مطلوب",
+				"customerPhoneDigits": "يجب أن يكون أرقام فقط",
+				"customerAddress": "العنوان مطلوب",
+				"customerDiscount": "الخصم مطلوب"
+			}
+		},
+		"invoiceSmallTable": {
+			"totalInvoice": "إجمالي الفاتورة",
+			"totalDiscount": "إجمالي الخصم",
+			"totalVAT": "إجمالي ضريبة القيمة المضافة",
+			"totalTableTax": "إجمالي ضريبة جدول",
+			"discountAndAdditionTax": "إجمالي ضريبة خصم وإضافة",
+			"netInvoice": "صافي الفاتورة",
+			"paymentMethod": "طريقة الدفع",
+			"paymentMethodPlaceholder": "اختر طريقة الدفع",
+			"cash": "نقدي",
+			"bankTransfer": "تحويل بنكي",
+			"receiptNumber": "رقم الإيصال",
+			"amount": "المبلغ",
+			"saveInvoice": "حفظ الفاتورة",
+			"cancel": "إلغاء",
+			"noResults": "لا توجد نتائج."
+		},
+		"cashPayment": {
+			"title": "دفع نقدي",
+			"paidLabel": "المدفوع",
+			"remainingLabel": "المتبقي",
+			"saveButton": "حفظ"
+		},
+		"pankPayment": {
+			"title": "دفع بنكي",
+			"checkNumberLabel": "رقم الشيك",
+			"checkAmountLabel": "مبلغ الشيك",
+			"saveButton": "حفظ"
+		},
+		"taxOnInvoice": {
+			"title": "اضافة ضريبة على الفاتورة",
+			"salesTaxLabel": "ضريبة مبيعات",
+			"incomeTaxLabel": "ضريبة الدخل",
+			"saveButton": "حفظ"
+		},
+		"taxOnProduct": {
+			"title": "اضافة ضريبة على المنتج",
+			"salesTaxLabel": "ضريبة مبيعات",
+			"incomeTaxLabel": "ضريبة الدخل",
+			"saveButton": "حفظ"
+		},
+		"transaction": {
+			"title": "تحويل",
+			"checkNumberLabel": "رقم الشيك",
+			"checkAmountLabel": "مبلغ الشيك",
+			"saveButton": "حفظ"
+		}
+	},
+	"ReturnsAndExchanges": {
+		"CustomPopUp": {
+			"dialogTriggerText": "إضافة ضريبة"
+		},
+		"exchangeTitle": "فاتورة أستبدال",
+		"ReturnTitle": "فاتورة مرتجع",
+
+		"ReusableManyTable": {
+			"invoiceLabel": "تسمية الفاتورة",
+			"footerLabel": "جدول المرتجعات",
+			"expandButtonText": "توسيع"
+		},
+		"ReturnTopComponent": {
+			"selectInvoiceText": "اختيار الفاتورة"
+		},
+		"ReturnsTable": {
+			"code": "الكود",
+			"itemName": "اسم الصنف",
+			"quantity": "الكمية",
+			"unit": "وحدة الشراء",
+			"total": "الإجمالي",
+			"discount": "الخصم",
+			"tax": "الضريبة",
+			"totalSale": "إجمالي البيع"
+		},
+		"ExchangeTopComponent": {
+			"selectInvoiceText": "اختيار الفاتورة للتبديل"
+		},
+		"ExchangeTable": {
+			"code": "الكود",
+			"itemName": "اسم الصنف",
+			"quantity": "الكمية",
+			"unit": "وحدة الشراء",
+			"total": "الإجمالي",
+			"discount": "الخصم",
+			"tax": "الضريبة",
+			"totalSale": "إجمالي البيع"
+		},
+		"ExchangeIcon": {
+			"tooltipText": "اضغط للتبديل"
+		},
+		"ReturnIcon": {
+			"tooltipText": "اضغط للرجوع"
+		}
+	},
+	"returnsTable": {
+		"columns": {
+			"totalInvoice": "اجمالي المرتجع",
+			"totalDiscount": "إجمالي الخصم",
+			"totalVAT": "إجمالي ضريبة القيمة المضافة",
+			"totalTableTax": "إجمالي ضريبة جدول",
+			"totalDiscountAndAdditionTax": "إجمالي ضريبة خصم وإضافة",
+			"netInvoice": "صافي الفاتورة",
+			"paymentMethod": "طريقة الدفع"
+		},
+		"paymentMethods": {
+			"cash": "نقدي",
+			"bankTransfer": "تحويل بنكي"
+		},
+		"noResults": "لا توجد نتائج.",
+		"receiptNumber": "رقم الأيصال",
+		"amount": "المبلغ",
+		"buttons": {
+			"saveInvoice": "حفظ الفاتوره",
+			"cancel": "الغاء"
+		}
+	},
+	"returnTopComponent": {
+		"title": "فاتورة مرتجع",
+		"buttons": {
+			"taxOnInvoice": "ضريبة على الفاتورة",
+			"discountOnInvoice": "خصم على الفاتورة"
+		},
+		"inputs": {
+			"date": "التاريخ",
+			"invoiceNumber": "رقم الفاتورة"
+		},
+		"customerInfo": {
+			"title": "معلومات العميل",
+			"name": "أسم العميل",
+			"number": "الرقم",
+			"address": "العنوان",
+			"discounts": "خصومات العميل"
+		},
+		"invoiceOptions": {
+			"invoice1": "invoice1",
+			"invoice2": "invoice2",
+			"invoice3": "invoice3"
+		}
+	},
+	"exchangeTopComponent": {
+		"title": "فاتورة أستبدال",
+		"buttons": {
+			"taxOnInvoice": "ضريبة على الفاتورة",
+			"discountOnInvoice": "خصم على الفاتورة"
+		},
+		"inputs": {
+			"date": "التاريخ",
+			"invoiceNumber": "رقم الفاتورة"
+		},
+		"customerInfo": {
+			"title": "معلومات العميل",
+			"name": "أسم العميل",
+			"number": "الرقم",
+			"address": "العنوان",
+			"discounts": "خصومات العميل"
+		},
+		"invoiceOptions": {
+			"invoice1": "invoice1",
+			"invoice2": "invoice2",
+			"invoice3": "invoice3"
+		}
+	},
+	"products": {
+		"title": "المنتجات",
+		"search": "ابحث هنا..",
+		"columns": {
+			"productCode": "كود المنتج",
+			"productName": "اسم المنتج",
+			"productDescription": "وصف المنتج",
+			"unit": "الوحدة",
+			"price": "السعر",
+			"quantity": "الكمية",
+			"category": "الفئة",
+			"inStock": "المتبقي",
+			"otherBranches": "فروع اخرى"
+		},
+		"buttons": {
+			"otherBranches": "فروع اخرى"
+		}
+	},
+	"employeesInvoices": {
+		"title": "Employees",
+		"addEmployee": "Add Employee",
+		"addNewEmployee": "Add New Employee",
+		"salesRecord": "Sales Record",
+		"searchPlaceholder": "Search here...",
+		"columns": {
+			"employeeName": "Employee Name",
+			"unitsCount": "Units Count",
+			"totalUnits": "Total Units",
+			"name": "Employee Name",
+			"phone": "Phone Number",
+			"address": "Address",
+			"job": "Job",
+			"permissions": "Permissions",
+			"options": "Options"
+		},
+		"filters": {
+			"employee": "Employee",
+			"dateFrom": "From Date",
+			"dateTo": "To Date"
+		},
+		"buttons": {
+			"save": "Save",
+			"view": "View",
+			"salesRecord": "Sales Record",
+			"edit": "Edit",
+			"delete": "Delete"
+		},
+		"employees": ["Faris", "Mohammed", "Ahmed", "Ali"]
+	},
+	"customers": {
+		"title": "العملاء",
+		"addCustomer": "اضافة عميل",
+		"addNewCustomer": "اضافة عميل جديد",
+		"searchPlaceholder": "ابحث هنا...",
+		"columns": {
+			"customerName": "اسم العميل",
+			"phone": "الهاتف",
+			"address": "العنوان",
+			"discounts": "خصومات العميل",
+			"options": "خيارات"
+		},
+		"form": {
+			"customerName": "اسم العميل",
+			"phone": "رقم الهاتف",
+			"address": "العنوان",
+			"discounts": "خصومات العميل",
+			"category": "الفئة"
+		},
+		"buttons": {
+			"save": "حفظ",
+			"edit": "تعديل",
+			"delete": "حذف"
+		},
+		"sampleNames": [
+			"أحمد",
+			"سارة",
+			"محمد",
+			"فاطمة",
+			"يوسف",
+			"ليلى",
+			"خالد",
+			"هند",
+			"سلمان",
+			"نورة"
+		],
+		"samplePhones": [
+			"0501234567",
+			"0559876543",
+			"0541122334",
+			"0539988776",
+			"0566655443"
+		],
+		"sampleAddresses": [
+			"الرياض",
+			"جدة",
+			"الدمام",
+			"مكة",
+			"المدينة",
+			"أبها",
+			"الطائف",
+			"بريدة"
+		],
+		"sampleSales": [
+			"عميل مميز",
+			"عميل دائم",
+			"خصم خاص",
+			"دفع نقدي",
+			"فاتورة مؤجلة",
+			"عميل جديد"
+		]
 	}
 }

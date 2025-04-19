@@ -37,7 +37,7 @@ export default function SalesRecord() {
 	});
 
 	return (
-		<Card className="flex flex-col bg-white p-4 gap-6 lg:w-[914px] w-[300px] lg:h-[442px] h-fit">
+		<Card className="flex flex-col bg-white p-4 gap-6">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 					سجل البيع

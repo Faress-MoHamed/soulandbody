@@ -18,7 +18,6 @@ export default function SearchBar() {
 					onChange={(e) => setQuery(e.target.value)}
           wrapperClassName="ps-10 h-[40px] rounded-[8px]  border-none text-right text-lg"
           className="border-none placeholder:text-[#49454F]"
-					dir="rtl"
 				/>
 				<div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
 					<Search className="h-6 w-6 text-gray-400" />

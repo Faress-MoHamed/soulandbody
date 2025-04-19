@@ -38,7 +38,6 @@ export default function WarningPopUp() {
 				<form
 					onSubmit={handleSubmit}
 					className="space-y-4 flex lg:flex-row flex-col items-end gap-2"
-					// dir="rtl"
 				>
 					<div className="grid lg:grid-cols-2 grid-cols-1 gap-4 w-full">
 						<CustomSelect

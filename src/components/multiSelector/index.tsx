@@ -60,7 +60,6 @@ export function MultiSelect({
 			dir={direction}
 		>
 			<CustomSelect
-				dir="rtl"
 				triggerClassName="!h-[48px] md:w-[302px] w-full  min-w-auto bg-white"
 				options={options}
 				onValueChange={handleSelect}

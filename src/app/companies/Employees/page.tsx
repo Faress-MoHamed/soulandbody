@@ -9,83 +9,103 @@ import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import AddNewEmployee from "./component/AddNewEmployee";
 import SalesRecord from "./component/SalesRecord";
-import SearchBar from "@/components/searchInput";
+import SearchBar from "@/components/searchBar";
+import {
+	useEmployeesInvoices,
+	type EmployeesInvoicesType,
+} from "./hooks/useInvoicesEmployees";
+import ShowInvoices from "./component/ShowInvoices";
+import { useEmployees, type EmployeesType } from "./hooks/useEmployees";
+import { useTranslations } from "next-intl";
 
 export default function EmployeesTable() {
-	const generateRandomEmployeeData = (count: number) => {
-		const items = [];
-		const itemNames = ["فارس", "محمد", "احمد", "علي"];
+	const t = useTranslations("employeesInvoices");
+	const { data: EmployeesInvoicesData, isLoading: EmployeesInvoicesLoading } =
+		useEmployeesInvoices();
+	const { data: EmployeesData, isLoading: EmployeesLoading } = useEmployees();
 
-		for (let i = 0; i < count; i++) {
-			items.push({
-				employees: itemNames[Math.floor(Math.random() * itemNames.length)],
-				units: (Math.floor(Math.random() * 10) + 1).toString(),
-				totalOfUnit: (Math.floor(Math.random() * 5) + 1).toString(),
-				totalUnits: (Math.floor(Math.random() * 1000) + 100).toString(),
-			});
-		}
-		return items;
-	};
-	const data = generateRandomEmployeeData(100);
-	const columns: ColumnDef<(typeof data)[0]>[] = [
+	const columns: ColumnDef<EmployeesInvoicesType>[] = [
 		{
 			accessorKey: "employees",
-			header: "أسم الموظف",
+			header: t("columns.employeeName"),
 		},
 		{
 			accessorKey: "units",
-			header: "عدد الوحدات",
+			header: t("columns.unitsCount"),
 		},
-		{
-			accessorKey: "totalOfUnit",
-			header: "اجمالي لوحدة",
-		},
+		// {
+		// 	accessorKey: "totalOfUnit",
+		// 	header: "اجمالي لوحدة",
+		// },
 		{
 			accessorKey: "totalUnits",
-			header: "اجمالي الوحدات",
+			header: t("columns.totalUnits"),
+		},
+		{
+			accessorKey: "actions",
+			header: "", // No header text
+			cell: ({ row: { original } }) => {
+				return (
+					<CustomPopUp
+						DialogTriggerComponent={() => {
+							return (
+								<Button
+									variant={"outline"}
+									className="w-[84px] h-[32px] p-1 rounded-[8px] text-[#16C47F] hover:text-[#16C47F] border-[#16C47F]"
+								>
+									{t("buttons.view")}
+									<svg
+										width="17"
+										height="16"
+										viewBox="0 0 17 16"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M15.9698 7.83C15.3817 6.30882 14.3608 4.99331 13.0332 4.04604C11.7056 3.09878 10.1295 2.56129 8.49979 2.5C6.87005 2.56129 5.29398 3.09878 3.96639 4.04604C2.6388 4.99331 1.61787 6.30882 1.02979 7.83C0.990071 7.93985 0.990071 8.06015 1.02979 8.17C1.61787 9.69118 2.6388 11.0067 3.96639 11.954C5.29398 12.9012 6.87005 13.4387 8.49979 13.5C10.1295 13.4387 11.7056 12.9012 13.0332 11.954C14.3608 11.0067 15.3817 9.69118 15.9698 8.17C16.0095 8.06015 16.0095 7.93985 15.9698 7.83ZM8.49979 12.5C5.84979 12.5 3.04979 10.535 2.03479 8C3.04979 5.465 5.84979 3.5 8.49979 3.5C11.1498 3.5 13.9498 5.465 14.9648 8C13.9498 10.535 11.1498 12.5 8.49979 12.5Z"
+											fill="#16C47F"
+										/>
+										<path
+											d="M8.5 5C7.90666 5 7.32664 5.17595 6.83329 5.50559C6.33994 5.83524 5.95543 6.30377 5.72836 6.85195C5.5013 7.40013 5.44189 8.00333 5.55765 8.58527C5.6734 9.16721 5.95912 9.70176 6.37868 10.1213C6.79824 10.5409 7.33279 10.8266 7.91473 10.9424C8.49667 11.0581 9.09987 10.9987 9.64805 10.7716C10.1962 10.5446 10.6648 10.1601 10.9944 9.66671C11.3241 9.17336 11.5 8.59334 11.5 8C11.5 7.20435 11.1839 6.44129 10.6213 5.87868C10.0587 5.31607 9.29565 5 8.5 5ZM8.5 10C8.10444 10 7.71776 9.8827 7.38886 9.66294C7.05996 9.44318 6.80362 9.13082 6.65224 8.76537C6.50087 8.39991 6.46126 7.99778 6.53843 7.60982C6.6156 7.22186 6.80608 6.86549 7.08579 6.58579C7.36549 6.30608 7.72186 6.1156 8.10982 6.03843C8.49778 5.96126 8.89992 6.00087 9.26537 6.15224C9.63082 6.30362 9.94318 6.55996 10.1629 6.88886C10.3827 7.21776 10.5 7.60444 10.5 8C10.5 8.53043 10.2893 9.03914 9.91421 9.41421C9.53914 9.78929 9.03043 10 8.5 10Z"
+											fill="#16C47F"
+										/>
+									</svg>
+								</Button>
+							);
+						}}
+						DialogContentComponent={() => {
+							return <ShowInvoices />;
+						}}
+					/>
+				);
+			},
 		},
 	];
 
-	const EmployeesData = Array.from({ length: 100 }, (_, i) => ({
-		name: `الموظف رقم ${i + 1}`,
-		phone: `05${Math.floor(100000000 + Math.random() * 900000000)}`,
-		address: `عنوان ${i + 1}`,
-		job: ["مدير", "محاسب", "مبرمج", "مسوق", "مصمم"][i % 5],
-		permissions: ["عرض", "تعديل", "حذف", "إضافة"][i % 4],
-		options: "خيارات",
-	}));
-
-	const EmployeesColumns: ColumnDef<{
-		name?: string;
-		phone?: string;
-		address?: string;
-		job?: string;
-		permissions?: string;
-		options?: string;
-	}>[] = [
+	const EmployeesColumns: ColumnDef<EmployeesType>[] = [
 		{
 			accessorKey: "name",
-			header: "اسم الموظف",
+			header: t("columns.name"),
 		},
 		{
 			accessorKey: "phone",
-			header: "رقم الهاتف",
+			header: t("columns.phone"),
 		},
 		{
 			accessorKey: "address",
-			header: "العنوان",
+			header: t("columns.address"),
 		},
 		{
 			accessorKey: "job",
-			header: "المهنة",
+			header: t("columns.job"),
 		},
 		{
 			accessorKey: "permissions",
-			header: "صلاحيات",
+			header: t("columns.permissions"),
 		},
 		{
 			accessorKey: "options",
-			header: "خيارات",
+			header: t("columns.options"),
 			cell: () => (
 				<>
 					{" "}
@@ -95,7 +115,7 @@ export default function EmployeesTable() {
 							DialogTriggerComponent={() => (
 								<Button
 									// onClick={() => onEdit(row?.original?.id)}
-									className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85  rounded-[8px] border border-[#16C47F]"
+									className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 rounded-[8px] border border-[#16C47F]"
 								>
 									<svg
 										width="17"
@@ -124,14 +144,14 @@ export default function EmployeesTable() {
 											</clipPath>
 										</defs>
 									</svg>
-									سجل البيع
+									{t("buttons.salesRecord")}
 								</Button>
 							)}
 							DialogContentComponent={() => <SalesRecord />}
 						/>
 						<Button
 							// onClick={() => onEdit(row?.original?.id)}
-							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F]   hover:bg-white hover:opacity-85  rounded-[8px] border border-[#16C47F]"
+							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 rounded-[8px] border border-[#16C47F]"
 						>
 							<svg
 								width="17"
@@ -160,11 +180,11 @@ export default function EmployeesTable() {
 									</clipPath>
 								</defs>
 							</svg>
-							تعديل
+							{t("buttons.edit")}
 						</Button>
 						<Button
 							// onClick={() => onDelete(row?.original?.id)}
-							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619]   hover:bg-white hover:opacity-85  rounded-[8px] border border-[#C41619]"
+							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 rounded-[8px] border border-[#C41619]"
 						>
 							<>
 								<svg
@@ -185,7 +205,7 @@ export default function EmployeesTable() {
 									<line x1="10" x2="10" y1="11" y2="17" />
 									<line x1="14" x2="14" y1="11" y2="17" />
 								</svg>
-								حذف
+								{t("buttons.delete")}
 							</>
 						</Button>
 					</div>
@@ -200,32 +220,35 @@ export default function EmployeesTable() {
 				dataSets={[
 					{
 						columns,
-						data,
-						label: "سجل المبيعات",
+						data: (EmployeesInvoicesData as any) || [],
+						loading: EmployeesInvoicesLoading,
+						label: t("salesRecord"),
 						UserComponent: () => {
 							return (
 								<div className="p-6 flex flex-col gap-5 ">
-									<h1 className="text-[26px] font-bold">الموظفين</h1>
+									<h1 className="text-[26px] font-bold">{t("title")}</h1>
 									<CustomSelect
-										label="الموظف"
-										options={["فارس", "محمد", "احمد", "علي"]}
+										label={t("filters.employee")}
+										options={t("employees")
+											.split(",")
+											.map((emp) => emp.trim())}
 										triggerClassName="!h-[48px] md:w-[302px] w-[100%] bg-white"
 									/>
 									<div className="flex md:flex-row flex-col gap-4 items-end">
 										<CustomInput
-											label="من فترة"
+											label={t("filters.dateFrom")}
 											type="date"
 											wrapperClassName="md:w-[302px] "
 											className="h-[48px]"
 										/>
 										<CustomInput
-											label="الي فترة"
+											label={t("filters.dateTo")}
 											type="date"
 											wrapperClassName="md:w-[302px] "
 											className="h-[48px]"
 										/>
 										<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
-											حفظ
+											{t("buttons.save")}
 										</Button>
 									</div>
 								</div>
@@ -235,44 +258,34 @@ export default function EmployeesTable() {
 					},
 					{
 						columns: EmployeesColumns as any,
-						data: EmployeesData as any,
-						label: "الموظفين",
+						data: (EmployeesData as any) || [],
+						label: t("title"),
 						withFilter: false,
-						title: "الموظفين",
-						AddTitle: "اضافة موظف ",
+						title: t("title"),
+						AddTitle: t("addEmployee"),
+						containerClassName: "p-6",
 						UserComponent: () => {
 							return (
-								<div className="flex md:flex-row flex-col justify-between gap-4 md:items-center px-5 md:py-0 py-5">
-									<SearchBar />
-									<CustomPopUp
-										DialogTriggerComponent={() => (
-											<div className="text-end flex justify-between">
-												<AddButton
-													AddTitle="اضافة موظف "
-													onClickAdd={() => {}}
-												/>
-											</div>
-										)}
-										DialogContentComponent={() => <AddNewEmployee />}
-									/>
+								<div className="py-3">
+									<SearchBar  />
 								</div>
 							);
 						},
-						// ButtonTrigger: () => {
-						// 	return (
-						// 		<CustomPopUp
-						// 			DialogTriggerComponent={() => (
-						// 				<div className="my-3">
-						// 					<AddButton
-						// 						AddTitle="اضافة موظف  جديد "
-						// 						onClickAdd={() => {}}
-						// 					/>
-						// 				</div>
-						// 			)}
-						// 			DialogContentComponent={() => <AddNewEmployee />}
-						// 		/>
-						// 	);
-						// },
+						ButtonTrigger: () => {
+							return (
+								<CustomPopUp
+									DialogTriggerComponent={() => (
+										<div className="text-end flex justify-between">
+											<AddButton
+												AddTitle={t("addNewEmployee")}
+												onClickAdd={() => {}}
+											/>
+										</div>
+									)}
+									DialogContentComponent={() => <AddNewEmployee />}
+								/>
+							);
+						},
 					},
 				]}
 			/>

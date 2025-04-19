@@ -73,7 +73,7 @@ export default function MainBody<TData>({
 															}
 															className="max-w-[240px] min-w-auto"
 															wrapperClassName={cn(
-																"md:w-auto md:max-w-[302px]",
+																"md:w-auto md:max-w-full",
 																element.wrapperClassName
 															)}
 															labelClassName={cn(element.labelClassName)}

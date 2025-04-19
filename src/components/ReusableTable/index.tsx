@@ -381,7 +381,6 @@ export default function ReusableTable<TData>({
 											</label>
 											<Select
 												value={selectedEmployee}
-												dir="rtl"
 												onValueChange={(e) => {
 													setSelectedEmployee((prev) => (prev === e ? "" : e));
 													setPageIndex(0);

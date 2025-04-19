@@ -8,6 +8,7 @@ import CustomSelect from "@/components/customSelect";
 import { CustomDatePicker } from "@/components/customDatePicker";
 import { useSalesInvoice } from "../../hooks/useSalesInvoices";
 import { MonthPicker } from "@/components/monthPicker";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 export default function TopComponent({
 	selectedInvoice,
@@ -17,7 +18,7 @@ export default function TopComponent({
 	setSelectedInvoice?: any;
 }) {
 	const { data: userDetails } = useSalesInvoice("1");
-
+	const { t } = useTypedTranslation();
 	// Form state
 	const [formValues, setFormValues] = useState({
 		invoiceNumber: selectedInvoice || "",
@@ -149,7 +150,9 @@ export default function TopComponent({
 	return (
 		<div className="border-x border-t p-6 flex flex-col gap-5 bg-white">
 			<div className="flex justify-between items-center">
-				<h1 className="text-[26px] font-[700] text-[#02140D]">فاتورة بيع</h1>
+				<h1 className="text-[26px] font-[700] text-[#02140D]">
+					{t("salesInvoicesTable.filter.pageTitle")}
+				</h1>
 				<h1 className="text-[36px] font-[600] text-[#02140D]">S00026</h1>
 			</div>
 			<div className="self-end flex md:flex-row flex-col gap-4">
@@ -172,7 +175,9 @@ export default function TopComponent({
 								/>
 							</svg>
 
-							<p className="font-[500] text-[#16C47F] ">ضريبة على الفاتورة</p>
+							<p className="font-[500] text-[#16C47F] ">
+								{t("salesInvoicesTable.filter.invoiceTax")}
+							</p>
 						</Button>
 					)}
 					DialogContentComponent={() => <TaxOnInvoice />}
@@ -196,7 +201,10 @@ export default function TopComponent({
 								/>
 							</svg>
 
-							<p className="font-[500] text-[#16C47F] "> خصم على الفاتورة</p>
+							<p className="font-[500] text-[#16C47F] ">
+								{" "}
+								{t("salesInvoicesTable.filter.productTax")}
+							</p>
 						</Button>
 					)}
 					DialogContentComponent={() => <TaxOnProduct />}
@@ -205,25 +213,28 @@ export default function TopComponent({
 			<form onSubmit={handleSubmit}>
 				<div className="flex md:flex-row flex-col gap-5">
 					<MonthPicker
-						label="التاريخ"
-						wrapperClassName="lg:w-[302px] !h-[48px]"
+						label={t("salesInvoicesTable.filter.dateLabel")}
+						wrapperClassName="lg:w-[302px] !h-[48px] mb-6"
 						// value={formValues.date}
 						// onSelect={handleDateChange}
 					/>
 
 					<CustomSelect
-						label="رقم الفاتورة"
+						label={t("salesInvoicesTable.filter.invoiceLabel")}
 						options={["invoice1", "invoice2", "invoice3"]}
-						triggerClassName="!h-[48px] w-[302px] bg-white"
+						triggerClassName="!h-[48px] w-[302px] bg-white mb-8"
 						value={formValues.invoiceNumber}
 						onValueChange={handleInvoiceChange}
 					/>
 				</div>
 				<div className="flex flex-col gap-1">
-					<h1 className="text-[22px] font-[500]">معلومات العميل</h1>
+					<h1 className="text-[22px] font-[500]">
+						{" "}
+						{t("salesInvoicesTable.filter.customerInfo")}
+					</h1>
 					<div className="flex md:flex-row flex-col gap-5 items-center">
 						<CustomInput
-							label="أسم العميل"
+							label={t("salesInvoicesTable.filter.customerName")}
 							type="text"
 							wrapperClassName="w-[302px] "
 							className="h-[48px]"
@@ -233,7 +244,7 @@ export default function TopComponent({
 							error={errors.customerName || undefined}
 						/>
 						<CustomInput
-							label="الرقم"
+							label={t("salesInvoicesTable.filter.customerPhone")}
 							type="text"
 							wrapperClassName="w-[302px] "
 							className="h-[48px]"
@@ -243,7 +254,7 @@ export default function TopComponent({
 							error={errors.customerPhone || undefined}
 						/>
 						<CustomInput
-							label="العنوان"
+							label={t("salesInvoicesTable.filter.customerAddress")}
 							type="text"
 							wrapperClassName="w-[302px] "
 							className="h-[48px]"
@@ -253,7 +264,7 @@ export default function TopComponent({
 							error={errors.customerAddress || undefined}
 						/>
 						<CustomInput
-							label="خصومات العميل"
+							label={t("salesInvoicesTable.filter.customerDiscount")}
 							type="text"
 							wrapperClassName="w-[302px] "
 							className="h-[48px]"
