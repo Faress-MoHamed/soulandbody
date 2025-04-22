@@ -26,6 +26,7 @@ const generateRandomData = (count: number) => {
 			code: Math.floor(Math.random() * 100).toString(),
 			itemName: itemNames[Math.floor(Math.random() * itemNames.length)],
 			quantity: (Math.floor(Math.random() * 10) + 1).toString(),
+			category: "كرتونه",
 			unit: (Math.floor(Math.random() * 5) + 1).toString(),
 			saleUnit: (Math.floor(Math.random() * 1000) + 100).toString(),
 			total: (Math.floor(Math.random() * 5000) + 500).toString(),
@@ -50,7 +51,7 @@ export function useSalesInvoices() {
 
 // Fetch a single SalesInvoice record
 export function useSalesInvoice(id: string) {
-  type User = {
+	type User = {
 		id: string;
 		customerName: string;
 		customerPhone: string;
@@ -64,7 +65,7 @@ export function useSalesInvoice(id: string) {
 			customerName: "أحمد علي",
 			customerPhone: "0551234567",
 			customerAddress: "الرياض",
-			customerDiscount: "tsfjdajbkvda,"
+			customerDiscount: "tsfjdajbkvda,",
 		},
 		{
 			id: "2",
@@ -78,7 +79,7 @@ export function useSalesInvoice(id: string) {
 			customerName: "خالد سعيد",
 			customerPhone: "0553456789",
 			customerAddress: "مكة",
-			customerDiscount: "0,"
+			customerDiscount: "0,",
 		},
 		{
 			id: "4",
@@ -99,14 +100,14 @@ export function useSalesInvoice(id: string) {
 			customerName: "ليلى حسن",
 			customerPhone: "0556789012",
 			customerAddress: "الطائف",
-			customerDiscount: "5,"
+			customerDiscount: "5,",
 		},
 		{
 			id: "7",
 			customerName: "فيصل خالد",
 			customerPhone: "0557890123",
 			customerAddress: "أبها",
-			customerDiscount: "0,"
+			customerDiscount: "0,",
 		},
 		{
 			id: "8",
@@ -120,22 +121,21 @@ export function useSalesInvoice(id: string) {
 			customerName: "ماجد ناصر",
 			customerPhone: "0559012345",
 			customerAddress: "جازان",
-			customerDiscount: "8,"
+			customerDiscount: "8,",
 		},
 		{
 			id: "10",
 			customerName: "هدى صالح",
 			customerPhone: "0560123456",
 			customerAddress: "حائل",
-			customerDiscount: "3,"
+			customerDiscount: "3,",
 		},
 	];
 
-
 	return useQuery({
 		queryKey: ["SalesInvoice", id],
-    queryFn: async () => {
-      const user = users.find((u) => u.id === id);
+		queryFn: async () => {
+			const user = users.find((u) => u.id === id);
 			return user || null;
 			// const { data } = await axios.get(`/api/SalesInvoices?id=${id}`);
 			// 			return data;

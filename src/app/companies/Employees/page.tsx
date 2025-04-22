@@ -223,6 +223,13 @@ export default function EmployeesTable() {
 						data: (EmployeesInvoicesData as any) || [],
 						loading: EmployeesInvoicesLoading,
 						label: t("salesRecord"),
+						nestedTable: [
+							{
+								columns: columns as any,
+								data: (EmployeesInvoicesData as any) || [],
+								title: "new items",
+							},
+						],
 						UserComponent: () => {
 							return (
 								<div className="p-6 flex flex-col gap-5 ">
@@ -267,7 +274,7 @@ export default function EmployeesTable() {
 						UserComponent: () => {
 							return (
 								<div className="py-3">
-									<SearchBar  />
+									<SearchBar />
 								</div>
 							);
 						},

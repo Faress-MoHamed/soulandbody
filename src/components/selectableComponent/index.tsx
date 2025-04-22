@@ -8,7 +8,7 @@ import { utils, writeFile } from "xlsx";
 import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 interface SelectableComponentProps {
-	items: {
+	items?: {
 		label: string;
 		component: React.ReactNode;
 		data?: any;
@@ -29,7 +29,7 @@ export default function SelectableComponent({
 	buttonClassName,
 	activeButtonClassName,
 	contentClassName,
-	withTopPrinter=true,
+	withTopPrinter = true,
 }: SelectableComponentProps) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
@@ -41,7 +41,7 @@ export default function SelectableComponent({
 	// Memoize button list rendering
 	const buttons = useMemo(
 		() =>
-			items.map((item, index) => (
+			items?.map((item, index) => (
 				<button
 					key={item.label} // Use label as key for better stability
 					onClick={() => handleClick(index)}
@@ -60,12 +60,12 @@ export default function SelectableComponent({
 		[items, activeIndex, handleClick, buttonClassName, activeButtonClassName]
 	);
 	const exportToExcel = () => {
-		const worksheet = utils.json_to_sheet(items[activeIndex]?.data);
+		const worksheet = utils.json_to_sheet(items?.[activeIndex]?.data);
 		const workbook = utils.book_new();
 		utils.book_append_sheet(workbook, worksheet, "Sheet1");
 		writeFile(workbook, "table_data.xlsx");
 	};
-	const {t}=useTypedTranslation()
+	const { t } = useTypedTranslation();
 	return (
 		<div className={cn("w-full", className)}>
 			<div className="flex justify-between w-full">
@@ -80,7 +80,7 @@ export default function SelectableComponent({
 						</Button>
 					)}
 				</div>{" "}
-				{items?.length > 1 && (
+				{(items || [])?.length > 1 && (
 					<div
 						className={cn(
 							"flex md:justify-end  pl-[1px] overflow-x-auto max-w-full",
@@ -96,7 +96,7 @@ export default function SelectableComponent({
 				className={cn("border-t max-w-full", contentClassName)}
 				role="tabpanel"
 			>
-				{items[activeIndex]?.component}
+				{items?.[activeIndex]?.component}
 			</div>
 		</div>
 	);

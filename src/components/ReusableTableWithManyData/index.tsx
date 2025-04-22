@@ -33,6 +33,8 @@ import HorizontalTable from "../HorizontalTable";
 import CustomInput from "../customInput";
 import CustomSelect from "../customSelect";
 import { Minus, Plus } from "lucide-react";
+import MainTable from "./MainTable";
+import { NestedTable } from "./NestedTable";
 
 export function Table<TData>({
 	columns,
@@ -59,17 +61,18 @@ export function Table<TData>({
 	onDelete,
 	onEdit,
 	withInlineAdd = false,
-	onSaveNewRow,
+	mainTableLabel,
 	expandableRow = false,
 	expandedContent,
 	columnGroups,
 	withInlineAddContent,
+	nestedTable,
+	onCellClick,
 }: TableProps<TData>) {
 	const [selectedEmployee, setSelectedEmployee] = useState<string>("");
 	const [selectedMonth, setSelectedMonth] = useState<string | undefined>();
 	const [pageIndex, setPageIndex] = useState(0);
 	const [isAddingRow, setIsAddingRow] = useState(false);
-	const [newRowData, setNewRowData] = useState<any>({});
 	const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
 
 	const toggleRow = (rowId: string) => {
@@ -79,7 +82,6 @@ export function Table<TData>({
 		}));
 	};
 
-	// زر التمديد الافتراضي
 	const defaultExpandButton = (
 		isExpanded: boolean,
 		toggleExpand: () => void
@@ -135,26 +137,6 @@ export function Table<TData>({
 				: paginatedData
 			: data;
 	}, [selectedEmployee, data, pageIndex, pageSize]);
-
-	const handleNewRowInputChange = (key: string, value: any) => {
-		setNewRowData((prev: any) => ({
-			...prev,
-			[key]: value,
-		}));
-	};
-
-	const handleSaveNewRow = () => {
-		if (onSaveNewRow) {
-			onSaveNewRow(newRowData);
-			setNewRowData({});
-			setIsAddingRow(false);
-		}
-	};
-
-	const cancelAddRow = () => {
-		setIsAddingRow(false);
-		setNewRowData({});
-	};
 
 	const dynamicColumns = useMemo(() => {
 		let updatedColumns: any = [...columns];
@@ -280,53 +262,7 @@ export function Table<TData>({
 		expandedContent?.expandButton,
 	]);
 
-	const NewRowComponent = () => (
-		<>
-			<tr className={cn("border-b hover:bg-muted/50 text-center w-full")}>
-				{withInlineAddContent?.map((element, i) => (
-					<td
-						key={i}
-						className="p-3 text-[16px] border-y-[1px] border-[#14250D66] max-w-[120px]"
-					>
-						{(() => {
-							switch (element?.type) {
-								case "input":
-									return (
-										<CustomInput
-											type={element.inputType || "text"}
-											value={element.value}
-											label={element.label}
-											onChange={(e) =>
-												element?.onChange && element?.onChange(e)
-											}
-											className="max-w-[240px] min-w-auto"
-											wrapperClassName={cn(
-												"md:w-auto md:max-w-full",
-												element.wrapperClassName
-											)}
-											labelClassName={cn(element.labelClassName)}
-										/>
-									);
-								case "select":
-									return (
-										<CustomSelect
-											triggerClassName="!h-[48px] w-[302px] bg-white"
-											{...element}
-										/>
-									);
-								case "custom":
-									return element.Component;
-								case "null":
-									return null;
-								default:
-									return null;
-							}
-						})()}
-					</td>
-				))}
-			</tr>
-		</>
-	);
+	// );
 	const table = useReactTable({
 		data: finalData,
 		columns: dynamicColumns,
@@ -334,8 +270,83 @@ export function Table<TData>({
 		getPaginationRowModel: getPaginationRowModel({ initialSync: true }),
 		manualPagination: false, // Enable client-side pagination
 	});
-	const RenderedTbody = ColSpanTbody<TData>;
-	const RenderedMainTbody = MainBody<TData>;
+
+	const RenderdMainTable = MainTable<TData>;
+	const nestedPaginationStates = nestedTable?.map(() => useState(0)) ?? [];
+
+	const selectableItems = useMemo(() => {
+		const items = [
+			{
+				label: mainTableLabel || title || "Main Table",
+				component: (
+					<RenderdMainTable
+						columnGroups={columnGroups}
+						expandableRow={expandableRow}
+						expandedContent={expandedContent}
+						expandedRows={expandedRows}
+						filteredData={filteredData}
+						isAddingRow={isAddingRow}
+						pageIndex={pageIndex}
+						pageSize={pageSize}
+						setPageIndex={setPageIndex}
+						selectedEmployee={selectedEmployee}
+						table={table}
+						withColspan={withColspan}
+						withInlineAddContent={withInlineAddContent}
+						withPagination={withPagination}
+						onCellClick={onCellClick}
+					/>
+				),
+			},
+		];
+		nestedTable?.forEach((table, index) => {
+			const [nestedPageIndex, setNestedPageIndex] =
+				nestedPaginationStates[index];
+			const pageSize = 10;
+			const paginatedData = table.data.slice(
+				nestedPageIndex * pageSize,
+				(nestedPageIndex + 1) * pageSize
+			);
+			console.log(paginatedData);
+			items.push({
+				label: table.title || "Details",
+				component: (
+					<NestedTable
+						key={index}
+						data={table.data}
+						paginatedData={paginatedData}
+						columns={table.columns}
+						pageIndex={nestedPageIndex}
+						setPageIndex={setNestedPageIndex}
+						title={table.title}
+					/>
+				),
+			});
+		});
+
+		return items;
+	}, [
+		title,
+		columnGroups,
+		expandableRow,
+		expandedContent,
+		expandedRows,
+		filteredData,
+		isAddingRow,
+		pageIndex,
+		pageSize,
+		selectedEmployee,
+		table,
+		withColspan,
+		withInlineAdd,
+		withPagination,
+		...(nestedTable?.flatMap((table) => [
+			table.data,
+			table.columns,
+			table.title,
+		]) ?? []),
+		...nestedPaginationStates.flat(),
+	]);
 
 	return (
 		<>
@@ -348,7 +359,7 @@ export function Table<TData>({
 				{(title || ButtonTrigger || (withFilter && employees.length !== 0)) && (
 					<CardHeader className="flex flex-row items-center justify-between lg:px-0">
 						<div className="flex flex-col w-full gap-4  mt-6">
-							<div className="flex justify-between items-center">
+							<div className="flex justify-between items-center px-6">
 								{title && (
 									<CardTitle className="lg:text-[26px] text-[20px] font-bold w-full">
 										{title}
@@ -385,84 +396,18 @@ export function Table<TData>({
 						<LoadingIndicator withFullScreen />
 					) : (
 						<>
-							<div className="">
-								<div className="flex flex-col gap-9">
-									{UserComponent && (
-										<UserComponent selectedEmployee={selectedEmployee} />
-									)}
+							<div className="flex flex-col gap-9">
+								{UserComponent && (
+									<UserComponent selectedEmployee={"cadcaca"} />
+								)}
 
-									{withPrinter && <Printer data={data} />}
-								</div>
-								<div className="overflow-x-auto">
-									<div className="min-w-full inline-block align-middle">
-										<table className="min-w-full border-collapse">
-											<thead className="bg-[#D0F3E5] border-b-[1px] border-[#14250D66]">
-												{columnGroups && (
-													<tr className="bg-[#fafafa] space-x-5">
-														{columnGroups.map((group, index) => (
-															<th
-																key={`group-${index}`}
-																colSpan={group.columns}
-																className={cn(
-																	"p-3 text-center text-nowrap border-[1px]  md:border-x-[49px] border-x-[14px] border-[#fafafa] mx-5",
-																	group.className
-																)}
-															>
-																{group.title}
-															</th>
-														))}
-													</tr>
-												)}
-												{table.getHeaderGroups().map((headerGroup) => (
-													<tr key={headerGroup.id} className="text-center">
-														{headerGroup.headers.map((header) => (
-															<th
-																key={header.id}
-																className="p-3 text-center border-b text-nowrap"
-															>
-																{flexRender(
-																	header.column.columnDef.header,
-																	header.getContext()
-																)}
-															</th>
-														))}
-													</tr>
-												))}
-											</thead>
-
-											{withColspan ? (
-												<tbody>
-													<RenderedTbody
-														expandedRows={expandedRows}
-														table={table}
-														expandableRow={expandableRow}
-														expandedContent={expandedContent}
-													/>
-													{isAddingRow && <NewRowComponent />}
-												</tbody>
-											) : (
-												<tbody>
-													<RenderedMainTbody
-														expandedRows={expandedRows}
-														table={table}
-														expandableRow={expandableRow}
-														expandedContent={expandedContent}
-													/>
-													{isAddingRow && <NewRowComponent />}
-												</tbody>
-											)}
-										</table>
-									</div>{" "}
-								</div>
+								{withPrinter && <Printer data={data} />}
 							</div>
-							{!selectedEmployee && withPagination && (
-								<TablePagination
-									filteredData={filteredData}
-									pageIndex={pageIndex}
-									pageSize={pageSize}
-									setPageIndex={setPageIndex}
-								/>
-							)}
+							<SelectableComponent
+								items={selectableItems}
+									withTopPrinter={false}
+									buttonClassName="min-w-[150px]"
+							/>
 						</>
 					)}
 				</CardContent>
@@ -529,6 +474,9 @@ export default function ReusableManyTable<TData>({
 							withPagination={set.withPagination}
 							expandableRow={set.expandableRow}
 							expandedContent={set.expandedContent}
+							nestedTable={set.nestedTable}
+							mainTableLabel={set.mainTableLabel}
+							onCellClick={set.onCellClick}
 						/>
 					),
 					data: set.data,

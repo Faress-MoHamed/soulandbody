@@ -1,5 +1,5 @@
 import * as SelectPrimitive from "@radix-ui/react-select";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { Cell, ColumnDef } from "@tanstack/react-table";
 import { type JSX } from "react";
 export type TableProps<TData> = {
 	columns: ColumnDef<TData>[];
@@ -12,7 +12,11 @@ export type TableProps<TData> = {
 		currentPage: number;
 		totalPages: number;
 	};
+	mainTableLabel?: string;
+	nestedTable?: NestedTableConfig<TData>; // Add this new prop
 	handlePageChange?: (page: number) => void;
+	onCellClick?: (cell: Cell<TData, unknown>) => JSX.Element | null;
+
 	employees?: string[];
 	loading?: boolean;
 	withColspan?: boolean;
@@ -103,3 +107,9 @@ export type HorizontalTableProps<TData> = Pick<
 	| "CardFooterClassName"
 	| "containerClassName"
 >;
+
+export type NestedTableConfig<TData> = {
+	data: TData[];
+	columns: ColumnDef<TData>[];
+	title?: string;
+}[];

@@ -12,8 +12,8 @@ export default function ReturnTopComponent({
 	selectedInvoice,
 	setSelectedInvoice,
 }: {
-	selectedInvoice: any;
-	setSelectedInvoice: any;
+	selectedInvoice?: any;
+	setSelectedInvoice?: any;
 }) {
 	const t = useTranslations("returnTopComponent");
 
@@ -95,8 +95,8 @@ export default function ReturnTopComponent({
 					label={t("inputs.invoiceNumber")}
 					options={invoiceOptions}
 					triggerClassName="!h-[48px] w-[302px] bg-white"
-					value={selectedInvoice}
-					onValueChange={(e) => setSelectedInvoice(e)}
+					value={selectedInvoice || ""}
+					onValueChange={(e) => setSelectedInvoice?.(e)}
 				/>
 			</div>
 			<div className="flex flex-col gap-1">

@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import type { SchemaObject } from "../table.types";
-import { flexRender, type Table } from "@tanstack/react-table";
+import { flexRender, type Table, type Cell } from "@tanstack/react-table";
 import { type JSX } from "react";
 import { cn } from "@/lib/utils";
 import CustomInput from "@/components/customInput";
@@ -12,6 +12,7 @@ export default function MainBody<TData>({
 	expandableRow,
 	expandedRows,
 	expandedContent,
+	onCellClick,
 }: {
 	table: Table<TData>;
 	expandableRow?: boolean;
@@ -23,24 +24,43 @@ export default function MainBody<TData>({
 		) => JSX.Element;
 	};
 	expandedRows: Record<string, boolean>;
+	onCellClick?: (cell: Cell<TData, unknown>) => JSX.Element | null;
 }) {
+	const [activeRowId, setActiveRowId] = useState<string | null>(null);
+	const [activeCell, setActiveCell] = useState<Cell<TData, unknown> | null>(
+		null
+	);
 	return (
 		<>
-			{table.getRowModel().rows.map((row, index) => {
+			{table.getRowModel().rows.map((row, rowIndex) => {
+				const rowCells = row.getVisibleCells();
+
 				return (
-					<React.Fragment key={index}>
+					<React.Fragment key={row.id}>
 						<tr
-							key={row.id}
 							className={cn(
 								"border-b hover:bg-[#98cbb7] transition-colors duration-300 text-center w-full",
-								`${index % 2 !== 0 ? "bg-[#D0F3E5]" : ""}`
+								`${rowIndex % 2 !== 0 ? "bg-[#D0F3E5]" : ""}`
 							)}
 						>
-							{row.getVisibleCells().map((cell) => (
+							{rowCells.map((cell) => (
 								<td
 									key={cell.id}
+									onClick={() => {
+										if (onCellClick) {
+											const content = onCellClick(cell);
+											if (content) {
+												setActiveRowId((prev) =>
+													prev === row.id ? null : row.id
+												);
+												setActiveCell((prev) =>
+													prev?.id === cell.id ? null : cell
+												);
+											}
+										}
+									}}
 									className={cn(
-										`p-3 text-[16px] tec border-y-[1px] border-[#14250D66] text-nowrap`
+										"relative p-3 text-[16px] tec border-y-[1px] border-[#14250D66] text-nowrap"
 									)}
 								>
 									{flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -48,11 +68,24 @@ export default function MainBody<TData>({
 							))}
 						</tr>
 
+						{/* Conditional extra row on click */}
+						{activeRowId === row.id && activeCell && (
+							<tr
+								className={cn(
+									"bg-white border-b text-center w-full",
+									`${rowIndex % 2 !== 0 ? "bg-[#D0F3E5]" : ""}`
+								)}
+							>
+								<td colSpan={rowCells.length}>{onCellClick?.(activeCell)}</td>
+							</tr>
+						)}
+
+						{/* Expanded content row (if any) */}
 						{expandableRow && expandedRows[row.id] && (
 							<tr
 								className={cn(
 									"border-b hover:bg-muted/50 text-center w-full",
-									`${index % 2 !== 0 ? "bg-[#D0F3E5]" : ""}`
+									`${rowIndex % 2 !== 0 ? "bg-[#D0F3E5]" : ""}`
 								)}
 							>
 								{expandedContent?.content.map((element, i) => (

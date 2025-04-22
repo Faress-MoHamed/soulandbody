@@ -841,35 +841,35 @@
 		}
 	},
 	"employeesInvoices": {
-		"title": "Employees",
-		"addEmployee": "Add Employee",
-		"addNewEmployee": "Add New Employee",
-		"salesRecord": "Sales Record",
-		"searchPlaceholder": "Search here...",
+		"title": "الموظفون",
+		"addEmployee": "إضافة موظف",
+		"addNewEmployee": "إضافة موظف جديد",
+		"salesRecord": "سجل المبيعات",
+		"searchPlaceholder": "ابحث هنا...",
 		"columns": {
-			"employeeName": "Employee Name",
-			"unitsCount": "Units Count",
-			"totalUnits": "Total Units",
-			"name": "Employee Name",
-			"phone": "Phone Number",
-			"address": "Address",
-			"job": "Job",
-			"permissions": "Permissions",
-			"options": "Options"
+			"employeeName": "اسم الموظف",
+			"unitsCount": "عدد الوحدات",
+			"totalUnits": "إجمالي الوحدات",
+			"name": "اسم الموظف",
+			"phone": "رقم الهاتف",
+			"address": "العنوان",
+			"job": "الوظيفة",
+			"permissions": "الصلاحيات",
+			"options": "الخيارات"
 		},
 		"filters": {
-			"employee": "Employee",
-			"dateFrom": "From Date",
-			"dateTo": "To Date"
+			"employee": "الموظف",
+			"dateFrom": "من تاريخ",
+			"dateTo": "إلى تاريخ"
 		},
 		"buttons": {
-			"save": "Save",
-			"view": "View",
-			"salesRecord": "Sales Record",
-			"edit": "Edit",
-			"delete": "Delete"
+			"save": "حفظ",
+			"view": "عرض",
+			"salesRecord": "سجل المبيعات",
+			"edit": "تعديل",
+			"delete": "حذف"
 		},
-		"employees": ["Faris", "Mohammed", "Ahmed", "Ali"]
+		"employees": ["فارس", "محمد", "أحمد", "علي"]
 	},
 	"customers": {
 		"title": "العملاء",
@@ -932,5 +932,177 @@
 			"فاتورة مؤجلة",
 			"عميل جديد"
 		]
+	},
+	"sales": {
+		"common": {
+			"add": "إضافة",
+			"edit": "تعديل",
+			"delete": "حذف",
+			"search": "بحث",
+			"actions": "الإجراءات",
+			"save": "حفظ",
+			"cancel": "إلغاء",
+			"back": "رجوع",
+			"next": "التالي",
+			"submit": "إرسال",
+			"execute": "تنفيذ",
+			"from": "من",
+			"to": "الي",
+			"client": "العميل"
+		},
+		"clients": {
+			"title": "العملاء",
+			"addNew": "عميل جديد",
+			"addNewTitle": "اضافة عميل جديد",
+			"columns": {
+				"name": "اسم العميل",
+				"phone": "الهاتف",
+				"phoneNumber": "رقم الهاتف",
+				"address": "العنوان",
+				"action": "الإجراء",
+				"code": "كود العميل"
+			},
+			"deleteConfirmation": "هل أنت متأكد من حذف هذا العميل؟"
+		},
+		"invoiceClients": {
+			"title": "مبلغ مستحق",
+			"columns": {
+				"name": "اسم العميل",
+				"phone": "الهاتف",
+				"address": "العنوان",
+				"invoiceNumber": "رقم الفاتورة",
+				"amountDue": "المبلغ المستحق"
+			}
+		},
+		"advancePayments": {
+			"title": "مبلغ تحت الحساب",
+			"columns": {
+				"name": "اسم العميل",
+				"phone": "الهاتف",
+				"address": "العنوان",
+				"receiptNumber": "سند القبض",
+				"amount": "المبلغ"
+			}
+		},
+		"transactions": {
+			"title": "كشف الحساب",
+			"accountStatement": "كشف حساب",
+			"mainTitle": "العملاء",
+			"sales": {
+				"title": "المبيعات"
+			},
+			"columns": {
+				"invoiceNumber": "رقم الفاتورة",
+				"clientCode": "كود العميل",
+				"date": "تاريخ",
+				"account": "الحساب",
+				"debtor": "مدين",
+				"creditor": "دائن",
+				"balance": "رصيد"
+			}
+		},
+		"salesInvoices": {
+			"title": "فواتير البيع",
+			"columns": {
+				"code": "الكود",
+				"itemName": "اسم الصنف",
+				"category": "فئة الصنف",
+				"quantity": "الكمية",
+				"saleUnit": "وحدة البيع",
+				"total": "الإجمالي",
+				"discount": "الخصم",
+				"tax": "الضريبة",
+				"totalSale": "إجمالي البيع",
+				"addTax": "إضافة ضريبة"
+			}
+		},
+		"returnInvoices": {
+			"title": "فواتير مرتجع"
+		},
+		"electronicInvoices": {
+			"title": "الفواتير الألكترونية",
+			"mainTitle": "المبيعات",
+			"taxTransfer": "تحويل ضريبي",
+			"returns": "مرتجعات",
+			"replacements": "استبدلات",
+			"columns": {
+				"invoiceNumber": "رقم الفاتورة",
+				"date": "تاريخ",
+				"statement": "بيان",
+				"amount": "المبلغ",
+				"vatAmount": "ضريبة القيمة المضافة",
+				"profit": "أرباح سنوية",
+				"total": "المجموع",
+				"status": "حالة الرد"
+			}
+		},
+		"categoryTable": {
+			"category": "الفئة",
+			"saleUnit": "وحد البيع",
+			"unitContents": "محتويات الوحدة 1:1",
+			"subUnitContents": "محتويات الوحدة 1:1:1"
+		}
+	},
+	"purchases": {
+		"productTypes": {
+			"code": "كود الصنف",
+			"name": "اسم الصنف",
+			"description": "الوصف",
+			"purchasePrice": "سعر الشراء",
+			"salePrice": "سعر البيع",
+			"actions": "خيارات",
+			"addItem": "اضافة صنف",
+			"title": "الاصناف"
+		},
+		"invoices": {
+			"invoiceNumber": "رقم الفاتورة",
+			"date": "تاريخ",
+			"account": "الحساب",
+			"debtor": "مدين",
+			"creditor": "دائن",
+			"balance": "رصيد",
+			"accountStatement": "كشف الحساب",
+			"mainTable": "المشتريات"
+		},
+		"suppliers": {
+			"name": "اسم المورد",
+			"phone": "الهاتف",
+			"address": "العنوان",
+			"newSupplier": "مورد جديد",
+			"title": "الموردين"
+		},
+		"amountDues": {
+			"amountDue": "المبلغ المستحق",
+			"title": "مبلغ مستحق"
+		},
+		"downPayments": {
+			"paymentDocument": "سند القبض",
+			"advanceAmount": "المبلغ",
+			"title": "مبلغ تحت الحساب"
+		}
+	},
+
+	"AccountStatementTopComponent": {
+		"title": "كشف حساب",
+		"from": "من",
+		"to": "الى",
+		"item": "الصنف",
+		"execute": "تنفيذ"
+	},
+	"AddNewCategory": {
+		"title": "اضافة صنف جديد",
+		"code": "كود : 125",
+		"name": "اسم الصنف",
+		"description": "وصف الصنف",
+		"purchasePrice": "سعر الشراء",
+		"salePrice": "سعر البيع",
+		"save": "حفظ"
+	},
+	"AddSupplier": {
+		"title": "اضافة مورد جديد",
+		"name": "اسم المورد",
+		"phone": "رقم الهاتف",
+		"address": "العنوان",
+		"save": "حفظ"
 	}
 }

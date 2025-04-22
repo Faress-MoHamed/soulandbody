@@ -17,7 +17,7 @@ import ExchangeTopComponent from "./component/ExchangeTopComponent";
 import ReturnTopComponent from "./component/ReturnTopComponent";
 import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
-const ReturnIcon = () => (
+export const ReturnIcon = () => (
 	<svg
 		width="25"
 		height="24"
@@ -34,7 +34,7 @@ const ReturnIcon = () => (
 		/>
 	</svg>
 );
-const ExchangeIcon = () => (
+export const ExchangeIcon = () => (
 	<svg
 		width="25"
 		height="24"

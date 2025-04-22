@@ -931,5 +931,178 @@
 			"Deferred Invoice",
 			"New Customer"
 		]
-	}
+	},
+	"sales": {
+		"common": {
+			"add": "Add",
+			"edit": "Edit",
+			"delete": "Delete",
+			"search": "Search",
+			"actions": "Actions",
+			"save": "Save",
+			"cancel": "Cancel",
+			"back": "Back",
+			"next": "Next",
+			"submit": "Submit",
+			"execute": "Execute",
+			"from": "From",
+			"to": "To",
+			"client": "Client"
+		},
+		"clients": {
+			"title": "Clients",
+			"addNew": "New Client",
+			"addNewTitle": "Add New Client",
+			"columns": {
+				"name": "Client Name",
+				"phone": "Phone",
+				"phoneNumber": "Phone Number",
+				"address": "Address",
+				"action": "Action",
+				"code": "Client Code"
+			},
+			"deleteConfirmation": "Are you sure you want to delete this client?"
+		},
+		"invoiceClients": {
+			"title": "Due Amount",
+			"columns": {
+				"name": "Client Name",
+				"phone": "Phone",
+				"address": "Address",
+				"invoiceNumber": "Invoice Number",
+				"amountDue": "Amount Due"
+			}
+		},
+		"advancePayments": {
+			"title": "Advance Payments",
+			"columns": {
+				"name": "Client Name",
+				"phone": "Phone",
+				"address": "Address",
+				"receiptNumber": "Receipt Number",
+				"amount": "Amount"
+			}
+		},
+		"transactions": {
+			"title": "Account Statement",
+			"accountStatement": "Account Statement",
+			"mainTitle": "Clients",
+			"sales": {
+				"title": "Sales"
+			},
+			"columns": {
+				"invoiceNumber": "Invoice Number",
+				"clientCode": "Client Code",
+				"date": "Date",
+				"account": "Account",
+				"debtor": "Debtor",
+				"creditor": "Creditor",
+				"balance": "Balance"
+			}
+		},
+		"salesInvoices": {
+			"title": "Sales Invoices",
+			"columns": {
+				"code": "Code",
+				"itemName": "Item Name",
+				"category": "Category",
+				"quantity": "Quantity",
+				"saleUnit": "Sale Unit",
+				"total": "Total",
+				"discount": "Discount",
+				"tax": "Tax",
+				"totalSale": "Total Sale",
+				"addTax": "Add Tax"
+			}
+		},
+		"returnInvoices": {
+			"title": "Return Invoices"
+		},
+		"electronicInvoices": {
+			"title": "Electronic Invoices",
+			"mainTitle": "Sales",
+			"taxTransfer": "Tax Transfer",
+			"returns": "Returns",
+			"replacements": "Replacements",
+			"columns": {
+				"invoiceNumber": "Invoice Number",
+				"date": "Date",
+				"statement": "Statement",
+				"amount": "Amount",
+				"vatAmount": "VAT Amount",
+				"profit": "Annual Profit",
+				"total": "Total",
+				"status": "Response Status"
+			}
+		},
+		"categoryTable": {
+			"category": "Category",
+			"saleUnit": "Sale Unit",
+			"unitContents": "Unit Contents 1:1",
+			"subUnitContents": "Unit Contents 1:1:1"
+		}
+	},
+	"purchases": {
+		"productTypes": {
+			"code": "Item Code",
+			"name": "Item Name",
+			"description": "Description",
+			"purchasePrice": "Purchase Price",
+			"salePrice": "Sale Price",
+			"actions": "Options",
+			"addItem": "Add Item",
+			"title": "Items"
+		},
+		"invoices": {
+			"invoiceNumber": "Invoice Number",
+			"date": "Date",
+			"account": "Account",
+			"debtor": "Debtor",
+			"creditor": "Creditor",
+			"balance": "Balance",
+			"accountStatement": "Account Statement",
+			"mainTable": "Purchases"
+		},
+		"suppliers": {
+			"name": "Supplier Name",
+			"phone": "Phone",
+			"address": "Address",
+			"newSupplier": "New Supplier",
+			"title": "Suppliers"
+		},
+		"amountDues": {
+			"amountDue": "Amount Due",
+			"title": "Amount Due"
+		},
+		"downPayments": {
+			"paymentDocument": "Payment Document",
+			"advanceAmount": "Advance Amount",
+			"title": "Down Payment"
+		}
+	},
+
+  "AccountStatementTopComponent": {
+    "title": "Account Statement",
+    "from": "From",
+    "to": "To",
+    "item": "Item",
+    "execute": "Execute"
+  },
+  "AddNewCategory": {
+    "title": "Add New Category",
+    "code": "Code: 125",
+    "name": "Category Name",
+    "description": "Category Description",
+    "purchasePrice": "Purchase Price",
+    "salePrice": "Sale Price",
+    "save": "Save"
+  },
+  "AddSupplier": {
+    "title": "Add New Supplier",
+    "name": "Supplier Name",
+    "phone": "Phone Number",
+    "address": "Address",
+    "save": "Save"
+  }
+
 }
