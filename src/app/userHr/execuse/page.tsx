@@ -4,57 +4,36 @@ import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import { useExecutions, type ExecuseRecord } from "./hooks/useExecuses";
-import { CustomDatePicker } from "@/components/customDatePicker";
-import StatusCard from "./components/statuseCards";
-import CustomInput from "@/components/customInput";
-import CustomPopUp from "@/components/popups";
-import AddCustomers from "@/app/companies/Customers/components/AddCustomers";
-import AddButton from "@/components/AddButton";
 import { MonthPicker } from "@/components/monthPicker";
-import InOutPopUp from "./components/InAndOutPopUp";
+import StatusCard from "./components/statuseCards";
+import CustomPopUp from "@/components/popups";
+import AddButton from "@/components/AddButton";
 import ExecusePopup from "./components/execusePopup";
+import { useTranslations } from "next-intl";
 
 export default function ExecusesPage() {
+	const t = useTranslations("userHr.execuses");
 	const { data: executionsData, isLoading: executionLoading } = useExecutions();
+
 	const columns: ColumnDef<ExecuseRecord>[] = [
+		{ header: t("date"), accessorKey: "date" },
+		{ header: t("from"), accessorKey: "from" },
+		{ header: t("to"), accessorKey: "to" },
+		{ header: t("actualEnd"), accessorKey: "actualEnd" },
+		{ header: t("reason"), accessorKey: "reason" },
+		{ header: t("deduction"), accessorKey: "deduction" },
 		{
-			header: "التاريخ",
-			accessorKey: "date",
-		},
-		{
-			header: "من",
-			accessorKey: "from",
-		},
-		{
-			header: "الى",
-			accessorKey: "to",
-		},
-		{
-			header: "وقت الإنتهاء الفعلي",
-			accessorKey: "actualEnd",
-		},
-		{
-			header: "السبب",
-			accessorKey: "reason",
-		},
-		{
-			header: "الخصم",
-			accessorKey: "deduction",
-		},
-		{
-			header: "الحالة",
+			header: t("status"),
 			accessorKey: "status",
 			cell: ({
 				row: {
 					original: { status },
 				},
-			}) => {
-				return (
-					<div className="flex justify-center">
-						<StatusCard type={status || "pending"} />
-					</div>
-				);
-			},
+			}) => (
+				<div className="flex justify-center">
+					<StatusCard type={status || "pending"} />
+				</div>
+			),
 		},
 	];
 
@@ -68,21 +47,24 @@ export default function ExecusesPage() {
 						loading: executionLoading,
 						withPrinter: true,
 						containerClassName: "border-none",
-						title: "سجل استاذان",
+						title: t("title"),
 						withFilter: false,
 						UserComponent: () => (
 							<div className="flex md:flex-row flex-col gap-3 justify-between md:items-end items-start">
 								<MonthPicker
-									label="التاريخ"
+									label={t("date")}
 									className="w-[302px] h-[48px] bg-white"
 								/>
 								{new Date().getHours() >= 1 && new Date().getHours() <= 2 ? (
-									<AddButton AddTitle="استأذان" onClickAdd={() => {}} />
+									<AddButton AddTitle={t("addTitle")} onClickAdd={() => {}} />
 								) : (
 									<CustomPopUp
 										DialogTriggerComponent={() => (
 											<div className="text-end flex justify-between">
-												<AddButton AddTitle="استأذان" onClickAdd={() => {}} />
+												<AddButton
+													AddTitle={t("addTitle")}
+													onClickAdd={() => {}}
+												/>
 											</div>
 										)}
 										DialogContentComponent={() => <ExecusePopup />}

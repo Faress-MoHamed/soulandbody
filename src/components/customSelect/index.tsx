@@ -1,10 +1,13 @@
-import React from "react";
+"use client";
+
+import React, { useState, useMemo } from "react";
 import { Select, SelectContent, SelectItem } from "../ui/select";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon } from "lucide-react";
 import LoadingIndicator from "../loadingIndicator";
 import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useSidebar } from "../ui/sidebar";
 
 function SelectGroup({
 	...props
@@ -71,9 +74,27 @@ export default function CustomSelect({
 	...props
 }: CustomSelectProps) {
 	const { t } = useTypedTranslation();
-	console.log(label)
+	const { open } = useSidebar();
+
+	const [search, setSearch] = useState("");
+
+	const filteredOptions = useMemo(() => {
+		return (
+			options?.filter((option) => {
+				const label = typeof option === "string" ? option : option.label;
+				return label.toLowerCase().includes(search.toLowerCase());
+			}) || []
+		);
+	}, [options, search]);
+
 	return (
-		<div className={cn("flex flex-col gap-2 lg:w-[302px] w-full", className)}>
+		<div
+			className={cn(
+				"flex flex-col gap-2 lg:w-[302px] w-full",
+				`${open && "lg:w-auto"}`,
+				className
+			)}
+		>
 			{label && (
 				<label className="text-[16px] text-[#1E1E1E] font-[400] text-start">
 					{label}
@@ -84,6 +105,7 @@ export default function CustomSelect({
 					size={size}
 					className={cn(
 						"!h-[48px] lg:w-[302px] w-full bg-white",
+						`${open && "lg:w-auto"}`,
 						triggerClassName
 					)}
 				>
@@ -92,20 +114,36 @@ export default function CustomSelect({
 					/>
 				</SelectTrigger>
 				<SelectContent className="z-[+99999]">
-					{options?.map((option) => {
-						const value = typeof option === "string" ? option : option.value;
-						const label = typeof option === "string" ? option : option.label;
-						return loading ? (
-							<LoadingIndicator />
-						) : (
-							<SelectItem key={value} value={value}>
-								{label}
-							</SelectItem>
-						);
-					})}
+					<div className="px-2 py-1">
+						<input
+							type="text"
+							placeholder={"ابحث..."}
+							value={search}
+							onChange={(e) => setSearch(e.target.value)}
+							className="w-full rounded-md border px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+						/>
+					</div>
+					<div className="max-h-60 overflow-y-auto">
+						{filteredOptions.length === 0 && (
+							<p className="px-3 py-2 text-sm text-muted-foreground">
+								{"لا توجد نتائج"}
+							</p>
+						)}
+						{filteredOptions.map((option) => {
+							const value = typeof option === "string" ? option : option.value;
+							const label = typeof option === "string" ? option : option.label;
+							return loading ? (
+								<LoadingIndicator key={value} />
+							) : (
+								<SelectItem key={value} value={value}>
+									{label}
+								</SelectItem>
+							);
+						})}
+					</div>
 				</SelectContent>
 			</Select>
-			{error && <p className="text-start">{error}</p>}
+			{error && <p className="text-start text-destructive">{error}</p>}
 		</div>
 	);
 }

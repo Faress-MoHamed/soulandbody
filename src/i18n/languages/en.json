@@ -1081,28 +1081,360 @@
 		}
 	},
 
-  "AccountStatementTopComponent": {
-    "title": "Account Statement",
-    "from": "From",
-    "to": "To",
-    "item": "Item",
-    "execute": "Execute"
-  },
-  "AddNewCategory": {
-    "title": "Add New Category",
-    "code": "Code: 125",
-    "name": "Category Name",
-    "description": "Category Description",
-    "purchasePrice": "Purchase Price",
-    "salePrice": "Sale Price",
-    "save": "Save"
-  },
-  "AddSupplier": {
-    "title": "Add New Supplier",
-    "name": "Supplier Name",
-    "phone": "Phone Number",
-    "address": "Address",
-    "save": "Save"
-  }
-
+	"AccountStatementTopComponent": {
+		"title": "Account Statement",
+		"from": "From",
+		"to": "To",
+		"item": "Item",
+		"execute": "Execute"
+	},
+	"AddNewCategory": {
+		"title": "Add New Category",
+		"code": "Code: 125",
+		"name": "Category Name",
+		"description": "Category Description",
+		"purchasePrice": "Purchase Price",
+		"salePrice": "Sale Price",
+		"save": "Save"
+	},
+	"AddSupplier": {
+		"title": "Add New Supplier",
+		"name": "Supplier Name",
+		"phone": "Phone Number",
+		"address": "Address",
+		"save": "Save"
+	},
+	"inventory": {
+		"classCard": {
+			"title": "Item Card",
+			"date": "Date",
+			"code": "Item Code",
+			"incoming": "Incoming",
+			"outgoing": "Outgoing",
+			"balance": "Balance",
+			"description": "Description"
+		},
+		"inventoryReports": {
+			"title": "Inventory Report",
+			"recordTitle": "Inventory Record",
+			"itemCode": "Item Code",
+			"itemName": "Item Name",
+			"actualQuantity": "Actual Quantity",
+			"systemQuantity": "System Quantity",
+			"difference": "Difference"
+		},
+		"disbursementPermissions": {
+			"title": "Disbursement Permission",
+			"code": "Code",
+			"date": "Date",
+			"name": "Item Name",
+			"quantity": "Quantity",
+			"reason": "Reason",
+			"actions": "Options"
+		},
+		"warehouseTransfer": {
+			"title": "Warehouse Transfer",
+			"code": "Transfer Code",
+			"date": "Date",
+			"sourceWarehouse": "Source Warehouse",
+			"destinationWarehouse": "Destination Warehouse"
+		},
+		"additionPermission": {
+			"title": "Addition Permission",
+			"supplier": "Supplier",
+			"invoiceNumber": "Invoice Number",
+			"quantity": "Quantity",
+			"date": "Date",
+			"discount": "Discount",
+			"paymentMethod": "Payment Method"
+		},
+		"products": {
+			"title": "Products",
+			"productCode": "Product Code",
+			"productName": "Product Name",
+			"category": "Category",
+			"unit": "Unit",
+			"date": "Date",
+			"purchasePrice": "Purchase Price",
+			"sellingPrice": "Selling Price",
+			"mainSupplier": "Main Supplier",
+			"minLimit": "Minimum Limit",
+			"maxLimit": "Maximum Limit",
+			"newProduct": "New Product"
+		},
+		"warehouses": {
+			"title": "Warehouses",
+			"code": "Warehouse Code",
+			"name": "Warehouse Name",
+			"type": "Warehouse Type",
+			"location": "Location",
+			"department": "Responsible Department",
+			"capacity": "Maximum Capacity",
+			"newWarehouse": "New Warehouse",
+			"newSubWarehouse": "New Sub Warehouse"
+		},
+		"actions": {
+			"view": "View",
+			"delete": "Delete",
+			"edit": "Edit"
+		}
+	},
+	"purshes": {
+		"inventory": {
+			"title": "Inventory Report",
+			"date": "Date",
+			"code": "Report Code",
+			"type": "Warehouse Type",
+			"name": "Warehouse Name",
+			"save": "Save",
+			"log": "Log"
+		},
+		"disbursement": {
+			"title": "Disbursement",
+			"code": "Transfer Code",
+			"date": "Date",
+			"receiver": "Receiving Party",
+			"subWarehouse": "Sub Warehouse",
+			"notes": "Notes",
+			"save": "Save",
+			"log": "Log"
+		},
+		"classCard": {
+			"title": "Item Card",
+			"from": "From",
+			"to": "To",
+			"items": "Items",
+			"search": "Search"
+		},
+		"addProduct": {
+			"title": "Add New Product",
+			"code": "Code",
+			"name": "Product Name",
+			"desc": "Product Description",
+			"type": "Warehouse Type",
+			"warehouse": "Warehouse Name",
+			"show": "Show for Sale",
+			"save": "Save"
+		}
+	},
+	"addNewWareHouse": {
+		"addNewStore": "Add New Warehouse",
+		"addNewSubStore": "Add New Sub Warehouse",
+		"code": "Code",
+		"storeName": "Warehouse Name",
+		"storeType": "Warehouse Type",
+		"purchasePrice": "Maximum Capacity",
+		"Responsiblemanagement": "Responsible Department",
+		"geographicalLocation": "Geographical Location",
+		"save": "Save",
+		"cancel": "Cancel",
+		"close": "x"
+	},
+	"userHome": {
+		"dashboardTitle": "Accounts Dashboard",
+		"modules": {
+			"sales": {
+				"title": "Sales",
+				"subtitle": "Manage invoices, sales operations and account inventory"
+			},
+			"accountMovements": {
+				"title": "Account Movements",
+				"subtitle": "View all different account movements"
+			},
+			"dailyEntries": {
+				"title": "Daily Entries",
+				"subtitle": "Record all daily financial movements between accounts and purchases"
+			},
+			"treasuryAndBanks": {
+				"title": "Treasury and Banks",
+				"subtitle": "Manage cash financial movements and bank accounts"
+			},
+			"purchases": {
+				"title": "Purchases",
+				"subtitle": "Record purchases from suppliers and manage received invoices and account payments"
+			},
+			"inventory": {
+				"title": "Inventory",
+				"subtitle": "Manage warehouses and track existing quantities of products"
+			},
+			"hr": {
+				"title": "Human Resources Management",
+				"subtitle": "Manage employees, salaries, attendance and absence"
+			},
+			"reports": {
+				"title": "Reports",
+				"subtitle": "Display and analyze financial data through various reports"
+			},
+			"expenses": {
+				"title": "Expenses",
+				"subtitle": "Record all expenses such as salaries, rent and services"
+			}
+		}
+	},
+	"professionalData": {
+		"form": {
+			"fields": {
+				"email": "email",
+				"password": "Password",
+				"total_salary": "Total salary",
+				"facility": "Facility",
+				"department": "Department",
+				"user_type": "User Type",
+				"work_nature": "Work Nature",
+				"net_salary": "Net Salary",
+				"allowances": "Allowances"
+			},
+			"buttons": {
+				"save": "Save",
+				"update": "Update"
+			},
+			"validation": {
+				"email_required": "email is required",
+				"password_required": "Password is required",
+				"total_salary_required": "Total salary is required",
+				"total_salary_positive": "Total salary must be a positive number",
+				"facility_required": "Facility is required",
+				"department_required": "Department is required",
+				"user_type_required": "User type is required",
+				"work_nature_required": "Work nature is required",
+				"net_salary_required": "Net salary is required",
+				"net_salary_positive": "Net salary must be a positive number",
+				"allowances_required": "Allowances are required",
+				"allowances_positive": "Allowances must be a positive number"
+			},
+			"loading": "Loading..."
+		},
+		"employeeForm": {
+			"leave": {
+				"header": {
+					"sick": "Sick Leave",
+					"total": "Total Leave",
+					"regular": "Regular Leave",
+					"continuous_absence": "Continuous Absence",
+					"separate_absence": "Separate Absence",
+					"emergency": "Emergency Leave"
+				},
+				"days_count": "Number of days",
+				"buttons": {
+					"save": "Save"
+				},
+				"policy": {
+					"intro": "The employee is entitled to ",
+					"total_days": "total leave",
+					"regular_days": "regular leave",
+					"sick_days": "sick leave",
+					"and": " and ",
+					"exceed_notice": "Leave cannot exceed the specified number of days.",
+					"absence_intro": "For absence without notice, the system records it as ",
+					"continuous_absence_days": "continuous absence",
+					"separate_absence_days": "separate absence"
+				}
+			}
+		}
+	},
+	"userHr": {
+		"attendance": "Attendance / Departure",
+		"workingHours": "Company Working Hours",
+		"yourData": "Your Information",
+		"vacations": "Vacations",
+		"execuse": "Permissions",
+		"breakTime": "Break Time",
+		"vacationsPage": {
+			"date": "Date",
+			"from": "From",
+			"to": "To",
+			"vacationType": "Vacation Type",
+			"reason": "Reason",
+			"deduction": "Deduction",
+			"status": "Status",
+			"recordTitle": "Vacation Record",
+			"monthPickerLabel": "Date",
+			"requestVacation": "Request Vacation",
+			"recordButton": "Record",
+			"balanceInside": "Inside vacation balance",
+			"balanceOutside": "Outside vacation balance",
+			"accepted": "Accepted",
+			"rejected": "Rejected",
+			"pending": "Pending"
+		},
+		"vacationsListPage": {
+			"vacationType": "Vacation Type",
+			"totalDays": "Total Days",
+			"remaining": "Remaining",
+			"recordTitle": "Vacation Record",
+			"monthPickerLabel": "Date",
+			"requestVacation": "Request Vacation"
+		},
+		"requestVacation": {
+			"title": "Vacation Request",
+			"start": "Start",
+			"end": "End",
+			"type": "Vacation Type",
+			"submit": "Submit Request"
+		},
+		"breakTimePage": {
+			"title": "Break Time Record",
+			"date": "Date",
+			"from": "From",
+			"to": "To",
+			"actualEnd": "Actual End Time",
+			"reason": "Reason",
+			"deduction": "Deduction",
+			"status": "Status",
+			"requestBreak": "Request Break"
+		},
+		"breakTimePopUp": {
+			"popupTitle": "Break Request",
+			"start": "Start",
+			"end": "End",
+			"reason": "Reason",
+			"submit": "Submit Request"
+		},
+		"execuses": {
+			"title": "Excuse Records",
+			"date": "Date",
+			"from": "From",
+			"to": "To",
+			"actualEnd": "Actual End",
+			"reason": "Reason",
+			"deduction": "Deduction",
+			"status": "Status",
+			"addTitle": "Request Excuse"
+		},
+		"execusesPopUp": {
+			"popupTitle": "Excuse Request",
+			"start": "Start",
+			"end": "End",
+			"reason": "Reason",
+			"submit": "Submit Request"
+		},
+		"execusesinOut": {
+			"inOutTitle": "Check In / Check Out",
+			"todayDate": "Today:",
+			"allowedTime": "Allowed Time:",
+			"checkIn": "Check In",
+			"checkOut": "Check Out"
+		},
+		"statuses": {
+			"pending": "Pending",
+			"accepted": "Accepted",
+			"done": "Done",
+			"denied": "Denied"
+		}
+	},
+	"salaryDetails": {
+		"tableHeaders": {
+			"netSalary": "Net Salary",
+			"increase": "Increase",
+			"allowance": "Allowance",
+			"totalDeductions": "Total Deductions",
+			"totalBonus": "Total Bonus",
+			"overtime": "Overtime",
+			"totalSalary": "Total Salary"
+		},
+		"monthlySalaryDetails": "Monthly Salary Details",
+		"hours": "Hours"
+	},
+	"employee_info": "Personal Information",
+	"professional_data": "Professional Data"
 }

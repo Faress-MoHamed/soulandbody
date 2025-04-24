@@ -6,10 +6,11 @@ import InOutPopUp from "./execuse/components/InAndOutPopUp";
 import CustomPopUp from "@/components/popups";
 import Attendance from "./components/attendance";
 import { CustomHomeCard } from "./components/CustomHomeCard";
-
-
+import { useTranslations } from "next-intl";
 
 export default function Page() {
+	const t = useTranslations("userHr");
+
 	const HomeCards: {
 		title?: string;
 		Component?: any;
@@ -17,32 +18,37 @@ export default function Page() {
 		LinkUrl?: any;
 	}[] = [
 		{
-			title: "حضور / أنصراف",
+			title: t("attendance"),
 			Icon: "/userHr/attendance.png",
 			Component: <Attendance />,
 		},
 		{
-			title: "ساعات دوام الشركة",
+			title: t("workingHours"),
 			Icon: "/userHr/Workinghours.png",
+			LinkUrl: "/userHr/work-hours",
 		},
 		{
-			title: "بياناتك",
+			title: t("yourData"),
 			Icon: "/userHr/details.png",
+			LinkUrl: "/userHr/employee-data",
 		},
 		{
-			title: "اجازات",
+			title: t("vacations"),
 			Icon: "/userHr/vacations.png",
+			LinkUrl: "/userHr/vacations",
 		},
 		{
-			title: "أستاذان",
+			title: t("execuse"),
 			Icon: "/userHr/execuse.png",
 			LinkUrl: "/userHr/execuse",
 		},
 		{
-			title: "وقت راحة",
+			title: t("breakTime"),
 			Icon: "/userHr/breakTime.png",
+			LinkUrl: "/userHr/breakTime",
 		},
 	];
+
 	return (
 		<div className="flex flex-wrap gap-6">
 			{HomeCards.map((el) => (

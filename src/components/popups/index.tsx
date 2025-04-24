@@ -10,6 +10,7 @@ import "./popup.css";
 import { NextIntlClientProvider } from "next-intl";
 import { useLocale, useMessages } from "next-intl";
 import ReactQueryProvider from "@/providers/reactQuertProvider";
+import { SidebarProvider } from "../ui/sidebar";
 
 const SweetAlert = withReactContent(Swal);
 
@@ -24,7 +25,7 @@ export default function CustomPopUp({
 }) {
 	const locale = useLocale();
 	const messages = useMessages();
-
+	console.log(DialogTriggerComponent);
 	const openPopup = React.useCallback(() => {
 		SweetAlert.fire({
 			showConfirmButton: false,
@@ -41,11 +42,13 @@ export default function CustomPopUp({
 				if (contentContainer) {
 					const root = createRoot(contentContainer);
 					root.render(
-						<ReactQueryProvider>
-							<NextIntlClientProvider locale={locale} messages={messages}>
-								<DialogContentComponent />
-							</NextIntlClientProvider>
-						</ReactQueryProvider>
+						<SidebarProvider>
+							<ReactQueryProvider>
+								<NextIntlClientProvider locale={locale} messages={messages}>
+									<DialogContentComponent />
+								</NextIntlClientProvider>
+							</ReactQueryProvider>
+						</SidebarProvider>
 					);
 				}
 			},

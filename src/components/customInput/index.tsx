@@ -2,6 +2,7 @@ import React from "react";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useSidebar } from "../ui/sidebar";
 
 interface CustomInputProps extends React.ComponentProps<"input"> {
 	label?: string;
@@ -19,17 +20,20 @@ export default function CustomInput({
 	error,
 	...props
 }: CustomInputProps) {
-		const { t } = useTypedTranslation();
-	
+	const { t } = useTypedTranslation();
+	const { open } = useSidebar();
+
 	return (
 		<div
 			className={cn(
 				"flex flex-col gap-2 lg:w-[302px] w-full",
+				`${open && "lg:w-auto"}`,
 				wrapperClassName
 			)}
 		>
 			{label && (
 				<label
+					htmlFor={props.id}
 					className={cn(
 						"text-[16px] text-[#1E1E1E] font-[400] text-start",
 						labelClassName

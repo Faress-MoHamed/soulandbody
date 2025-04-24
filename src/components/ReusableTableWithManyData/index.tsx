@@ -129,14 +129,10 @@ export function Table<TData>({
 		const end = start + pageSize;
 		return data.slice(start, end);
 	}, [data, pageIndex, pageSize]);
-
 	const finalData = useMemo(() => {
-		return withPagination
-			? selectedEmployee
-				? filteredData
-				: paginatedData
-			: data;
-	}, [selectedEmployee, data, pageIndex, pageSize]);
+		if (!withPagination) return data;
+		return selectedEmployee ? filteredData : paginatedData;
+	}, [withPagination, data, selectedEmployee, filteredData, paginatedData]);
 
 	const dynamicColumns = useMemo(() => {
 		let updatedColumns: any = [...columns];
@@ -267,8 +263,8 @@ export function Table<TData>({
 		data: finalData,
 		columns: dynamicColumns,
 		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: getPaginationRowModel({ initialSync: true }),
-		manualPagination: false, // Enable client-side pagination
+		...(withPagination && { getPaginationRowModel: getPaginationRowModel() }),
+		manualPagination: false,
 	});
 
 	const RenderdMainTable = MainTable<TData>;
@@ -347,6 +343,7 @@ export function Table<TData>({
 		]) ?? []),
 		...nestedPaginationStates.flat(),
 	]);
+	console.log(title || ButtonTrigger || (withFilter && employees.length !== 0));
 
 	return (
 		<>
@@ -405,8 +402,8 @@ export function Table<TData>({
 							</div>
 							<SelectableComponent
 								items={selectableItems}
-									withTopPrinter={false}
-									buttonClassName="min-w-[150px]"
+								withTopPrinter={false}
+								buttonClassName="min-w-[150px]"
 							/>
 						</>
 					)}
@@ -421,17 +418,17 @@ export function Table<TData>({
 	);
 }
 
-export default function ReusableManyTable<TData>({
+export default function ReusableManyTable({
 	dataSets,
 	withTopPrinter,
-}: MultipleTableProps<TData>) {
+}: MultipleTableProps<any>) {
 	return (
 		<div className="flex flex-col gap-8">
 			<SelectableComponent
 				items={dataSets.map((set, index) => ({
 					label: set.label || set.title || "title",
 					component: set.horizontal ? (
-						<HorizontalTable<TData>
+						<HorizontalTable<any>
 							key={index}
 							columns={set.columns}
 							data={set.data}
@@ -444,7 +441,7 @@ export default function ReusableManyTable<TData>({
 							UserComponent={set.UserComponent}
 						/>
 					) : (
-						<Table<TData>
+						<Table<any>
 							key={index}
 							columns={set.columns}
 							data={set.data}
@@ -477,9 +474,11 @@ export default function ReusableManyTable<TData>({
 							nestedTable={set.nestedTable}
 							mainTableLabel={set.mainTableLabel}
 							onCellClick={set.onCellClick}
+							onClick={set.onClick}
 						/>
 					),
 					data: set.data,
+					onClick: set.onClick,
 				}))}
 				contentClassName="border-none"
 				withTopPrinter={withTopPrinter}

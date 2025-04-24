@@ -9,6 +9,9 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import NextIntlProvider from "@/providers/NextIntlProvider";
 import { NextIntlClientProvider } from "next-intl";
 import RootLocaleLayout from "@/providers/NextIntlProvider";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import HomeSideBar from "@/components/homeSideBar";
+import Home from "./";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -46,16 +49,15 @@ export default async function RootLayout({
 				suppressHydrationWarning
 				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#fafafa]`}
 			>
-				<RootLocaleLayout>
-					<ReactQueryProvider>
-						<HeroUiProvider>
-							<div className=" lg:px-[80px] px-[20px] py-10 flex flex-col gap-[26px] ">
-								<Header />
-								{children}
-							</div>
-						</HeroUiProvider>
-					</ReactQueryProvider>
-				</RootLocaleLayout>
+				<SidebarProvider>
+					<RootLocaleLayout>
+						<ReactQueryProvider>
+							<HeroUiProvider>
+								<Home>{children}</Home>
+							</HeroUiProvider>
+						</ReactQueryProvider>
+					</RootLocaleLayout>
+				</SidebarProvider>
 			</body>
 		</html>
 	);

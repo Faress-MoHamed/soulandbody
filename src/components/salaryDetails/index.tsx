@@ -1,31 +1,37 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 export default function SalaryDetailsTable() {
+	const t = useTranslations("salaryDetails");
+
 	return (
 		<>
-			<th  className="flex justify-start my-2">تفاصيل الراتب الشهري</th>
+			<th className="flex justify-start my-2">{t("monthlySalaryDetails")}</th>
 			<div className="w-full overflow-x-auto">
 				<table className="min-w-full border-collapse">
 					<thead>
 						<tr className="bg-gray-100">
-							<th className="p-2 text-right border min-w-fit text-nowrap">
-								صافي المرتب
+							<th className="p-2 text-center border min-w-fit text-nowrap">
+								{t("tableHeaders.netSalary")}
 							</th>
-							<th className="p-2 text-right border min-w-fit text-nowrap">
-								زيادة
+							<th className="p-2 text-center border min-w-fit text-nowrap">
+								{t("tableHeaders.increase")}
 							</th>
-							<th className="p-2 text-right border min-w-fit text-nowrap">
-								البدل
+							<th className="p-2 text-center border min-w-fit text-nowrap">
+								{t("tableHeaders.allowance")}
 							</th>
-							<th className="p-2 text-right border min-w-fit text-nowrap">
-								اجمالي الخصم
+							<th className="p-2 text-center border min-w-fit text-nowrap">
+								{t("tableHeaders.totalDeductions")}
 							</th>
-							<th className="p-2 text-right border min-w-fit text-nowrap">
-								اجمالي المكفأة
+							<th className="p-2 text-center border min-w-fit text-nowrap">
+								{t("tableHeaders.totalBonus")}
 							</th>
-							<th className="p-2 text-right border min-w-fit text-nowrap">
-								وقت اضافي
+							<th className="p-2 text-center border min-w-fit text-nowrap">
+								{t("tableHeaders.overtime")}
 							</th>
-							<th className="p-2 text-right border min-w-fit text-nowrap">
-								اجمالي المرتب
+							<th className="p-2 text-center border min-w-fit text-nowrap">
+								{t("tableHeaders.totalSalary")}
 							</th>
 						</tr>
 					</thead>
@@ -36,11 +42,13 @@ export default function SalaryDetailsTable() {
 							<td className="p-2 text-center border">200</td>
 							<td className="p-2 text-center border">1000</td>
 							<td className="p-2 text-center border">1000</td>
-							<td className="text-center  border h-full">
-								<div className="flex min-w-fit text-nowrap h-[40px] items-center justify-center">
-									<p className="flex-1 text-center max-w-fit">200</p>
-									<div className="bg-green-100 rounded flex-1 h-full flex justify-center items-center max-w-fit p-1">
-										<p>3 ساعات</p>
+							<td className="text-center border h-full">
+								<div className="flex text-nowrap h-[40px] items-center w-full">
+									<div className="bg-green-100 rounded w-2/4 h-full flex justify-center items-center p-1">
+										<p>3 {t("hours")}</p>
+									</div>
+									<div className="rounded w-2/4 h-full flex justify-center items-center p-1">
+										<p>200</p>
 									</div>
 								</div>
 							</td>

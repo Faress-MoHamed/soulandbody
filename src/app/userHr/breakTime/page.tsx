@@ -4,56 +4,54 @@ import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import { useBreakTime, type ExecuseRecord } from "./hooks/useBreakTime";
-import { CustomDatePicker } from "@/components/customDatePicker";
-import CustomInput from "@/components/customInput";
-import CustomPopUp from "@/components/popups";
-import AddCustomers from "@/app/companies/Customers/components/AddCustomers";
-import AddButton from "@/components/AddButton";
 import { MonthPicker } from "@/components/monthPicker";
+import CustomPopUp from "@/components/popups";
+import AddButton from "@/components/AddButton";
 import ExecusePopup from "./components/execusePopup";
 import StatusCard from "../execuse/components/statuseCards";
+import { useTranslations } from "next-intl";
 
-export default function ExecusesPage() {
+export default function BreakTimePage() {
+	const t = useTranslations("userHr.breakTimePage");
 	const { data: breakTimeData, isLoading: breakTimeLoading } = useBreakTime();
+
 	const columns: ColumnDef<ExecuseRecord>[] = [
 		{
-			header: "التاريخ",
+			header: t("date"),
 			accessorKey: "date",
 		},
 		{
-			header: "من",
+			header: t("from"),
 			accessorKey: "from",
 		},
 		{
-			header: "الى",
+			header: t("to"),
 			accessorKey: "to",
 		},
 		{
-			header: "وقت الإنتهاء الفعلي",
+			header: t("actualEnd"),
 			accessorKey: "actualEnd",
 		},
 		{
-			header: "السبب",
+			header: t("reason"),
 			accessorKey: "reason",
 		},
 		{
-			header: "الخصم",
+			header: t("deduction"),
 			accessorKey: "deduction",
 		},
 		{
-			header: "الحالة",
+			header: t("status"),
 			accessorKey: "status",
 			cell: ({
 				row: {
 					original: { status },
 				},
-			}) => {
-				return (
-					<div className="flex justify-center">
-						<StatusCard type={status || "pending"} />
-					</div>
-				);
-			},
+			}) => (
+				<div className="flex justify-center">
+					<StatusCard type={status || "pending"} />
+				</div>
+			),
 		},
 	];
 
@@ -67,21 +65,27 @@ export default function ExecusesPage() {
 						loading: breakTimeLoading,
 						withPrinter: true,
 						containerClassName: "border-none",
-						title: "سجل الراحة",
+						title: t("title"),
 						withFilter: false,
 						UserComponent: () => (
 							<div className="flex md:flex-row flex-col gap-3 justify-between md:items-end items-start">
 								<MonthPicker
-									label="التاريخ"
+									label={t("date")}
 									className="w-[302px] h-[48px] bg-white"
 								/>
 								{new Date().getHours() >= 1 && new Date().getHours() <= 2 ? (
-									<AddButton AddTitle="طلب راحة" onClickAdd={() => {}} />
+									<AddButton
+										AddTitle={t("requestBreak")}
+										onClickAdd={() => {}}
+									/>
 								) : (
 									<CustomPopUp
 										DialogTriggerComponent={() => (
 											<div className="text-end flex justify-between">
-												<AddButton AddTitle="طلب راحة" onClickAdd={() => {}} />
+												<AddButton
+													AddTitle={t("requestBreak")}
+													onClickAdd={() => {}}
+												/>
 											</div>
 										)}
 										DialogContentComponent={() => <ExecusePopup />}

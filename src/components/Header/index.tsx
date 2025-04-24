@@ -15,11 +15,14 @@ import {
 import { useLocale } from "next-intl";
 import NotificationsSheet from "./NotificationSheet";
 import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import HomeSideBar from "../homeSideBar";
+import { SidebarTrigger } from "../ui/sidebar";
 
 export function DropdownMenuCheckboxes() {
 	const [ischoosed, setIschoosed] = useState("");
 	const locale = useLocale();
 	const { t } = useTypedTranslation();
+
 	const languageOptions = [
 		{
 			id: 1,
@@ -39,15 +42,23 @@ export function DropdownMenuCheckboxes() {
 		(item) => item.key === ischoosed
 	);
 	const actualValue = languageOptions.find((item) => item.key === locale);
-	const handleChange = (item: any) => {
-		const selectedlocale = item.key;
+
+	const handleChange = () => {
+		// Toggle between Arabic and English when the button is clicked
+		const nextLanguage = actualValue?.key === "en" ? "ar" : "en";
+		const selectedlocale = nextLanguage;
 		setIschoosed(selectedlocale);
 		document.cookie = `locale=${selectedlocale}; path=/`;
 		window.location.reload();
 	};
+
 	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
+		<div>
+			{/* Button that switches language between Arabic and English */}
+			<button
+				// className="bg-blue-500 text-white px-4 py-2 rounded"
+				onClick={handleChange}
+			>
 				<svg
 					width="24"
 					height="24"
@@ -68,50 +79,35 @@ export function DropdownMenuCheckboxes() {
 						</clipPath>
 					</defs>
 				</svg>
-			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-56">
-				<DropdownMenuLabel>{t('header.languages')}</DropdownMenuLabel>
-				<DropdownMenuSeparator />
-				{languageOptions?.map((item) => (
-					<DropdownMenuCheckboxItem
-						key={item?.id}
-						onClick={() => handleChange(item)}
-						checked={actualValue?.key === item?.key}
-					>
-						<Link
-							href={`/`}
-							className="flex text-white px-3  py-2 items-center justify-between border-b last:border-b-0
-                         border-[#E5E5E5B8] cursor-pointer "
-						>
-							<div className=" flex items-end gap-[6px]">
-								<img src={item?.image} width={26} height={19} />
-								<div className="text-black text-[12px]">{item?.label}</div>
-							</div>
-						</Link>
-					</DropdownMenuCheckboxItem>
-				))}
-			</DropdownMenuContent>
-		</DropdownMenu>
+			</button>
+		</div>
 	);
 }
 
-export default function Header() {
-	const {t}=useTypedTranslation()
+export default function Header({
+	OtherComponent,
+}: {
+	OtherComponent?: React.FC;
+}) {
+	const { t } = useTypedTranslation();
 	return (
-		<div className="flex lg:flex-row flex-col justify-between lg:gap-0 gap-2 lg:items-center lg:px-12">
+		<div className="flex lg:flex-row flex-col justify-between lg:gap-3 gap-2 lg:items-center ">
 			{/* logo */}
-			<Link href={"/"} className="max-w-full flex items-center gap-[13px]">
-				<div className="max-w-full rounded-full">
-					<Image
-						width={27}
-						height={27}
-						src="/logo.svg"
-						className="w-[27px] h-[27px]"
-						alt=""
-					/>
-				</div>
-				<p className="md:text-[24px] text-[20px]">{t("header.welcome")}</p>
-			</Link>
+			<div className="flex gap-5">
+				<SidebarTrigger>fares</SidebarTrigger>
+				<Link href={"/"} className="max-w-full flex items-center gap-[13px]">
+					<div className="max-w-full rounded-full">
+						<Image
+							width={27}
+							height={27}
+							src="/logo.svg"
+							className="w-[27px] h-[27px]"
+							alt=""
+						/>
+					</div>
+					<p className="md:text-[24px] text-[20px]">{t("header.welcome")}</p>
+				</Link>
+			</div>
 			{/* seatch */}
 			<div className="relative text-black lg:block hidden">
 				<Search className="absolute right-3 top-3.5 h-4 w-4 text-black" />

@@ -36,6 +36,7 @@ export type TableProps<TData> = {
 	withInlineAdd?: boolean;
 	withInlineAddContent?: SchemaObject[];
 	onSaveNewRow?: (data: any) => void;
+	onClick?: any;
 	expandableRow?: boolean;
 	expandedContent?: {
 		content: SchemaObject[];
@@ -83,6 +84,7 @@ export type SchemaObject = SelectInput | TextInput | CustomInput | nullInput;
 export interface CustomTableProps<TData> extends TableProps<TData> {
 	label?: string;
 	expandableRow?: boolean;
+	onClick?:any
 	expandedContent?: {
 		content: SchemaObject[];
 		expandButton?: (

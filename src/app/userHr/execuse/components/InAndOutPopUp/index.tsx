@@ -8,10 +8,13 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 export default function InOutPopUp() {
-	const [isOut, setIsOut] = useState(false); // true = counting up
-	const [elapsedTime, setElapsedTime] = useState(0); // seconds from 0
+	const t = useTranslations("userHr.execusesinOut");
+
+	const [isOut, setIsOut] = useState(false);
+	const [elapsedTime, setElapsedTime] = useState(0);
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
 	const formatTime = (seconds: number) => {
@@ -30,45 +33,40 @@ export default function InOutPopUp() {
 			if (intervalRef.current) {
 				clearInterval(intervalRef.current);
 				intervalRef.current = null;
-				setElapsedTime(0); // Reset on تسجيل دخول
+				setElapsedTime(0);
 			}
 		}
-
 		return () => {
-			if (intervalRef.current) {
-				clearInterval(intervalRef.current);
-			}
+			if (intervalRef.current) clearInterval(intervalRef.current);
 		};
 	}, [isOut]);
 
-	const handleToggle = () => {
-		setIsOut((prev) => !prev);
-	};
+	const handleToggle = () => setIsOut((prev) => !prev);
 
 	return (
-		<Card className="flex flex-col px-6 py-9 gap-6  md:w-fit md:h-fit">
+		<Card className="flex flex-col px-6 py-9 gap-6 md:w-fit md:h-fit">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
-					دخول / خروج
+					{t("inOutTitle")}
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="grid grid-cols-2 gap-6 place-items-end">
 				<p className="place-self-start">
-					<span>تاريخ اليوم:</span>
+					<span>{t("todayDate")}</span>
 					<span> {new Date().toLocaleDateString("ar-EG")}</span>
 				</p>
 				<p className="place-self-end">{formatTime(elapsedTime)}</p>
 				<p className="place-self-start">
-					<span>الوقت المسموح:</span>
+					<span>{t("allowedTime")}</span>
 					<span> 01:00:00</span>
 				</p>
 			</CardContent>
 			<CardFooter className="flex justify-center">
 				<Button
 					onClick={handleToggle}
-					className={`${"bg-emerald-500 hover:bg-emerald-600"} text-white px-6 py-2 rounded-md w-[355px] h-[57px] md:mt-8`}
+					className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[355px] h-[57px] md:mt-8"
 				>
-					{isOut ? "تسجيل دخول" : "تسجيل خروج"}
+					{isOut ? t("checkIn") : t("checkOut")}
 				</Button>
 			</CardFooter>
 		</Card>

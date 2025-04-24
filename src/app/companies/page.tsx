@@ -2,7 +2,7 @@
 
 import React from "react";
 import CustomHomeCard from "./components/CustomHomeCard";
-import { useTypedTranslation } from "../hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 export default function Page() {
 	const { t } = useTypedTranslation();

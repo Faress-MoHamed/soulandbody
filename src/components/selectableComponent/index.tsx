@@ -12,6 +12,7 @@ interface SelectableComponentProps {
 		label: string;
 		component: React.ReactNode;
 		data?: any;
+		onClick?: any;
 	}[];
 	direction?: "horizontal" | "vertical";
 	className?: string;
@@ -44,7 +45,12 @@ export default function SelectableComponent({
 			items?.map((item, index) => (
 				<button
 					key={item.label} // Use label as key for better stability
-					onClick={() => handleClick(index)}
+					onClick={() => {
+						if (typeof item?.onClick === "function") {
+							item?.onClick();
+						}
+						handleClick(index);
+					}}
 					className={cn(
 						"px-2 py-[10px] transition-colors text-nowrap cursor-pointer border-t border-x border-[#D9D9D9] bg-[#fafafa]",
 						// "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700",

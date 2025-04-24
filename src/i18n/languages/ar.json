@@ -1104,5 +1104,338 @@
 		"phone": "رقم الهاتف",
 		"address": "العنوان",
 		"save": "حفظ"
-	}
+	},
+	"inventory": {
+		"classCard": {
+			"title": "كارت صنف",
+			"date": "تاريخ",
+			"code": "كود الصنف",
+			"incoming": "وارد",
+			"outgoing": "صرف",
+			"balance": "رصيد",
+			"description": "بيان"
+		},
+		"inventoryReports": {
+			"title": "محضر جرد",
+			"recordTitle": "سجل الجرد",
+			"itemCode": "كود الصنف",
+			"itemName": "اسم الصنف",
+			"actualQuantity": "الكمية الفعلية",
+			"systemQuantity": "كمية السيستم",
+			"difference": "الفرق"
+		},
+		"disbursementPermissions": {
+			"title": "اذن صرف",
+			"code": "الكود",
+			"date": "التاريخ",
+			"name": "اسم الصنف",
+			"quantity": "الكمية",
+			"reason": "السبب",
+			"actions": "خيارات"
+		},
+		"warehouseTransfer": {
+			"title": "تحويل مخزن",
+			"code": "كود التحويل",
+			"date": "التاريخ",
+			"sourceWarehouse": "اسم المخزن منه",
+			"destinationWarehouse": "اسم المخزن اليه"
+		},
+		"additionPermission": {
+			"title": "اذن اضافة",
+			"supplier": "المورد",
+			"invoiceNumber": "الفاتورة",
+			"quantity": "الكمية",
+			"date": "التاريخ",
+			"discount": "خصومات",
+			"paymentMethod": "طريق الفاتورة"
+		},
+		"products": {
+			"title": "المنتجات",
+			"productCode": "كود المنتج",
+			"productName": "اسم المنتج",
+			"category": "فئة المنتج",
+			"unit": "الوحدة",
+			"date": "التاريخ",
+			"purchasePrice": "سعر الشراء",
+			"sellingPrice": "سعر البيع",
+			"mainSupplier": "المورد الرئيسي",
+			"minLimit": "الحد الأدنى",
+			"maxLimit": "الحد الأقصى",
+			"newProduct": "منتج جديد"
+		},
+		"warehouses": {
+			"title": "المخازن",
+			"code": "كود المخزن",
+			"name": "اسم المخزن",
+			"type": "نوع المخزن",
+			"location": "الموقع",
+			"department": "الإدارة المسؤولة",
+			"capacity": "السعة القصوى",
+			"newWarehouse": "مخزن جديد",
+			"newSubWarehouse": "مخزن فرعي جديد"
+		},
+		"actions": {
+			"view": "عرض",
+			"delete": "حذف",
+			"edit": "تعديل"
+		}
+	},
+	"purshes": {
+		"inventory": {
+			"title": "محضر جرد",
+			"date": "التاريخ",
+			"code": "كود المحضر",
+			"type": "نوع المخزن",
+			"name": "اسم المخزن",
+			"save": "حفظ",
+			"log": "السجل"
+		},
+		"disbursement": {
+			"title": "الصرف",
+			"code": "كود التحويل",
+			"date": "التاريخ",
+			"receiver": "الجهة المستلمة",
+			"subWarehouse": "مخزن فرعي",
+			"notes": "ملاحظات",
+			"save": "حفظ",
+			"log": "السجل"
+		},
+		"classCard": {
+			"title": "كارت صنف",
+			"from": "من",
+			"to": "الي",
+			"items": "الاصناف",
+			"search": "بحث"
+		},
+		"addProduct": {
+			"title": "اضافة منتج جديد",
+			"code": "كود : 125",
+			"name": "اسم المنتج",
+			"desc": "وصف المنتج",
+			"type": "نوع المخزن",
+			"warehouse": "أسم المخزن",
+			"show": "عرض للبيع",
+			"save": "حفظ"
+		}
+	},
+	"addNewWareHouse": {
+		"addNewStore": "إضافة مخزن جديد",
+		"addNewSubStore": "إضافة مخزن فرعي جديد",
+		"code": "كود",
+		"storeName": "اسم المخزن",
+		"storeType": "نوع المخزن",
+		"purchasePrice": "السعه القصوي",
+		"Responsiblemanagement": "الأدارة المسئولة",
+		"geographicalLocation": "الموقع الجغرافي",
+		"save": "حفظ",
+		"cancel": "إلغاء",
+		"close": "x"
+	},
+	"userHome": {
+		"dashboardTitle": "نافذة الحسابات",
+		"modules": {
+			"sales": {
+				"title": "المبيعات",
+				"subtitle": "إدارة الفواتير وعمليات البيع ومخزونات الحساب"
+			},
+			"accountMovements": {
+				"title": "حركات الحسابات",
+				"subtitle": "عرض جميع حركات الحسابات المختلفة"
+			},
+			"dailyEntries": {
+				"title": "قيود يومية",
+				"subtitle": "تسجيل كافة الحركات المالية اليومية بين الحسابات والمشتريات"
+			},
+			"treasuryAndBanks": {
+				"title": "الخزينة والبنوك",
+				"subtitle": "إدارة الحركات المالية النقدية والحسابات البنكية"
+			},
+			"purchases": {
+				"title": "المشتريات",
+				"subtitle": "تسجيل مشتريات من الموردين وإدارة الفواتير المستلمة والمدفوعات حساب"
+			},
+			"inventory": {
+				"title": "المخزن",
+				"subtitle": "إدارة المخازن ومتابعة الكميات المتواجدة من المنتجات"
+			},
+			"hr": {
+				"title": "إدارة الموارد البشرية",
+				"subtitle": "إدارة الموظفين والرواتب والحضور والغياب"
+			},
+			"reports": {
+				"title": "التقارير",
+				"subtitle": "عرض وتحليل البيانات المالية من خلال تقارير مختلفة"
+			},
+			"expenses": {
+				"title": "المصروفات",
+				"subtitle": "تسجيل جميع المصروفات مثل الرواتب والإيجارات والخدمات"
+			}
+		}
+	},
+	"professionalData": {
+		"form": {
+			"fields": {
+				"email": "ايميل",
+				"password": "كلمة المرور",
+				"total_salary": "إجمالي المرتب",
+				"facility": "المنشأة",
+				"department": "القسم",
+				"user_type": "نوع المستخدم",
+				"work_nature": "طبيعة العمل",
+				"net_salary": "الراتب الصافي",
+				"allowances": "البدلات"
+			},
+			"buttons": {
+				"save": "حفظ",
+				"update": "تحديث"
+			},
+			"validation": {
+				"email_required": "الايميل مطلوب",
+				"password_required": "كلمة المرور مطلوبة",
+				"total_salary_required": "إجمالي المرتب مطلوب",
+				"total_salary_positive": "يجب أن يكون إجمالي المرتب رقمًا موجبًا",
+				"facility_required": "المنشأة مطلوبة",
+				"department_required": "القسم مطلوب",
+				"user_type_required": "نوع المستخدم مطلوب",
+				"work_nature_required": "طبيعة العمل مطلوبة",
+				"net_salary_required": "الراتب الصافي مطلوب",
+				"net_salary_positive": "يجب أن يكون الراتب الصافي رقمًا موجبًا",
+				"allowances_required": "البدلات مطلوبة",
+				"allowances_positive": "يجب أن تكون البدلات رقمًا موجبًا"
+			},
+			"loading": "جارٍ التحميل..."
+		},
+		"employeeForm": {
+			"leave": {
+				"header": {
+					"sick": "إجازة مرضية",
+					"total": "الإجازة الإجمالية",
+					"regular": "الإجازة الاعتيادية",
+					"continuous_absence": "غياب مستمر",
+					"separate_absence": "غياب متقطع",
+					"emergency": "إجازة طارئة"
+				},
+				"days_count": "عدد الأيام",
+				"buttons": {
+					"save": "حفظ"
+				},
+				"policy": {
+					"intro": "يحق للموظف الحصول على ",
+					"total_days": "إجازة إجمالية",
+					"regular_days": "إجازة اعتيادية",
+					"sick_days": "إجازة مرضية",
+					"and": " و ",
+					"exceed_notice_days": "لا يمكن أن تتجاوز الإجازة عدد الأيام المحددة.",
+					"absence_intro": "في حال الغياب بدون إذن يتم تسجيله كـ ",
+					"continuous_absence_days": "غياب مستمر",
+					"separate_absence_days": "غياب متقطع"
+				}
+			}
+		}
+	},
+	"userHr": {
+		"attendance": "حضور / أنصراف",
+		"workingHours": "ساعات دوام الشركة",
+		"yourData": "بياناتك",
+		"vacations": "اجازات",
+		"execuse": "أستاذان",
+		"breakTime": "وقت راحة",
+		"vacationsPage": {
+			"date": "التاريخ",
+			"from": "من",
+			"to": "الى",
+			"vacationType": "نوع الإجازة",
+			"reason": "السبب",
+			"deduction": "الخصم",
+			"status": "الحالة",
+			"recordTitle": "سجل الأجازة",
+			"monthPickerLabel": "التاريخ",
+			"requestVacation": "طلب أجازة",
+			"recordButton": "السجل",
+			"balanceInside": "داخل رصيد الإجازات",
+			"balanceOutside": "خارج رصيد الإجازات",
+			"accepted": "مقبول",
+			"rejected": "مرفوض",
+			"pending": "في انتظار الرد"
+		},
+		"vacationsListPage": {
+			"vacationType": "نوع الإجازة",
+			"totalDays": "عدد الأيام",
+			"remaining": "المتبقي",
+			"recordTitle": "سجل الأجازة",
+			"monthPickerLabel": "التاريخ",
+			"requestVacation": "طلب أجازة"
+		},
+		"requestVacation": {
+			"title": "طلب الأجازة",
+			"start": "بداية",
+			"end": "نهاية",
+			"type": "نوع الأجازة",
+			"submit": "ارسال الطلب"
+		},
+		"breakTimePage": {
+			"title": "سجل الراحة",
+			"date": "التاريخ",
+			"from": "من",
+			"to": "الى",
+			"actualEnd": "وقت الإنتهاء الفعلي",
+			"reason": "السبب",
+			"deduction": "الخصم",
+			"status": "الحالة",
+			"requestBreak": "طلب راحة"
+		},
+		"breakTimePopUp": {
+			"popupTitle": "طلب راحة",
+			"start": "بداية",
+			"end": "نهاية",
+			"reason": "السبب",
+			"submit": "ارسال الطلب"
+		},
+		"execuses": {
+			"title": "سجل استاذان",
+			"date": "التاريخ",
+			"from": "من",
+			"to": "الى",
+			"actualEnd": "وقت الإنتهاء الفعلي",
+			"reason": "السبب",
+			"deduction": "الخصم",
+			"status": "الحالة",
+			"addTitle": "استأذان"
+		},
+		"execusesPopUp": {
+			"popupTitle": "استأذان",
+			"start": "بداية",
+			"end": "نهاية",
+			"reason": "السبب",
+			"submit": "ارسال الطلب"
+		},
+		"execusesinOut": {
+			"inOutTitle": "دخول / خروج",
+			"todayDate": "تاريخ اليوم:",
+			"allowedTime": "الوقت المسموح:",
+			"checkIn": "تسجيل دخول",
+			"checkOut": "تسجيل خروج"
+		},
+		"statuses": {
+			"pending": "في انتظار الرد",
+			"accepted": "مقبول",
+			"done": "تمت",
+			"denied": "مرفوض"
+		}
+	},
+	"salaryDetails": {
+		"tableHeaders": {
+			"netSalary": "صافي المرتب",
+			"increase": "زيادة",
+			"allowance": "البدل",
+			"totalDeductions": "اجمالي الخصم",
+			"totalBonus": "اجمالي المكفأة",
+			"overtime": "وقت اضافي",
+			"totalSalary": "اجمالي المرتب"
+		},
+		"monthlySalaryDetails": "تفاصيل الراتب الشهري",
+		"hours": "ساعات"
+	},
+	"employee_info": "معلومات شخصية",
+	"professional_data": "بيانات مهنية"
 }

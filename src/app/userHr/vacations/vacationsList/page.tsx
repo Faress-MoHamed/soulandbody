@@ -12,21 +12,24 @@ import { useUserVacationsList } from "./hooks/useuserVacationsList";
 import type { VacationBalanceEntry } from "./vacationsList.type";
 import SmallTable from "@/components/smallTable";
 import RequestVacation from "../components/RequestVacationPopUp";
+import { useTranslations } from "next-intl";
 
 export default function ExecusesPage() {
+	const t = useTranslations("userHr.vacationsListPage");
 	const { data: userVacationsListData, isLoading: userVacationsListLoading } =
 		useUserVacationsList();
+
 	const columns: ColumnDef<VacationBalanceEntry>[] = [
 		{
-			header: "نوع الإجازة",
+			header: t("vacationType"),
 			accessorKey: "vacationType",
 		},
 		{
-			header: "عدد الأيام",
+			header: t("totalDays"),
 			accessorKey: "totalDays",
 		},
 		{
-			header: "المتبقي",
+			header: t("remaining"),
 			accessorKey: "remaining",
 		},
 	];
@@ -36,24 +39,25 @@ export default function ExecusesPage() {
 			<SmallTable
 				columns={columns}
 				data={userVacationsListData || []}
-				title="سجل الأجازة"
+				title={t("recordTitle")}
 				ButtonTrigger={() => {
 					return (
 						<div className="flex md:flex-row flex-col gap-3 justify-between md:items-end items-start">
 							<MonthPicker
-								label="التاريخ"
+								label={t("monthPickerLabel")}
 								className="w-[302px] h-[48px] bg-white"
 							/>
-							{
-								<CustomPopUp
-									DialogTriggerComponent={() => (
-										<div className="text-end flex justify-between">
-											<AddButton AddTitle="طلب أجازة" onClickAdd={() => {}} />
-										</div>
-									)}
-									DialogContentComponent={() => <RequestVacation />}
-								/>
-							}
+							<CustomPopUp
+								DialogTriggerComponent={() => (
+									<div className="text-end flex justify-between">
+										<AddButton
+											AddTitle={t("requestVacation")}
+											onClickAdd={() => {}}
+										/>
+									</div>
+								)}
+								DialogContentComponent={() => <RequestVacation />}
+							/>
 						</div>
 					);
 				}}

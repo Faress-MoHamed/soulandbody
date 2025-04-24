@@ -20,6 +20,7 @@ interface Option {
 
 interface MultiSelectProps {
 	placeholder?: string;
+	label?: string;
 	options: Option[];
 	onChange?: (selectedValues: string[]) => void;
 	direction?: "ltr" | "rtl";
@@ -30,6 +31,7 @@ export function MultiSelect({
 	options,
 	onChange,
 	direction = "rtl",
+	label,
 }: MultiSelectProps) {
 	const [selectedValues, setSelectedValues] = React.useState<string[]>([]);
 
@@ -62,6 +64,7 @@ export function MultiSelect({
 			<CustomSelect
 				triggerClassName="!h-[48px] md:w-[302px] w-full  min-w-auto bg-white"
 				options={options}
+				label={label}
 				onValueChange={handleSelect}
 			/>
 			{/* <Select onValueChange={handleSelect}>

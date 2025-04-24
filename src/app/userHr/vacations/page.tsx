@@ -14,25 +14,28 @@ import StatusCard from "../execuse/components/statuseCards";
 import RequestVacation from "./components/RequestVacationPopUp";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export default function ExecusesPage() {
 	const { data: userVacationsData, isLoading: userVacationsLoading } =
 		useUserVacations();
+	const t = useTranslations("userHr.vacationsPage");
+
 	const columns: ColumnDef<WorkRecord>[] = [
 		{
-			header: "التاريخ",
+			header: t("date"),
 			accessorKey: "date",
 		},
 		{
-			header: "من",
+			header: t("from"),
 			accessorKey: "from",
 		},
 		{
-			header: "الى",
+			header: t("to"),
 			accessorKey: "to",
 		},
 		{
-			header: "نوع الإجازة",
+			header: t("vacationType"),
 			accessorKey: "vacationType",
 			cell: ({ row }: any) => {
 				const vacation = row.original.vacationType;
@@ -43,9 +46,9 @@ export default function ExecusesPage() {
 				return (
 					<div
 						style={{
-							color: balance !== "داخل رصيد الإجازات" ? "red" : "black",
-            }}
-            className="min-w-full text-nowrap"
+							color: balance !== t("balanceInside") ? "red" : "black",
+						}}
+						className="min-w-full text-nowrap"
 					>
 						<span className="font-[400] text-[16px]">{vacation}</span>
 						{balance ? (
@@ -56,26 +59,21 @@ export default function ExecusesPage() {
 			},
 		},
 		{
-			header: "السبب",
+			header: t("reason"),
 			accessorKey: "reason",
 		},
 		{
-			header: "الخصم",
+			header: t("deduction"),
 			accessorKey: "deduction",
 		},
 		{
-			header: "الحالة",
+			header: t("status"),
 			accessorKey: "status",
 			cell: ({ row }: any) => {
 				const status = row.original.status;
-				const colors: Record<string, string> = {
-					مقبول: "green",
-					مرفوض: "red",
-					"في انتظار الرد": "orange",
-				};
 				return (
 					<div className="flex justify-center">
-						<StatusCard type={status || "pending"} />
+						<StatusCard type={status || t("pending")} />
 					</div>
 				);
 			},
@@ -92,19 +90,22 @@ export default function ExecusesPage() {
 						loading: userVacationsLoading,
 						withPrinter: true,
 						containerClassName: "border-none",
-						title: "سجل الأجازة",
+						title: t("recordTitle"),
 						withFilter: false,
 						UserComponent: () => (
 							<div className="flex md:flex-row flex-col gap-3 justify-between md:items-end items-start">
 								<MonthPicker
-									label="التاريخ"
+									label={t("monthPickerLabel")}
 									className="w-[302px] h-[48px] bg-white"
 								/>
 								<div className="flex gap-2 items-center">
 									<CustomPopUp
 										DialogTriggerComponent={() => (
 											<div className="text-end flex justify-between">
-												<AddButton AddTitle="طلب أجازة" onClickAdd={() => {}} />
+												<AddButton
+													AddTitle={t("requestVacation")}
+													onClickAdd={() => {}}
+												/>
 											</div>
 										)}
 										DialogContentComponent={() => <RequestVacation />}
@@ -113,7 +114,7 @@ export default function ExecusesPage() {
 										href={"vacations/vacationsList"}
 										className="flex justify-center items-center border border-[#16C47F] px-3 py-2.5 w-[117px] h-[44px] self-end text-[#16C47F] rounded-[8px]"
 									>
-										السجل
+										{t("recordButton")}
 									</Link>
 								</div>
 							</div>
