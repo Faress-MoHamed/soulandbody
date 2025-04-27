@@ -1,5 +1,6 @@
 "use client";
 
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -33,9 +34,10 @@ export function useEmployees(page: number = 1, limit: number = 10) {
 	return useQuery({
 		queryKey: ["employees", page, limit],
 		queryFn: async () => {
-			const { data } = await axios.get("/api/employees", {
-				params: { page, limit },
-			});
+			const { data } = await AxiosInstance.get("employee-data");
+			// console.log(
+			// 	data
+			// );
 			return data;
 		},
 	});
@@ -108,6 +110,26 @@ export function useDeleteEmployee() {
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["employees"] });
+		},
+	});
+}
+
+export function useGetAllFacilaties() {
+	return useQuery({
+		queryKey: ["facilaties"],
+		queryFn: async () => {
+			const { data } = await AxiosInstance.get("facilities");
+			return data;
+		},
+	});
+}
+
+export function useGetAlldepartments() {
+	return useQuery({
+		queryKey: ["departments"],
+		queryFn: async () => {
+			const { data } = await AxiosInstance.get("departments");
+			return data;
 		},
 	});
 }

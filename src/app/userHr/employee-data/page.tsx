@@ -1,4 +1,3 @@
-import { EmployeeData } from "@/app/hr/employee-data/page";
 import EmployeesForm from "@/app/hr/employees/add";
 import ProfessionalData from "@/app/hr/employees/add/ProfessionalData";
 import SelectableComponent from "@/components/selectableComponent";

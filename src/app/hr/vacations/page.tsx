@@ -11,7 +11,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
-export function VacationsRecodrs() {
+ function VacationsRecodrs() {
 	const { t } = useTypedTranslation();
 
 	const columns: ColumnDef<VacationRecord>[] = [

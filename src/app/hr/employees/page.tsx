@@ -12,13 +12,9 @@ import {
 import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 export default function Page() {
-	const [page, setPage] = useState(1);
 	const { t } = useTypedTranslation();
-	const { data, isLoading, error } = useEmployees(page);
+	const { data, isLoading, error } = useEmployees();
 
-	const handlePageChange = (pageinationPage: number) => {
-		setPage(pageinationPage);
-	};
 
 	const route = useRouter();
 	const { mutate: DeleteEmployee, isPending: DeleteEmployeeLoading } =
@@ -35,12 +31,12 @@ export default function Page() {
 	} = useDistinctEmployees();
 
 	const columns = [
-		{ accessorKey: "date", header: t("employees.date") },
-		{ accessorKey: "employee", header: t("employees.employee") },
-		{ accessorKey: "work_nature", header: t("employees.workNature") },
+		{ accessorKey: "job_start_date", header: t("employees.date") },
+		{ accessorKey: "name", header: t("employees.employee") },
+		{ accessorKey: "job_nature", header: t("employees.workNature") },
 		{ accessorKey: "net_salary", header: t("employees.netSalary") },
 		{ accessorKey: "phone_number", header: t("employees.phoneNumber") },
-		{ accessorKey: "address", header: t("employees.address") },
+		{ accessorKey: "qualification", header: t("employees.address") },
 	];
 
 	return (

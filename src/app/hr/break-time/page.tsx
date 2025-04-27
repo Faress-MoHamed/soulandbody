@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { useBreakTime, useBreakTimes } from "./useBreakTimes";
 import ReusableTable from "@/components/ReusableTable";
@@ -19,7 +20,6 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import CustomSelect from "@/components/customSelect";
 import CustomInput from "@/components/customInput";
 import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
-// import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 
 const employees = [
 	"أحمد محمود",
@@ -80,13 +80,6 @@ function BreakTimeForm() {
 							label={t("breakTime.form.from")}
 							error={errors.from}
 						/>
-						{/* <CustomInput
-							type="time"
-							value={formData.actualEnd}
-							onChange={(e) => handleChange("actualEnd", e.target.value)}
-							label={t("breakTime.form.actualEnd")}
-							error={errors.actualEnd}
-						/> */}
 					</div>
 					<div className="pt-7 flex justify-end">
 						<Button
@@ -102,7 +95,7 @@ function BreakTimeForm() {
 	);
 }
 
-export function BreakTimePage() {
+export default function Page() {
 	const { t } = useTypedTranslation();
 	const { data: BreakData } = useBreakTimes();
 
@@ -131,14 +124,12 @@ export function BreakTimePage() {
 						employees: distinctEmployees,
 						ButtonTrigger: () => (
 							<CustomPopUp
-								DialogTriggerComponent={() => {
-									return (
-										<AddButton
-											onClickAdd={() => {}}
-											AddTitle={t("breakTime.form.add")}
-										/>
-									);
-								}}
+								DialogTriggerComponent={() => (
+									<AddButton
+										onClickAdd={() => {}}
+										AddTitle={t("breakTime.form.add")}
+									/>
+								)}
 								DialogContentComponent={() => <BreakTimeForm />}
 							/>
 						),
@@ -150,7 +141,4 @@ export function BreakTimePage() {
 			/>
 		</div>
 	);
-}
-export default function page() {
-	return <BreakTimePage />;
 }
