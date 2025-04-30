@@ -9,7 +9,7 @@ import OutgoingTransfers from "./components/Transfers/OutgoingTransfers";
 import Withdrawal from "./components/processes/Withdrawal";
 import Deposit from "./components/processes/Deposit";
 import BankAccountsTable from "./components/banks";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function Page() {
 	const { t } = useTypedTranslation();

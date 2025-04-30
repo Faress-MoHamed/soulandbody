@@ -8,7 +8,7 @@ import CustomPopUp from "@/components/popups";
 import AddButton from "@/components/AddButton";
 import CustomSelect from "@/components/customSelect";
 import CustomInput from "@/components/customInput";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 function PermissionForm() {
 	const { t } = useTypedTranslation();

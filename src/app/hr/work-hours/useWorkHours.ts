@@ -1,5 +1,6 @@
 "use client";
 
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -17,7 +18,7 @@ export function useWorkHours() {
 	return useQuery({
 		queryKey: ["workHours"],
 		queryFn: async () => {
-			const { data } = await axios.get("/api/workhours");
+			const { data } = await AxiosInstance.get("company-work-hours");
 			return data;
 		},
 	});

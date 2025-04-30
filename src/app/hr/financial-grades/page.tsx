@@ -22,22 +22,19 @@ import {
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import SelectableComponent from "@/components/selectableComponent";
-import { useDeductions } from "./useDeductions";
+import { useCreateDeduction, useDeductions } from "./useDeductions";
 import { useSalaries } from "./useSalaries";
 import ReusableTable from "@/components/ReusableTable";
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import CustomSelect from "@/components/customSelect";
 import CustomInput from "@/components/customInput";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { useDispatch } from "react-redux";
+import { setTransactionField } from "./financialTransactions.slice";
+import { Button as MainButton } from "@heroui/react";
 
-const employees = [
-	"أحمد محمود",
-	"محمد علي",
-	"خالد حسن",
-	"ياسر عبد الله",
-	"سعيد عمر",
-];
 const leaveTypes = ["عادية", "مرضية", "طارئة"];
 
 type DeductionFormType = {
@@ -57,44 +54,21 @@ type SalaryFormType = {
 	totalSalary: string;
 };
 
-const LeaveForm = () => {
+const LeaveForm = ({ closePopup }: any) => {
 	const { t } = useTypedTranslation();
-	const [formData, setFormData] = useState<DeductionFormType>({
-		date: "",
-		employee: "",
-		type: "",
-		amount: "",
-		reason: "",
-	});
-	const [errors, setErrors] = useState<Partial<DeductionFormType>>({});
+	const { data, isLoading, error } = useEmployees();
+	const transaction = useTypedSelector(
+		(state) => state.transaction.transaction
+	);
+	const dispatch = useDispatch();
+	const [oneEmployee, setOneEmployee] = useState(transaction.employee_id);
 
-	const validateForm = () => {
-		let newErrors: Partial<DeductionFormType> = {};
-		if (!formData.date) newErrors.date = t("errors.requiredField");
-		if (!formData.employee) newErrors.employee = t("errors.requiredField");
-		if (!formData.type) newErrors.type = t("errors.requiredField");
-		if (
-			!formData.amount ||
-			isNaN(Number(formData.amount)) ||
-			Number(formData.amount) <= 0
-		)
-			newErrors.amount = t("errors.invalidAmount");
-		if (!formData.reason) newErrors.reason = t("errors.requiredField");
-
-		setErrors(newErrors);
-		return Object.keys(newErrors).length === 0;
+	const handleChange = (field: keyof typeof transaction, value: any) => {
+		dispatch(setTransactionField({ field, value }));
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		if (validateForm()) {
-			console.log("Form submitted", formData);
-		}
-	};
-
-	const handleChange = (field: keyof DeductionFormType, value: string) => {
-		setFormData((prev) => ({ ...prev, [field]: value }));
-	};
+	const { mutate: createDeducation, isPending: creatingLoading } =
+		useCreateDeduction();
 
 	return (
 		<Card className="p-6">
@@ -103,52 +77,73 @@ const LeaveForm = () => {
 			<CardContent className="grid md:grid-cols-3 grid-cols-1 gap-4">
 				{/* Employee Field */}
 				<CustomSelect
-					label={t("financial.employee")}
-					placeholder={t("financial.employee")}
-					options={employees}
-					error={errors.employee}
+					value={data
+						?.map((el: any) => ({
+							label: el?.name,
+							value: el?.id,
+						}))
+						?.find(
+							(el: any) => el?.value?.toString() === oneEmployee?.toString()
+						)
+						?.value?.toString()}
+					options={data?.map((el: any) => ({
+						label: el?.name,
+						value: el?.id,
+					}))}
+					label={t("filter.employee")}
+					onValueChange={(e) => {
+						setOneEmployee((prev: any) => {
+							console.log(prev === e ? undefined : e);
+							return prev === e ? (undefined as any) : e;
+						});
+						handleChange("employee_id", e);
+					}}
 				/>
 
 				<CustomInput
-					onChange={(e) => handleChange("date", e.target.value)}
-					value={formData.date}
+					onChange={(e) => handleChange("transaction_date", e.target.value)}
+					value={transaction.transaction_date}
 					label={t("financial.date")}
 					type={"date"}
-					error={errors.date}
+					//error={errors.date}
 				/>
 				<CustomSelect
 					label={t("financial.type")}
 					placeholder={t("financial.advance")}
-					options={employees}
-					value={formData.type}
-					onValueChange={(val) => handleChange("type", val)}
-					error={errors.type}
+					options={["Deduction", "Bonus"]}
+					value={transaction.transaction_type}
+					onValueChange={(val) => handleChange("transaction_type", val)}
+					//error={errors.type}
 				/>
 				<CustomInput
 					type="number"
-					value={formData.amount}
+					value={transaction.amount}
 					onChange={(e) => handleChange("amount", e.target.value)}
 					label={t("financial.amount")}
-					error={errors.amount}
+					//error={errors.amount}
 				/>
 				<CustomInput
 					type="text"
-					value={formData.reason}
+					value={transaction.reason}
 					onChange={(e) => handleChange("reason", e.target.value)}
 					label={t("financial.reason")}
-					error={errors.reason}
+					//error={errors.reason}
 				/>
 				{/* Submit Button */}
 			</CardContent>
 			{/* </form> */}
 			<CardFooter>
 				<div className="pt-6 flex">
-					<Button
-						type="submit"
-						className="text-white bg-[#16C47F] p-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none"
+					<MainButton
+						onPress={async (e) => {
+							await createDeducation(transaction);
+							closePopup();
+						}}
+						isLoading={creatingLoading}
+						className="text-white bg-[#16C47F] p-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none rounded-lg"
 					>
 						{t("financial.submit")}
-					</Button>
+					</MainButton>
 				</div>
 			</CardFooter>
 		</Card>
@@ -222,7 +217,7 @@ function SalariesForm() {
 							className=""
 							value={formData.employee}
 							onValueChange={(value) => handleChange("employee", value)}
-							options={employees}
+							options={[]}
 							placeholder={t("financial.employee")}
 						/>
 						<CustomInput
@@ -273,29 +268,22 @@ export default function Page() {
 	const { t } = useTypedTranslation();
 	const { data: salaryData, isLoading: salaryLoading } = useSalaries();
 	const { data: deductionData, isLoading: deductionLoading } = useDeductions();
-
+	console.log(salaryData, deductionData);
 	const salaryColumns = [
-		{ accessorKey: "date", header: t("financial.date") },
+		{ accessorKey: "transaction_date", header: t("financial.date") },
 		{ accessorKey: "employee", header: t("financial.employee") },
-		{ accessorKey: "salary", header: t("financial.salary") },
+		{ accessorKey: "amount", header: t("financial.salary") },
 		{ accessorKey: "net_salary", header: t("financial.netSalary") },
 		{ accessorKey: "extras", header: t("financial.extras") },
 		{ accessorKey: "allowances", header: t("financial.allowances") },
 	];
 
 	const deductionColumns = [
-		{ accessorKey: "date", header: t("financial.date") },
+		{ accessorKey: "transaction_date", header: t("financial.date") },
 		{ accessorKey: "employee", header: t("financial.employee") },
-		{ accessorKey: "type", header: t("financial.type") },
+		{ accessorKey: "transaction_type", header: t("financial.type") },
 		{ accessorKey: "amount", header: t("financial.amount") },
 		{ accessorKey: "reason", header: t("financial.reason") },
-	];
-
-	const distinctEmployees = [
-		...new Set(salaryData?.map((el: any) => el?.employee)),
-	];
-	const distinctDeductionEmployees = [
-		...new Set(deductionData?.map((el: any) => el?.employee)),
 	];
 
 	return (
@@ -309,7 +297,6 @@ export default function Page() {
 						label: t("financial.salaries"),
 						columns: salaryColumns,
 						data: salaryData ?? [],
-						employees: distinctEmployees,
 						withActionButtons: false,
 						loading: salaryLoading,
 						ButtonTrigger: () => (
@@ -329,7 +316,6 @@ export default function Page() {
 						label: t("financial.deductions"),
 						columns: deductionColumns,
 						data: (deductionData as any) ?? [],
-						employees: distinctDeductionEmployees,
 						withActionButtons: false,
 						loading: deductionLoading,
 						ButtonTrigger: () => (
@@ -340,7 +326,9 @@ export default function Page() {
 										AddTitle={t("financial.addTransaction")}
 									/>
 								)}
-								DialogContentComponent={() => <LeaveForm />}
+								DialogContentComponent={({ closePopup }) => (
+									<LeaveForm closePopup={closePopup} />
+								)}
 							/>
 						),
 						withPrinter: true,

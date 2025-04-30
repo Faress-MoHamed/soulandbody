@@ -3,10 +3,10 @@ import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import CustomInput from "@/components/customInput";
 import { Button } from "@/components/ui/button";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function AddSupplier() {
-		const { t } = useTypedTranslation();
+	const { t } = useTypedTranslation();
 
 	return (
 		<Card>

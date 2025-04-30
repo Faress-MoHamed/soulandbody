@@ -10,7 +10,7 @@ import TopComponent from "./components/TopComponent";
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import React, { useState } from "react";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function Page() {
 	const { t } = useTypedTranslation();

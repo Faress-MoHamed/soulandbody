@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { useSidebar } from "../ui/sidebar";
 
 interface CustomInputProps extends React.ComponentProps<"input"> {

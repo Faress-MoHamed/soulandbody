@@ -11,31 +11,28 @@ import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import SalaryDetailsTable from "@/components/salaryDetails";
 import { Input } from "@/components/ui/input";
-import { useAttendanceData } from "./useAttendanceEmployee";
+import { useAttendanceEmployeeData } from "./useAttendanceEmployee";
 import EmployeesForm from "../employees/add";
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import CustomSelect from "@/components/customSelect";
 import { MonthPicker } from "@/components/monthPicker";
 import ProfessionalData from "../employees/add/ProfessionalData";
+import { useEmployee, useEmployees } from "../employees/useEmployee";
+import { Button } from "@/components/ui/button";
 
 function Salaries() {
 	const { t } = useTypedTranslation();
 	const { data: salaryData, isLoading: salaryLoading } = useTransactions();
 
 	const columns: ColumnDef<any>[] = [
-		{ accessorKey: "date", header: t("salaries.columns.date") },
+		{ accessorKey: "transaction_date", header: t("salaries.columns.date") },
 		{
-			accessorKey: "type",
+			accessorKey: "transaction_type",
 			header: t("salaries.columns.type"),
-			cell: ({ row }) => <>{row?.original?.type}</>,
 		},
 		{ accessorKey: "amount", header: t("salaries.columns.amount") },
 		{ accessorKey: "reason", header: t("salaries.columns.reason") },
-	];
-
-	const distinctEmployees = [
-		...new Set(salaryData?.map((el: any) => el?.employee)),
 	];
 
 	return (
@@ -45,7 +42,6 @@ function Salaries() {
 					{
 						columns,
 						data: salaryData ?? [],
-						employees: distinctEmployees,
 						withActionButtons: false,
 						withPrinter: false,
 						withFilter: false,
@@ -65,12 +61,19 @@ function Salaries() {
 	);
 }
 
-function AttendanceEmployee() {
+function AttendanceEmployee({
+	selectedEmployeeId,
+}: {
+	selectedEmployeeId: string;
+}) {
 	const { t } = useTypedTranslation();
-	const { data } = useAttendanceData();
+	const { data, isLoading } = useAttendanceEmployeeData(selectedEmployeeId);
 
 	const columns: ColumnDef<any>[] = [
-		{ accessorKey: "date", header: t("attendanceEmployeeData.columns.date") },
+		{
+			accessorKey: "job_start_date",
+			header: t("attendanceEmployeeData.columns.date"),
+		},
 		{
 			accessorKey: "checkIn",
 			header: t("attendanceEmployeeData.columns.checkIn"),
@@ -102,10 +105,11 @@ function AttendanceEmployee() {
 			dataSets={[
 				{
 					columns,
-					data: data ?? [],
+					data: [data ?? {}],
 					withActionButtons: false,
 					withPrinter: true,
 					withPagination: false,
+					loading: isLoading,
 					UserComponent: ({ selectedEmployee }: any) => (
 						<div className="p-6 border-t border-x border-[#02140D4D] mb-4 flex lg:flex-row flex-col justify-between">
 							<p className="text-[26px] font-bold">{"فارس محمد"}</p>
@@ -127,6 +131,12 @@ function EmployeeData() {
 	const [selectedEmployee, setSelectedEmployee] = useState<
 		string | undefined
 	>();
+	const [oneEmployee, setOneEmployee] = useState("");
+	const [MonthEmployee, setMonthEmployee] = useState<any>();
+
+	const { data, isLoading, error } = useEmployees();
+	const { data: GetOneEmployeeData, isLoading: GetOneEmployeeLoading } =
+		useEmployee(oneEmployee);
 
 	return (
 		<>
@@ -134,23 +144,46 @@ function EmployeeData() {
 
 			<div className="flex md:flex-row flex-col justify-between md:items-center">
 				<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6 rounded-none">
-					<div className="flex flex-col lg:flex-row gap-5">
+					<div className="flex flex-col lg:flex-row items-end gap-5">
 						<CustomSelect
-							options={[
-								"أحمد محمود",
-								"محمد علي",
-								"خالد حسن",
-								"ياسر عبد الله",
-								"سعيد عمر",
-							]}
-							label={t("employeeData.filter.employee")}
-							value={selectedEmployee}
+							value={data
+								?.map((el: any) => ({
+									label: el?.name,
+									value: el?.id,
+								}))
+								?.find(
+									(el: any) => el?.value?.toString() === oneEmployee?.toString()
+								)
+								?.value?.toString()}
+							options={data?.map((el: any) => ({
+								label: el?.name,
+								value: el?.id,
+							}))}
+							label={t("filter.employee")}
 							onValueChange={(e) => {
-								setSelectedEmployee((prev) => (prev === e ? "" : e));
+								setOneEmployee((prev: any) => {
+									console.log(prev === e ? undefined : e);
+									return prev === e ? (undefined as any) : e;
+								});
 							}}
-							placeholder={t("employeeData.filter.all")}
 						/>
-						<MonthPicker label={t("employeeData.filter.date")} />
+
+						<MonthPicker
+							label={t("filter.date")}
+							wrapperClassName="min-w-[240px]"
+							value={MonthEmployee ?? new Date()}
+							onChange={(e) => setMonthEmployee(e)}
+						/>
+						<Button
+							className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
+							onClick={(e) => {
+								e.stopPropagation();
+								setOneEmployee(undefined as any);
+								setMonthEmployee(null);
+							}}
+						>
+							clear
+						</Button>
 					</div>
 				</div>
 				<Link
@@ -172,13 +205,19 @@ function EmployeeData() {
 								CardStyle="rounded-none"
 								withEmployeeManagement={false}
 								withTitle={false}
-								employeeId={5}
+								employeeId={oneEmployee}
 							/>
 						),
 					},
-					{ label: t("attendance.title"), component: <AttendanceEmployee /> },
+					{
+						label: t("attendance.title"),
+						component: <AttendanceEmployee selectedEmployeeId={oneEmployee} />,
+					},
 					{ label: t("salaries.title"), component: <Salaries /> },
-					{ label: "بيانات مهنية", component: <ProfessionalData /> },
+					{
+						label: "بيانات مهنية",
+						component: <ProfessionalData employeeId={oneEmployee} />,
+					},
 				]}
 				withTopPrinter={false}
 			/>

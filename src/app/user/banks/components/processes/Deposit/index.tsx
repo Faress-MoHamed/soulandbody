@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function Deposit() {
 	const { t } = useTypedTranslation();
@@ -12,7 +12,9 @@ export default function Deposit() {
 	const validationSchema = Yup.object({
 		date: Yup.date().required(t("deposit.validation.dateRequired")),
 		bankName: Yup.string().required(t("deposit.validation.bankNameRequired")),
-		accountName: Yup.string().required(t("deposit.validation.accountNameRequired")),
+		accountName: Yup.string().required(
+			t("deposit.validation.accountNameRequired")
+		),
 		accountNumber: Yup.number()
 			.positive(t("deposit.validation.accountNumberPositive"))
 			.required(t("deposit.validation.accountNumberRequired")),
@@ -42,7 +44,7 @@ export default function Deposit() {
 				onSubmit={formik.handleSubmit}
 				className="flex flex-col gap-6 justify-center items-center"
 			>
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
+				<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 					<CustomInput
 						label={t("deposit.forms.date")}
 						type="date"
@@ -69,7 +71,7 @@ export default function Deposit() {
 						error={formik.touched.accountName && formik.errors.accountName}
 					/>
 				</div>
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
+				<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 					<CustomInput
 						label={t("deposit.forms.accountNumber")}
 						name="accountNumber"

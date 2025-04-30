@@ -2,10 +2,17 @@
 
 import React, { useEffect, useState } from "react";
 import EmployeesForm from "../add";
+import CuEmployee from "../CuEmployee";
+import { useEmployee } from "../useEmployee";
+import { useDispatch } from "react-redux";
+import { setEmployeeData } from "../add/createNewEmployee.slice";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 	const [id, setId] = useState<string | null>(null);
-
+	const { data } = useEmployee(id || "");
+	const dispatch = useDispatch();
+	dispatch(setEmployeeData(data));
+	console.log(data);
 	useEffect(() => {
 		async function fetchParams() {
 			const resolvedParams = await params;
@@ -17,6 +24,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 	if (!id) {
 		return <p>loading ...</p>;
 	}
-	return <EmployeesForm employeeId={id} />;
+	return <CuEmployee />;
 };
 export default Page;

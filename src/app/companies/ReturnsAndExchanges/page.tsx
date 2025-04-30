@@ -15,10 +15,8 @@ import { useReturns, type ReturnsType } from "./hooks/useReturns";
 import { useExchange, type ExchangeType } from "./hooks/useExchange";
 import ExchangeTopComponent from "./component/ExchangeTopComponent";
 import ReturnTopComponent from "./component/ReturnTopComponent";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { ExchangeIcon, ReturnIcon } from "@/svgIcons/deleteIcon";
-
-
 
 export default function ReturnsAndExchanges() {
 	const { t } = useTypedTranslation();

@@ -4,7 +4,7 @@ import CustomSelect from "@/components/customSelect";
 import React from "react";
 import { parseDate, type DateValue } from "@internationalized/date";
 import { MonthPicker } from "@/components/monthPicker";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function BaseFilter({
 	selectedEmployee,
@@ -33,7 +33,6 @@ export default function BaseFilter({
 		<div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
 			<div className="flex flex-col lg:flex-row gap-5">
 				<CustomSelect
-					
 					value={selectedEmployee}
 					options={employees}
 					label={t("filter.employee")}
@@ -44,7 +43,10 @@ export default function BaseFilter({
 					}}
 				/>
 
-				<MonthPicker label={t("filter.date")} wrapperClassName="min-w-[240px]" />
+				<MonthPicker
+					label={t("filter.date")}
+					wrapperClassName="min-w-[240px]"
+				/>
 			</div>
 		</div>
 	);

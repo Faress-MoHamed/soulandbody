@@ -7,7 +7,7 @@ import CustomSelect from "@/components/customSelect";
 import { MonthPicker } from "@/components/monthPicker";
 import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/searchBar";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import FlexibleArabicTable from "@/components/HorizontalTable";
 import type { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useTrialBalance } from "./hooks/useTrialBalance";

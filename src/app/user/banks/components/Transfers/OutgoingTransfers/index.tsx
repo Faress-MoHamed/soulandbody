@@ -4,16 +4,22 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function OutgoingTransfers() {
 	const { t } = useTypedTranslation();
 
 	const validationSchema = Yup.object({
 		date: Yup.date().required(t("OutgoingTransfers.validation.dateRequired")),
-		bankName: Yup.string().required(t("OutgoingTransfers.validation.bankNameRequired")),
-		accountName: Yup.string().required(t("OutgoingTransfers.validation.accountNameRequired")),
-		accountNumber: Yup.string().required(t("OutgoingTransfers.validation.accountNumberRequired")),
+		bankName: Yup.string().required(
+			t("OutgoingTransfers.validation.bankNameRequired")
+		),
+		accountName: Yup.string().required(
+			t("OutgoingTransfers.validation.accountNameRequired")
+		),
+		accountNumber: Yup.string().required(
+			t("OutgoingTransfers.validation.accountNumberRequired")
+		),
 		amount: Yup.number()
 			.positive(t("OutgoingTransfers.validation.amountPositive"))
 			.required(t("OutgoingTransfers.validation.amountRequired")),
@@ -36,12 +42,14 @@ export default function OutgoingTransfers() {
 
 	return (
 		<div className="flex flex-col gap-12 p-6">
-			<h2 className="text-[26px] font-bold">{t("OutgoingTransfers.forms.outgoingTransfer")}</h2>
+			<h2 className="text-[26px] font-bold">
+				{t("OutgoingTransfers.forms.outgoingTransfer")}
+			</h2>
 			<form
 				onSubmit={formik.handleSubmit}
 				className="flex flex-col gap-6 justify-center items-center"
 			>
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
+				<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 					<CustomInput
 						label={t("OutgoingTransfers.forms.date")}
 						type="date"
@@ -68,7 +76,7 @@ export default function OutgoingTransfers() {
 						error={formik.touched.accountName && formik.errors.accountName}
 					/>
 				</div>
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
+				<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 					<CustomInput
 						label={t("OutgoingTransfers.forms.accountNumber")}
 						name="accountNumber"

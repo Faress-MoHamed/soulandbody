@@ -243,17 +243,17 @@
 			},
 			"policy": {
 				"intro": "-رصيد الأجازات الكلي المسموحه للموظف",
-				"total_days": "40 يوم",
+				"total_days": "يوم",
 				"divided_into": "منقسم الى",
-				"regular_days": "21 يوم اعتيادي",
+				"regular_days": "يوم اعتيادي",
 				"and": "و",
-				"emergency_days": "7 ايام عارضة",
-				"sick_days": "12 يوم مرضي",
+				"emergency_days": "ايام عارضة",
+				"sick_days": "يوم مرضي",
 				"exceed_notice": "-في حالة تخطي عدد ايام الأجازة المسموح بها يتم تطبيق الخصم على حسب نظام الشركة",
 				"absence_intro": "-في حالةغياب الموظف",
-				"continuous_absence": "15 يوم متصلة",
+				"continuous_absence": "يوم متصلة",
 				"or": "او",
-				"separate_absence": "30 يوم منفصلة",
+				"separate_absence": "يوم منفصلة",
 				"termination_notice": "يتم اتخاذ اجراءات الفصل في اليوم الأخير"
 			}
 		}
@@ -1437,5 +1437,11 @@
 		"hours": "ساعات"
 	},
 	"employee_info": "معلومات شخصية",
-	"professional_data": "بيانات مهنية"
+	"professional_data": "بيانات مهنية",
+	"vacationstatus": {
+		"pending": "قيد الانتظار",
+		"accepted": "مقبول",
+		"rejected": "مرفوض",
+		"deduction-days-with-permission": "خصم أيام بإذن"
+	}
 }

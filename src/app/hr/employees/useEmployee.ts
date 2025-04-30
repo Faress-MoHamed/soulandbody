@@ -3,6 +3,8 @@
 import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export interface Employee {
 	id: number;
@@ -48,7 +50,7 @@ export function useEmployee(id: string) {
 	return useQuery({
 		queryKey: ["employee", id],
 		queryFn: async () => {
-			const { data } = await axios.get(`/api/employees?id=${id}`);
+			const { data } = await AxiosInstance.get(`employee-data/${id}`);
 			return data;
 		},
 		enabled: !!id, // Prevents unnecessary fetches when id is not provided
@@ -65,17 +67,36 @@ export function useDistinctEmployees() {
 		},
 	});
 }
-
 // Create an employee
 export function useCreateEmployee() {
 	const queryClient = useQueryClient();
+	const router = useRouter();
 	return useMutation({
 		mutationFn: async (employee: Omit<any, "id">) => {
-			const { data } = await axios.post("/api/employees", employee);
+			const { data } = await AxiosInstance.post("employee-data", employee);
 			return data;
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["employees"] });
+			toast.success("user created successfully");
+			router.push("/hr/employees");
+		},
+		onError: (error: any, variables, context) => {
+			// Check if the error response has a 'data' field with a 'message' or validation errors
+			const errorMessages = error?.response?.data?.message;
+
+			if (errorMessages && typeof errorMessages === "object") {
+				// Loop through the error object and show individual toasts for each field
+				Object.keys(errorMessages).forEach((field) => {
+					const messages = errorMessages[field];
+					messages.forEach((message: any) => {
+						toast.error(`${message}`); // Show toast for each error message
+					});
+				});
+			} else {
+				// If there are no field errors, just show a generic error message
+				toast.error("An error occurred. Please try again.");
+			}
 		},
 	});
 }
@@ -91,7 +112,7 @@ export function useUpdateEmployee() {
 			id: number;
 			employee: Partial<Employee>;
 		}) => {
-			const { data } = await axios.put(`/api/employees`, { id, ...employee });
+			const { data } = await AxiosInstance.put(`employee-data/${id}`);
 			return data;
 		},
 		onSuccess: () => {
@@ -105,7 +126,8 @@ export function useDeleteEmployee() {
 	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: async (id: string) => {
-			await axios.delete(`/api/employees`, { params: { id } });
+			await AxiosInstance.delete(`employee-data/${id}`);
+			toast.error(`تم حذف الموظف بنجاح`);
 			return id;
 		},
 		onSuccess: () => {

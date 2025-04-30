@@ -8,9 +8,8 @@ import {
 } from "@/components/ui/card";
 import CustomInput from "@/components/customInput";
 import CustomSelect from "@/components/customSelect";
-import { employees, leaveTypes } from "../../hook/useHrVacations";
 import { Button } from "@/components/ui/button";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function VacationRequestPopUp() {
 	const { t } = useTypedTranslation();
@@ -89,7 +88,7 @@ export default function VacationRequestPopUp() {
 						<CustomSelect
 							value={formData.employee}
 							label={t("hrVacations.employee")}
-							options={employees}
+							options={[]}
 							onValueChange={(e) => setFormData({ ...formData, employee: e })}
 							error={errors?.employee}
 						/>
@@ -97,7 +96,7 @@ export default function VacationRequestPopUp() {
 							value={formData.leaveType}
 							onValueChange={(e) => setFormData({ ...formData, leaveType: e })}
 							label={t("hrVacations.leaveType")}
-							options={leaveTypes}
+							options={[]}
 							error={errors?.leaveType}
 						/>
 						<CustomInput

@@ -7,7 +7,7 @@ import NewExpense from "./components/Newexpense";
 import AddButton from "@/components/AddButton";
 import { CardTitle } from "@/components/ui/card";
 import SearchBar from "@/components/searchBar";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { Button } from "@/components/ui/button";
 import { useTransactions } from "./hooks/useTransactions";
 import CustomSelect from "@/components/customSelect";

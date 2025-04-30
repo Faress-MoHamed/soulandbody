@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react";
 import { Button } from "@/components/ui/button";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 interface ButtonSubmitProps {
 	employeeId?: string | number | null;

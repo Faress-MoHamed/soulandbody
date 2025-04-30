@@ -9,7 +9,7 @@ import {
 	useSalesInvoices,
 	type SalesInvoice,
 } from "@/app/companies/SalesInvoices/hooks/useSalesInvoices";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import FinalInvoicesTable from "@/app/companies/SalesInvoices/components/FinalInvoicesTable";
 import TaxOnProduct from "@/app/companies/SalesInvoices/components/TaxOnProduct";
 import CategoryTable from "./CategoryTable";

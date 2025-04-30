@@ -5,7 +5,7 @@ import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { DeleteIcon, EditIcon } from "@/svgIcons/deleteIcon";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import CustomPopUp from "@/components/popups";
 import AddButton from "@/components/AddButton";
 import AddNewCategory from "./components/AddNewCategory";

@@ -10,7 +10,7 @@ import {
 	useUpdateWorkHours,
 	useWorkHours,
 } from "./useWorkHours";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function EmployeeManagement({
 	saveHandler,
@@ -83,7 +83,7 @@ export default function EmployeeManagement({
 					disabled={mode !== "edit"}
 					checked={
 						pendingChanges[row.original.day]?.is_active ??
-						row.original.is_active
+						row.original.work_status === "work"
 					}
 					onCheckedChange={(checked) =>
 						handleChange(row.original.day, "is_active", checked)
@@ -92,7 +92,7 @@ export default function EmployeeManagement({
 			),
 		},
 		{
-			accessorKey: "start_time",
+			accessorKey: "work_start_time",
 			header: t("workHours.columns.start_time"),
 			cell: ({ row }: any) =>
 				mode === "edit" ? (
@@ -100,9 +100,8 @@ export default function EmployeeManagement({
 						type="time"
 						value={
 							pendingChanges[row.original.day]?.start_time ??
-							row.original.start_time
+							row.original.work_start_time
 						}
-						
 						onChange={(e) =>
 							handleChange(row.original.day, "start_time", e.target.value)
 						}
@@ -112,7 +111,7 @@ export default function EmployeeManagement({
 				),
 		},
 		{
-			accessorKey: "end_time",
+			accessorKey: "work_end_time",
 			header: t("workHours.columns.end_time"),
 			cell: ({ row }: any) =>
 				mode === "edit" ? (
@@ -120,10 +119,10 @@ export default function EmployeeManagement({
 						type="time"
 						value={
 							pendingChanges[row.original.day]?.end_time ??
-							row.original.end_time
+							row.original.work_end_time
 						}
 						onChange={(e) =>
-							handleChange(row.original.day, "end_time", e.target.value)
+							handleChange(row.original.day, "work_end_time", e.target.value)
 						}
 					/>
 				) : (
@@ -140,17 +139,18 @@ export default function EmployeeManagement({
 						className="max-w-[80px]"
 						value={
 							pendingChanges[row.original.day]?.break_hours ??
-							row.original.break_hours
+							row.original.break_time
 						}
 						onChange={(e) =>
-							handleChange(row.original.day, "break_hours", +e.target.value)
+							handleChange(row.original.day, "break_time", +e.target.value)
 						}
 					/>
 				) : (
-					<span>{row.original.break_hours || "0"}</span>
+					<span>{row.original.break_time || "0"}</span>
 				),
 		},
 	];
+	console.log(workHours);
 
 	return (
 		<div>
@@ -162,7 +162,7 @@ export default function EmployeeManagement({
 					updateBreakHoursPending
 				}
 				columns={columns}
-				data={workHours}
+				data={workHours?.data}
 				title={t("workHours.title")}
 			/>
 			{mode === "edit" && (
@@ -170,8 +170,10 @@ export default function EmployeeManagement({
 					type="submit"
 					className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md mt-2"
 					onClick={() => {
-						handleSave();
-						saveHandler?.();
+						console.log(pendingChanges);
+
+						// handleSave();
+						// saveHandler?.();
 					}}
 					disabled={Object.keys(pendingChanges).length === 0 && !saveHandler}
 				>

@@ -9,7 +9,7 @@ import {
 import CustomInput from "@/components/customInput";
 import CustomSelect from "@/components/customSelect";
 import { Button } from "@/components/ui/button";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function AddNewWareHouse() {
 	const { t } = useTypedTranslation();

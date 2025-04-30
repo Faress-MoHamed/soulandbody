@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import AddButton from "@/components/AddButton";
 import CustomPopUp from "@/components/popups";
@@ -9,30 +9,63 @@ import { useHrVacations, type VacationRecord } from "./hook/useHrVacations";
 import VacationRequestPopUp from "./component/VacationRequestPopUp";
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
+import { format, parseISO } from "date-fns";
+import { useEmployees } from "../employees/useEmployee";
+import { Button } from "@/components/ui/button";
+import StatusButton from "./component/StatusButton";
 
- function VacationsRecodrs() {
+function VacationsRecodrs() {
 	const { t } = useTypedTranslation();
-
-	const columns: ColumnDef<VacationRecord>[] = [
-		{ accessorKey: "date", header: t("hrVacations.table.date") },
-		{ accessorKey: "employee", header: t("hrVacations.table.employee") },
-		{ accessorKey: "leaveStart", header: t("hrVacations.table.leaveStart") },
-		{ accessorKey: "leaveEnd", header: t("hrVacations.table.leaveEnd") },
-		{ accessorKey: "leaveDays", header: t("hrVacations.table.leaveDays") },
-		{ accessorKey: "leaveType", header: t("hrVacations.table.leaveType") },
+	const { data, isLoading, error } = useEmployees();
+	const [oneEmployee, setOneEmployee] = useState("");
+	const [MonthEmployee, setMonthEmployee] = useState<any>();
+	let columns: ColumnDef<any>[] = [
 		{
-			accessorKey: "attachmentLink",
+			accessorKey: "created_at",
+			header: t("hrVacations.table.date"),
+			cell: ({ row: { original } }) => {
+				const parsedDate = parseISO(original?.created_at);
+
+				const formatted = format(parsedDate, "yyyy-MM-dd");
+				return <>{formatted}</>;
+			},
+		},
+		{ accessorKey: "employee", header: t("hrVacations.table.employee") },
+		{
+			accessorKey: "vacation_start_date",
+			header: t("hrVacations.table.leaveStart"),
+			cell: ({ row: { original } }) => {
+				const parsedDate = parseISO(original?.vacation_start_date);
+
+				const formatted = format(parsedDate, "yyyy-MM-dd");
+				return <>{formatted}</>;
+			},
+		},
+		{
+			accessorKey: "return_date",
+			header: t("hrVacations.table.leaveEnd"),
+			cell: ({ row: { original } }) => {
+				const parsedDate = parseISO(original?.return_date);
+
+				const formatted = format(parsedDate, "yyyy-MM-dd");
+				return <>{formatted}</>;
+			},
+		},
+		{ accessorKey: "number_of_days", header: t("hrVacations.table.leaveDays") },
+		{ accessorKey: "vacation_type", header: t("hrVacations.table.leaveType") },
+		{
+			accessorKey: "medical_attachments",
 			header: t("hrVacations.table.attachment"),
 			cell: ({
 				row: {
-					original: { attachmentLink },
+					original: { medical_attachments },
 				},
 			}) => {
 				return (
-					attachmentLink && (
+					medical_attachments && (
 						<div className="flex justify-center">
-							<Link href={attachmentLink}>
+							<Link href={medical_attachments}>
 								{/* Attachment icon SVG here (unchanged) */}
 								<svg
 									width="26"
@@ -73,14 +106,20 @@ import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 		{ accessorKey: "deduction", header: t("hrVacations.table.deduction") },
 	];
 
-	const employees = [
-		"أحمد محمود",
-		"محمد علي",
-		"خالد حسن",
-		"ياسر عبد الله",
-		"سعيد عمر",
-	];
-
+	if (oneEmployee) {
+		columns.push({
+			accessorKey: "status",
+			header: "الحاله",
+			cell: ({ row: { original } }: any) => {
+				return (
+					<StatusButton
+						id={original?.employee_id}
+						status={original?.status || "pending"}
+					/>
+				);
+			},
+		});
+	}
 	const { data: HrVacations, isLoading: loading } = useHrVacations();
 
 	return (
@@ -88,18 +127,75 @@ import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
 			dataSets={[
 				{
 					columns,
-					data: HrVacations || [],
+					data: oneEmployee
+						? HrVacations?.data?.filter(
+								(el: any) =>
+									el?.employee_id.toString() === oneEmployee?.toString()
+						  )
+						: MonthEmployee
+						? HrVacations?.data?.filter((el: any) => {
+								const jobStartDate = new Date(el?.created_at);
+
+								// Selected date (from your date selector)
+								const selectedDate = new Date(MonthEmployee);
+
+								// Get the year and month from both dates
+								const jobStartYear = jobStartDate.getFullYear();
+								const jobStartMonth = jobStartDate.getMonth(); // 0 is January, 1 is February, etc.
+
+								const selectedYear = selectedDate.getFullYear();
+								const selectedMonth = selectedDate.getMonth();
+								return (
+									jobStartYear === selectedYear &&
+									jobStartMonth === selectedMonth
+								);
+						  })
+						: HrVacations?.data ?? [],
 					loading,
-					employees,
 					title: t("hrVacations.titles.vacationLog"),
 					UserComponent: () => (
 						<div className="flex md:flex-row flex-col justify-between md:items-center gap-5">
-							<div className="flex md:flex-row flex-col gap-5 md:items-center">
+							<div className="flex flex-col lg:flex-row items-end gap-5">
 								<CustomSelect
-									options={employees}
-									label={t("hrVacations.inputs.employees")}
+									value={data
+										?.map((el: any) => ({
+											label: el?.name,
+											value: el?.id,
+										}))
+										?.find(
+											(el: any) =>
+												el?.value?.toString() === oneEmployee?.toString()
+										)
+										?.value?.toString()}
+									options={data?.map((el: any) => ({
+										label: el?.name,
+										value: el?.id,
+									}))}
+									label={t("filter.employee")}
+									onValueChange={(e) => {
+										setOneEmployee((prev: any) => {
+											console.log(prev === e ? undefined : e);
+											return prev === e ? (undefined as any) : e;
+										});
+									}}
 								/>
-								<MonthPicker label={t("hrVacations.inputs.date")} />
+
+								<MonthPicker
+									label={t("filter.date")}
+									wrapperClassName="min-w-[240px]"
+									value={MonthEmployee ?? new Date()}
+									onChange={(e) => setMonthEmployee(e)}
+								/>
+								<Button
+									className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
+									onClick={(e) => {
+										e.stopPropagation();
+										setOneEmployee(undefined as any);
+										setMonthEmployee(null);
+									}}
+								>
+									clear
+								</Button>
 							</div>
 							<CustomPopUp
 								DialogTriggerComponent={() => (

@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import React from "react";
 import { useTranslations } from "next-intl";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 const Transaction = () => {
 	const { t } = useTypedTranslation();
@@ -17,14 +17,18 @@ const Transaction = () => {
 			<CardContent className="flex flex-col justify-center items-center gap-4">
 				<div className="flex gap-5 md:flex-row flex-col self-stretch content-start items-start justify-center">
 					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
-						<label>{t("salesInvoicesTable.transaction.checkNumberLabel")}</label>
+						<label>
+							{t("salesInvoicesTable.transaction.checkNumberLabel")}
+						</label>
 						<Input
 							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
 							type="number"
 						/>
 					</div>
 					<div className="flex flex-col gap-1 md:w-[302px] w-full items-start">
-						<label>{t("salesInvoicesTable.transaction.checkAmountLabel")}</label>
+						<label>
+							{t("salesInvoicesTable.transaction.checkAmountLabel")}
+						</label>
 						<Input
 							className="md:min-w-[200px] min-w-full h-[48px] rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-right"
 							type="number"

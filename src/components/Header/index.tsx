@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useLocale } from "next-intl";
 import NotificationsSheet from "./NotificationSheet";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import HomeSideBar from "../homeSideBar";
 import { SidebarTrigger } from "../ui/sidebar";
 

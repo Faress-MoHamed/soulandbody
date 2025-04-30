@@ -8,7 +8,7 @@ import CustomSelect from "@/components/customSelect";
 import { CustomDatePicker } from "@/components/customDatePicker";
 import { useSalesInvoice } from "../../hooks/useSalesInvoices";
 import { MonthPicker } from "@/components/monthPicker";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function TopComponent({
 	selectedInvoice,

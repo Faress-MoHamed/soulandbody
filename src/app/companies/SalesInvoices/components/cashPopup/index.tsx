@@ -3,16 +3,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import React from "react";
 import { useTranslations } from "next-intl"; // Using next-intl for translations
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 const CashPayment = () => {
-	const {t} = useTypedTranslation(); // Referencing 'cashPayment' component for translations
+	const { t } = useTypedTranslation(); // Referencing 'cashPayment' component for translations
 
 	return (
 		<Card className="flex flex-col p-4 gap-6">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
-					{t("salesInvoicesTable.cashPayment.title")} {/* Using translation for the title */}
+					{t("salesInvoicesTable.cashPayment.title")}{" "}
+					{/* Using translation for the title */}
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="flex flex-col justify-center items-center gap-4">
@@ -35,7 +36,8 @@ const CashPayment = () => {
 					</div>
 				</div>
 				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px]">
-					{t("salesInvoicesTable.cashPayment.saveButton")} {/* Using translation for save button */}
+					{t("salesInvoicesTable.cashPayment.saveButton")}{" "}
+					{/* Using translation for save button */}
 				</Button>
 			</CardContent>
 		</Card>

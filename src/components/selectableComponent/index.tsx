@@ -5,7 +5,7 @@ import { useState, useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { utils, writeFile } from "xlsx";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 interface SelectableComponentProps {
 	items?: {

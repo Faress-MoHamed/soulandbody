@@ -12,6 +12,9 @@ import RootLocaleLayout from "@/providers/NextIntlProvider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import HomeSideBar from "@/components/homeSideBar";
 import Home from "./";
+import ReduxProvider from "@/providers/reduxProvider";
+import { Toaster } from "react-hot-toast";
+import NextTopLoader from "nextjs-toploader";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -49,11 +52,30 @@ export default async function RootLayout({
 				suppressHydrationWarning
 				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#fafafa]`}
 			>
+				<NextTopLoader
+					color="#16C47F"
+					initialPosition={0.08}
+					crawlSpeed={200}
+					height={3}
+					crawl={true}
+					showSpinner={true}
+					easing="ease"
+					speed={200}
+					shadow="0 0 10px #16C47F,0 0 5px #16C47F"
+					template='<div class="bar" role="bar"><div class="peg"></div></div> 
+  <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+					zIndex={1600}
+					showAtBottom={false}
+				/>
+
 				<SidebarProvider>
 					<RootLocaleLayout>
 						<ReactQueryProvider>
 							<HeroUiProvider>
-								<Home>{children}</Home>
+								<ReduxProvider>
+									<Home>{children}</Home>
+									<Toaster position="top-right" />
+								</ReduxProvider>
 							</HeroUiProvider>
 						</ReactQueryProvider>
 					</RootLocaleLayout>

@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import SideBarSelector from "./SideBarSelector";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function HomeSideBar() {
 	const HomeCards = [

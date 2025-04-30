@@ -38,7 +38,7 @@ import {
 	useAdditionPermission,
 	type AdditionPermissionType,
 } from "./hooks/useAdditionPermission";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import AddNewWareHouse from "./components/AddNewWareHouse";
 import MaxCapacityTable from "./components/MaxCapacityTable";
 import { useSubWarehousesData } from "./hooks/useSubWareHouses";

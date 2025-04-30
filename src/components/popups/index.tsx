@@ -11,6 +11,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { useLocale, useMessages } from "next-intl";
 import ReactQueryProvider from "@/providers/reactQuertProvider";
 import { SidebarProvider } from "../ui/sidebar";
+import ReduxProvider from "@/providers/reduxProvider";
 
 const SweetAlert = withReactContent(Swal);
 
@@ -21,13 +22,20 @@ export default function CustomPopUp({
 }: {
 	DialogTriggerComponent: () => JSX.Element;
 	DialogContentclassName?: string;
-	DialogContentComponent: () => JSX.Element;
+	DialogContentComponent: ({ closePopup }: { closePopup?: any }) => JSX.Element;
 }) {
 	const locale = useLocale();
 	const messages = useMessages();
-	console.log(DialogTriggerComponent);
+	const popupInstanceRef = React.useRef<any>(null);
+
+	const closePopup = React.useCallback(() => {
+		if (popupInstanceRef.current) {
+			popupInstanceRef.current.close();
+		}
+	}, []);
+
 	const openPopup = React.useCallback(() => {
-		SweetAlert.fire({
+		const instance = SweetAlert.fire({
 			showConfirmButton: false,
 			showCloseButton: true,
 			customClass: {
@@ -42,19 +50,32 @@ export default function CustomPopUp({
 				if (contentContainer) {
 					const root = createRoot(contentContainer);
 					root.render(
-						<SidebarProvider>
-							<ReactQueryProvider>
-								<NextIntlClientProvider locale={locale} messages={messages}>
-									<DialogContentComponent />
-								</NextIntlClientProvider>
-							</ReactQueryProvider>
-						</SidebarProvider>
+						<ReduxProvider>
+							<SidebarProvider>
+								<ReactQueryProvider>
+									<NextIntlClientProvider locale={locale} messages={messages}>
+										<DialogContentComponent closePopup={closePopup} />
+									</NextIntlClientProvider>
+								</ReactQueryProvider>
+							</SidebarProvider>
+						</ReduxProvider>
 					);
 				}
 			},
+			willClose: () => {
+				popupInstanceRef.current = null;
+			},
 			padding: 0,
 		});
-	}, [DialogContentComponent, DialogContentclassName, locale, messages]);
+
+		popupInstanceRef.current = instance;
+	}, [
+		DialogContentComponent,
+		DialogContentclassName,
+		locale,
+		messages,
+		closePopup,
+	]);
 
 	return (
 		<div className="cursor-pointer" onClick={openPopup}>

@@ -1,16 +1,12 @@
-"use client";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useRouter, useParams } from "next/navigation";
-import { Suspense, useRef, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import CustomSelect from "@/components/customSelect";
 import CustomInput from "@/components/customInput";
 import LoadingIndicator from "@/components/loadingIndicator";
 import {
-	useCreateEmployee,
-	useUpdateEmployee,
 	useEmployee,
 	useGetAllFacilaties,
 	useGetAlldepartments,
@@ -25,33 +21,39 @@ import {
 	SeparateAbsence,
 	EmergencyLeave,
 } from "./popUps";
-export default function ProfessionalData({
+import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { useDispatch } from "react-redux";
+import { setEmployeeData } from "./createNewEmployee.slice";
+import CustomPasswordInput from "@/components/custom-password-input";
+
+interface ProfessionalDataFormProps {
+	employeeId?: string;
+	withTitle?: boolean;
+	withEmployeeManagement?: boolean;
+	CardStyle?: string;
+	ButtonSubmit?: React.ComponentType<any>;
+}
+
+export default function ProfessionalDataForm({
 	employeeId,
 	withTitle = true,
 	withEmployeeManagement = true,
 	CardStyle,
 	ButtonSubmit,
-	formik,
-}: {
-	mode?: "edit" | "view";
-	employeeId?: any;
-	withTitle?: any;
-	withEmployeeManagement?: any;
-	CardStyle?: any;
-	formik?: any;
-	ButtonSubmit?: any;
-}) {
+}: ProfessionalDataFormProps) {
+	const dispatch = useDispatch();
+const employeeQuery = useEmployee(employeeId || ""); // Provide a fallback empty string or undefined
+
+// Then adjust your useEffect to handle the case when employeeId is not provided
+useEffect(() => {
+	if (employeeId && employeeQuery?.data) {
+		dispatch(setEmployeeData(employeeQuery.data));
+	}
+}, [employeeQuery?.data, dispatch, employeeId]);
+
+	const employee = useTypedSelector((state) => state.employee.employee);
 	const t = useTranslations();
 	const [selectedWorkNature, setSelectedWorkNature] = useState("");
-
-	// const { mutate: createEmployee, isPending: createEmployeePending } =
-	// 	useCreateEmployee();
-	// const { mutate: updateEmployee, isPending: updateEmployeePending } =
-	// 	useUpdateEmployee();
-	// const { data: employee, isLoading } = useEmployee(employeeId ?? "");
-
-
-
 	const buttonRef = useRef(null);
 
 	const { data: allFacilaties, isLoading: facilatiesLoading } =
@@ -59,8 +61,26 @@ export default function ProfessionalData({
 	const { data: alldepartments, isLoading: departmentsLoading } =
 		useGetAlldepartments();
 
-	// if (employeeId && isLoading)
-	// 	return <p>{t("professionalData.form.loading")}</p>;
+	// Reusable handler for input changes
+	const handleInputChange =
+		(field: keyof typeof employee) =>
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			dispatch(setEmployeeData({ [field]: e.target.value }));
+		};
+
+	// Reusable handler for select changes
+	const handleSelectChange =
+		(field: keyof typeof employee) =>
+		(value: string | number | { label: string; value: string }) => {
+			dispatch(
+				setEmployeeData({
+					[field]:
+						typeof value === "string" || typeof value === "number"
+							? value
+							: value?.value,
+				})
+			);
+		};
 
 	return (
 		<div className="space-y-2">
@@ -70,61 +90,35 @@ export default function ProfessionalData({
 					CardStyle
 				)}
 			>
-				{false? (
+				{facilatiesLoading || departmentsLoading ? (
 					<LoadingIndicator />
 				) : (
 					<CardContent className="p-0">
-						<form
-							onSubmit={formik.handleSubmit}
-							className="space-y-6 flex flex-col"
-						>
+						<form className="space-y-6 flex flex-col">
 							<div className="grid grid-cols-1 md:grid-cols-4 gap-6">
 								{/* First Row */}
 								<CustomInput
 									label={t("professionalData.form.fields.email")}
 									name="email"
-									value={formik.values.email || "-"}
-									onChange={formik.handleChange}
-									onBlur={formik.handleBlur}
-									// disabled={mode !== "edit"}
+									value={employee.email}
 									type="text"
 									className="md:min-w-[200px] min-w-full rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
-									error={
-										formik.touched.email && formik.errors.email
-											? formik.errors.email
-											: null
-									}
+									onChange={handleInputChange("email")}
 								/>
-
-								<CustomInput
+								<CustomPasswordInput
 									label={t("professionalData.form.fields.password")}
 									name="password"
-									value={formik.values.password}
-									onChange={formik.handleChange}
-									onBlur={formik.handleBlur}
-									// disabled={mode !== "edit"}
+									value={employee.password}
 									className="md:min-w-[200px] min-w-full rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
-									error={
-										formik.touched.password && formik.errors.password
-											? formik.errors.password
-											: null
-									}
+									onChange={handleInputChange("password")}
 								/>
-
 								<CustomInput
 									label={t("professionalData.form.fields.total_salary")}
 									name="totalsalary"
-									value={formik.values.totalsalary || "-"}
-									onChange={formik.handleChange}
-									onBlur={formik.handleBlur}
-									// disabled={mode !== "edit"}
+									value={employee.totalsalary}
 									type="number"
 									className="md:min-w-[200px] min-w-full rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
-									error={
-										formik.touched.totalsalary && formik.errors.totalsalary
-											? formik.errors.totalsalary
-											: null
-									}
+									onChange={handleInputChange("totalsalary")}
 								/>
 								<div></div>
 
@@ -136,20 +130,18 @@ export default function ProfessionalData({
 										label: el?.name,
 										value: el?.id,
 									}))}
-									onValueChange={(value) => {
-										formik.setFieldValue("facility", value);
+									onValueChange={(e) => {
+										handleSelectChange("facility_id")(e.toString());
 									}}
-									loading={facilatiesLoading}
-									// disabled={mode !== "edit"}
-									value={formik.values.facility || "-"}
-									className="text-start"
-									error={
-										formik.touched.facility && formik.errors.facility
-											? formik.errors.facility
-											: null
+									value={
+										typeof employee.facility_id === "string"
+											? employee.facility_id
+											: typeof employee.facility_id === "number"
+											? (employee.facility_id as number).toString()
+											: ""
 									}
+									className="text-start"
 								/>
-
 								<CustomSelect
 									label={t("professionalData.form.fields.department")}
 									name="department"
@@ -159,35 +151,24 @@ export default function ProfessionalData({
 											value: el?.id,
 										})
 									)}
-									onValueChange={(value) => {
-										formik.setFieldValue("department", value);
-									}}
 									loading={departmentsLoading}
-									// disabled={mode !== "edit"}
-									value={formik.values.department || "-"}
-									className="text-start"
-									error={
-										formik.touched.department && formik.errors.department
-											? formik.errors.department
-											: null
+									value={
+										typeof employee.department_id === "string"
+											? employee.department_id
+											: typeof employee.department_id === "number"
+											? (employee.department_id as number).toString()
+											: ""
 									}
+									className="text-start"
+									onValueChange={(e) => handleSelectChange("department_id")(e)}
 								/>
-
 								<CustomSelect
 									label={t("professionalData.form.fields.user_type")}
 									name="userType"
-									options={["user", "admin", "manager"]}
-									onValueChange={(value) => {
-										formik.setFieldValue("userType", value);
-									}}
-									// disabled={mode !== "edit"}
-									value={formik.values.userType || "-"}
+									options={["user", "admin"]}
+									value={employee.role}
 									className="text-start"
-									error={
-										formik.touched.userType && formik.errors.userType
-											? formik.errors.userType
-											: null
-									}
+									onValueChange={(e) => handleSelectChange("role")(e)}
 								/>
 								<div></div>
 
@@ -196,55 +177,33 @@ export default function ProfessionalData({
 									label={t("professionalData.form.fields.work_nature")}
 									name="workNature"
 									options={["full_time", "various"]}
-									onValueChange={(value) => {
-										formik.setFieldValue("workNature", value);
-										setSelectedWorkNature(value);
-									}}
 									className="text-start"
-									error={
-										formik.touched.workNature && formik.errors.workNature
-											? formik.errors.workNature
-											: null
-									}
-									// disabled={mode !== "edit"}
-									value={formik.values.workNature || "-"}
+									value={employee.job_nature}
+									onValueChange={(value) => {
+										setSelectedWorkNature(value);
+										handleSelectChange("job_nature")(value);
+									}}
 								/>
-
 								<CustomInput
 									label={t("professionalData.form.fields.net_salary")}
 									name="netSalary"
-									value={formik.values.netSalary || "-"}
-									onChange={formik.handleChange}
-									onBlur={formik.handleBlur}
-									type="number"
+									value={employee.net_salary}
+									type="string"
 									className="md:min-w-[200px] min-w-full rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
-									error={
-										formik.touched.netSalary && formik.errors.netSalary
-											? formik.errors.netSalary
-											: null
-									}
-									// disabled={mode !== "edit"}
+									onChange={handleInputChange("net_salary")}
 								/>
-
 								<CustomInput
 									label={t("professionalData.form.fields.allowances")}
-									name="allowances"
-									value={formik.values.allowances || "-"}
-									onChange={formik.handleChange}
-									onBlur={formik.handleBlur}
+									name="allowance"
+									value={employee.allowance}
 									type="number"
 									className="md:min-w-[200px] min-w-full rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
-									error={
-										formik.touched.allowances && formik.errors.allowances
-											? formik.errors.allowances
-											: null
-									}
-									// disabled={mode !== "edit"}
+									onChange={handleInputChange("allowance")}
 								/>
 								<div></div>
 							</div>
 
-							{<ButtonSubmit ref={buttonRef} />}
+							{ButtonSubmit && <ButtonSubmit ref={buttonRef} />}
 						</form>
 					</CardContent>
 				)}
@@ -253,7 +212,6 @@ export default function ProfessionalData({
 			{withEmployeeManagement && selectedWorkNature === "various" && (
 				<div className="mt-8 p-6">
 					<EmployeeManagement
-						// mode={mode}
 						saveHandler={() => {
 							if (buttonRef?.current) {
 								(buttonRef?.current as any)?.click();
@@ -273,10 +231,14 @@ export default function ProfessionalData({
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{t("employeeForm.leave.policy.total_days")}
+								{employee.vacation_balance +
+									" " +
+									t("employeeForm.leave.policy.total_days")}
 							</Button>
 						)}
-						DialogContentComponent={() => <TotalLeave />}
+						DialogContentComponent={({ closePopup }) => (
+							<TotalLeave ButtonSubmit={ButtonSubmit} closePopup={closePopup} />
+						)}
 					/>
 					{t("employeeForm.leave.policy.divided_into")}
 					<CustomPopUp
@@ -286,10 +248,17 @@ export default function ProfessionalData({
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{t("employeeForm.leave.policy.regular_days")}
+								{employee.regular_leave_balance +
+									" " +
+									t("employeeForm.leave.policy.regular_days")}
 							</Button>
 						)}
-						DialogContentComponent={() => <RegularLeave />}
+						DialogContentComponent={({ closePopup }) => (
+							<RegularLeave
+								ButtonSubmit={ButtonSubmit}
+								closePopup={closePopup}
+							/>
+						)}
 					/>
 					{t("employeeForm.leave.policy.and")}
 					<CustomPopUp
@@ -299,10 +268,17 @@ export default function ProfessionalData({
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{t("employeeForm.leave.policy.emergency_days")}
+								{employee.casual_leave_balance +
+									" " +
+									t("employeeForm.leave.policy.emergency_days")}
 							</Button>
 						)}
-						DialogContentComponent={() => <EmergencyLeave />}
+						DialogContentComponent={({ closePopup }) => (
+							<EmergencyLeave
+								ButtonSubmit={ButtonSubmit}
+								closePopup={closePopup}
+							/>
+						)}
 					/>
 					{t("employeeForm.leave.policy.and")}
 					<CustomPopUp
@@ -312,10 +288,14 @@ export default function ProfessionalData({
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{t("employeeForm.leave.policy.sick_days")}
+								{employee.sick_leave_balance +
+									" " +
+									t("employeeForm.leave.policy.sick_days")}
 							</Button>
 						)}
-						DialogContentComponent={() => <SickLeave />}
+						DialogContentComponent={({ closePopup }) => (
+							<SickLeave ButtonSubmit={ButtonSubmit} closePopup={closePopup} />
+						)}
 					/>
 				</li>
 				<li>{t("employeeForm.leave.policy.exceed_notice")}</li>
@@ -328,10 +308,17 @@ export default function ProfessionalData({
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{t("employeeForm.leave.policy.continuous_absence")}
+								{employee.sick_leave_balance +
+									" " +
+									t("employeeForm.leave.policy.continuous_absence")}
 							</Button>
 						)}
-						DialogContentComponent={() => <ContinuousAbsence />}
+						DialogContentComponent={({ closePopup }) => (
+							<ContinuousAbsence
+								ButtonSubmit={ButtonSubmit}
+								closePopup={closePopup}
+							/>
+						)}
 					/>
 					{t("employeeForm.leave.policy.or")}
 					<CustomPopUp
@@ -341,12 +328,21 @@ export default function ProfessionalData({
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{t("employeeForm.leave.policy.separate_absence")}
+								{employee.sick_leave_balance +
+									" " +
+									t("employeeForm.leave.policy.separate_absence")}
 							</Button>
 						)}
-						DialogContentComponent={() => <SeparateAbsence />}
+						DialogContentComponent={({ closePopup }) => (
+							<SeparateAbsence
+								ButtonSubmit={ButtonSubmit}
+								closePopup={closePopup}
+							/>
+						)}
 					/>
-					{t("employeeForm.leave.policy.termination_notice")}
+					{employee.sick_leave_balance +
+						" " +
+						t("employeeForm.leave.policy.termination_notice")}
 				</li>
 			</ul>
 		</div>

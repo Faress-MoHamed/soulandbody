@@ -4,15 +4,19 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function IncomingTransfers() {
 	const { t } = useTypedTranslation();
 
 	const validationSchema = Yup.object({
 		date: Yup.date().required(t("IncomingTransfers.validation.dateRequired")),
-		bankName: Yup.string().required(t("IncomingTransfers.validation.bankNameRequired")),
-		accountName: Yup.string().required(t("IncomingTransfers.validation.accountNameRequired")),
+		bankName: Yup.string().required(
+			t("IncomingTransfers.validation.bankNameRequired")
+		),
+		accountName: Yup.string().required(
+			t("IncomingTransfers.validation.accountNameRequired")
+		),
 		accountNumber: Yup.number()
 			.positive(t("IncomingTransfers.validation.accountNumberPositive"))
 			.required(t("IncomingTransfers.validation.accountNumberRequired")),
@@ -37,12 +41,14 @@ export default function IncomingTransfers() {
 
 	return (
 		<div className="flex flex-col gap-12 p-6">
-			<h2 className="text-[26px] font-bold">{t("IncomingTransfers.forms.incomingTransfer")}</h2>
+			<h2 className="text-[26px] font-bold">
+				{t("IncomingTransfers.forms.incomingTransfer")}
+			</h2>
 			<form
 				onSubmit={formik.handleSubmit}
 				className="flex flex-col gap-6 justify-center items-center"
 			>
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
+				<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 					<CustomInput
 						label={t("IncomingTransfers.forms.date")}
 						type="date"
@@ -69,7 +75,7 @@ export default function IncomingTransfers() {
 						error={formik.touched.accountName && formik.errors.accountName}
 					/>
 				</div>
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
+				<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 					<CustomInput
 						label={t("IncomingTransfers.forms.accountNumber")}
 						name="accountNumber"

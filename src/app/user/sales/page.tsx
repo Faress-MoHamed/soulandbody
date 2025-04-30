@@ -17,7 +17,7 @@ import {
 	useSalesInvoices,
 	type SalesInvoice,
 } from "@/app/companies/SalesInvoices/hooks/useSalesInvoices";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import TaxOnProduct from "@/app/companies/SalesInvoices/components/TaxOnProduct";
 import TopComponent from "@/app/companies/SalesInvoices/components/TopComponent";
 import FinalInvoicesTable from "@/app/companies/SalesInvoices/components/FinalInvoicesTable";

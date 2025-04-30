@@ -16,7 +16,7 @@ import { X } from "lucide-react";
 import { Input } from "../ui/input";
 import CustomSelect from "../customSelect";
 import CustomInput from "../customInput";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function WarningPopUp() {
 	const [warningType, setWarningType] = useState<string>("");

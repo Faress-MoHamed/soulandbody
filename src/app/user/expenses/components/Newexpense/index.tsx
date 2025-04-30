@@ -1,5 +1,5 @@
 "use client";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import CustomInput from "@/components/customInput";
 import CustomSelect from "@/components/customSelect";
 import { MonthPicker } from "@/components/monthPicker";

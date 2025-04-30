@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import CustomSelect from "@/components/customSelect";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function AddBank() {
 	const { t } = useTypedTranslation();

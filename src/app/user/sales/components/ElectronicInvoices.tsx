@@ -1,7 +1,7 @@
 import CustomInput from "@/components/customInput";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function ElectronicInvoicesTopComponent() {
 	const { t } = useTypedTranslation();

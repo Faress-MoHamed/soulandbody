@@ -1,7 +1,7 @@
 import { Search } from "lucide-react";
 import React from "react";
 import { Input } from "../ui/input";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function SearchBar() {
 	const { t } = useTypedTranslation();

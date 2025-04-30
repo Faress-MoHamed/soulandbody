@@ -19,7 +19,7 @@ import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import CustomSelect from "@/components/customSelect";
 import CustomInput from "@/components/customInput";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 const employees = [
 	"أحمد محمود",

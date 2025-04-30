@@ -243,17 +243,17 @@
 			},
 			"policy": {
 				"intro": "-Total leave balance allowed for the employee",
-				"total_days": "40 days",
+				"total_days": " days",
 				"divided_into": "divided into",
-				"regular_days": "21 regular days",
+				"regular_days": " regular days",
 				"and": "and",
-				"emergency_days": "7 emergency days",
-				"sick_days": "12 sick days",
+				"emergency_days": " emergency days",
+				"sick_days": " sick days",
 				"exceed_notice": "-In case of exceeding the allowed leave days, deductions will be applied according to the company policy",
 				"absence_intro": "-In case of employee absence",
-				"continuous_absence": "15 connected days",
+				"continuous_absence": " connected days",
 				"or": "or",
-				"separate_absence": "30 separate days",
+				"separate_absence": " separate days",
 				"termination_notice": "termination procedures will be taken on the last day"
 			}
 		}
@@ -1436,5 +1436,11 @@
 		"hours": "Hours"
 	},
 	"employee_info": "Personal Information",
-	"professional_data": "Professional Data"
+	"professional_data": "Professional Data",
+	"vacationstatus": {
+		"pending": "Pending",
+		"accepted": "Accepted",
+		"rejected": "Rejected",
+		"deduction-days-with-permission": "Deduction Days with Permission"
+	}
 }

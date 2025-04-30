@@ -2,7 +2,7 @@
 
 import { DashboardCard } from "@/components/dashboardCard";
 import WarningPopUp from "@/components/warningPopUp";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import CustomHomeCard from "../companies/components/CustomHomeCard";
 import HomeSideBar from "@/components/homeSideBar";
 

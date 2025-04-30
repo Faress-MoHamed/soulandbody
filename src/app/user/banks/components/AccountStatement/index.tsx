@@ -4,42 +4,43 @@ import React from "react";
 import CustomSelect from "@/components/customSelect";
 import { MonthPicker } from "@/components/monthPicker";
 import { Button } from "@/components/ui/button";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { useAccountStatement } from "../../hooks/useAccountStatement";
 
 export default function AccountStatementTable() {
-	const { data: AccountStatementData, isLoading: AccountStatementLoading } = useAccountStatement();
+	const { data: AccountStatementData, isLoading: AccountStatementLoading } =
+		useAccountStatement();
 	const { t } = useTypedTranslation();
-const AccountStatementColumns = [
-	{
-		accessorKey: "date",
-		header: t("AccountStatement.tableHeaders.date"),
-	},
-	{
-		accessorKey: "transactionNumber",
-		header: t("AccountStatement.tableHeaders.transactionNumber"),
-	},
-	{
-		accessorKey: "bankName",
-		header: t("AccountStatement.tableHeaders.bankName"),
-	},
-	{
-		accessorKey: "description",
-		header: t("AccountStatement.tableHeaders.description"),
-	},
-	{
-		accessorKey: "debit",
-		header: t("AccountStatement.tableHeaders.debit"),
-	},
-	{
-		accessorKey: "credit",
-		header: t("AccountStatement.tableHeaders.credit"),
-	},
-	{
-		accessorKey: "balance",
-		header: t("AccountStatement.tableHeaders.balance"),
-	},
-];
+	const AccountStatementColumns = [
+		{
+			accessorKey: "date",
+			header: t("AccountStatement.tableHeaders.date"),
+		},
+		{
+			accessorKey: "transactionNumber",
+			header: t("AccountStatement.tableHeaders.transactionNumber"),
+		},
+		{
+			accessorKey: "bankName",
+			header: t("AccountStatement.tableHeaders.bankName"),
+		},
+		{
+			accessorKey: "description",
+			header: t("AccountStatement.tableHeaders.description"),
+		},
+		{
+			accessorKey: "debit",
+			header: t("AccountStatement.tableHeaders.debit"),
+		},
+		{
+			accessorKey: "credit",
+			header: t("AccountStatement.tableHeaders.credit"),
+		},
+		{
+			accessorKey: "balance",
+			header: t("AccountStatement.tableHeaders.balance"),
+		},
+	];
 
 	return (
 		<ReusableManyTable

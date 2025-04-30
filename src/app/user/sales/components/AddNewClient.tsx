@@ -2,7 +2,7 @@
 import CustomInput from "@/components/customInput";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function AddNewClient() {
 	const { t } = useTypedTranslation();

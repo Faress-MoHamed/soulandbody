@@ -1,5 +1,5 @@
 import React from "react";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function CategoryTable() {
 	const { t } = useTypedTranslation();

@@ -6,7 +6,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon } from "lucide-react";
 import LoadingIndicator from "../loadingIndicator";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { useSidebar } from "../ui/sidebar";
 
 function SelectGroup({
@@ -41,6 +41,7 @@ function SelectTrigger({
 			{...props}
 		>
 			{children}
+
 			<SelectPrimitive.Icon asChild>
 				<ChevronDownIcon className="size-4 opacity-50" />
 			</SelectPrimitive.Icon>
@@ -59,23 +60,26 @@ interface CustomSelectProps
 	triggerClassName?: string;
 	error?: any;
 	loading?: boolean;
+	value?: any;
+	triggerStyle?: React.CSSProperties | undefined;
 }
 
 export default function CustomSelect({
 	label,
 	placeholder,
-	options = ["أحمد محمود", "محمد علي", "خالد حسن", "ياسر عبد الله", "سعيد عمر"],
+	options = [],
 	size = "default",
 	dir = "rtl",
 	className,
 	triggerClassName,
 	loading,
 	error,
+	value,
+	triggerStyle,
 	...props
 }: CustomSelectProps) {
 	const { t } = useTypedTranslation();
 	const { open } = useSidebar();
-
 	const [search, setSearch] = useState("");
 
 	const filteredOptions = useMemo(() => {
@@ -86,6 +90,16 @@ export default function CustomSelect({
 			}) || []
 		);
 	}, [options, search]);
+
+	let selectedValue: string | { value: string; label: string } | undefined;
+	if (typeof value === "string") {
+		selectedValue = options.find((el) => {
+			if (typeof el === "string" || typeof el === "number") {
+				return el.toString() === value;
+			}
+			return el?.value.toString() === value;
+		});
+	}
 
 	return (
 		<div
@@ -100,18 +114,30 @@ export default function CustomSelect({
 					{label}
 				</label>
 			)}
-			<Select dir={t("dir") as "rtl" | "ltr"} {...props}>
+			<Select
+				value={
+					typeof selectedValue === "string"
+						? selectedValue
+						: selectedValue?.value
+				}
+				dir={t("dir") as "rtl" | "ltr"}
+				{...props}
+			>
 				<SelectTrigger
+					value={
+						typeof selectedValue === "string"
+							? selectedValue
+							: selectedValue?.value
+					}
 					size={size}
 					className={cn(
 						"!h-[48px] lg:w-[302px] w-full bg-white",
 						`${open && "lg:w-auto"}`,
 						triggerClassName
 					)}
+					style={triggerStyle}
 				>
-					<SelectValue
-						placeholder={placeholder ? placeholder : t("filter.placeholder")}
-					/>
+					<SelectValue placeholder={placeholder || t("filter.placeholder")} />
 				</SelectTrigger>
 				<SelectContent className="z-[+99999]">
 					<div className="px-2 py-1">
@@ -132,10 +158,12 @@ export default function CustomSelect({
 						{filteredOptions.map((option) => {
 							const value = typeof option === "string" ? option : option.value;
 							const label = typeof option === "string" ? option : option.label;
+							const key = `${value}`; // Ensure unique key by using value directly
+
 							return loading ? (
-								<LoadingIndicator key={value} />
+								<LoadingIndicator key={key} />
 							) : (
-								<SelectItem key={value} value={value}>
+								<SelectItem key={key} value={value}>
 									{label}
 								</SelectItem>
 							);

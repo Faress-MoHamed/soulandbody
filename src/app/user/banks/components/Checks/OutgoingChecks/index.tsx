@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function OutgoingChecks() {
 	const { t } = useTypedTranslation();
@@ -12,13 +12,21 @@ export default function OutgoingChecks() {
 	// Define validation schema using Yup
 	const validationSchema = Yup.object({
 		date: Yup.date().required(t("IncomingChecks.validation.dateRequired")),
-		bankName: Yup.string().required(t("IncomingChecks.validation.bankNameRequired")),
-		accountName: Yup.string().required(t("IncomingChecks.validation.accountNameRequired")),
-		checkNumber: Yup.string().required(t("IncomingChecks.validation.checkNumberRequired")),
+		bankName: Yup.string().required(
+			t("IncomingChecks.validation.bankNameRequired")
+		),
+		accountName: Yup.string().required(
+			t("IncomingChecks.validation.accountNameRequired")
+		),
+		checkNumber: Yup.string().required(
+			t("IncomingChecks.validation.checkNumberRequired")
+		),
 		amount: Yup.number()
 			.positive(t("IncomingChecks.validation.amountPositive"))
 			.required(t("IncomingChecks.validation.amountRequired")),
-		collectionDate: Yup.date().required(t("IncomingChecks.validation.collectionDateRequired")),
+		collectionDate: Yup.date().required(
+			t("IncomingChecks.validation.collectionDateRequired")
+		),
 	});
 
 	const formik = useFormik({
@@ -38,12 +46,14 @@ export default function OutgoingChecks() {
 
 	return (
 		<div className="flex flex-col gap-12 p-6">
-			<h2 className="text-[26px] font-bold">{t("IncomingChecks.forms.outgoingChecks")}</h2>
+			<h2 className="text-[26px] font-bold">
+				{t("IncomingChecks.forms.outgoingChecks")}
+			</h2>
 			<form
 				onSubmit={formik.handleSubmit}
 				className="flex flex-col gap-6 justify-center items-center"
 			>
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
+				<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 					<CustomInput
 						label={t("IncomingChecks.forms.date")}
 						type="date"
@@ -70,7 +80,7 @@ export default function OutgoingChecks() {
 						error={formik.touched.accountName && formik.errors.accountName}
 					/>
 				</div>
-			<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
+				<div className="grid md:grid-cols-3 grid-cols-1 gap-6 md:w-auto w-full content-center">
 					<CustomInput
 						label={t("IncomingChecks.forms.checkNumber")}
 						name="checkNumber"

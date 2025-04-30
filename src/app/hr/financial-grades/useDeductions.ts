@@ -1,57 +1,30 @@
 "use client";
 
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export interface Deduction {
-	id: number;
-	date: string;
-	employee: string;
-	type: string;
+	employee_id: number;
+	transaction_date: string;
+	transaction_type: string;
 	amount: number;
 	reason: string;
 }
 
 // Fetch all deductions with pagination
 export function useDeductions() {
-  const getRandomDate = (start: Date, end: Date) => {
-    const date = new Date(
-      start.getTime() + Math.random() * (end.getTime() - start.getTime())
-    );
-    return date.toISOString().split("T")[0];
-  };
-
-  const employees = [
-    "أحمد محمود",
-    "محمد علي",
-    "خالد حسن",
-    "ياسر عبد الله",
-    "سعيد عمر",
-  ];
-  const deductionReasons = ["تأخير", "غياب", "مخالفة", "سلفة", "جزاء"];
-  const deductionAmounts = [100, 200, 300, 400, 500];
-
-  const deductionData = Array.from({ length: 150 }, () => {
-    return {
-      date: getRandomDate(new Date(2025, 8, 1), new Date(2025, 11, 1)),
-      employee: employees[Math.floor(Math.random() * employees.length)],
-      type: "خصم",
-      amount:
-        deductionAmounts[
-          Math.floor(Math.random() * deductionAmounts.length)
-        ],
-      reason:
-        deductionReasons[
-          Math.floor(Math.random() * deductionReasons.length)
-        ],
-    };
-  });
 	return useQuery({
 		queryKey: ["deductions"],
 		queryFn: async () => {
-			// const { data } = await axios.get("/api/deductions");
-			return deductionData;
+			const { data } = await AxiosInstance.get("financial-transactions");
+			return (data || [])?.filter(
+				(el: any) => el?.transaction_type === "Deduction"
+			);
 		},
+		refetchOnMount: true,
+		refetchOnWindowFocus: true,
 	});
 }
 
@@ -72,11 +45,55 @@ export function useCreateDeduction() {
 	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: async (deduction: Omit<Deduction, "id">) => {
-			const { data } = await axios.post("/api/deductions", deduction);
+			const { data } = await AxiosInstance.post(
+				"financial-transactions",
+				deduction
+			);
 			return data;
 		},
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["deductions"] });
+		onSuccess: async () => {
+			try {
+				await queryClient.invalidateQueries({
+					queryKey: ["deductions"],
+					exact: true,
+				});
+				toast.success("تم اضافة العملية بنجاح");
+			} catch (error) {
+				console.error("Failed to invalidate queries:", error);
+				toast.success("تم اضافة العملية بنجاح ولكن حدث خطأ في تحديث البيانات");
+			}
+		},
+		onMutate: async (newDeduction) => {
+			// Cancel any outgoing refetches
+			await queryClient.cancelQueries({ queryKey: ["deductions"] });
+
+			// Snapshot the previous value
+			const previousDeductions = queryClient.getQueryData(["deductions"]);
+
+			// Optimistically update to the new value
+			queryClient.setQueryData(["deductions"], (old: any) => [
+				...(old || []),
+				{ ...newDeduction, id: Date.now() },
+			]);
+
+			return { previousDeductions };
+		},
+		onError: (error: any, variables, context) => {
+			// Check if the error response has a 'data' field with a 'message' or validation errors
+			const errorMessages = error?.response?.data?.message;
+
+			if (errorMessages && typeof errorMessages === "object") {
+				// Loop through the error object and show individual toasts for each field
+				Object.keys(errorMessages).forEach((field) => {
+					const messages = errorMessages[field];
+					messages.forEach((message: any) => {
+						toast.error(`${message}`); // Show toast for each error message
+					});
+				});
+			} else {
+				// If there are no field errors, just show a generic error message
+				toast.error("An error occurred. Please try again.");
+			}
 		},
 	});
 }

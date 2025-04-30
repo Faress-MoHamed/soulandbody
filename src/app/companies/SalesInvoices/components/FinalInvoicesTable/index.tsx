@@ -20,7 +20,7 @@ import {
 import CustomPopUp from "@/components/popups";
 import CashPayment from "../cashPopup";
 import Transaction from "../Transaction";
-import { useTypedTranslation } from "@/app/hooks/useTypedTranslation";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 interface InvoiceItem {
 	totalInvoice: string;
