@@ -37,7 +37,7 @@ export default function page() {
 	const { t } = useTypedTranslation();
 	const { data: orderProductsData, isLoading: orderProductsLoading } =
 		useOrderProducts();
-	
+
 	const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
 	const toggleOption = (option: string) => {
@@ -49,35 +49,35 @@ export default function page() {
 	};
 	const orderProductColumns: ColumnDef<OrderProductType>[] = [
 		{
-			header: t("movementacount.employee"),
+			header: t("movementacount.head.date"),
 			accessorKey: "date",
 		},
 		{
-			header: "حساب",
+		header: t("movementacount.head.account"),
 			accessorKey: "account",
 		},
 		{
-			header: "رقم المرجع",
+			header: t("movementacount.head.referenceNumber"),
 			accessorKey: "referenceNumber",
 		},
 		{
-			header: "نوع الحركة",
+			header: t("movementacount.head.transactionType"),
 			accessorKey: "transactionType",
 		},
 		{
-			header: "مدين",
+			header: t("movementacount.head.debit"),
 			accessorKey: "debit",
 		},
 		{
-			header: "دائن",
+			header: t("movementacount.head.credit"),
 			accessorKey: "credit",
 		},
 		{
-			header: "نوع الحركة",
+			header: t("movementacount.head.transactionType"),
 			accessorKey: "transactionType",
 		},
 		{
-			header: "الموظف",
+			header: t("movementacount.head.employee"),
 			accessorKey: "employee",
 		},
 	];
@@ -92,7 +92,7 @@ export default function page() {
 						data: orderProductsData || [],
 						loading: orderProductsLoading,
 						UserComponent: () => (
-							<div className="w-full p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+							<div className="w-full p-6">
 								<div className="grid grid-cols-1 md:grid-cols-4 gap-6">
 									<CustomInput
 										label="من"
