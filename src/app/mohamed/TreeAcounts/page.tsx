@@ -185,7 +185,7 @@ export default function page() {
 																	htmlFor={`option-${option}`}
 																	className="cursor-pointer text-sm font-semibold text-[#13A66C]"
 																>
-																	{t(`treeAcounts.popup.checkboxOptions.${option}`)}
+																	{t(`treeAcounts.popup.checkboxOptions.${option}` as any)}
 																</label>
 															</div>
 														))}
