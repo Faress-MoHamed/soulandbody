@@ -12,18 +12,20 @@ export default function NewExpense() {
 	return (
 		<Card className="md:py-6 py-4  md:px-12 px-6">
 			<CardHeader> {t("expense.newExpense")}</CardHeader>
-			<CardContent className="grid md:grid-cols-2 grid-cols-1 gap-6">
+			<CardContent className="grid md:grid-cols-3 grid-cols-1 gap-6">
+				<CustomSelect
+					label={t("expense.accountName")}
+					options={["جاري", "مؤقت", "دائم"]}
+				/>
 				<MonthPicker label={t("expense.date")} />
 				<CustomSelect
 					label={t("expense.expenseName")}
 					options={["fares", "mohamed", "ahmed"]}
 				/>
-				<CustomInput label={t("expense.amount")} type="number" />
-				<CustomSelect
-					label={t("expense.accountName")}
-					options={["جاري", "مؤقت", "دائم"]}
-				/>
 				<CustomSelect label={t("expense.type")} options={["مدين", "دائن"]} />
+				<CustomInput label={t("expense.amount")} type="number" />
+				<CustomSelect label={"مركز تكلفة"} />
+				<CustomSelect label={"المركز الفرعي"} />
 				<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[182px] h-[47px] md:mt-8">
 					{t("expense.save")}
 				</Button>
