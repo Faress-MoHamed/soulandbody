@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const employeeInitialValues = {
+	id: null as any,
 	name: "",
 	birth_date: "",
 	qualification: "",
@@ -24,6 +25,7 @@ export const employeeInitialValues = {
 	regular_leave_balance: "0",
 	separate_balance: "0",
 	continous_balance: "0",
+	attachments: [] as any,
 };
 
 const initialState = {
@@ -52,11 +54,22 @@ export const employeeSlice = createSlice({
 				...action.payload,
 			};
 		},
+		setEmployeeAttachments: (state, action: { payload: File }) => {
+			state.employee.attachments.push(action.payload);
+		},
+		removeEmployeeAttachment: (state, action: { payload: number }) => {
+			state.employee.attachments.splice(action.payload, 1);
+		},
 		clearEmployeeData: (state) => {
 			state.employee = employeeInitialValues;
 		},
 	},
 });
-export const { setEmployeeField, setEmployeeData, clearEmployeeData } =
-	employeeSlice.actions;
+export const {
+	setEmployeeField,
+	setEmployeeAttachments,
+	setEmployeeData,
+	clearEmployeeData,
+	removeEmployeeAttachment,
+} = employeeSlice.actions;
 export const employeeReducer = employeeSlice.reducer;

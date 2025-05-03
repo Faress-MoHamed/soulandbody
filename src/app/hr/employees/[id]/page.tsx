@@ -12,7 +12,15 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 	const { data } = useEmployee(id || "");
 	console.log(data);
 	const dispatch = useDispatch();
-	dispatch(setEmployeeData(data?.data));
+	dispatch(
+		setEmployeeData({
+			...data?.data,
+			attachments:
+				typeof data?.data?.attachments === "string"
+					? [data?.data?.attachments]
+					: data?.data?.attachments,
+		})
+	);
 	console.log(data);
 	useEffect(() => {
 		async function fetchParams() {

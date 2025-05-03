@@ -28,7 +28,11 @@ export default function CuEmployee() {
 					e.preventDefault();
 					console.log(props.onClick);
 					props?.onClick && props?.onClick();
-					createEmployee(employee);
+					if (employee?.id) {
+						updateEmployee({ id: employee?.id, employee });
+					} else {
+						createEmployee(employee);
+					}
 				}}
 			>
 				{props.employeeId

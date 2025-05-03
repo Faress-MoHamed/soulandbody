@@ -12,7 +12,7 @@ export default function page() {
 					label: "معلومات شخصية",
 				},
 				{
-					component: <ProfessionalData mode="view"/>,
+					component: <ProfessionalData/>,
 					label: "بيانات مهنية",
 				},
 			]}

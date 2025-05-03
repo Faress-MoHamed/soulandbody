@@ -116,7 +116,7 @@ export default function EmployeeInformationFormContent({
 									onChange={(e) => {
 										dispatch(
 											setEmployeeField({
-												field: name as keyof typeof employee,
+												field: name as (keyof typeof employee & string),
 												value: e.target.value,
 											})
 										);
