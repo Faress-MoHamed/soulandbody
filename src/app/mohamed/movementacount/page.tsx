@@ -72,8 +72,21 @@ export default function Page() {
 						UserComponent: () => (
 							<div className="w-full p-6">
 								<div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+<<<<<<<<< Temporary merge branch 1
 									<CustomInput label="من" type="date" className="w-full" />
 									<CustomInput label="إلى" type="date" className="w-full" />
+=========
+									<CustomInput
+										label={t("movementacount.table.from")}
+										type="date"
+										className="w-full"
+									/>
+									<CustomInput
+										label={t("movementacount.table.to")}
+										type="date"
+										className="w-full"
+									/>
+>>>>>>>>> Temporary merge branch 2
 									<CustomSelect
 										label={t("movementacount.table.account")}
 										options={["نقاط البيع", "كاش", "تحويل بنكي"]}
@@ -82,12 +95,96 @@ export default function Page() {
 									<div className="flex items-end">
 										<CustomPopUp
 											DialogTriggerComponent={() => (
+<<<<<<<<< Temporary merge branch 1
 												<Button className=" h-[48px] w-[182px] bg-[#16C47F] hover:bg-[#13A66C] text-white rounded-lg">
 													تنفيذ
 												</Button>
 											)}
 											DialogContentComponent={({ closePopup }) => (
 												<MovementAccountTopComponent />
+=========
+												<Button className="w-full h-[48px] bg-[#16C47F] hover:bg-[#13A66C] text-white rounded-lg">
+													{t("movementacount.table.acction")}
+												</Button>
+											)}
+											DialogContentComponent={({ closePopup }) => (
+												<div className="p-6 bg-white rounded-md w-full max-w-[600px]">
+													<h2 className="text-xl font-bold mb-4">{t("movementacount.popup.tittle")}</h2>
+													<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+														<div>
+															<CustomInput
+																label={t("movementacount.popup.nameaccount")}
+																type="text"
+																className="w-full"
+															/>
+														</div>
+
+														<div>
+															<CustomInput
+																label={t("movementacount.popup.descaccount")}
+																type="text"
+																className="w-full"
+															/>
+														</div>
+
+														<div>
+															<CustomSelect
+																label={t("movementacount.popup.contactaccount")}
+																options={["نقاط البيع", "كاش", "تحويل بنكي"]}
+																triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
+															/>
+														</div>
+														<div>
+															<CustomSelect
+																label={t("movementacount.popup.contactaccount2")}
+																options={["نقاط البيع", "كاش", "تحويل بنكي"]}
+																triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
+															/>
+														</div>
+														<div className="col-span-2 text-right">
+															<p className="text-[rgba(22,196,127,1)] font-semibold text-sm mb-1 underline"> {t("movementacount.popup.contactaccounts")}</p>
+														</div>
+
+														<div>
+															<CustomSelect
+																label={t("movementacount.popup.naturalaccount")}
+																options={["نقاط البيع", "كاش", "تحويل بنكي"]}
+																triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
+															/>
+														</div>
+														<div>
+															<CustomInput
+																label={t("movementacount.popup.balance")}
+																type="text"
+																className="w-full"
+															/>
+														</div>
+													</div>
+													<div className="grid grid-cols-2 gap-4 mt-4">
+														{["trialBalance", "incomeStatement"].map((option) => (
+															<div className="flex items-center gap-2" key={option}>
+																<input
+																	type="checkbox"
+																	id={`option-${option}`}
+																	checked={selectedOptions.includes(option)}
+																	onChange={() => toggleOption(option)}
+																	className="accent-[#13A66C] w-4 h-4 cursor-pointer"
+																/>
+																<label
+																	htmlFor={`option-${option}`}
+																	className="cursor-pointer text-sm font-semibold text-[#13A66C]"
+																>
+																	{t(`movementacount.popup.checkboxOptions.${option}`)}
+																</label>
+															</div>
+														))}
+													</div>
+
+													<div className="flex justify-start gap-4 mt-6">
+														<Button className="bg-[#16C47F] hover:bg-[#13A66C]">{t("movementacount.popup.addaccount")}</Button>
+													</div>
+												</div>
+>>>>>>>>> Temporary merge branch 2
 											)}
 										/>
 									</div>
