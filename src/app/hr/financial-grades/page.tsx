@@ -24,7 +24,6 @@ import Link from "next/link";
 import SelectableComponent from "@/components/selectableComponent";
 import { useCreateDeduction, useDeductions } from "./useDeductions";
 import { useSalaries } from "./useSalaries";
-import ReusableTable from "@/components/ReusableTable";
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
@@ -34,6 +33,7 @@ import { useTypedSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
 import { setTransactionField } from "./financialTransactions.slice";
 import { Button as MainButton } from "@heroui/react";
+import type { ColumnDef } from "@tanstack/react-table";
 
 const leaveTypes = ["عادية", "مرضية", "طارئة"];
 
@@ -269,18 +269,24 @@ export default function Page() {
 	const { data: salaryData, isLoading: salaryLoading } = useSalaries();
 	const { data: deductionData, isLoading: deductionLoading } = useDeductions();
 	console.log(salaryData, deductionData);
-	const salaryColumns = [
+	const salaryColumns: ColumnDef<any>[] = [
 		{ accessorKey: "transaction_date", header: t("financial.date") },
-		{ accessorKey: "employee", header: t("financial.employee") },
-		{ accessorKey: "amount", header: t("financial.salary") },
-		{ accessorKey: "net_salary", header: t("financial.netSalary") },
+		{ accessorKey: "name", header: t("financial.employee") },
+		{ accessorKey: "net_salary", header: t("financial.salary") },
+		{
+			accessorKey: "net_salary_after_deduction",
+			header: t("financial.netSalary"),
+			cell: ({ row: { original } }) => {
+				return <>{original.net_salary_after_deduction || 0}</>;
+			},
+		},
 		{ accessorKey: "extras", header: t("financial.extras") },
-		{ accessorKey: "allowances", header: t("financial.allowances") },
+		{ accessorKey: "allowance", header: t("financial.allowances") },
 	];
 
 	const deductionColumns = [
 		{ accessorKey: "transaction_date", header: t("financial.date") },
-		{ accessorKey: "employee", header: t("financial.employee") },
+		{ accessorKey: "employee_name", header: t("financial.employee") },
 		{ accessorKey: "transaction_type", header: t("financial.type") },
 		{ accessorKey: "amount", header: t("financial.amount") },
 		{ accessorKey: "reason", header: t("financial.reason") },

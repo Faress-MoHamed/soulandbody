@@ -9,7 +9,7 @@ import { persistor, store } from "@/redux/persist";
 const ReduxProvider = ({ children }: any) => {
 	return (
 		<Provider store={store}>
-			<PersistGate loading={<LoadingIndicator />} persistor={persistor}>
+			<PersistGate loading={<LoadingIndicator withFullScreen/>} persistor={persistor}>
 				{children}
 			</PersistGate>
 		</Provider>

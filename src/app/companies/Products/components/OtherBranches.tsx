@@ -1,5 +1,4 @@
 "use client";
-import ReusableTable from "@/components/ReusableTable";
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import { Card, CardContent } from "@/components/ui/card";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -72,7 +71,7 @@ export default function OtherBranches() {
 	];
 	return (
 		<Card className="overflow-x-auto max-w-full">
-			<CardContent >
+			<CardContent>
 				<ReusableManyTable
 					dataSets={[
 						{
@@ -88,7 +87,6 @@ export default function OtherBranches() {
 							),
 							columns,
 							withPagination: false,
-							
 						},
 					]}
 					withTopPrinter={false}

@@ -1,7 +1,6 @@
 "use client";
 import AddButton from "@/components/AddButton";
 import CustomPopUp from "@/components/popups";
-import ReusableTable from "@/components/ReusableTable";
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import AddNewEmployee from "../Employees/component/AddNewEmployee";
@@ -69,7 +68,6 @@ export default function CustomersPage() {
 				return (
 					<div className="flex justify-center gap-1 ">
 						<Button
-							// onClick={() => onEdit(row?.original?.id)}
 							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-70 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
 						>
 							<svg
@@ -90,7 +88,6 @@ export default function CustomersPage() {
 							{t("buttons.edit")}
 						</Button>
 						<Button
-							// onClick={() => onDelete(row?.original?.id)}
 							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-70 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
 						>
 							<>

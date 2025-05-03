@@ -66,6 +66,24 @@ export default function Home() {
 			Icon: "/user/expenses.png",
 			LinkUrl: "/user/expenses",
 		},
+		{
+			title: "المواردين",
+			subTitle: "عرض وتحليل البيانات المالية من خلال تقارير مفصلة",
+			Icon: "/user/reports.png",
+			LinkUrl: "/user/suppliers",
+		},
+		{
+			title: "العملاء",
+			subTitle: "عرض وتحليل البيانات المالية من خلال تقارير مفصلة",
+			Icon: "/user/reports.png",
+			LinkUrl: "/user/clients",
+		},
+		{
+			title: "طلبات الشراء",
+			subTitle: "عرض وتحليل البيانات المالية من خلال تقارير مفصلة",
+			Icon: "/user/reports.png",
+			LinkUrl: "/user/orders",
+		},
 	];
 
 	return (

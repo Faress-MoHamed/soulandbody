@@ -394,8 +394,12 @@ export default function page() {
 					containerClassName: "pb-4",
 					withPagination: false,
 					onCellClick: (cell) => {
-						if (cell?.column?.id !== "itemName") return null;
-						return <CategoryTable />;
+						// if (cell?.column?.id !== "itemName") return null;
+						// return <CategoryTable />;
+
+						if (cell.column.id === "فئه") return <p>fares</p>;
+						if(cell.column.id==="كمية") return <p>كمية</p>
+						return null
 					},
 				},
 				{

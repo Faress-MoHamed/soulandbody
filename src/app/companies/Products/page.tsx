@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { useProducts, type Product } from "./hooks/useProducts";
-import ReusableTable from "@/components/ReusableTable";
 import type { ColumnDef } from "@tanstack/react-table";
 import CustomInput from "@/components/customInput";
 import { Button } from "@/components/ui/button";

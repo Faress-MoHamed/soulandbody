@@ -1,6 +1,5 @@
 "use client";
 
-import ReusableTable from "@/components/ReusableTable";
 import React from "react";
 import { useAttendance } from "./useAttendance";
 import ReusableManyTable from "@/components/ReusableTableWithManyData";

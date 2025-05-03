@@ -145,7 +145,7 @@ export default function EmployeeInformationFormContent({
 				</CardContent>
 			</Card>
 
-			{withEmployeeManagement && (
+			{/* {withEmployeeManagement && (
 				<div className="p-6">
 					<EmployeeManagement
 						mode={mode}
@@ -156,7 +156,7 @@ export default function EmployeeInformationFormContent({
 						}}
 					/>
 				</div>
-			)}
+			)} */}
 		</div>
 	);
 }

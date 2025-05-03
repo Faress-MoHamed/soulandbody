@@ -5,8 +5,10 @@ import QuantitySelector from "@/components/QuantitySelector";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import SendToSupplier from "../SendToSupplier";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function TopComponentsinventoryProduct() {
+	const { t } = useTypedTranslation();
 	return (
 		<div className="flex flex-col gap-6 p-6 ">
 			<div className="justify-end flex">
@@ -14,7 +16,7 @@ export default function TopComponentsinventoryProduct() {
 					DialogTriggerComponent={() => {
 						return (
 							<Button className="bg-[#16C47F] text-white rounded-[8px] w-[192px] h-[44px] ">
-								أرسال الي مورد
+								{t("ordersInUser.TopComponentsinventoryProduct.sendToSupplier")}
 							</Button>
 						);
 					}}
@@ -24,11 +26,19 @@ export default function TopComponentsinventoryProduct() {
 				/>
 			</div>
 			<div className="flex gap-5 items-end">
-				<CustomSelect label="أسم المنتج" />
-				<CustomSelect label="فئة المنتج" />
-				<QuantitySelector label="الكمية" />
+				<CustomSelect
+					label={t("ordersInUser.TopComponentsinventoryProduct.productName")}
+				/>
+				<CustomSelect
+					label={t(
+						"ordersInUser.TopComponentsinventoryProduct.productCategory"
+					)}
+				/>
+				<QuantitySelector
+					label={t("ordersInUser.TopComponentsinventoryProduct.quantity")}
+				/>
 				<Button className="bg-[#16C47F] text-white rounded-[8px] w-[148px] h-[44px]">
-					اضافة
+					{t("ordersInUser.TopComponentsinventoryProduct.add")}
 				</Button>
 			</div>
 		</div>

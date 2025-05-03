@@ -58,9 +58,11 @@ export function DashboardCard({
 						</div>
 					</div>
 				);
-				}}
-				DialogContentclassName=""
-			DialogContentComponent={() => <DialogContentComponent />}
+			}}
+			DialogContentclassName=""
+			DialogContentComponent={({ closePopup }) => (
+				<DialogContentComponent closePopup={closePopup} />
+			)}
 		/>
 	);
 }

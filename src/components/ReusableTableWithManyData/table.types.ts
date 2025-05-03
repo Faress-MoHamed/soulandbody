@@ -17,13 +17,9 @@ export type TableProps<TData> = {
 	handlePageChange?: (page: number) => void;
 	onCellClick?: (cell: Cell<TData, unknown>) => JSX.Element | null;
 
-	employees?: string[];
 	loading?: boolean;
 	withColspan?: boolean;
 	error?: string | null;
-	deleteLoading?: boolean;
-	onDelete?: (id: string) => void;
-	onEdit?: (id: string) => void;
 	withActionButtons?: boolean;
 	FooterComponent?: React.FC;
 	ActionComponent?: React.FC<{ row: TData }>;

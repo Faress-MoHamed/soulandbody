@@ -4,13 +4,9 @@ import "./globals.css";
 import Header from "@/components/Header";
 import ReactQueryProvider from "@/providers/reactQuertProvider";
 import HeroUiProvider from "@/providers/HerouiProvider";
-import { CustomDatePicker } from "@/components/customDatePicker";
-import { getLocale, getMessages, getTranslations } from "next-intl/server";
-import NextIntlProvider from "@/providers/NextIntlProvider";
-import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
 import RootLocaleLayout from "@/providers/NextIntlProvider";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import HomeSideBar from "@/components/homeSideBar";
 import Home from "./";
 import ReduxProvider from "@/providers/reduxProvider";
 import { Toaster } from "react-hot-toast";
@@ -56,7 +52,7 @@ export default async function RootLayout({
 					color="#16C47F"
 					initialPosition={0.08}
 					crawlSpeed={200}
-					height={3}
+					height={5}
 					crawl={true}
 					showSpinner={true}
 					easing="ease"

@@ -98,15 +98,24 @@ export default function Page() {
 	const { data: permessions } = usePermissions();
 
 	const columns = [
-		{ accessorKey: "date", header: t("permissions.table.columns.date") },
+		{
+			accessorKey: "permission_date",
+			header: t("permissions.table.columns.date"),
+		},
 		{
 			accessorKey: "employee",
 			header: t("permissions.table.columns.employee"),
 		},
-		{ accessorKey: "from", header: t("permissions.table.columns.from") },
-		{ accessorKey: "to", header: t("permissions.table.columns.to") },
 		{
-			accessorKey: "actual_end",
+			accessorKey: "permission_start",
+			header: t("permissions.table.columns.from"),
+		},
+		{
+			accessorKey: "permission_end",
+			header: t("permissions.table.columns.to"),
+		},
+		{
+			accessorKey: "actual_end_time",
 			header: t("permissions.table.columns.actual_end"),
 		},
 		{ accessorKey: "reason", header: t("permissions.table.columns.reason") },
@@ -116,9 +125,7 @@ export default function Page() {
 		},
 	];
 
-	const distinctEmployees = [
-		...new Set(permessions?.map((el: any) => el?.employee)),
-	];
+
 
 	return (
 		<div>
@@ -130,7 +137,6 @@ export default function Page() {
 						containerClassName: "border-none mt-9",
 						title: t("permissions.table.title"),
 						withActionButtons: false,
-						employees: distinctEmployees,
 						ButtonTrigger: () => (
 							<CustomPopUp
 								DialogTriggerComponent={() => (

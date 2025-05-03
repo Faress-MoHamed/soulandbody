@@ -1,5 +1,6 @@
 "use client";
 
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -15,58 +16,13 @@ export interface Permission {
 }
 
 export function usePermissions() {
-	const getRandomDate = (start: Date, end: Date) => {
-		const date = new Date(
-			start.getTime() + Math.random() * (end.getTime() - start.getTime())
-		);
-		return date.toISOString().split("T")[0];
-	};
 
-	const getRandomTime = () => {
-		const hours = Math.floor(Math.random() * 10) + 9; // 9 AM - 7 PM
-		const minutes = Math.floor(Math.random() * 60);
-		return `${hours.toString().padStart(2, "0")}:${minutes
-			.toString()
-			.padStart(2, "0")}`;
-	};
-
-	const employees = [
-		"أحمد محمود",
-		"محمد علي",
-		"خالد حسن",
-		"ياسر عبد الله",
-		"سعيد عمر",
-	];
-	const reasons = [
-		"موعد طبي",
-		"ظرف طارئ",
-		"اجتماع شخصي",
-		"زيارة حكومية",
-		"أمر عائلي",
-	];
-	const deductions = [0, 10, 20, 30, 50];
-
-	const permissionData = Array.from({ length: 150 }, (_, index) => {
-		const from = getRandomTime();
-		const to = getRandomTime();
-		const actual_end = getRandomTime();
-		return {
-			id: index + 1,
-			date: getRandomDate(new Date(2025, 7, 1), new Date(2025, 11, 1)), // August - December 2025
-			employee: employees[Math.floor(Math.random() * employees.length)],
-			from,
-			to,
-			actual_end,
-			reason: reasons[Math.floor(Math.random() * reasons.length)],
-			deduction: deductions[Math.floor(Math.random() * deductions.length)],
-		};
-	});
 
 	return useQuery({
 		queryKey: ["permissions"],
 		queryFn: async () => {
-			// const { data } = await axios.get("/api/permissions");
-			return permissionData;
+			const { data } = await AxiosInstance.get("user-permission-requests");
+			return data;
 		},
 	});
 }

@@ -22,7 +22,32 @@ import {
 } from "./hooks/useMyOrders";
 import { useSuppliers, type SupplierType } from "./hooks/useSuppliers";
 import { useProducts, type ProductType } from "./hooks/useProductSupplier";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
+import ShowIcon from "@/iconsSvg/Show";
+import DeleteIcon from "@/iconsSvg/DeleteIcon";
+function EyeIcon() {
+	return (
+		<svg
+			width="16"
+			height="16"
+			viewBox="0 0 16 16"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<path
+				d="M8.00521 10.3334C9.29387 10.3334 10.3385 9.28875 10.3385 8.00008C10.3385 6.71142 9.29387 5.66675 8.00521 5.66675C6.71654 5.66675 5.67188 6.71142 5.67188 8.00008C5.67188 9.28875 6.71654 10.3334 8.00521 10.3334Z"
+				stroke="#16C47F"
+			/>
+			<path
+				d="M13.4616 7.28933C13.7202 7.604 13.8496 7.76067 13.8496 8C13.8496 8.23933 13.7202 8.396 13.4616 8.71067C12.5149 9.86 10.4269 12 8.00292 12C5.57892 12 3.49092 9.86 2.54425 8.71067C2.28558 8.396 2.15625 8.23933 2.15625 8C2.15625 7.76067 2.28558 7.604 2.54425 7.28933C3.49092 6.14 5.57892 4 8.00292 4C10.4269 4 12.5149 6.14 13.4616 7.28933Z"
+				stroke="#16C47F"
+			/>
+		</svg>
+	);
+}
+
 export default function page() {
+	const { t } = useTypedTranslation();
 	const { data: orderProductsData, isLoading: orderProductsLoading } =
 		useOrderProducts();
 	const { data: inventoryProductsData, isLoading: inventoryProductLoading } =
@@ -34,29 +59,25 @@ export default function page() {
 
 	const orderProductColumns: ColumnDef<OrderProductType>[] = [
 		{
-			header: "كود المنتج",
-			accessorKey: "code",
-		},
-		{
-			header: "اسم المنتج",
+			header: t("ordersInUser.productName"),
 			accessorKey: "name",
 		},
 		{
-			header: "الكمية",
+			header: t("ordersInUser.quantity"),
 			accessorKey: "quantity",
 		},
 		{
-			header: "وحدة البيع",
+			header: t("ordersInUser.unitPrice"),
 			accessorKey: "unitPrice",
 			cell: ({ getValue }) => `${getValue()} ج`,
 		},
 		{
-			header: "الإجمالي",
+			header: t("ordersInUser.total"),
 			accessorKey: "total",
 			cell: ({ getValue }) => `${getValue()} ج`,
 		},
 		{
-			header: "المورد",
+			header: t("ordersInUser.supplierName"),
 			accessorKey: "supplier",
 		},
 		{
@@ -65,45 +86,21 @@ export default function page() {
 			cell: () => (
 				<div className="flex justify-center">
 					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth="2"
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							className="lucide lucide-trash-2"
-						>
-							<path d="M3 6h18" />
-							<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-							<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-							<line x1="10" x2="10" y1="11" y2="17" />
-							<line x1="14" x2="14" y1="11" y2="17" />
-						</svg>
-						حذف
+						<DeleteIcon />
+						{t("ordersInUser.delete")}
 					</Button>
 				</div>
 			),
 		},
 	];
+
 	const inventoryProductColumns: ColumnDef<InventoryProductType>[] = [
 		{
-			header: "كود المنتج",
-			accessorKey: "code",
-		},
-		{
-			header: "فئة المنتج",
-			accessorKey: "category",
-		},
-		{
-			header: "اسم المنتج",
+			header: t("ordersInUser.productName"),
 			accessorKey: "name",
 		},
 		{
-			header: "الكمية",
+			header: t("ordersInUser.quantity"),
 			accessorKey: "quantity",
 		},
 		{
@@ -112,25 +109,8 @@ export default function page() {
 			cell: () => (
 				<div className="flex justify-center">
 					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth="2"
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							className="lucide lucide-trash-2"
-						>
-							<path d="M3 6h18" />
-							<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-							<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-							<line x1="10" x2="10" y1="11" y2="17" />
-							<line x1="14" x2="14" y1="11" y2="17" />
-						</svg>
-						حذف
+						<DeleteIcon />
+						{t("ordersInUser.delete")}
 					</Button>
 				</div>
 			),
@@ -140,19 +120,15 @@ export default function page() {
 	// Suppliers Table Columns
 	const supplierColumns: ColumnDef<SupplierType>[] = [
 		{
-			header: "التسلسل",
-			accessorKey: "code",
-		},
-		{
-			header: "اسم المورد",
+			header: t("ordersInUser.supplierName"),
 			accessorKey: "name",
 		},
 		{
-			header: "التاريخ",
+			header: t("ordersInUser.date"),
 			accessorKey: "date",
 		},
 		{
-			header: "خيارات",
+			header: t("ordersInUser.options"),
 			id: "actions",
 			cell: ({
 				row: {
@@ -161,72 +137,39 @@ export default function page() {
 			}) => (
 				<div className="flex space-x-2 justify-center">
 					<Button
-						onClick={() => {
-							setShowSupplierAndOrderDetails(code);
-						}}
+						onClick={() => setShowSupplierAndOrderDetails(code)}
 						className="flex items-center gap-2 px-4 py-2 bg-white text-green-500 hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-green-500 ml-2"
 					>
-						<svg
-							width="16"
-							height="16"
-							viewBox="0 0 16 16"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M8.00521 10.3334C9.29387 10.3334 10.3385 9.28875 10.3385 8.00008C10.3385 6.71142 9.29387 5.66675 8.00521 5.66675C6.71654 5.66675 5.67188 6.71142 5.67188 8.00008C5.67188 9.28875 6.71654 10.3334 8.00521 10.3334Z"
-								stroke="#16C47F"
-							/>
-							<path
-								d="M13.4616 7.28933C13.7202 7.604 13.8496 7.76067 13.8496 8C13.8496 8.23933 13.7202 8.396 13.4616 8.71067C12.5149 9.86 10.4269 12 8.00292 12C5.57892 12 3.49092 9.86 2.54425 8.71067C2.28558 8.396 2.15625 8.23933 2.15625 8C2.15625 7.76067 2.28558 7.604 2.54425 7.28933C3.49092 6.14 5.57892 4 8.00292 4C10.4269 4 12.5149 6.14 13.4616 7.28933Z"
-								stroke="#16C47F"
-							/>
-						</svg>
-						عرض
+						<ShowIcon />
+						{t("ordersInUser.show")}
 					</Button>
 					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#C41619]">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth="2"
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							className="lucide lucide-trash-2"
-						>
-							<path d="M3 6h18" />
-							<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-							<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-							<line x1="10" x2="10" y1="11" y2="17" />
-							<line x1="14" x2="14" y1="11" y2="17" />
-						</svg>
-						حذف
+						<DeleteIcon />
+						{t("ordersInUser.delete")}
 					</Button>
 				</div>
 			),
 		},
 	];
+
 	const { data: suppliers, isLoading: suppliersLoading } = useSuppliers();
 	const { orders, error, isLoading } = useOrders();
 	// Orders Table Columns
 	const orderColumns: ColumnDef<OrderType>[] = [
 		{
-			header: "رقم الطلب",
+			header: t("ordersInUser.orderNumber"),
 			accessorKey: "orderNumber",
 		},
 		{
-			header: "التاريخ",
+			header: t("ordersInUser.date"),
 			accessorKey: "date",
 		},
 		{
-			header: "عدد المنتجات",
+			header: t("ordersInUser.amount"),
 			accessorKey: "ordersCount",
 		},
 		{
-			header: "خيارات",
+			header: t("ordersInUser.options"),
 			id: "actions",
 			cell: ({
 				row: {
@@ -235,89 +178,56 @@ export default function page() {
 			}) => (
 				<div className="flex space-x-2 justify-center">
 					<Button
-						onClick={() => {
-							setShowOrderDetails(orderNumber);
-						}}
+						onClick={() => setShowOrderDetails(orderNumber)}
 						className="flex items-center gap-2 px-4 py-2 bg-white text-green-500 hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-green-500 ml-2"
 					>
-						<svg
-							width="16"
-							height="16"
-							viewBox="0 0 16 16"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M8.00521 10.3334C9.29387 10.3334 10.3385 9.28875 10.3385 8.00008C10.3385 6.71142 9.29387 5.66675 8.00521 5.66675C6.71654 5.66675 5.67188 6.71142 5.67188 8.00008C5.67188 9.28875 6.71654 10.3334 8.00521 10.3334Z"
-								stroke="#16C47F"
-							/>
-							<path
-								d="M13.4616 7.28933C13.7202 7.604 13.8496 7.76067 13.8496 8C13.8496 8.23933 13.7202 8.396 13.4616 8.71067C12.5149 9.86 10.4269 12 8.00292 12C5.57892 12 3.49092 9.86 2.54425 8.71067C2.28558 8.396 2.15625 8.23933 2.15625 8C2.15625 7.76067 2.28558 7.604 2.54425 7.28933C3.49092 6.14 5.57892 4 8.00292 4C10.4269 4 12.5149 6.14 13.4616 7.28933Z"
-								stroke="#16C47F"
-							/>
-						</svg>
-						عرض
+						<ShowIcon />
+						{t("ordersInUser.show")}
 					</Button>
 					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#C41619]">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth="2"
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							className="lucide lucide-trash-2"
-						>
-							<path d="M3 6h18" />
-							<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-							<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-							<line x1="10" x2="10" y1="11" y2="17" />
-							<line x1="14" x2="14" y1="11" y2="17" />
-						</svg>
-						حذف
+						<DeleteIcon />
+						{t("ordersInUser.delete")}
 					</Button>
 				</div>
 			),
 		},
 	];
+
 	const { data: productsSupplier, isLoading: productsSupplierLoading } =
 		useProducts();
 
 	const Productcolumns: ColumnDef<ProductType>[] = [
 		{
-			header: "كود المنتج",
+			header: t("ordersInUser.productTable.code"),
 			accessorKey: "code",
 			// cell({ row }) {
 			// 	return <div className="bg-[#E8F9F2]">{row.original.code}</div>;
 			// },
 		},
 		{
-			header: "اسم المنتج",
+			header: t("ordersInUser.productTable.name"),
 			accessorKey: "name",
 			// cell({ row }) {
 			// 	return <div className="bg-[#E8F9F2]">{row.original.name}</div>;
 			// },
 		},
 		{
-			header: "الكمية",
+			header: t("ordersInUser.productTable.quantity"),
 			accessorKey: "quantity",
 			// cell({ row }) {
 			// 	return <div className="bg-[#E8F9F2]">{row.original.quantity}</div>;
 			// },
 		},
 		{
-			header: "وحدة البيع",
+			header: t("ordersInUser.productTable.unit"),
 			accessorKey: "unit",
 		},
 		{
-			header: "الاجمالي",
+			header: t("ordersInUser.productTable.price"),
 			accessorKey: "price",
 		},
 		{
-			header: "الاجراء",
+			header: t("ordersInUser.productTable.action"),
 			id: "actions",
 			cell: ({
 				row: {
@@ -339,7 +249,7 @@ export default function page() {
 						}`}
 						disabled={!available}
 					>
-						طلب
+						{t("ordersInUser.productTable.order")}
 					</Button>
 				</div>
 			),
@@ -358,31 +268,31 @@ export default function page() {
 								<div className="w-full flex justify-end p-5">
 									<div className="flex justify-start items-center gap-2">
 										<Button className="bg-[#16C47F] text-white rounded-[8px] w-[148px] h-[44px]">
-											ارسال الطلبات
+											{t("ordersInUser.sendOrders")}
 										</Button>
 										<Button
 											variant={"outline"}
 											className="border-[#16C47F] text-[#16C47F] w-[148px] h-[44px] rounded-[8px]"
 										>
-											الغاء
+											{t("ordersInUser.cancel")}
 										</Button>
 									</div>
 								</div>
 							);
 						},
-						label: "قائمة الطلبات",
+						label: t("ordersInUser.ordersList"),
 					},
 					{
 						data: (inventoryProductsData as any) || [],
 						columns: inventoryProductColumns,
 						loading: inventoryProductLoading,
-						label: "اضافة طلب",
+						label: t("ordersInUser.addOrder"),
 						UserComponent: () => {
 							return <TopComponentsinventoryProduct />;
 						},
 					},
 					{
-						label: "طلباتي",
+						label: t("ordersInUser.myOrders"),
 						data: showSupplierAndOrderDetails
 							? productsSupplier
 							: showOrderDetails
@@ -398,8 +308,8 @@ export default function page() {
 							? () => {
 									return (
 										<div className="p-6 flex justify-between text-[36px] font-bold">
-											<p>{showOrderDetails}</p>
 											<p>{showSupplierAndOrderDetails}</p>
+											<p>{showOrderDetails}</p>
 										</div>
 									);
 							  }

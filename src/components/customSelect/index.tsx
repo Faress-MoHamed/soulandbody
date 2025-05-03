@@ -62,6 +62,8 @@ interface CustomSelectProps
 	loading?: boolean;
 	value?: any;
 	triggerStyle?: React.CSSProperties | undefined;
+	addNew?: boolean;
+	onAddNew?: (value: string) => void;
 }
 
 export default function CustomSelect({
@@ -76,6 +78,8 @@ export default function CustomSelect({
 	error,
 	value,
 	triggerStyle,
+	addNew = false,
+	onAddNew,
 	...props
 }: CustomSelectProps) {
 	const { t } = useTypedTranslation();
@@ -168,6 +172,21 @@ export default function CustomSelect({
 								</SelectItem>
 							);
 						})}
+						{addNew && (
+							<div className="px-2 py-1">
+								<input
+									type="text"
+									placeholder={"أضف جديد..."}
+									className="w-full rounded-md border px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+									onKeyDown={(e) => {
+										if (e.key === "Enter" && onAddNew) {
+											onAddNew(e.currentTarget.value);
+											e.currentTarget.value = "";
+										}
+									}}
+								/>
+							</div>
+						)}
 					</div>
 				</SelectContent>
 			</Select>

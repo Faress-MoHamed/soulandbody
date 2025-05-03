@@ -47,19 +47,15 @@ export function Table<TData>({
 	containerClassName,
 	withPrinter,
 	withPagination = true,
-	withFilter = true,
+	withFilter = false,
 	AddTitle,
 	onClickAdd,
 	ButtonTrigger,
 	pagination,
 	handlePageChange,
-	employees = [],
 	loading,
 	withColspan,
 	error,
-	deleteLoading,
-	onDelete,
-	onEdit,
 	withInlineAdd = false,
 	mainTableLabel,
 	expandableRow = false,
@@ -148,40 +144,30 @@ export function Table<TData>({
 					header: "الإجراء",
 					cell: ({ row }: any) => (
 						<div className="flex justify-center gap-1">
-							<Button
-								onClick={() => onDelete?.(row?.original?.id)}
-								className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
-							>
-								{deleteLoading ? (
-									<LoadingIndicator />
-								) : (
-									<>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="16"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth="2"
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											className="lucide lucide-trash-2"
-										>
-											<path d="M3 6h18" />
-											<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-											<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-											<line x1="10" x2="10" y1="11" y2="17" />
-											<line x1="14" x2="14" y1="11" y2="17" />
-										</svg>
-										حذف
-									</>
-								)}
+							<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
+								<>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										className="lucide lucide-trash-2"
+									>
+										<path d="M3 6h18" />
+										<path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+										<path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+										<line x1="10" x2="10" y1="11" y2="17" />
+										<line x1="14" x2="14" y1="11" y2="17" />
+									</svg>
+									حذف
+								</>
 							</Button>
-							<Button
-								onClick={() => onEdit?.(row?.original?.id)}
-								className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-							>
+							<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="16"
@@ -250,9 +236,6 @@ export function Table<TData>({
 		columns,
 		withInlineAdd,
 		isAddingRow,
-		onDelete,
-		onEdit,
-		deleteLoading,
 		expandableRow,
 		expandedRows,
 		expandedContent?.expandButton,
@@ -268,82 +251,96 @@ export function Table<TData>({
 	});
 
 	const RenderdMainTable = MainTable<TData>;
-	const nestedPaginationStates = nestedTable?.map(() => useState(0)) ?? [];
+	const [nestedPaginationStates, setNestedPaginationStates] = useState<
+		number[]
+	>(() => nestedTable?.map(() => 0) ?? []);
 
-	const selectableItems = useMemo(() => {
-		const items = [
-			{
-				label: mainTableLabel || title || "Main Table",
-				component: (
-					<RenderdMainTable
-						columnGroups={columnGroups}
-						expandableRow={expandableRow}
-						expandedContent={expandedContent}
-						expandedRows={expandedRows}
-						filteredData={filteredData}
-						isAddingRow={isAddingRow}
-						pageIndex={pageIndex}
-						pageSize={pageSize}
-						setPageIndex={setPageIndex}
-						selectedEmployee={selectedEmployee}
-						table={table}
-						withColspan={withColspan}
-						withInlineAddContent={withInlineAddContent}
-						withPagination={withPagination}
-						onCellClick={onCellClick}
-					/>
-				),
-			},
-		];
-		nestedTable?.forEach((table, index) => {
-			const [nestedPageIndex, setNestedPageIndex] =
-				nestedPaginationStates[index];
-			const pageSize = 10;
-			const paginatedData = table.data.slice(
-				nestedPageIndex * pageSize,
-				(nestedPageIndex + 1) * pageSize
-			);
-			console.log(paginatedData);
-			items.push({
-				label: table.title || "Details",
-				component: (
-					<NestedTable
-						key={index}
-						data={table.data}
-						paginatedData={paginatedData}
-						columns={table.columns}
-						pageIndex={nestedPageIndex}
-						setPageIndex={setNestedPageIndex}
-						title={table.title}
-					/>
-				),
-			});
+	// Create a function to update specific nested table pagination
+	const setNestedPageIndex = (
+		index: number,
+		value: number | ((prev: number) => number)
+	) => {
+		setNestedPaginationStates((prev) => {
+			const newStates = [...prev];
+			newStates[index] =
+				typeof value === "function" ? value(prev[index]) : value;
+			return newStates;
 		});
+	};
+const selectableItems = useMemo(() => {
+	const items = [
+		{
+			label: mainTableLabel || title || "Main Table",
+			component: (
+				<RenderdMainTable
+					columnGroups={columnGroups}
+					expandableRow={expandableRow}
+					expandedContent={expandedContent}
+					expandedRows={expandedRows}
+					filteredData={filteredData}
+					isAddingRow={isAddingRow}
+					pageIndex={pageIndex}
+					pageSize={pageSize}
+					setPageIndex={setPageIndex}
+					selectedEmployee={selectedEmployee}
+					table={table}
+					withColspan={withColspan}
+					withInlineAddContent={withInlineAddContent}
+					withPagination={withPagination}
+					onCellClick={onCellClick}
+				/>
+			),
+		},
+	];
 
-		return items;
-	}, [
-		title,
-		columnGroups,
-		expandableRow,
-		expandedContent,
-		expandedRows,
-		filteredData,
-		isAddingRow,
-		pageIndex,
-		pageSize,
-		selectedEmployee,
-		table,
-		withColspan,
-		withInlineAdd,
-		withPagination,
-		...(nestedTable?.flatMap((table) => [
-			table.data,
-			table.columns,
-			table.title,
-		]) ?? []),
-		...nestedPaginationStates.flat(),
-	]);
-	console.log(title || ButtonTrigger || (withFilter && employees.length !== 0));
+	nestedTable?.forEach((table, index) => {
+		const nestedPageIndex = nestedPaginationStates[index] || 0;
+		const pageSize = 10;
+		const paginatedData = table.data.slice(
+			nestedPageIndex * pageSize,
+			(nestedPageIndex + 1) * pageSize
+		);
+		console.log("paginatedData", paginatedData);
+		items.push({
+			label: table.title || "Details",
+			component: (
+				<NestedTable
+					key={index}
+					data={table.data}
+					paginatedData={paginatedData}
+					columns={table.columns}
+					pageIndex={nestedPageIndex}
+					setPageIndex={(value) => setNestedPageIndex(index, value)}
+					title={table.title}
+				/>
+			),
+		});
+	});
+
+	return items;
+}, [
+	// Stable dependencies
+	mainTableLabel,
+	title,
+	columnGroups,
+	expandableRow,
+	expandedContent,
+	expandedRows,
+	filteredData,
+	isAddingRow,
+	pageIndex,
+	pageSize,
+	selectedEmployee,
+	table,
+	withColspan,
+	withInlineAddContent,
+	withPagination,
+	onCellClick,
+	// Nested table dependencies
+	nestedTable, // Just include the whole array rather than spreading its properties
+	nestedPaginationStates, // Just include the whole array
+]);
+	console.log(title || ButtonTrigger || withFilter);
 
 	return (
 		<>
@@ -353,7 +350,7 @@ export function Table<TData>({
 					containerClassName
 				)}
 			>
-				{(title || ButtonTrigger || (withFilter && employees.length !== 0)) && (
+				{(title || ButtonTrigger || withFilter) && (
 					<CardHeader className="flex flex-row items-center justify-between lg:px-0">
 						<div className="flex flex-col w-full gap-4  mt-6">
 							<div className="flex justify-between items-center px-6">
@@ -374,7 +371,6 @@ export function Table<TData>({
 							{withFilter && (
 								<div className="flex md:flex-row flex-col  justify-between md:items-center w-full px-6">
 									<BaseFilter
-										employees={employees}
 										selectedEmployee={selectedEmployee}
 										selectedMonth={selectedMonth}
 										setPageIndex={setPageIndex}
@@ -447,7 +443,6 @@ export default function ReusableManyTable({
 							data={set.data}
 							title={set.title}
 							AddTitle={set.AddTitle}
-							employees={set.employees}
 							pagination={set.pagination}
 							handlePageChange={set.handlePageChange}
 							onClickAdd={set.onClickAdd}
@@ -456,12 +451,9 @@ export default function ReusableManyTable({
 							columnGroups={set.columnGroups}
 							withColspan={set.withColspan}
 							error={set.error}
-							deleteLoading={set.deleteLoading}
 							withPrinter={set.withPrinter}
-							onDelete={set.onDelete}
 							withInlineAdd={set.withInlineAdd}
 							withInlineAddContent={set.withInlineAddContent}
-							onEdit={set.onEdit}
 							withActionButtons={set.withActionButtons}
 							withFilter={set.withFilter}
 							UserComponent={set.UserComponent}

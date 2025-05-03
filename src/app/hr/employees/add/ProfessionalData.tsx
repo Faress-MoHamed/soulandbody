@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useRef, useState } from "react";
@@ -42,14 +43,14 @@ export default function ProfessionalDataForm({
 	ButtonSubmit,
 }: ProfessionalDataFormProps) {
 	const dispatch = useDispatch();
-const employeeQuery = useEmployee(employeeId || ""); // Provide a fallback empty string or undefined
+	const employeeQuery = useEmployee(employeeId || ""); // Provide a fallback empty string or undefined
 
-// Then adjust your useEffect to handle the case when employeeId is not provided
-useEffect(() => {
-	if (employeeId && employeeQuery?.data) {
-		dispatch(setEmployeeData(employeeQuery.data));
-	}
-}, [employeeQuery?.data, dispatch, employeeId]);
+	// Then adjust your useEffect to handle the case when employeeId is not provided
+	useEffect(() => {
+		if (employeeId && employeeQuery?.data) {
+			dispatch(setEmployeeData(employeeQuery.data));
+		}
+	}, [employeeQuery?.data, dispatch, employeeId]);
 
 	const employee = useTypedSelector((state) => state.employee.employee);
 	const t = useTranslations();
@@ -115,10 +116,10 @@ useEffect(() => {
 								<CustomInput
 									label={t("professionalData.form.fields.total_salary")}
 									name="totalsalary"
-									value={employee.totalsalary}
+									value={employee.net_salary}
 									type="number"
 									className="md:min-w-[200px] min-w-full rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
-									onChange={handleInputChange("totalsalary")}
+									onChange={handleInputChange("net_salary")}
 								/>
 								<div></div>
 
@@ -187,10 +188,10 @@ useEffect(() => {
 								<CustomInput
 									label={t("professionalData.form.fields.net_salary")}
 									name="netSalary"
-									value={employee.net_salary}
+									value={employee.net_salary_after_deduction}
 									type="string"
 									className="md:min-w-[200px] min-w-full rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
-									onChange={handleInputChange("net_salary")}
+									onChange={handleInputChange("net_salary_after_deduction")}
 								/>
 								<CustomInput
 									label={t("professionalData.form.fields.allowances")}
@@ -209,7 +210,7 @@ useEffect(() => {
 				)}
 			</Card>
 
-			{withEmployeeManagement && selectedWorkNature === "various" && (
+			{/* {withEmployeeManagement && selectedWorkNature === "various" && (
 				<div className="mt-8 p-6">
 					<EmployeeManagement
 						saveHandler={() => {
@@ -219,7 +220,7 @@ useEffect(() => {
 						}}
 					/>
 				</div>
-			)}
+			)} */}
 
 			<ul className="p-6 text-[18px] flex flex-col md:gap-1 gap-1">
 				<li className="flex flex-wrap">
@@ -231,7 +232,7 @@ useEffect(() => {
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{employee.vacation_balance +
+								{parseFloat(employee.vacation_balance || "0") +
 									" " +
 									t("employeeForm.leave.policy.total_days")}
 							</Button>
@@ -248,7 +249,7 @@ useEffect(() => {
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{employee.regular_leave_balance +
+								{parseFloat(employee.regular_leave_balance || "0") +
 									" " +
 									t("employeeForm.leave.policy.regular_days")}
 							</Button>
@@ -268,7 +269,7 @@ useEffect(() => {
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{employee.casual_leave_balance +
+								{parseFloat(employee.casual_leave_balance || "0") +
 									" " +
 									t("employeeForm.leave.policy.emergency_days")}
 							</Button>
@@ -288,7 +289,7 @@ useEffect(() => {
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{employee.sick_leave_balance +
+								{parseFloat(employee.sick_leave_balance || "0") +
 									" " +
 									t("employeeForm.leave.policy.sick_days")}
 							</Button>
@@ -308,7 +309,7 @@ useEffect(() => {
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{employee.sick_leave_balance +
+								{parseFloat(employee.sick_leave_balance || "0") +
 									" " +
 									t("employeeForm.leave.policy.continuous_absence")}
 							</Button>
@@ -328,7 +329,7 @@ useEffect(() => {
 								variant={"link"}
 								className="px-1 text-[#129D66] text-[18px] py-0 h-fit font-semibold"
 							>
-								{employee.sick_leave_balance +
+								{parseFloat(employee.sick_leave_balance || "0") +
 									" " +
 									t("employeeForm.leave.policy.separate_absence")}
 							</Button>
@@ -340,7 +341,7 @@ useEffect(() => {
 							/>
 						)}
 					/>
-					{employee.sick_leave_balance +
+					{parseFloat(employee.sick_leave_balance || "0") +
 						" " +
 						t("employeeForm.leave.policy.termination_notice")}
 				</li>

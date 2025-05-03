@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import AddButton from "@/components/AddButton";
 import CustomPopUp from "@/components/popups";
-import ReusableTable from "@/components/ReusableTable";
 import SelectableComponent from "@/components/selectableComponent";
 import { useSalaries } from "../financial-grades/useSalaries";
 import { useTransactions } from "./useTransactions";

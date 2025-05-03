@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useBreakTime, useBreakTimes } from "./useBreakTimes";
-import ReusableTable from "@/components/ReusableTable";
 import CustomCard from "@/components/customCard";
 import { Input } from "@/components/ui/input";
 import {
@@ -102,15 +101,12 @@ export default function Page() {
 	const columns = [
 		{ accessorKey: "date", header: t("breakTime.columns.date") },
 		{ accessorKey: "employee", header: t("breakTime.columns.employee") },
-		{ accessorKey: "from", header: t("breakTime.columns.from") },
-		{ accessorKey: "to", header: t("breakTime.columns.to") },
-		{ accessorKey: "actual_end", header: t("breakTime.columns.actual_end") },
+		{ accessorKey: "break_start_time", header: t("breakTime.columns.from") },
+		{ accessorKey: "break_end_time", header: t("breakTime.columns.to") },
+		// { accessorKey: "actual_end", header: t("breakTime.columns.actual_end") },
 		{ accessorKey: "deduction", header: t("breakTime.columns.deduction") },
 	];
 
-	const distinctEmployees = [
-		...new Set(BreakData?.map((el: any) => el?.employee)),
-	];
 
 	return (
 		<div>
@@ -118,10 +114,9 @@ export default function Page() {
 				dataSets={[
 					{
 						columns,
-						data: BreakData ?? [],
+						data: BreakData?.data ?? [],
 						title: t("breakTime.title"),
 						withActionButtons: false,
-						employees: distinctEmployees,
 						ButtonTrigger: () => (
 							<CustomPopUp
 								DialogTriggerComponent={() => (

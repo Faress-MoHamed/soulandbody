@@ -10,8 +10,9 @@ import { setEmployeeData } from "../add/createNewEmployee.slice";
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 	const [id, setId] = useState<string | null>(null);
 	const { data } = useEmployee(id || "");
+	console.log(data);
 	const dispatch = useDispatch();
-	dispatch(setEmployeeData(data));
+	dispatch(setEmployeeData(data?.data));
 	console.log(data);
 	useEffect(() => {
 		async function fetchParams() {

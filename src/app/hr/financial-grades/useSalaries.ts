@@ -18,10 +18,8 @@ export function useSalaries() {
 	return useQuery({
 		queryKey: ["salaries"],
 		queryFn: async () => {
-			const { data } = await AxiosInstance.get("financial-transactions");
-			return (data || [])?.filter(
-				(el: any) => el?.transaction_type === "Bonus"
-			);
+			const { data } = await AxiosInstance.get("employee-data");
+			return data;
 		},
 	});
 }

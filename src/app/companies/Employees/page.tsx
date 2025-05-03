@@ -114,7 +114,6 @@ export default function EmployeesTable() {
 						<CustomPopUp
 							DialogTriggerComponent={() => (
 								<Button
-									// onClick={() => onEdit(row?.original?.id)}
 									className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 rounded-[8px] border border-[#16C47F]"
 								>
 									<svg
@@ -150,7 +149,6 @@ export default function EmployeesTable() {
 							DialogContentComponent={() => <SalesRecord />}
 						/>
 						<Button
-							// onClick={() => onEdit(row?.original?.id)}
 							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 rounded-[8px] border border-[#16C47F]"
 						>
 							<svg
@@ -183,7 +181,6 @@ export default function EmployeesTable() {
 							{t("buttons.edit")}
 						</Button>
 						<Button
-							// onClick={() => onDelete(row?.original?.id)}
 							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 rounded-[8px] border border-[#C41619]"
 						>
 							<>

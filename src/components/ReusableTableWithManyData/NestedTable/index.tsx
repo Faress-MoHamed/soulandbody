@@ -16,7 +16,7 @@ interface NestedTableProps<TData> {
 	paginatedData: TData[];
 	columns: any[];
 	pageIndex: number;
-	setPageIndex: (value: React.SetStateAction<number>) => void;
+	setPageIndex: (value: number | ((prev: number) => number)) => void;
 	title?: string;
 }
 

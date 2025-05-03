@@ -53,8 +53,7 @@ export function DropdownMenuCheckboxes() {
 	};
 
 	return (
-		<div>
-			{/* Button that switches language between Arabic and English */}
+
 			<button
 				// className="bg-blue-500 text-white px-4 py-2 rounded"
 				onClick={handleChange}
@@ -80,7 +79,6 @@ export function DropdownMenuCheckboxes() {
 					</defs>
 				</svg>
 			</button>
-		</div>
 	);
 }
 
@@ -129,7 +127,7 @@ export default function Header({
 				/>
 				<p className="text-[18px] font-cairo">{t("header.dr")}</p>
 			</div>
-			<div className="flex gap-2 items-center">
+			<div className="flex gap-6 items-center">
 				<DropdownMenuCheckboxes />
 				<NotificationsSheet />
 			</div>

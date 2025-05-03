@@ -51,7 +51,6 @@ export default function page() {
 			cell: ({ row }: any) => (
 				<div className="flex justify-center gap-1">
 					<Button
-						// onClick={() => onDelete?.(row?.original?.id)}
 						className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] min-w-[83px] rounded-[8px] border border-[#C41619]"
 					>
 						{
@@ -62,7 +61,6 @@ export default function page() {
 						}
 					</Button>
 					<Button
-						// onClick={() => onEdit?.(row?.original?.id)}
 						className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#16C47F]"
 					>
 						<EditIcon />

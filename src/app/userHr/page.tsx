@@ -50,7 +50,7 @@ export default function Page() {
 	];
 
 	return (
-		<div className="flex flex-wrap gap-6">
+		<div className="flex justify-center flex-wrap gap-6">
 			{HomeCards.map((el) => (
 				<CustomHomeCard key={el?.title} {...el} />
 			))}

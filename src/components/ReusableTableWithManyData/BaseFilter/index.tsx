@@ -8,7 +8,6 @@ import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function BaseFilter({
 	selectedEmployee,
-	employees,
 	loading,
 	setSelectedEmployee,
 	setPageIndex,
@@ -17,7 +16,6 @@ export default function BaseFilter({
 }: {
 	setSelectedEmployee: React.Dispatch<React.SetStateAction<string>>;
 	selectedEmployee: string;
-	employees: any[];
 	loading?: boolean;
 	setPageIndex: React.Dispatch<React.SetStateAction<number>>;
 	setSelectedMonth: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -34,7 +32,7 @@ export default function BaseFilter({
 			<div className="flex flex-col lg:flex-row gap-5">
 				<CustomSelect
 					value={selectedEmployee}
-					options={employees}
+					options={[]}
 					label={t("filter.employee")}
 					loading={loading}
 					onValueChange={(e) => {

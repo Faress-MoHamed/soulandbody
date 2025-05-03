@@ -1442,5 +1442,83 @@
 		"accepted": "Accepted",
 		"rejected": "Rejected",
 		"deduction-days-with-permission": "Deduction Days with Permission"
+	},
+	"clients": {
+		"title": "Clients",
+		"amountsDue": "Amounts Due",
+		"supplierName": "Supplier Name",
+		"remainingAmount": "Remaining Amount",
+		"customerName": "Customer Name",
+		"phone": "Phone",
+		"address": "Address",
+		"options": "Options",
+		"delete": "Delete",
+		"show": "Show",
+		"addNewClient": "Add New Client",
+		"invoiceNumber": "Invoice Number",
+		"date": "Date",
+		"invoiceAmount": "Invoice Amount",
+		"save": "Save"
+	},
+	"ordersInUser": {
+		"productName": "Product Name",
+		"quantity": "Quantity",
+		"unitPrice": "Unit Price",
+		"total": "Total",
+		"supplierName": "Supplier Name",
+		"delete": "Delete",
+		"show": "Show",
+		"orderNumber": "Order Number",
+		"date": "Date",
+		"amount": "Amount",
+		"options": "Options",
+		"sendOrders": "Send Orders",
+		"cancel": "Cancel",
+		"ordersList": "Orders List",
+		"addOrder": "Add Order",
+		"myOrders": "My Orders",
+		"productTable": {
+			"code": "Product Code",
+			"name": "Product Name",
+			"quantity": "Quantity",
+			"unit": "Unit",
+			"price": "Total",
+			"action": "Action",
+			"order": "Order"
+		},
+		"SendToSupplier": {
+			"title": "Send to Supplier",
+			"supplierType": "Supplier Type",
+			"productName": "Product Name",
+			"save": "Save"
+		},
+		"TopComponentsinventoryProduct": {
+			"sendToSupplier": "Send to Supplier",
+			"productName": "Product Name",
+			"productCategory": "Product Category",
+			"quantity": "Quantity",
+			"add": "Add"
+		}
+	},
+	"suppliers": {
+		"title": "Suppliers",
+		"addSupplier": "Add Supplier",
+		"addOffer": "Add Offer",
+		"supplierName": "Supplier Name",
+		"phone": "Phone",
+		"address": "Address",
+		"supplierType": "Supplier Type",
+		"actions": "Actions",
+		"show": "Show",
+		"delete": "Delete",
+		"invoiceNumber": "Invoice Number",
+		"date": "Date",
+		"totalAmount": "Total Amount",
+		"remainingAmount": "Remaining Amount",
+		"amountDue": "Amount Due",
+		"offerDescription": "Offer Description",
+		"save": "Save",
+		"invoices": "Invoices"
 	}
+
 }

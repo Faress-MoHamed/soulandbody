@@ -19,9 +19,7 @@ export function useDeductions() {
 		queryKey: ["deductions"],
 		queryFn: async () => {
 			const { data } = await AxiosInstance.get("financial-transactions");
-			return (data || [])?.filter(
-				(el: any) => el?.transaction_type === "Deduction"
-			);
+			return data;
 		},
 		refetchOnMount: true,
 		refetchOnWindowFocus: true,

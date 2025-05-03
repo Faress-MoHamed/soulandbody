@@ -1443,5 +1443,84 @@
 		"accepted": "مقبول",
 		"rejected": "مرفوض",
 		"deduction-days-with-permission": "خصم أيام بإذن"
+	},
+	"clients": {
+		"title": "العملاء",
+		"amountsDue": "مبالغ مستحقة",
+		"supplierName": "أسم المورد",
+		"customerName": "اسم العميل",
+		"phone": "الهاتف",
+		"address": "العنوان",
+		"options": "خيارات",
+		"delete": "حذف",
+		"show": "عرض",
+		"addNewClient": "اضافة عميل",
+		"invoiceNumber": "رقم الفاتورة",
+		"date": "التاريخ",
+		"invoiceAmount": "مبلغ الفاتورة",
+		"remainingAmount": "المبلغ المتبقي",
+		"save": "حفظ"
+	},
+
+	"ordersInUser": {
+		"productName": "اسم المنتج",
+		"quantity": "الكمية",
+		"unitPrice": "سعر الوحدة",
+		"total": "الإجمالي",
+		"supplierName": "اسم المورد",
+		"delete": "حذف",
+		"show": "عرض",
+		"orderNumber": "رقم الطلب",
+		"date": "التاريخ",
+		"amount": "المبلغ",
+		"options": "الخيارات",
+		"sendOrders": "ارسال الطلبات",
+		"cancel": "الغاء",
+		"ordersList": "قائمة الطلبات",
+		"addOrder": "اضافة طلب",
+		"myOrders": "طلباتي",
+		"productTable": {
+			"code": "كود المنتج",
+			"name": "اسم المنتج",
+			"quantity": "الكمية",
+			"unit": "وحدة البيع",
+			"price": "الاجمالي",
+			"action": "الاجراء",
+			"order": "طلب"
+		},
+		"SendToSupplier": {
+			"title": "ارسال الي مورد",
+			"supplierType": "نوع المورد",
+			"productName": "أسم المنتج",
+			"save": "حفظ"
+		},
+		"TopComponentsinventoryProduct": {
+			"sendToSupplier": "إرسال إلى المورد",
+			"productName": "اسم المنتج",
+			"productCategory": "فئة المنتج",
+			"quantity": "الكمية",
+			"add": "إضافة"
+		}
+	},
+	"suppliers":{
+		"title": "موردين",
+		"addSupplier": "اضافة مورد",
+		"addOffer": "اضافة عرض",
+		"supplierName": "اسم المورد",
+		"phone": "الهاتف",
+		"address": "العنوان",
+		"supplierType": "نوع المورد",
+		"actions": "خيارات",
+		"show": "عرض",
+		"delete": "حذف",
+		"invoiceNumber": "رقم الفاتورة",
+		"date": "التاريخ",
+		"totalAmount": "مبلغ الفاتورة",
+		"remainingAmount": "المبلغ المتبقي",
+		"amountDue": "مبالغ مستحقه",
+		"offerDescription": "وصف العرض",
+		"save": "حفظ",
+		"invoices": "فواتير"
 	}
+
 }

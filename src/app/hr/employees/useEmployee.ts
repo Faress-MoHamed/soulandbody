@@ -73,7 +73,80 @@ export function useCreateEmployee() {
 	const router = useRouter();
 	return useMutation({
 		mutationFn: async (employee: Omit<any, "id">) => {
-			const { data } = await AxiosInstance.post("employee-data", employee);
+			let dataToSend: any = {};
+			if (employee?.name) {
+				dataToSend.name = employee?.name;
+			}
+			if (employee?.qualification) {
+				dataToSend.qualification = employee?.qualification;
+			}
+			if (employee?.birth_date) {
+				dataToSend.birth_date = employee?.birth_date;
+			}
+			if (employee?.job) {
+				dataToSend.job = employee?.job;
+			}
+			if (employee?.net_salary) {
+				dataToSend.net_salary = employee?.net_salary;
+			}
+			if (employee?.job_start_date) {
+				dataToSend.job_start_date = employee?.job_start_date;
+			}
+			if (employee?.job_nature) {
+				dataToSend.job_nature = employee?.job_nature;
+			}
+			if (employee?.extras) {
+				dataToSend.extras = employee?.extras;
+			}
+			if (employee?.phoneNumber) {
+				dataToSend.phoneNumber = employee?.phoneNumber;
+			}
+			if (employee?.address) {
+				dataToSend.address = employee?.address;
+			}
+			if (employee?.email) {
+				dataToSend.email = employee?.email;
+			}
+			if (employee?.password) {
+				dataToSend.password = employee?.password;
+			}
+			if (employee?.net_salary_after_deduction) {
+				dataToSend.net_salary_after_deduction =
+					employee?.net_salary_after_deduction;
+			}
+			if (employee?.facility_id) {
+				dataToSend.facility_id = employee?.facility_id;
+			}
+			if (employee?.department_id) {
+				dataToSend.department_id = employee?.department_id;
+			}
+			if (employee?.role) {
+				dataToSend.role = employee?.role;
+			}
+			if (employee?.allowance) {
+				dataToSend.allowance = employee?.allowance;
+			}
+
+			if (employee?.sick_leave_balance !== 0) {
+				dataToSend.sick_leave_balance = employee?.sick_leave_balance;
+			}
+			if (employee?.vacation_balance !== 0) {
+				dataToSend.vacation_balance = employee?.vacation_balance;
+			}
+			if (employee?.casual_leave_balance !== 0) {
+				dataToSend.casual_leave_balance = employee?.casual_leave_balance;
+			}
+			if (employee?.regular_leave_balance !== 0) {
+				dataToSend.regular_leave_balance = employee?.regular_leave_balance;
+			}
+			if (employee?.separate_balance !== 0) {
+				dataToSend.separate_balance = employee?.separate_balance;
+			}
+			if (employee?.continous_balance !== 0) {
+				dataToSend.continous_balance = employee?.continous_balance;
+			}
+
+			const { data } = await AxiosInstance.post("employee-data", dataToSend);
 			return data;
 		},
 		onSuccess: () => {
@@ -127,7 +200,7 @@ export function useDeleteEmployee() {
 	return useMutation({
 		mutationFn: async (id: string) => {
 			await AxiosInstance.delete(`employee-data/${id}`);
-			toast.error(`تم حذف الموظف بنجاح`);
+			toast.success(`تم حذف الموظف بنجاح`);
 			return id;
 		},
 		onSuccess: () => {
@@ -143,6 +216,8 @@ export function useGetAllFacilaties() {
 			const { data } = await AxiosInstance.get("facilities");
 			return data;
 		},
+		staleTime: Infinity, // Data will never be considered stale
+		// cacheTime: 1000 * 60 * 60, // Cache for 1 hour
 	});
 }
 
@@ -153,5 +228,6 @@ export function useGetAlldepartments() {
 			const { data } = await AxiosInstance.get("departments");
 			return data;
 		},
+		staleTime: Infinity, // Data will never be considered stale
 	});
 }

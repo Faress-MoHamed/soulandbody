@@ -119,14 +119,16 @@ export default function page() {
 									label={t("expense.statement.incomeList")}
 									options={["vadavv", "vadvda", "vadadvvda"]}
 								/>
-								<div className="w-full">
+								<div className="w-full flex md:flex-row flex-col gap-5">
 									<MonthPicker
 										label={t("expense.statement.dateFrom")}
 										className="lg:w-[183px] w-full"
+										wrapperClassName="lg:w-[183px]"
 									/>
 									<MonthPicker
 										label={t("expense.statement.dateTo")}
 										className="lg:w-[183px] w-full"
+										wrapperClassName="lg:w-[183px]"
 									/>
 								</div>
 								<Button

@@ -51,7 +51,9 @@ export default function Home() {
 		{
 			title: t("home.disciplinaryVacations"),
 			icon: "/icons/warnings.png",
-			DialogContentComponent: () => <WarningPopUp />,
+			DialogContentComponent: ({ closePopup }: { closePopup?:any}) => (
+				<WarningPopUp closePopup={closePopup} />
+			),
 		},
 	];
 
