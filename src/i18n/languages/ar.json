@@ -1534,6 +1534,27 @@
 			"credit": "دائن",
 			"employee": "الموظف"
 		},
+		"table": {
+			"from": "من",
+			"to": "الي",
+			"account": "الحساب",
+			"acction": "تنفيذ"
+		},
+		"popup": {
+			"tittle": "ادخل البيانات لاضافة حساب جديد",
+			"nameaccount": "اسم الحساب",
+			"descaccount": "وصف الحساب",
+			"contactaccount": "ربط الحساب ١",
+			"contactaccount2": "ربط الحساب ٢",
+			"contactaccounts": "ربط حسابات",
+			"naturalaccount": "طبيعة الحساب",
+			"balance": "رصيد افتتاحي",
+			"checkboxOptions": {
+				"trialBalance": "ميزان مراجعة",
+				"incomeStatement": "قائمة الدخل"
+			},
+			"addaccount": "اضافة حساب جديد"
+		},
 		"employee": "أحمد حسين",
 		"credit": "0",
 		"debit": "0",
@@ -1551,6 +1572,27 @@
 			"debit": "مدين",
 			"credit": "دائن",
 			"employee": "الموظف"
+		},
+		"table": {
+			"from": "من",
+			"to": "الي",
+			"account": "الحساب",
+			"acction": "تنفيذ"
+		},
+		"popup": {
+			"tittle": "ادخل البيانات لاضافة حساب جديد",
+			"nameaccount": "اسم الحساب",
+			"descaccount": "وصف الحساب",
+			"contactaccount": "ربط الحساب ١",
+			"contactaccount2": "ربط الحساب ٢",
+			"contactaccounts": "ربط حسابات",
+			"naturalaccount": "طبيعة الحساب",
+			"balance": "رصيد افتتاحي",
+			"checkboxOptions": {
+				"trialBalance": "ميزان مراجعة",
+				"incomeStatement": "قائمة الدخل"
+			},
+			"addaccount": "اضافة حساب جديد"
 		},
 		"employee": "أحمد حسين",
 		"credit": "0",

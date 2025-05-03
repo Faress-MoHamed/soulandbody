@@ -12,6 +12,7 @@ import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import CustomInput from "@/components/customInput";
 import CustomSelect from "@/components/customSelect";
 import CustomPopUp from "@/components/popups";
+
 function EyeIcon() {
 	return (
 		<svg
@@ -33,7 +34,7 @@ function EyeIcon() {
 	);
 }
 
-export default function page() {
+export default function Page() {
 	const { t } = useTypedTranslation();
 	const { data: orderProductsData, isLoading: orderProductsLoading } =
 		useOrderProducts();
@@ -47,13 +48,14 @@ export default function page() {
 			setSelectedOptions([...selectedOptions, option]);
 		}
 	};
+
 	const orderProductColumns: ColumnDef<OrderProductType>[] = [
 		{
 			header: t("movementacount.head.date"),
 			accessorKey: "date",
 		},
 		{
-		header: t("movementacount.head.account"),
+			header: t("movementacount.head.account"),
 			accessorKey: "account",
 		},
 		{
@@ -73,15 +75,10 @@ export default function page() {
 			accessorKey: "credit",
 		},
 		{
-			header: t("movementacount.head.transactionType"),
-			accessorKey: "transactionType",
-		},
-		{
 			header: t("movementacount.head.employee"),
 			accessorKey: "employee",
 		},
 	];
-
 
 	return (
 		<div>
@@ -95,17 +92,17 @@ export default function page() {
 							<div className="w-full p-6">
 								<div className="grid grid-cols-1 md:grid-cols-4 gap-6">
 									<CustomInput
-										label="من"
+										label={t("movementacount.table.from")}
 										type="date"
 										className="w-full"
 									/>
 									<CustomInput
-										label="إلى"
+										label={t("movementacount.table.to")}
 										type="date"
 										className="w-full"
 									/>
 									<CustomSelect
-										label="الحساب"
+										label={t("movementacount.table.account")}
 										options={["نقاط البيع", "كاش", "تحويل بنكي"]}
 										triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
 									/>
@@ -113,16 +110,16 @@ export default function page() {
 										<CustomPopUp
 											DialogTriggerComponent={() => (
 												<Button className="w-full h-[48px] bg-[#16C47F] hover:bg-[#13A66C] text-white rounded-lg">
-													تنفيذ
+													{t("movementacount.table.acction")}
 												</Button>
 											)}
 											DialogContentComponent={({ closePopup }) => (
 												<div className="p-6 bg-white rounded-md w-full max-w-[600px]">
-													<h2 className="text-xl font-bold mb-4">ادخل البيانات لاضافة حساب جديد</h2>
+													<h2 className="text-xl font-bold mb-4">{t("movementacount.popup.tittle")}</h2>
 													<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 														<div>
 															<CustomInput
-																label="اسم الحساب"
+																label={t("movementacount.popup.nameaccount")}
 																type="text"
 																className="w-full"
 															/>
@@ -130,7 +127,7 @@ export default function page() {
 
 														<div>
 															<CustomInput
-																label="وصف الحساب"
+																label={t("movementacount.popup.descaccount")}
 																type="text"
 																className="w-full"
 															/>
@@ -138,39 +135,39 @@ export default function page() {
 
 														<div>
 															<CustomSelect
-																label="وصف الحساب ١"
+																label={t("movementacount.popup.contactaccount")}
 																options={["نقاط البيع", "كاش", "تحويل بنكي"]}
 																triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
 															/>
 														</div>
 														<div>
 															<CustomSelect
-																label="وصف الحساب ٢"
+																label={t("movementacount.popup.contactaccount2")}
 																options={["نقاط البيع", "كاش", "تحويل بنكي"]}
 																triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
 															/>
 														</div>
 														<div className="col-span-2 text-right">
-															<p className="text-[rgba(22,196,127,1)] font-semibold text-sm mb-1 underline">ربط حسابات</p>
+															<p className="text-[rgba(22,196,127,1)] font-semibold text-sm mb-1 underline"> {t("movementacount.popup.contactaccounts")}</p>
 														</div>
 
 														<div>
 															<CustomSelect
-																label="طبيعة الحساب"
+																label={t("movementacount.popup.naturalaccount")}
 																options={["نقاط البيع", "كاش", "تحويل بنكي"]}
 																triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
 															/>
 														</div>
 														<div>
 															<CustomInput
-																label="رصيد افتتاحي"
+																label={t("movementacount.popup.balance")}
 																type="text"
 																className="w-full"
 															/>
 														</div>
 													</div>
 													<div className="grid grid-cols-2 gap-4 mt-4">
-														{["ميزان مراجعة", "قائمة الدخل"].map((option) => (
+														{["trialBalance", "incomeStatement"].map((option) => (
 															<div className="flex items-center gap-2" key={option}>
 																<input
 																	type="checkbox"
@@ -183,30 +180,25 @@ export default function page() {
 																	htmlFor={`option-${option}`}
 																	className="cursor-pointer text-sm font-semibold text-[#13A66C]"
 																>
-																	{option}
+																	{t(`movementacount.popup.checkboxOptions.${option}`)}
 																</label>
 															</div>
 														))}
 													</div>
 
-
 													<div className="flex justify-start gap-4 mt-6">
-
-														<Button className="bg-[#16C47F] hover:bg-[#13A66C]">اضافة حساب جديد</Button>
+														<Button className="bg-[#16C47F] hover:bg-[#13A66C]">{t("movementacount.popup.addaccount")}</Button>
 													</div>
 												</div>
 											)}
 										/>
-
 									</div>
 								</div>
 							</div>
-
 						),
 						label: t("ordersInUser.ordersList"),
 						withPrinter: true
 					},
-
 				]}
 				withTopPrinter={false}
 			/>

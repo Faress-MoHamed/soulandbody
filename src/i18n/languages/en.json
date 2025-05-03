@@ -1534,6 +1534,27 @@
 			"credit": "Credit",
 			"employee": "Employee"
 		},
+		"table": {
+			"from": "from",
+			"to": "to",
+			"account": "account",
+			"acction": "acction"
+		},
+		"popup": {
+			"tittle": "ادخل البيانات لاضافة حساب جديد",
+			"nameaccount": "Account Name",
+			"descaccount": "Account Description",
+			"contactaccount": "Account Link 1",
+			"contactaccount2": "Account Link 2",
+			"contactaccounts": "Link Accounts",
+			"naturalaccount": "Account Nature",
+			"balance": "Opening Balance",
+			"checkboxOptions": {
+				"trialBalance": "Trial Balance",
+				"incomeStatement": "Income Statement"
+			},
+			"addaccount": "Add New Account"
+		},
 		"employee": " ahmed hessin",
 		"credit": "0",
 		"debit": "0",
@@ -1551,6 +1572,27 @@
 			"debit": "Debit",
 			"credit": "Credit",
 			"employee": "Employee"
+		},
+		"table": {
+			"from": "from",
+			"to": "to",
+			"account": "account",
+			"acction": "acction"
+		},
+		"popup": {
+			"tittle": "ادخل البيانات لاضافة حساب جديد",
+			"nameaccount": "Account Name",
+			"descaccount": "Account Description",
+			"contactaccount": "Account Link 1",
+			"contactaccount2": "Account Link 2",
+			"contactaccounts": "Link Accounts",
+			"naturalaccount": "Account Nature",
+			"balance": "Opening Balance",
+			"checkboxOptions": {
+				"trialBalance": "Trial Balance",
+				"incomeStatement": "Income Statement"
+			},
+			"addaccount": "Add New Account"
 		},
 		"employee": " ahmed hessin",
 		"credit": "0",
