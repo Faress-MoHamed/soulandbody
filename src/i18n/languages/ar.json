@@ -1525,18 +1525,36 @@
 		"invoices": "فواتير"
 	},
 	"movementacount": {
+		"head": {
+			"date": "تاريخ",
+			"account": "حساب",
+			"referenceNumber": "رقم المرجع",
+			"transactionType": "نوع الحركة",
+			"debit": "مدين",
+			"credit": "دائن",
+			"employee": "الموظف"
+		},
 		"employee": "أحمد حسين",
-		"credit": 0.0,
-		"debit": 0.0,
+		"credit": "0",
+		"debit": "0",
 		"transactionType": "غير متوفر",
 		"referenceNumber": "غير متوفر",
 		"account": "غير متوفر",
 		"date": "17/12/2024"
 	},
 	"treeAcounts": {
+		"head": {
+			"date": "تاريخ",
+			"account": "حساب",
+			"referenceNumber": "رقم المرجع",
+			"transactionType": "نوع الحركة",
+			"debit": "مدين",
+			"credit": "دائن",
+			"employee": "الموظف"
+		},
 		"employee": "أحمد حسين",
-		"credit": 0.0,
-		"debit": 0.0,
+		"credit": "0",
+		"debit": "0",
 		"transactionType": "غير متوفر",
 		"referenceNumber": "غير متوفر",
 		"account": "غير متوفر",

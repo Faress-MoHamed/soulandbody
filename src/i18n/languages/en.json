@@ -1525,18 +1525,36 @@
 		"invoices": "Invoices"
 	},
 	"movementacount": {
+		"head": {
+			"date": "Date",
+			"account": "Account",
+			"referenceNumber": "Reference Number",
+			"transactionType": "Transaction Type",
+			"debit": "Debit",
+			"credit": "Credit",
+			"employee": "Employee"
+		},
 		"employee": " ahmed hessin",
-		"credit": 0.0,
-		"debit": 0.0,
+		"credit": "0",
+		"debit": "0",
 		"transactionType": "not avialible ",
 		"referenceNumber": " not avialible",
 		"account": " not aviallible",
 		"date": "17/12/2024"
 	},
 	"treeAcounts": {
+		"head": {
+			"date": "Date",
+			"account": "Account",
+			"referenceNumber": "Reference Number",
+			"transactionType": "Transaction Type",
+			"debit": "Debit",
+			"credit": "Credit",
+			"employee": "Employee"
+		},
 		"employee": " ahmed hessin",
-		"credit": 0.0,
-		"debit": 0.0,
+		"credit": "0",
+		"debit": "0",
 		"transactionType": "not avialible ",
 		"referenceNumber": " not avialible",
 		"account": " not aviallible",

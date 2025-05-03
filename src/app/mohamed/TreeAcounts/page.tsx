@@ -49,35 +49,35 @@ export default function page() {
 	};
 	const orderProductColumns: ColumnDef<OrderProductType>[] = [
 		{
-			header: t("treeAcounts.employee"),
+			header: t("treeAcounts.head.date"),
 			accessorKey: "date",
 		},
 		{
-			header: t("treeAcounts.credit"),
+			header: t("treeAcounts.head.account"),
 			accessorKey: "account",
 		},
 		{
-			header: t("treeAcounts.referenceNumber"),
+			header: t("treeAcounts.head.referenceNumber"),
 			accessorKey: "referenceNumber",
 		},
 		{
-			header: t("treeAcounts.referenceNumber"),
+			header: t("treeAcounts.head.transactionType"),
 			accessorKey: "transactionType",
 		},
 		{
-			header: t("treeAcounts.debit"),
+			header: t("treeAcounts.head.debit"),
 			accessorKey: "debit",
 		},
 		{
-			header: t("treeAcounts.credit"),
+			header: t("treeAcounts.head.credit"),
 			accessorKey: "credit",
 		},
 		{
-			header: t("treeAcounts.transactionType"),
+			header: t("treeAcounts.head.transactionType"),
 			accessorKey: "transactionType",
 		},
 		{
-			header: t("treeAcounts.employee"),
+			header: t("treeAcounts.head.employee"),
 			accessorKey: "employee",
 		},
 	];
@@ -107,7 +107,7 @@ export default function page() {
 									<CustomSelect
 										label="الحساب"
 										options={["نقاط البيع", "كاش", "تحويل بنكي"]}
-										triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
+										triggerClassName="!h-[48px] w-full "
 									/>
 									<div className="flex items-end">
 										<CustomPopUp
