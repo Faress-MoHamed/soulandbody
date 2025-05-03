@@ -72,10 +72,6 @@ export default function Page() {
 						UserComponent: () => (
 							<div className="w-full p-6">
 								<div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-<<<<<<<<< Temporary merge branch 1
-									<CustomInput label="من" type="date" className="w-full" />
-									<CustomInput label="إلى" type="date" className="w-full" />
-=========
 									<CustomInput
 										label={t("movementacount.table.from")}
 										type="date"
@@ -86,7 +82,6 @@ export default function Page() {
 										type="date"
 										className="w-full"
 									/>
->>>>>>>>> Temporary merge branch 2
 									<CustomSelect
 										label={t("movementacount.table.account")}
 										options={["نقاط البيع", "كاش", "تحويل بنكي"]}
@@ -95,15 +90,7 @@ export default function Page() {
 									<div className="flex items-end">
 										<CustomPopUp
 											DialogTriggerComponent={() => (
-<<<<<<<<< Temporary merge branch 1
-												<Button className=" h-[48px] w-[182px] bg-[#16C47F] hover:bg-[#13A66C] text-white rounded-lg">
-													تنفيذ
-												</Button>
-											)}
-											DialogContentComponent={({ closePopup }) => (
-												<MovementAccountTopComponent />
-=========
-												<Button className="w-full h-[48px] bg-[#16C47F] hover:bg-[#13A66C] text-white rounded-lg">
+												<Button className="w-[182px]  h-[48px] bg-[#16C47F] hover:bg-[#13A66C] text-white rounded-lg">
 													{t("movementacount.table.acction")}
 												</Button>
 											)}
@@ -174,7 +161,7 @@ export default function Page() {
 																	htmlFor={`option-${option}`}
 																	className="cursor-pointer text-sm font-semibold text-[#13A66C]"
 																>
-																	{t(`movementacount.popup.checkboxOptions.${option}`)}
+																	{t(`movementacount.popup.checkboxOptions.${option}` as any)}
 																</label>
 															</div>
 														))}
@@ -184,7 +171,6 @@ export default function Page() {
 														<Button className="bg-[#16C47F] hover:bg-[#13A66C]">{t("movementacount.popup.addaccount")}</Button>
 													</div>
 												</div>
->>>>>>>>> Temporary merge branch 2
 											)}
 										/>
 									</div>
