@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import {
 	useOrderProducts,
 	type OrderProductType,
-} from "./HooksTree/useOrderProducts";
+} from "./hooks/useOrderProducts";
 import { Button } from "@/components/ui/button";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import CustomInput from "@/components/customInput";
