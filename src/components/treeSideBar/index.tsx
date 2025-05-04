@@ -54,23 +54,22 @@ export default function TreeSideBar() {
 
 	const getContextMenuPosition = () => {
 		if (!contextMenu.targetElement) return { top: 0, left: 0, right: 0 };
-
+	  
 		const rect = contextMenu.targetElement.getBoundingClientRect();
-
+	  
 		if (t("dir") === "rtl") {
-			return {
-				top: rect.top + window.scrollY,
-				right: "auto",
-				left: window.innerWidth - rect.left + 5, // من اليمين
-			};
+		  return {
+			top: rect.top + window.scrollY,
+			left: rect.left + window.scrollX, // من جهة اليسار (لأنها RTL)
+		  };
 		} else {
-			return {
-				top: rect.top + window.scrollY,
-				right: window.innerWidth - rect.right + 5, // من اليمين
-				left: "auto",
-			};
+		  return {
+			top: rect.top + window.scrollY,
+			right: window.innerWidth - rect.right, // من جهة اليمين
+		  };
 		}
-	};
+	  };
+	  
 
 	const content = [
 		{
@@ -212,9 +211,11 @@ export default function TreeSideBar() {
 					className="fixed z-50 bg-white border rounded shadow-md w-32 text-sm"
 					style={{
 						top: `${getContextMenuPosition().top}px`,
-						left: typeof getContextMenuPosition().left === "number" ? `${getContextMenuPosition().left}px` : getContextMenuPosition().left,
-						right: typeof getContextMenuPosition().right === "number" ? `${getContextMenuPosition().right}px` : getContextMenuPosition().right,
-					}}
+						...(t("dir") === "rtl"
+						  ? { left: `${getContextMenuPosition().left}px` }
+						  : { right: `${getContextMenuPosition().right}px` }),
+					  }}
+					  
 
 				>
 					<div className="flex items-end">
