@@ -19,7 +19,7 @@ export default function Home({ children }: { children: any }) {
 				}}
 				className={cn(
 					" lg:px-[80px] px-[20px] py-10 flex flex-col gap-[26px] ",
-					open ? `lg:px-[40px] px-[10px] w-full` : `lg:px-[80px] px-[20px]`,
+				open ? `lg:px-[40px] px-[10px] w-full` : `lg:px-[80px] px-[20px]`,
 					{}
 				)}
 			>

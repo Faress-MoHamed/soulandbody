@@ -2,30 +2,20 @@
 
 import { Home } from "lucide-react";
 import headimg from "./3436312 1.png";
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarGroup,
-	SidebarGroupContent,
-	SidebarHeader,
-	SidebarMenu,
-} from "@/components/ui/sidebar";
-import { useTypedTranslation } from "@/hooks/useTypedTranslation";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import SideBarSelector from "./SideBarSelector";
-import { useState, useRef, useEffect } from "react";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import CustomPopUp from "../popups";
-import { Button } from "../ui/button";
-import CustomInput from "../customInput";
-import CustomSelect from "../customSelect";
 import MovementAccountTopComponent from "@/app/user/movementacount/components/MovementAccount";
-
 export default function TreeSideBar() {
 	const { t } = useTypedTranslation();
-	const [contextMenu, setContextMenu] = useState({
+	const [contextMenu, setContextMenu] = useState<{
+		visible: boolean;
+		targetElement: HTMLElement | null;
+	}>({
 		visible: false,
-		x: 0,
-		y: 0,
+		targetElement: null,
 	});
 
 	// مرجع للقائمة المنبثقة
@@ -36,15 +26,14 @@ export default function TreeSideBar() {
 		e.preventDefault();
 		setContextMenu({
 			visible: true,
-			x: e.clientX,
-			y: e.clientY,
+			targetElement: e.currentTarget as HTMLElement,
 		});
 	};
 
 	// التعامل مع الكليك خارج
 	const handleClickOutside = (e: MouseEvent) => {
 		if (contextMenuRef.current && !contextMenuRef.current.contains(e.target as Node)) {
-			setContextMenu({ ...contextMenu, visible: false });
+			setContextMenu({ visible: false, targetElement: null });
 		}
 	};
 
@@ -54,8 +43,18 @@ export default function TreeSideBar() {
 		return () => {
 			document.removeEventListener("click", handleClickOutside);
 		};
-	}, [contextMenu]);
+	}, []);
 
+	// حساب موضع القائمة المنبثقة
+	const getContextMenuPosition = () => {
+		if (!contextMenu.targetElement) return { top: 0, left: 0 };
+
+		const rect = contextMenu.targetElement.getBoundingClientRect();
+		return {
+			top: rect.top + window.scrollY,
+			left: rect.right + window.scrollX + 5, // 5px فراغ بين العنصر والقائمة
+		};
+	};
 	const content = [
 		{
 			text: "قيود يومية",
@@ -128,39 +127,37 @@ export default function TreeSideBar() {
 	];
 
 	return (
-		<div className="relative">
-			<Sidebar
-				side={t("dir") === "rtl" ? "left" : "right"}
-				className="bg-white shadow-lg border-r border-gray-100 min-w-[250px]"
-			>
-				<SidebarContent className="p-4" onContextMenu={handleContextMenu}>
-					<SidebarGroup>
-						<SidebarHeader className="flex justify-between items-center mb-4 border-b pb-3">
-							<div className="flex items-center gap-3">
-								<div className="text-xl font-bold text-gray-800">شجرة الحسابات</div>
-								<Image
-									src={headimg}
-									alt="headImg"
-									width={45}
-									height={45}
-									className="rounded-full border border-gray-200 shadow-sm"
-								/>
-							</div>
-						</SidebarHeader>
+		<div className="bg-white shadow-lg border-r border-gray-100 w-full h-full">
+			<div className="p-4 h-full" onContextMenu={handleContextMenu}>
+				<div className="mb-4 border-b pb-3">
+					<div className="flex justify-between items-center">
+						<div className="flex items-center gap-3">
+							<div className="text-xl font-bold text-gray-800">شجرة الحسابات</div>
+							<Image
+								src={headimg}
+								alt="headImg"
+								width={45}
+								height={45}
+								className="rounded-full border border-gray-200 shadow-sm"
+							/>
+						</div>
+					</div>
+				</div>
 
-						<SidebarGroupContent>
-							<SidebarMenu className="space-y-2">
-								<SideBarSelector content={content} showSideBar={true} />
-							</SidebarMenu>
-						</SidebarGroupContent>
-					</SidebarGroup>
-				</SidebarContent>
-			</Sidebar>
+				<div className="space-y-2">
+					<SideBarSelector content={content} showSideBar={true} />
+				</div>
+			</div>
 
+			{/* محتوى القائمة المنبثقة */}
 			{contextMenu.visible && (
 				<ul
 					ref={contextMenuRef}
-					className="absolute left-60 top-[-40] z-50 bg-white border rounded shadow-md w-32 text-sm"
+					className="fixed z-50 bg-white border rounded shadow-md w-32 text-sm"
+					style={{
+						top: `${getContextMenuPosition().top}px`,
+						left: `${getContextMenuPosition().left}px`,
+					}}
 				>
 					<div className="flex items-end">
 						<CustomPopUp
@@ -178,7 +175,6 @@ export default function TreeSideBar() {
 							)}
 						/>
 					</div>
-
 
 					<li className="p-2 hover:bg-gray-100 cursor-pointer text-red-500">حذف</li>
 				</ul>
