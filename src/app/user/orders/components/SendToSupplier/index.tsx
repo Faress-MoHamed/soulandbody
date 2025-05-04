@@ -21,13 +21,13 @@ export default function SendToSupplier() {
 					{t("ordersInUser.SendToSupplier.title")}
 				</CardTitle>
 			</CardHeader>
-			<CardContent className="flex justify-between gap-5">
+			<CardContent className="grid md:grid-cols-2 grid-cols-1 justify-between gap-5">
 				<CustomSelect
 					label={t("ordersInUser.SendToSupplier.supplierType")}
 					options={[]}
 				/>
 				<MultiSelect
-					label={t("ordersInUser.SendToSupplier.productName")}
+					label={"اسم المورد"}
 					options={[
 						{ label: "ncaklca", value: "nladclackn" },
 						{ label: "ncaklca22", value: "nladclackn22" },
@@ -36,6 +36,7 @@ export default function SendToSupplier() {
 						{ label: "ncaklca55", value: "ncaklca55" },
 						{ label: "ncaklca66", value: "ncaklca44" },
 					]}
+					className="md:max-w-auto"
 				/>
 			</CardContent>
 			<CardFooter className="flex gap-3 justify-end">

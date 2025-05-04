@@ -25,7 +25,7 @@ export default function TopComponentsinventoryProduct() {
 					}}
 				/>
 			</div>
-			<div className="flex gap-5 items-end">
+			<div className="md:grid grid-cols-4 grid-cols-1 gap-5 items-end">
 				<CustomSelect
 					label={t("ordersInUser.TopComponentsinventoryProduct.productName")}
 				/>

@@ -10,7 +10,7 @@ export const employeeInitialValues = {
 	job_start_date: "",
 	job_nature: "",
 	extras: "",
-	phoneNumber: "",
+	phone: "",
 	address: "",
 	email: "",
 	password: "",

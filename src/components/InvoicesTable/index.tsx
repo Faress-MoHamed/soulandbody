@@ -35,6 +35,9 @@ export default function InvoicesTable() {
 		{
 			accessorKey: "saleUnit",
 			header: t("sales.salesInvoices.columns.saleUnit"),
+			cell:(props)=> {
+				return <>كرتونه</>
+			},
 		},
 		{
 			accessorKey: "total",

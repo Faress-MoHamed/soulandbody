@@ -80,7 +80,7 @@ export default function EmployeeInformationFormContent({
 									label: t("employeeForm.fields.employee"),
 								},
 								{
-									name: "phoneNumber",
+									name: "phone",
 									label: t("employeeForm.fields.phoneNumber"),
 								},
 								{
@@ -116,7 +116,7 @@ export default function EmployeeInformationFormContent({
 									onChange={(e) => {
 										dispatch(
 											setEmployeeField({
-												field: name as (keyof typeof employee & string),
+												field: name as keyof typeof employee & string,
 												value: e.target.value,
 											})
 										);

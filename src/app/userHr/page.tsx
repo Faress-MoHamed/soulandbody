@@ -23,7 +23,7 @@ export default function Page() {
 			Component: <Attendance />,
 		},
 		{
-			title: t("workingHours"),
+			title: "ساعات دوام الموظف",
 			Icon: "/userHr/Workinghours.png",
 			LinkUrl: "/userHr/work-hours",
 		},
@@ -43,9 +43,9 @@ export default function Page() {
 			LinkUrl: "/userHr/execuse",
 		},
 		{
-			title: t("breakTime"),
-			Icon: "/userHr/breakTime.png",
-			LinkUrl: "/userHr/breakTime",
+			title: "سجل حضور الموظف",
+			Icon: "/icons/Time.png",
+			LinkUrl: "/userHr/userAttendance",
 		},
 	];
 

@@ -202,7 +202,6 @@ export function useUpdateEmployee() {
 			appendIfExists("job_start_date", employee?.job_start_date);
 			appendIfExists("job_nature", employee?.job_nature);
 			appendIfExists("extras", employee?.extras);
-			appendIfExists("phoneNumber", employee?.phoneNumber);
 			appendIfExists("address", employee?.address);
 			appendIfExists("email", employee?.email);
 			appendIfExists("password", employee?.password);
@@ -231,7 +230,9 @@ export function useUpdateEmployee() {
 				appendIfExists("separate_balance", employee?.separate_balance);
 			if (employee?.continous_balance !== 0)
 				appendIfExists("continous_balance", employee?.continous_balance);
-
+			if (employee?.phone) {
+				appendIfExists("phone", employee?.phone);
+			}
 			// Handle attachments - both single file and array cases
 			if (employee?.attachments) {
 				if (Array.isArray(employee.attachments)) {

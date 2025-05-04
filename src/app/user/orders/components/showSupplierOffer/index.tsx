@@ -12,7 +12,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-export default function ShowOffers() {
+export default function ShowSupplierOffers() {
 	const { data: ProductDetailsData, isLoading: ProductDetailsLoading } =
 		useProductDetails();
 	const productDetailsColumns: ColumnDef<ProductDetailType>[] = [
@@ -25,6 +25,7 @@ export default function ShowOffers() {
 		{ header: "خصم", accessorKey: "discount" },
 		{ header: "الوصف", accessorKey: "description" },
 		{ header: "الإجمالي", accessorKey: "total" },
+		{ header: "المورد", accessorKey: "supplier" },
 	];
 	return (
 		<Card className="flex flex-col px-6 py-9 pt-0 gap-6  w-[100%] h-fit">

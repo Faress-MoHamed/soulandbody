@@ -9,6 +9,7 @@ import {
 import CustomInput from "@/components/customInput";
 import { Button } from "@heroui/react";
 import { useTranslations } from "next-intl";
+import CustomSelect from "@/components/customSelect";
 
 export default function RequestVacation() {
 	const t = useTranslations("userHr.requestVacation");
@@ -22,9 +23,9 @@ export default function RequestVacation() {
 			</CardHeader>
 			<CardContent>
 				<div className="grid md:grid-cols-3 grid-cols-1 gap-6 place-items-end">
-					<CustomInput type="time" label={t("start")} />
-					<CustomInput type="time" label={t("end")} />
-					<CustomInput label={t("type")} />
+					<CustomInput type="date" label={t("start")} />
+					<CustomInput type="date" label={t("end")} />
+					<CustomSelect label={t("type")} />
 				</div>
 				<div className="flex md:mt-0 mt-3">
 					<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[148px] h-[48px] md:mt-8">

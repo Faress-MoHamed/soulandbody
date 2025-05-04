@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import CustomSelect from "../customSelect";
+import { cn } from "@/lib/utils";
 
 interface Option {
 	value: string;
@@ -24,6 +25,7 @@ interface MultiSelectProps {
 	options: Option[];
 	onChange?: (selectedValues: string[]) => void;
 	direction?: "ltr" | "rtl";
+	className?: string;
 }
 
 export function MultiSelect({
@@ -32,6 +34,7 @@ export function MultiSelect({
 	onChange,
 	direction = "rtl",
 	label,
+	className,
 }: MultiSelectProps) {
 	const [selectedValues, setSelectedValues] = React.useState<string[]>([]);
 
@@ -56,9 +59,12 @@ export function MultiSelect({
 
 	return (
 		<div
-			className={`space-y-4  md:max-w-fit  md:w-[302px] max-h-fit w-full  min-w-auto ${
-				direction === "rtl" ? "text-right" : "text-left"
-			}`}
+			className={cn(
+				`space-y-4  md:max-w-fit  md:w-[302px] max-h-fit w-full  min-w-auto ${
+					direction === "rtl" ? "text-right" : "text-left"
+				}`,
+				className
+			)}
 			dir={direction}
 		>
 			<CustomSelect

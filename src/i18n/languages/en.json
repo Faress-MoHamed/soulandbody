@@ -868,12 +868,7 @@
 			"edit": "Edit",
 			"delete": "Delete"
 		},
-		"employees": [
-			"Faris",
-			"Mohammed",
-			"Ahmed",
-			"Ali"
-		]
+		"employees": ["Faris", "Mohammed", "Ahmed", "Ali"]
 	},
 	"customers": {
 		"title": "Customers",
@@ -1601,5 +1596,14 @@
 		"referenceNumber": " not avialible",
 		"account": " not aviallible",
 		"date": "17/12/2024"
+	},
+	"userAttendance": {
+		"date": "Date",
+		"arrivalTime": "Arrival Time",
+		"leaveTime": "Leave Time",
+		"execuseTotalTime": "Execuse Total Time",
+		"breakTotalTime": "Break Total Time",
+		"execuseNoteDeduction": "Execuse Note & Deduction"
 	}
+
 }

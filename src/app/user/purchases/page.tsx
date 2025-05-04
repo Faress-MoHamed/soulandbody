@@ -15,8 +15,8 @@ import {
 	usePurchasesInvoices,
 	type PurchasesInvoicesType,
 } from "./hooks/usePurchasesInvoices";
-import { useSuppliers, type SupplierType } from "./hooks/useSupplier";
-import AddSupplier from "./components/AddSupplier";
+// import { useSuppliers, type SupplierType } from "./hooks/useSupplier";
+// import AddSupplier from "./components/AddSupplier";
 import { useAmountDuesData, type AmountDueType } from "./hooks/useAmountDue";
 import { useDownPayments, type DownPaymentType } from "./hooks/useDownPayment";
 // import TaxOnProduct from "../companies/SalesInvoices/components/TaxOnProduct";
@@ -114,39 +114,39 @@ export default function page() {
 		},
 	];
 
-	const { data: SuppliersData, isLoading: SuppliersLoading } = useSuppliers();
-	const supplierColumns: ColumnDef<SupplierType>[] = [
-		{
-			header: t("purchases.suppliers.name"),
-			accessorKey: "name",
-		},
-		{
-			header: t("purchases.suppliers.phone"),
-			accessorKey: "phone",
-		},
-		{
-			header: t("purchases.suppliers.address"),
-			accessorKey: "address",
-		},
-		{
-			header: t("purchases.productTypes.actions"),
-			id: "actions",
-			cell: ({ row }) => (
-				<div className="flex justify-center gap-1">
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] min-w-[83px] rounded-[8px] border border-[#C41619]">
-						<>
-							<DeleteIcon />
-							{t("sales.common.delete")}
-						</>
-					</Button>
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#16C47F]">
-						<EditIcon />
-						{t("sales.common.edit")}
-					</Button>
-				</div>
-			),
-		},
-	];
+	// const { data: SuppliersData, isLoading: SuppliersLoading } = useSuppliers();
+	// const supplierColumns: ColumnDef<SupplierType>[] = [
+	// 	{
+	// 		header: t("purchases.suppliers.name"),
+	// 		accessorKey: "name",
+	// 	},
+	// 	{
+	// 		header: t("purchases.suppliers.phone"),
+	// 		accessorKey: "phone",
+	// 	},
+	// 	{
+	// 		header: t("purchases.suppliers.address"),
+	// 		accessorKey: "address",
+	// 	},
+	// 	{
+	// 		header: t("purchases.productTypes.actions"),
+	// 		id: "actions",
+	// 		cell: ({ row }) => (
+	// 			<div className="flex justify-center gap-1">
+	// 				<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] min-w-[83px] rounded-[8px] border border-[#C41619]">
+	// 					<>
+	// 						<DeleteIcon />
+	// 						{t("sales.common.delete")}
+	// 					</>
+	// 				</Button>
+	// 				<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#16C47F]">
+	// 					<EditIcon />
+	// 					{t("sales.common.edit")}
+	// 				</Button>
+	// 			</div>
+	// 		),
+	// 	},
+	// ];
 
 	const { data: AmountDuesData, isLoading: AmountDuesLoading } =
 		useAmountDuesData();
@@ -345,45 +345,45 @@ export default function page() {
 						},
 					],
 				},
-				{
-					data: (SuppliersData as any) || [],
-					columns: supplierColumns as any,
-					loading: SuppliersLoading,
-					title: t("purchases.suppliers.title"),
-					ButtonTrigger: () => (
-						<CustomPopUp
-							DialogTriggerComponent={() => {
-								return (
-									<AddButton
-										onClickAdd={() => {}}
-										AddTitle={t("purchases.suppliers.newSupplier")}
-									/>
-								);
-							}}
-							DialogContentComponent={() => {
-								return <AddSupplier />;
-							}}
-						/>
-					),
-					withFilter: false,
-					UserComponent: () => (
-						<div className="p-6">
-							<SearchBar />
-						</div>
-					),
-					nestedTable: [
-						{
-							data: (AmountDuesData as any) || [],
-							columns: AmountDuesColumns as any,
-							title: t("purchases.amountDues.title"),
-						},
-						{
-							data: (DownPaymentData as any) || [],
-							columns: DownPaymentsColumns as any,
-							title: t("purchases.downPayments.title"),
-						},
-					],
-				},
+				// {
+				// 	data: (SuppliersData as any) || [],
+				// 	columns: supplierColumns as any,
+				// 	loading: SuppliersLoading,
+				// 	title: t("purchases.suppliers.title"),
+				// 	ButtonTrigger: () => (
+				// 		<CustomPopUp
+				// 			DialogTriggerComponent={() => {
+				// 				return (
+				// 					<AddButton
+				// 						onClickAdd={() => {}}
+				// 						AddTitle={t("purchases.suppliers.newSupplier")}
+				// 					/>
+				// 				);
+				// 			}}
+				// 			DialogContentComponent={() => {
+				// 				return <AddSupplier />;
+				// 			}}
+				// 		/>
+				// 	),
+				// 	withFilter: false,
+				// 	UserComponent: () => (
+				// 		<div className="p-6">
+				// 			<SearchBar />
+				// 		</div>
+				// 	),
+				// 	nestedTable: [
+				// 		{
+				// 			data: (AmountDuesData as any) || [],
+				// 			columns: AmountDuesColumns as any,
+				// 			title: t("purchases.amountDues.title"),
+				// 		},
+				// 		{
+				// 			data: (DownPaymentData as any) || [],
+				// 			columns: DownPaymentsColumns as any,
+				// 			title: t("purchases.downPayments.title"),
+				// 		},
+				// 	],
+				// },
 				{
 					data: (ReturnsData as any) || [],
 					columns: Returnscolumns as any,

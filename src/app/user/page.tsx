@@ -67,21 +67,21 @@ export default function Home() {
 			LinkUrl: "/user/expenses",
 		},
 		{
-			title: "المواردين",
-			subTitle: "عرض وتحليل البيانات المالية من خلال تقارير مفصلة",
-			Icon: "/user/reports.png",
+			title: "الموردين",
+			subTitle: "إدارة ومراجعة بيانات الموردين والتزاماتهم المالية",
+			Icon: "/user/supplier.png",
 			LinkUrl: "/user/suppliers",
 		},
 		{
 			title: "العملاء",
-			subTitle: "عرض وتحليل البيانات المالية من خلال تقارير مفصلة",
-			Icon: "/user/reports.png",
+			subTitle: "تحليل ومتابعة بيانات العملاء وحساباتهم المالية",
+			Icon: "/user/client.png",
 			LinkUrl: "/user/clients",
 		},
 		{
 			title: "طلبات الشراء",
-			subTitle: "عرض وتحليل البيانات المالية من خلال تقارير مفصلة",
-			Icon: "/user/reports.png",
+			subTitle: "عرض وتتبع جميع طلبات الشراء وتفاصيلها المالية",
+			Icon: "/user/checklist.png",
 			LinkUrl: "/user/orders",
 		},
 	];

@@ -13,5 +13,5 @@ import {
 import EmployeeManagement from "./";
 
 export default function EmployeeManagementPage() {
-	return <EmployeeManagement />;
+	return <EmployeeManagement mode="view"/>;
 }

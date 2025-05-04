@@ -25,6 +25,8 @@ import { useProducts, type ProductType } from "./hooks/useProductSupplier";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import ShowIcon from "@/iconsSvg/Show";
 import DeleteIcon from "@/iconsSvg/DeleteIcon";
+import CustomPopUp from "@/components/popups";
+import ShowSupplierOffers from "./components/showSupplierOffer";
 function EyeIcon() {
 	return (
 		<svg
@@ -192,6 +194,52 @@ export default function page() {
 			),
 		},
 	];
+	const { orders: MyOrders } = useOrders();
+	// Orders Table Columns
+	const MyOrdersColumns: ColumnDef<OrderType>[] = [
+		{
+			header: t("ordersInUser.orderNumber"),
+			accessorKey: "orderNumber",
+		},
+		{
+			header: t("ordersInUser.date"),
+			accessorKey: "date",
+		},
+		{
+			header: t("ordersInUser.amount"),
+			accessorKey: "ordersCount",
+		},
+		{
+			header: t("ordersInUser.options"),
+			id: "actions",
+			cell: ({
+				row: {
+					original: { orderNumber },
+				},
+			}) => (
+				<div className="flex space-x-2 justify-center">
+					<CustomPopUp
+						DialogTriggerComponent={() => {
+							return (
+								<Button className="flex items-center gap-2 px-4 py-2 bg-white text-green-500 hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-green-500 ml-2">
+									<ShowIcon />
+									{t("ordersInUser.show")}
+								</Button>
+							);
+						}}
+						DialogContentComponent={() => {
+							return <ShowSupplierOffers />;
+						}}
+					/>
+
+					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#C41619]">
+						<DeleteIcon />
+						{t("ordersInUser.delete")}
+					</Button>
+				</div>
+			),
+		},
+	];
 
 	const { data: productsSupplier, isLoading: productsSupplierLoading } =
 		useProducts();
@@ -260,8 +308,8 @@ export default function page() {
 			<ReusableManyTable
 				dataSets={[
 					{
-						columns: orderProductColumns,
-						data: orderProductsData || [],
+						columns: MyOrdersColumns,
+						data: MyOrders || [],
 						loading: orderProductsLoading,
 						FooterComponent: () => {
 							return (

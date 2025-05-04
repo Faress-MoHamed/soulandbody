@@ -868,12 +868,7 @@
 			"edit": "تعديل",
 			"delete": "حذف"
 		},
-		"employees": [
-			"فارس",
-			"محمد",
-			"أحمد",
-			"علي"
-		]
+		"employees": ["فارس", "محمد", "أحمد", "علي"]
 	},
 	"customers": {
 		"title": "العملاء",
@@ -1280,7 +1275,7 @@
 			"fields": {
 				"email": "ايميل",
 				"password": "كلمة المرور",
-				"total_salary": "إجمالي المرتب",
+				"total_salary": "المرتب",
 				"facility": "المنشأة",
 				"department": "القسم",
 				"user_type": "نوع المستخدم",
@@ -1494,7 +1489,7 @@
 			"title": "ارسال الي مورد",
 			"supplierType": "نوع المورد",
 			"productName": "أسم المنتج",
-			"save": "حفظ"
+			"save": "ارسال"
 		},
 		"TopComponentsinventoryProduct": {
 			"sendToSupplier": "إرسال إلى المورد",
@@ -1601,5 +1596,13 @@
 		"referenceNumber": "غير متوفر",
 		"account": "غير متوفر",
 		"date": "17/12/2024"
+	},
+	"userAttendance": {
+		"date": "التاريخ",
+		"arrivalTime": "وقت الوصول",
+		"leaveTime": "وقت الانصراف",
+		"execuseTotalTime": "وقت الاستئذان (الوقت الكلي)",
+		"breakTotalTime": "الراحة (الوقت الكلي)",
+		"execuseNoteDeduction": "ملاحظات الاستئذان الخصم"
 	}
 }

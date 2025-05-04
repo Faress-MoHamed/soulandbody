@@ -34,8 +34,8 @@ export default function Page() {
 		{ accessorKey: "name", header: t("employees.employee") },
 		{ accessorKey: "job_nature", header: t("employees.workNature") },
 		{ accessorKey: "net_salary", header: t("employees.netSalary") },
-		{ accessorKey: "phone_number", header: t("employees.phoneNumber") },
-		{ accessorKey: "qualification", header: t("employees.address") },
+		{ accessorKey: "phone", header: t("employees.phoneNumber") },
+		{ accessorKey: "address", header: t("employees.address") },
 		{
 			accessorKey: "action",
 			header: "الإجراء",

@@ -200,14 +200,7 @@ export default function ProfessionalDataForm({
 										handleSelectChange("job_nature")(value);
 									}}
 								/>
-								<CustomInput
-									label={t("professionalData.form.fields.net_salary")}
-									name="netSalary"
-									value={employee.net_salary_after_deduction}
-									type="string"
-									className="md:min-w-[200px] min-w-full rounded-[8px] py-3 pr-3 pl-4 bg-white border-[#D9D9D9] text-start"
-									onChange={handleInputChange("net_salary_after_deduction")}
-								/>
+								{/* <div /> */}
 								<CustomInput
 									label={t("professionalData.form.fields.allowances")}
 									name="allowance"
