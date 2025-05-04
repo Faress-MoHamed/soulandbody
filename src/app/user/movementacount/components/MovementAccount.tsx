@@ -24,20 +24,7 @@ export default function MovementAccountTopComponent() {
 						<CustomInput label="وصف الحساب" type="text" className="w-full" />
 					</div>
 
-					<div>
-						<CustomSelect
-							label="وصف الحساب ١"
-							options={["نقاط البيع", "كاش", "تحويل بنكي"]}
-							triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
-						/>
-					</div>
-					<div>
-						<CustomSelect
-							label="وصف الحساب ٢"
-							options={["نقاط البيع", "كاش", "تحويل بنكي"]}
-							triggerClassName="!h-[48px] w-full bg-white border border-gray-300 rounded-lg shadow-sm"
-						/>
-					</div>
+					
 					{Array.from({ length: accountDescriptions - 2 }, (_, i) => (
 						<div key={i}>
 							<CustomSelect
@@ -47,14 +34,7 @@ export default function MovementAccountTopComponent() {
 							/>
 						</div>
 					))}
-					<div className="col-span-2 text-start">
-						<p
-							className="text-[rgba(22,196,127,1)] font-semibold text-sm mb-1 underline cursor-pointer"
-							onClick={handleAddAccount}
-						>
-							ربط حسابات
-						</p>
-					</div>
+					
 
 					<div>
 						<CustomSelect
