@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { usePermissions } from "./usePermissions";
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -9,42 +9,77 @@ import AddButton from "@/components/AddButton";
 import CustomSelect from "@/components/customSelect";
 import CustomInput from "@/components/customInput";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
+import { useDispatch } from "react-redux";
+import {
+	setFormData,
+	setFormError,
+	clearFormErrors,
+	addPermission,
+	resetForm,
+	setPermissions,
+} from "@/app/hr/permission/permissionsSlice";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
 
 function PermissionForm() {
 	const { t } = useTypedTranslation();
-
-	const [formData, setFormData] = useState<Record<any, any>>({
-		employee: "",
-		from: "",
-		to: "",
-		actualEnd: "",
-		reason: "",
-	});
-	const [errors, setErrors] = useState<Record<any, any>>({});
+	const dispatch = useDispatch();
+	const { formData, formErrors } = useTypedSelector(
+		(state) => state.permissions
+	);
 
 	const validateForm = () => {
-		let newErrors: any = {};
-		if (!formData.employee)
-			newErrors.employee = t("permissions.errors.employee");
-		if (!formData.from) newErrors.from = t("permissions.errors.from");
-		if (!formData.to) newErrors.to = t("permissions.errors.to");
-		if (!formData.actualEnd)
-			newErrors.actualEnd = t("permissions.errors.actualEnd");
-		if (!formData.reason) newErrors.reason = t("permissions.errors.reason");
+		dispatch(clearFormErrors());
+		let isValid = true;
 
-		setErrors(newErrors);
-		return Object.keys(newErrors).length === 0;
+		if (!formData.employee) {
+			dispatch(
+				setFormError({
+					field: "employee",
+					error: t("permissions.errors.employee"),
+				})
+			);
+			isValid = false;
+		}
+		if (!formData.from) {
+			dispatch(
+				setFormError({ field: "from", error: t("permissions.errors.from") })
+			);
+			isValid = false;
+		}
+		if (!formData.to) {
+			dispatch(
+				setFormError({ field: "to", error: t("permissions.errors.to") })
+			);
+			isValid = false;
+		}
+		if (!formData.actualEnd) {
+			dispatch(
+				setFormError({
+					field: "actualEnd",
+					error: t("permissions.errors.actualEnd"),
+				})
+			);
+			isValid = false;
+		}
+		if (!formData.reason) {
+			dispatch(
+				setFormError({ field: "reason", error: t("permissions.errors.reason") })
+			);
+			isValid = false;
+		}
+
+		return isValid;
 	};
 
-	const handleChange = (field: string, value: string) => {
-		setFormData((prev) => ({ ...prev, [field]: value }));
+	const handleChange = (field: keyof typeof formData, value: string) => {
+		dispatch(setFormData({ [field]: value }));
 	};
 
 	const handleSubmit = (e: { preventDefault: () => void }) => {
 		e.preventDefault();
 		if (validateForm()) {
-			console.log("Permission Form Submitted", formData);
-			// Handle submission logic here
+			dispatch(addPermission(formData));
+			dispatch(resetForm());
 		}
 	};
 
@@ -52,8 +87,8 @@ function PermissionForm() {
 		<Card className="p-6">
 			<CardHeader>{t("permissions.title")}</CardHeader>
 			<CardContent>
-				<form onSubmit={handleSubmit} className="flex flex-col gap-4 lg:pl-6">
-					<div className="grid lg:grid-cols-3 grid-cols-1 items-center gap-4">
+				<div className="flex flex-col gap-4 lg:pl-6">
+					<div className="grid lg:grid-cols-3 grid-cols-1 items-end gap-4">
 						<CustomSelect
 							label={t("permissions.form.employee")}
 							value={formData.employee}
@@ -66,9 +101,11 @@ function PermissionForm() {
 								key={field}
 								label={t(`permissions.form.${field}` as any)}
 								type="time"
-								value={formData[field]}
-								onChange={(e) => handleChange(field, e.target.value)}
-								error={errors[field]}
+								value={formData[field as keyof typeof formData]}
+								onChange={(e) =>
+									handleChange(field as keyof typeof formData, e.target.value)
+								}
+								error={formErrors[field]}
 							/>
 						))}
 						<CustomInput
@@ -76,18 +113,19 @@ function PermissionForm() {
 							type="text"
 							value={formData.reason}
 							onChange={(e) => handleChange("reason", e.target.value)}
-							error={errors.reason}
+							error={formErrors.reason}
 						/>
-						<div className="pt-7 flex">
-							<Button
-								type="submit"
-								className="bg-[#16C47F] text-white px-3 w-[148px] h-[48px]"
-							>
-								{t("permissions.form.submit")}
-							</Button>
-						</div>
+						{/* <div className="pt-7 flex"> */}
+						<Button
+							// type="submit"
+							onClick={handleSubmit}
+							className="bg-[#16C47F] text-white px-3 w-[148px] h-[48px]"
+						>
+							{t("permissions.form.submit")}
+						</Button>
+						{/* </div> */}
 					</div>
-				</form>
+				</div>
 			</CardContent>
 		</Card>
 	);
@@ -95,7 +133,14 @@ function PermissionForm() {
 
 export default function Page() {
 	const { t } = useTypedTranslation();
-	const { data: permessions } = usePermissions();
+	const { data: permissions } = usePermissions();
+	const dispatch = useDispatch();
+
+	React.useEffect(() => {
+		if (permissions) {
+			dispatch(setPermissions(permissions));
+		}
+	}, [permissions, dispatch]);
 
 	const columns = [
 		{
@@ -125,15 +170,13 @@ export default function Page() {
 		},
 	];
 
-
-
 	return (
 		<div>
 			<ReusableManyTable
 				dataSets={[
 					{
 						columns,
-						data: permessions ?? [],
+						data: permissions ?? [],
 						containerClassName: "border-none mt-9",
 						title: t("permissions.table.title"),
 						withActionButtons: false,

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
 	Card,
 	CardContent,
@@ -11,24 +11,68 @@ import { Button } from "@/components/ui/button";
 import { Clock } from "lucide-react";
 import CustomPopUp from "@/components/popups";
 import AdditionalTimeRequest from "../additionalTimeRequest";
+import { useAttendanceAction } from "./hooks/useAttendance";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
+import {
+	setCheckedIn,
+	setElapsedTime,
+	setSecondaryTime,
+	setShowSecondaryTimer,
+	setSecondaryTimerColor,
+	setDifference,
+	setBaseTimerStopped,
+	setCheckInTime,
+} from "./attendanceSlice";
+import { toast } from "react-hot-toast";
 
 export default function Attendance() {
 	// Constants for time tracking
 	const requiredWorkHours = 8 * 60 * 60; // 8 hours in seconds
 	const workdayEndTime = 18 * 60 * 60; // 6:00 PM in seconds (18:00)
 
-	// State variables
-	const [isCheckedIn, setIsCheckedIn] = useState(false);
-	const [elapsedTime, setElapsedTime] = useState(0);
-	const [secondaryTime, setSecondaryTime] = useState(0);
-	const [showSecondaryTimer, setShowSecondaryTimer] = useState(false);
-	const [secondaryTimerColor, setSecondaryTimerColor] = useState("text-black");
-	const [difference, setDifference] = useState<number | null>(null);
-	const [baseTimerStopped, setBaseTimerStopped] = useState(false);
-	const [checkInTime, setCheckInTime] = useState<Date | null>(null);
+	// Redux state and dispatch
+	const dispatch = useDispatch();
+	const {
+		isCheckedIn,
+		elapsedTime,
+		secondaryTime,
+		showSecondaryTimer,
+		secondaryTimerColor,
+		difference,
+		baseTimerStopped,
+		checkInTime,
+	} = useTypedSelector((state) => state.attendance);
 
 	const baseIntervalRef = useRef<NodeJS.Timeout | null>(null);
 	const secondaryIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+	// Get user's location
+	const getLocation = () => {
+		return new Promise<{ latitude: number; longitude: number }>(
+			(resolve, reject) => {
+				if (!navigator.geolocation) {
+					reject(new Error("Geolocation is not supported by your browser"));
+					return;
+				}
+
+				navigator.geolocation.getCurrentPosition(
+					(position) => {
+						resolve({
+							latitude: position.coords.latitude,
+							longitude: position.coords.longitude,
+						});
+					},
+					(error) => {
+						reject(error);
+					}
+				);
+			}
+		);
+	};
+
+	// Attendance mutation hook
+	const { handleAttendanceAction, isPending } = useAttendanceAction();
 
 	// Format seconds to HH:MM:SS
 	const formatTime = (seconds: number) => {
@@ -49,33 +93,28 @@ export default function Attendance() {
 		if (isCheckedIn && !baseTimerStopped) {
 			// Start the base timer when checked in
 			baseIntervalRef.current = setInterval(() => {
-				setElapsedTime((prev) => {
-					const newTime = prev + 1;
+				dispatch(setElapsedTime(elapsedTime + 1));
 
-					// Check if we've exceeded the required work hours
-					if (newTime >= requiredWorkHours) {
-						// Stop base timer and start secondary timer (overtime)
-						setBaseTimerStopped(true);
-						setShowSecondaryTimer(true);
-						setSecondaryTimerColor("text-green-500");
-						return requiredWorkHours; // Keep base timer at exactly 8 hours
-					}
+				// Check if we've exceeded the required work hours
+				if (elapsedTime + 1 >= requiredWorkHours) {
+					// Stop base timer and start secondary timer (overtime)
+					dispatch(setBaseTimerStopped(true));
+					dispatch(setShowSecondaryTimer(true));
+					dispatch(setSecondaryTimerColor("text-green-500"));
+					dispatch(setElapsedTime(requiredWorkHours)); // Keep base timer at exactly 8 hours
+				}
 
-					// Check if it's past end time but haven't completed required hours
-					const currentTimeSeconds = getCurrentTimeInSeconds();
-					if (
-						currentTimeSeconds >= workdayEndTime &&
-						newTime < requiredWorkHours
-					) {
-						// Stop base timer and start secondary timer (incomplete hours)
-						setBaseTimerStopped(true);
-						setShowSecondaryTimer(true);
-						setSecondaryTimerColor("text-red-500");
-						return newTime; // Keep base timer at current value
-					}
-
-					return newTime;
-				});
+				// Check if it's past end time but haven't completed required hours
+				const currentTimeSeconds = getCurrentTimeInSeconds();
+				if (
+					currentTimeSeconds >= workdayEndTime &&
+					elapsedTime + 1 < requiredWorkHours
+				) {
+					// Stop base timer and start secondary timer (incomplete hours)
+					dispatch(setBaseTimerStopped(true));
+					dispatch(setShowSecondaryTimer(true));
+					dispatch(setSecondaryTimerColor("text-red-500"));
+				}
 			}, 1000);
 		} else {
 			// Clear the timer when checked out or when base timer is stopped
@@ -91,13 +130,13 @@ export default function Attendance() {
 				clearInterval(baseIntervalRef.current);
 			}
 		};
-	}, [isCheckedIn, baseTimerStopped]);
+	}, [isCheckedIn, baseTimerStopped, elapsedTime, dispatch]);
 
 	// Secondary timer effect
 	useEffect(() => {
 		if (showSecondaryTimer && isCheckedIn) {
 			secondaryIntervalRef.current = setInterval(() => {
-				setSecondaryTime((prev) => prev + 1);
+				dispatch(setSecondaryTime(secondaryTime + 1));
 			}, 1000);
 		} else {
 			if (secondaryIntervalRef.current) {
@@ -111,36 +150,66 @@ export default function Attendance() {
 				clearInterval(secondaryIntervalRef.current);
 			}
 		};
-	}, [showSecondaryTimer, isCheckedIn]);
+	}, [showSecondaryTimer, isCheckedIn, secondaryTime, dispatch]);
 
 	// Handle check-in/check-out button click
-	const handleToggle = () => {
-		if (!isCheckedIn) {
-			// Checking in
-			setCheckInTime(new Date());
-			setElapsedTime(0);
-			setSecondaryTime(0);
-			setDifference(null);
-			setBaseTimerStopped(false);
-			setShowSecondaryTimer(false);
-		} else {
-			// Checking out
-			let timeDiff = 0;
+	const handleToggle = async () => {
+		try {
+			const location = await getLocation();
 
-			if (secondaryTimerColor === "text-green-500") {
-				// Positive difference (overtime)
-				timeDiff = secondaryTime;
-			} else if (secondaryTimerColor === "text-red-500") {
-				// Negative difference (incomplete hours)
-				timeDiff = -(requiredWorkHours - elapsedTime);
+			if (!isCheckedIn) {
+				// Checking in
+				handleAttendanceAction(
+					{
+						action: "check-in",
+						latitude: location.latitude,
+						longitude: location.longitude,
+					},
+					{
+						onSuccess: () => {
+							dispatch(setCheckInTime(new Date()));
+							dispatch(setElapsedTime(0));
+							dispatch(setSecondaryTime(0));
+							dispatch(setDifference(null));
+							dispatch(setBaseTimerStopped(false));
+							dispatch(setShowSecondaryTimer(false));
+							dispatch(setCheckedIn(true));
+						},
+					}
+				);
 			} else {
-				// Normal case
-				timeDiff = elapsedTime - requiredWorkHours;
-			}
+				// Checking out
+				handleAttendanceAction(
+					{
+						action: "check-out",
+						latitude: location.latitude,
+						longitude: location.longitude,
+					},
+					{
+						onSuccess: () => {
+							let timeDiff = 0;
 
-			setDifference(timeDiff);
+							if (secondaryTimerColor === "text-green-500") {
+								// Positive difference (overtime)
+								timeDiff = secondaryTime;
+							} else if (secondaryTimerColor === "text-red-500") {
+								// Negative difference (incomplete hours)
+								timeDiff = -(requiredWorkHours - elapsedTime);
+							} else {
+								// Normal case
+								timeDiff = elapsedTime - requiredWorkHours;
+							}
+
+							dispatch(setDifference(timeDiff));
+							dispatch(setCheckedIn(false));
+						},
+					}
+				);
+			}
+		} catch (error) {
+			console.error("Error getting location:", error);
+			toast.error("حدث خطأ في الحصول على الموقع. يرجى المحاولة مرة أخرى.");
 		}
-		setIsCheckedIn((prev) => !prev);
 	};
 
 	// Render the time difference
@@ -193,7 +262,6 @@ export default function Attendance() {
 				</p>
 				<div className="flex justify-between items-center">
 					{/* Secondary Timer */}
-
 					{showSecondaryTimer && isCheckedIn && (
 						<div className="place-self-end col-span-2 flex items-center gap-2">
 							<span className={`font-semibold ${secondaryTimerColor}`}>
@@ -204,19 +272,18 @@ export default function Attendance() {
 					)}
 					{renderDifference()}
 				</div>
-				{/* {isCheckedIn && (
-					<p className="place-self-start col-span-2 text-sm">
-						<span>وقت الحضور: </span>
-						<span>{checkInTime?.toLocaleTimeString("ar-EG")}</span>
-					</p>
-				)} */}
 			</CardContent>
 			<CardFooter className="flex flex-col items-center justify-center">
 				<Button
 					onClick={handleToggle}
+					disabled={isPending}
 					className={`${"bg-[#16C47F] hover:bg-emerald-600"} text-white px-6 py-2 rounded-md w-[355px] h-[57px] md:mt-8`}
 				>
-					{isCheckedIn ? "تسجيل أنصراف" : "تسجيل حضور"}
+					{isPending
+						? "جاري المعالجة..."
+						: isCheckedIn
+						? "تسجيل أنصراف"
+						: "تسجيل حضور"}
 				</Button>
 				<CustomPopUp
 					DialogTriggerComponent={() => {
