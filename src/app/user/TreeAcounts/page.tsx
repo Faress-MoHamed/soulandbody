@@ -21,7 +21,7 @@ export default function page() {
 		useOrderProducts();
 
 
-	
+
 	const orderProductColumns: ColumnDef<OrderProductType>[] = [
 		{
 			header: t("treeAcounts.head.date"),
@@ -96,7 +96,7 @@ export default function page() {
 													<MovementAccountTopComponent />
 												</div>
 											)}
-									/>
+										/>
 
 
 									</div>

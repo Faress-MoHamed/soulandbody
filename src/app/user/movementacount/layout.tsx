@@ -25,8 +25,8 @@ export default function RootLayout({
 
       {/* المحتوى الرئيسي */}
       <div className={`flex-1 overflow-scroll px-4 md:px-6 ${t("dir") === "rtl" ? "ml-[250px]" : "mr-[250px]"}`}>
-  {children}
-</div>
+        {children}
+      </div>
 
     </div>
   );
