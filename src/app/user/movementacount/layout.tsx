@@ -16,7 +16,6 @@ export default function RootLayout({
 
   return (
     <div className="flex min-h-screen">
-      {/* السايدبار الثابت */}
       <div
         className={`fixed top-0 h-screen w-[250px] mt-30 ${t("dir") === "rtl" ? "left-0" : "right-0"
           }`}
@@ -25,12 +24,10 @@ export default function RootLayout({
       </div>
 
       {/* المحتوى الرئيسي */}
-      <div
-        className={`flex-1 ${t("dir") === "rtl" ? "ml-[200px]" : "mr-[200px] overflow-scroll"
-          }`}
-      >
-        {children}
-      </div>
+      <div className={`flex-1 overflow-scroll px-4 md:px-6 ${t("dir") === "rtl" ? "ml-[250px]" : "mr-[250px]"}`}>
+  {children}
+</div>
+
     </div>
   );
 }

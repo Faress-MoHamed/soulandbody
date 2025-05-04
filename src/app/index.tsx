@@ -11,7 +11,7 @@ export default function Home({ children }: { children: any }) {
 		<div className={cn(open ? "flex flex-1 justify-between w-full" : "")}>
 			<HomeSideBar />
 			<div
-				// style={{
+		 	    // style={{
 				// 	paddingInline: open ? 0 : "auto",
 				// }}
 				style={{

@@ -71,7 +71,7 @@ export default function Page() {
 						loading: orderProductsLoading,
 						UserComponent: () => (
 							<div className="w-full p-6 overflow-scroll">
-								<div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 									<CustomInput
 										label={t("movementacount.table.from")}
 										type="date"
