@@ -1,5 +1,6 @@
 "use client";
 import { useLocale } from "next-intl";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -26,12 +27,11 @@ interface SideBarSelectorProps {
 
 function SideBarSelector({
 	className,
-	title,
 	content,
 	showSideBar,
 }: SideBarSelectorProps) {
 	const path = usePathname();
-	
+
 	const local = useLocale();
 	const [openIndices, setOpenIndices] = React.useState<number[]>([]);
 
@@ -66,6 +66,7 @@ function SideBarSelector({
 
 		return (
 			<div
+
 				style={{
 					marginInlineStart: depth + 20,
 				}}
@@ -80,13 +81,11 @@ function SideBarSelector({
 							{subItem.href ? (
 								<Link
 									href={subItem.href}
-									className={`flex ${
-										local === "ar" ? "flex-row" : "flex-row-reverse"
-									} items-center gap-3 p-2 rounded-lg hover:bg-[#EBF6F6] transition-colors ${
-										isSubItemActive
+									className={`flex ${local === "ar" ? "flex-row" : "flex-row-reverse"
+										} items-center gap-3 p-2 rounded-lg hover:bg-[#EBF6F6] transition-colors ${isSubItemActive
 											? "text-mainColor font-medium"
 											: "text-blackBlue"
-									}`}
+										}`}
 								>
 									{showSideBar && (
 										<span className="text-sm whitespace-nowrap">
@@ -98,13 +97,11 @@ function SideBarSelector({
 								!hasSublist && (
 									<div
 										onClick={() => hasSublist && toggleList(subIndex)}
-										className={`flex ${
-											local === "ar" ? "flex-row" : "flex-row-reverse"
-										} items-center gap-3 p-2 rounded-lg hover:bg-[#EBF6F6] transition-colors cursor-pointer ${
-											isSubItemActive
+										className={`flex ${local === "ar" ? "flex-row" : "flex-row-reverse"
+											} items-center gap-3 p-2 rounded-lg hover:bg-[#EBF6F6] transition-colors cursor-pointer ${isSubItemActive
 												? "text-mainColor font-medium"
 												: "text-blackBlue"
-										}`}
+											}`}
 									>
 										{showSideBar && (
 											<span className="text-sm whitespace-nowrap">
@@ -120,9 +117,8 @@ function SideBarSelector({
 									style={{
 										fontWeight: 500,
 									}}
-									className={`flex py-2 xl:px-2 text-lg  items-center rounded-lg hover:bg-[#EBF6F6] transition-colors cursor-pointer ${
-										local === "ar" ? "flex-row" : "flex-row-reverse"
-									} gap-4 ${className}`}
+									className={`flex py-2 xl:px-2 text-lg  items-center rounded-lg hover:bg-[#EBF6F6] transition-colors cursor-pointer ${local === "ar" ? "flex-row" : "flex-row-reverse"
+										} gap-4 ${className}`}
 								>
 									{hasSublist && showSideBar && (
 										<button
@@ -135,9 +131,8 @@ function SideBarSelector({
 											className="focus:outline-none ms-2"
 										>
 											<svg
-												className={`w-6 h-6 transition-transform duration-200 ${
-													openIndices.includes(subIndex) ? "rotate-90" : ""
-												}`}
+												className={`w-6 h-6 transition-transform duration-200 ${openIndices.includes(subIndex) ? "rotate-90" : ""
+													}`}
 												width="23"
 												height="23"
 												viewBox="0 0 23 23"
@@ -174,11 +169,10 @@ function SideBarSelector({
 											// marginInlineStart: depth + 25,
 										}
 									}
-									className={`overflow-hidden transition-all duration-300 ease-in-out ${
-										openIndices.includes(subIndex)
-											? "max-h-[1000px] opacity-100 py-2"
-											: "max-h-0 opacity-0"
-									}`}
+									className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndices.includes(subIndex)
+										? "max-h-[1000px] opacity-100 py-2"
+										: "max-h-0 opacity-0"
+										}`}
 								>
 									{" "}
 									{subItem.list && renderSublist(subItem.list, depth + 1)}
@@ -205,18 +199,16 @@ function SideBarSelector({
 					const isItemActive = isActive(item.href, item.list);
 
 					return (
-						<div key={index} className="flex flex-col">
+						<div dir="ltr" key={index} className="flex flex-col">
 							{/* Main list item */}
 							{item.href ? (
 								<Link
 									href={item.href}
-									className={`flex py-2 xl:px-2 text-lg font-bold items-center rounded-lg hover:bg-[#EBF6F6] transition-colors ${
-										isItemActive
-											? "bg-[#22979917] text-mainColor"
-											: "text-blackBlue"
-									} ${
-										local === "ar" ? "flex-row" : "flex-row-reverse"
-									} gap-4 ${className}`}
+									className={`flex py-2 xl:px-2 text-lg font-bold justify-between rounded-lg hover:bg-[#EBF6F6] transition-colors ${isItemActive
+										? "bg-[#22979917] text-mainColor"
+										: "text-blackBlue"
+										} ${local === "ar" ? "flex-row" : "flex-row-reverse"
+										} gap-4 ${className}`}
 								>
 									{hasSublist && showSideBar ? (
 										<button
@@ -230,9 +222,8 @@ function SideBarSelector({
 											className="focus:outline-none"
 										>
 											<svg
-												className={`w-6 h-6 transition-transform duration-200 ${
-													openIndices.includes(index) ? "rotate-90" : ""
-												}`}
+												className={`w-6 h-6 transition-transform duration-200 ${openIndices.includes(index) ? "rotate-90" : ""
+													}`}
 												width="23"
 												height="23"
 												viewBox="0 0 23 23"
@@ -277,36 +268,41 @@ function SideBarSelector({
 										</svg>
 									)}
 									{showSideBar && (
-										<span className="md:text-[14px] text-base">
-											{item.text}
-										</span>
+										<div className="flex justify-between">
+											<span className="md:text-[14px] mr-4 text-base">
+												{item.text}
+											</span>
+											<div>
+
+											{item.icon}
+											</div>
+										</div>
 									)}
 								</Link>
 							) : (
 								<div
 									onClick={() => hasSublist && toggleList(index)}
-									className={`flex py-2 xl:px-2 text-lg font-bold items-center rounded-lg hover:bg-[#EBF6F6] transition-colors cursor-pointer ${
-										isItemActive
-											? "bg-[#22979917] text-mainColor"
-											: "text-blackBlue"
-									} ${
-										local === "ar" ? "flex-row" : "flex-row-reverse"
-									} gap-4 ${className}`}
+									className={`flex py-2 xl:px-2 text-lg font-bold justify-between rounded-lg hover:bg-[#EBF6F6] transition-colors cursor-pointer ${isItemActive
+										? "bg-[#22979917] text-mainColor"
+										: "text-blackBlue"
+										} ${local === "ar" ? "flex-row" : "flex-row-reverse"
+										} gap-4 ${className}`}
 								>
 									{hasSublist && showSideBar ? (
 										<button
+
 											onClick={(e) => {
 												e.stopPropagation();
 												toggleList(index);
 											}}
+
 											aria-expanded={openIndices.includes(index)}
 											aria-controls={`sublist-${index}`}
 											className="focus:outline-none"
 										>
 											<svg
-												className={`w-6 h-6 transition-transform duration-200 ${
-													openIndices.includes(index) ? "rotate-90" : ""
-												}`}
+												className={`w-6 h-6 transition-transform duration-200 ${openIndices.includes(index) ? "rotate-90" : ""
+													}`}
 												width="23"
 												height="23"
 												viewBox="0 0 23 23"
@@ -351,9 +347,15 @@ function SideBarSelector({
 										</svg>
 									)}
 									{showSideBar && (
-										<span className="md:text-[14px] text-base">
-											{item.text}
-										</span>
+										<div className="flex justify-between">
+											<span className="md:text-[14px] mr-4 text-base">
+												{item.text}
+											</span>
+											<div>
+
+											{item.icon}
+											</div>
+										</div>
 									)}
 								</div>
 							)}
@@ -362,11 +364,10 @@ function SideBarSelector({
 							{hasSublist && showSideBar && (
 								<div
 									id={`sublist-${index}`}
-									className={`overflow-hidden transition-all duration-300 ease-in-out ${
-										openIndices.includes(index)
-											? "max-h-[1000px] opacity-100 py-2"
-											: "max-h-0 opacity-0"
-									}`}
+									className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndices.includes(index)
+										? "max-h-[1000px] opacity-100 py-2"
+										: "max-h-0 opacity-0"
+										}`}
 								>
 									{item.list && renderSublist(item.list, 1)}
 								</div>

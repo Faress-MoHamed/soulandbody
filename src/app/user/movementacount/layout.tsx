@@ -1,3 +1,4 @@
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import TreeSideBar from "@/components/treeSideBar";
 import type { Metadata } from "next";
 
@@ -11,15 +12,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { t } = useTypedTranslation();
+
   return (
     <div className="flex min-h-screen">
       {/* السايدبار الثابت */}
-      <div className="fixed left-0 top-0 h-screen w-[250px] mt-30">
+      <div
+        className={`fixed top-0 h-screen w-[250px] mt-30 ${t("dir") === "rtl" ? "left-0" : "right-0"
+          }`}
+      >
         <TreeSideBar />
       </div>
-      
+
       {/* المحتوى الرئيسي */}
-      <div className="flex-1 ml-[250px]">
+      <div
+        className={`flex-1 ${t("dir") === "rtl" ? "ml-[200px]" : "mr-[200px] overflow-scroll"
+          }`}
+      >
         {children}
       </div>
     </div>
