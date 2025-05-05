@@ -39,16 +39,13 @@ export default function Page() {
 
 	const { t } = useTypedTranslation();
 	const [ShowOrders, setShowOrders] = useState(false);
-	const [newType, setNewType] = useState("");
-	const [newEditType, setNewEditType] = useState("");
-	const addType = useAddSupplierType();
 	const { data: AmountDuesData, isLoading: AmountDuesLoading } =
 		useAmountsDues();
 	const { data: InvoicesData, isLoading: InvoicesLoading } = useInvoices();
 	const { data: SuppliersData, isLoading: SuppliersLoading } = useSuppliers();
 	const { data: offersData, isLoading: offersLoading } = useOffers();
 	const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
-	const updateMutation = useUpdateSupplierType();
+
 
 	const AmountDuesColumns: ColumnDef<SuppliersType>[] = [
 		{
@@ -60,9 +57,7 @@ export default function Page() {
 			accessorKey: "RemainingAmount",
 		},
 	];
-	const notifySuccess = () => {
-		toast.success("تم إضافة النوع بنجاح!");
-	};
+
 	const AddSupplierCol: ColumnDef<AddSuppliersType>[] = [
 		{
 			header: "النوع",
@@ -78,7 +73,11 @@ export default function Page() {
 						</div>
 					);
 				} else {
-					return null; // أو ممكن تعرض علامة محذوف مثلاً
+					return <div className="flex justify-center gap-2">
+						<span className="px-2 py-1 border rounded">
+							تم الحذف
+						</span>
+					</div>; // أو ممكن تعرض علامة محذوف مثلاً
 				}
 			},
 		},
@@ -87,6 +86,7 @@ export default function Page() {
 			header: t("suppliers.actions"),
 			cell: ({ row }) => {
 				const type = row.original;
+
 				return (
 					<div className="flex flex-row-reverse justify-center gap-1">
 
@@ -108,11 +108,10 @@ export default function Page() {
 								</Button>
 							)}
 							DialogContentComponent={() => (
-								<div>
-									<InterStateComp type={type} />
+								<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
+									<InterStateCompUpdate type={type} />
 								</div>
-							)
-							}
+							)}
 						/>
 					</div>
 				);
@@ -242,22 +241,29 @@ export default function Page() {
 		},
 		{
 			header: t("suppliers.actions"),
-			cell: () => (
-				<div className="flex flex-row-reverse justify-center gap-1">
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-						{t("suppliers.delete")}
-						<DeleteIcon />
-					</Button>
-					<Button
-						className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-						onClick={() => setShowOrders(true)}
-					>
-						<ShowIcon />
+		cell: ({ row }) => {
+	const supplier = row.original;
 
-						{t("suppliers.show")}
-					</Button>
-				</div>
-			),
+	return (
+		<div className="flex flex-row-reverse justify-center gap-1">
+			<Button
+				className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
+				onClick={() => deleteSupplier({ id: supplier.id })} // مثال لتنفيذ حذف
+			>
+				{t("suppliers.delete")}
+				<DeleteIcon />
+			</Button>
+			<Button
+				className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+				onClick={() => setShowOrders(supplier)} // مثال للعرض
+			>
+				<ShowIcon />
+				{t("suppliers.show")}
+			</Button>
+		</div>
+	);
+},
+
 		},
 	];
 
@@ -265,14 +271,7 @@ export default function Page() {
 		<ReusableManyTable
 			dataSets={[
 				{
-					data: types || [
-						{
-							deleted_at: new Date(),
-							types: 'wef',
-							id: 2323,
-							type: 'fwedf'
-						}
-					], // تمرير البيانات المسترجعة هنا
+					data: types || [], // تمرير البيانات المسترجعة هنا
 					columns: AddSupplierCol, // الأعمدة التي تريد عرضها
 					withFilter: false,
 					label: t("suppliers.addTypeSupplier"),
@@ -295,26 +294,7 @@ export default function Page() {
 									)}
 									DialogContentComponent={() => (
 										<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
-											<CustomInput
-												label={newType}
-												onChange={(e) => setNewType(e.target.value)} // تحديث قيمة newType عند التغيير
-												type="text"
-												className="border border-gray-300 rounded px-3 py-2 w-full"
-											/>
-											<Button
-												variant="outline"
-												size="sm"
-												onClick={() => {
-													const formData = new FormData();
-													formData.append("type", newType); // إضافة القيمة المدخلة
-													addType.mutate(formData); // إرسال الفورم داتا
-
-													notifySuccess(); // إظهار التوست عند التأكيد
-												}}
-												className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
-											>
-												تأكيد الإضافة
-											</Button>
+											<InterStateCompAdd />
 										</div>
 									)}
 								/>
@@ -406,7 +386,7 @@ export default function Page() {
 		/>
 	);
 }
-function InterStateComp(props: any) {
+function InterStateCompUpdate(props: any) {
 	const [newEditType, setNewEditType] = useState('')
 	const updateMutation = useUpdateSupplierType();
 	return (
@@ -434,6 +414,37 @@ function InterStateComp(props: any) {
 				className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
 			>
 				تعديل الاسم
+			</Button>
+		</div>
+	)
+}
+function InterStateCompAdd() {
+	const [newType, setNewType] = useState("");
+	const addType = useAddSupplierType();
+	const notifySuccess = () => {
+		toast.success("تم إضافة النوع بنجاح!");
+	};
+	return (
+		<div>
+			<CustomInput
+				value={newType}
+				onChange={(e) => setNewType(e.target.value)} // تحديث قيمة newType عند التغيير
+				type="text"
+				className="border border-gray-300 rounded px-3 py-2 w-full"
+			/>
+			<Button
+				variant="outline"
+				size="sm"
+				onClick={() => {
+					const formData = new FormData();
+					formData.append("type", newType); // إضافة القيمة المدخلة
+					addType.mutate(formData); // إرسال الفورم داتا
+
+					notifySuccess(); // إظهار التوست عند التأكيد
+				}}
+				className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
+			>
+				تأكيد الإضافة
 			</Button>
 		</div>
 	)
