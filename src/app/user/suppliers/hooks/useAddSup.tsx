@@ -31,7 +31,7 @@ export function useUpdateSupplierType() {
 	return useMutation({
 		mutationFn: async ({ id, formData }: { id: number; formData: FormData }) => {
 			const res = await fetch(`http://192.168.1.15:8008/api/supplier-types/${id}`, {
-				method: "POST", // Laravel يتعامل مع POST في حالة الـ update أحيانًا بدلاً من PUT
+				method: "POST", 
 				headers: {
 					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
 				},

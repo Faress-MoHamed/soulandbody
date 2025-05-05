@@ -8,7 +8,7 @@ import ActionButtons from "@/components/ActionButtons";
 import { Button } from "@/components/ui/button";
 import CustomPopUp from "@/components/popups";
 import AddButton from "@/components/AddButton";
-import { useInvoices, type InvoiceType } from "./hooks/useInvoices";
+import { useDeleteQuotations, useInvoices, type InvoiceType } from "./hooks/useInvoices";
 import { useState } from "react";
 import CustomInput from "@/components/customInput";
 import { useSuppliers, type SuppliersType } from "./hooks/useSuppliers";
@@ -35,10 +35,12 @@ import { useDeleteSupplierType } from "./hooks/useAddSup"; // تأكد من اس
 
 export default function Page() {
 	const { mutate: deleteSupplier } = useDeleteSupplierType(); // نحصل على mutate من الـ hook
+	const { mutate: deleteQuototion } = useDeleteQuotations(); // نحصل على mutate من الـ hook
 
 	const { t } = useTypedTranslation();
 	const [ShowOrders, setShowOrders] = useState(false);
 	const [newType, setNewType] = useState("");
+	const [newEditType, setNewEditType] = useState("");
 	const addType = useAddSupplierType();
 	const { data: AmountDuesData, isLoading: AmountDuesLoading } =
 		useAmountsDues();
@@ -68,15 +70,20 @@ export default function Page() {
 			accessorKey: "type",
 			cell: ({ row }) => {
 				const type = row.original;
-				return (
-					<div className="flex justify-center gap-2">
-						<span className="px-2 py-1 border rounded">
-							{type.type}
-						</span>
-					</div>
-				);
+				if (type.deleted_at === null) {
+					return (
+						<div className="flex justify-center gap-2">
+							<span className="px-2 py-1 border rounded">
+								{type.type}
+							</span>
+						</div>
+					);
+				} else {
+					return null; // أو ممكن تعرض علامة محذوف مثلاً
+				}
 			},
 		},
+
 		{
 			header: t("suppliers.actions"),
 			cell: ({ row }) => {
@@ -105,20 +112,24 @@ export default function Page() {
 							DialogContentComponent={() => (
 								<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
 									<input
-										value={newType}
-										onChange={(e) => setNewType(e.target.value)}
+										id="newEditType" 
+										value={newEditType}
+										onChange={(e) => setNewEditType(e.target.value)}
 										type="text"
-										placeholder="أدخل الاسم الجديد"
 										className="border border-gray-300 rounded px-3 py-2 w-full"
 									/>
+
 									<Button
 										variant="outline"
 										size="sm"
 										onClick={() => {
+											if (!newEditType.trim()) {
+												toast.error("يجب إدخال قيمة صالحة");
+												return;
+											}
 											const formData = new FormData();
-											formData.append("type", newType);
+											formData.append("type", newEditType);
 											updateMutation.mutate({ id: type.id, formData });
-											setNewType("");
 										}}
 										className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
 									>
@@ -144,7 +155,9 @@ export default function Page() {
 		},
 		{
 			header: t("suppliers.actions"),
-			cell: () => (
+			cell: ({ row }) => {
+				const quotation = row.original;
+
 				<div className="flex justify-center gap-2">
 					<CustomPopUp
 						DialogTriggerComponent={() => (
@@ -159,12 +172,13 @@ export default function Page() {
 						)}
 						DialogContentComponent={() => <ShowOffers />}
 					/>
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
+					<Button onClick={() => deleteQuototion({ id: quotation.id })} // تنفيذ الـ mutation عند الضغط
+						className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
 						<DeleteIcon />
 						{t("suppliers.delete")}
 					</Button>
 				</div>
-			),
+			},
 		},
 	];
 
@@ -298,8 +312,8 @@ export default function Page() {
 									)}
 									DialogContentComponent={() => (
 										<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
-											<input
-												value={newType}
+											<CustomInput
+												label={newType}
 												onChange={(e) => setNewType(e.target.value)} // تحديث قيمة newType عند التغيير
 												type="text"
 												className="border border-gray-300 rounded px-3 py-2 w-full"

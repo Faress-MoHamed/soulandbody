@@ -1,6 +1,30 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+export function useDeleteQuotations() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: async ({ id }: { id: number;  }) => {
+			const res = await fetch(`http://192.168.1.15:8008/api/quotations/${id}`, {
+				method: "DELETE", // Laravel يتعامل مع POST في حالة الـ update أحيانًا بدلاً من PUT
+				headers: {
+					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
+				},
+			});
+
+			if (!res.ok) {
+				throw new Error("فشل في التعديل");
+			}
+
+			return res.json();
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["type"] });
+		},
+	});
+}
 
 export type InvoiceType = {
 	invoiceNumber: string;

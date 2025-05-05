@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 export type AddSuppliersType = {
+	deleted_at: null;
 	types: any;
     id: number;
     type: string;
