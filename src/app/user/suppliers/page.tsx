@@ -29,6 +29,7 @@ import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { AddSuppliersType } from "./hooks/useTypeSup";
 import { useAddSupplierType } from "./hooks/useAddSup";
 import { Toaster, toast } from 'react-hot-toast';
+import InvoiceDetails from "@/app/test/components/InvoiceDetails";
 
 export default function Page() {
 	const { t } = useTypedTranslation();
@@ -40,7 +41,7 @@ export default function Page() {
 	const { data: InvoicesData, isLoading: InvoicesLoading } = useInvoices();
 	const { data: SuppliersData, isLoading: SuppliersLoading } = useSuppliers();
 	const { data: offersData, isLoading: offersLoading } = useOffers();
-    const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
+	const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
 
 	const AmountDuesColumns: ColumnDef<SuppliersType>[] = [
 		{
@@ -60,34 +61,34 @@ export default function Page() {
 			header: "النوع",
 			accessorKey: "type",
 			cell: ({ row }) => {
-			  const type = row.original;
-			  return (
-				<div className="flex justify-center gap-2">
-				  <span className="px-2 py-1 border rounded">
-					{type.type}
-				  </span>
-				</div>
-			  );
+				const type = row.original;
+				return (
+					<div className="flex justify-center gap-2">
+						<span className="px-2 py-1 border rounded">
+							{type.type}
+						</span>
+					</div>
+				);
 			},
-		  },
-        {
-            header: t("suppliers.actions"),
-            cell: () => (
-                <div className="flex flex-row-reverse justify-center gap-1">
-                    <Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-                        {t("suppliers.delete")}
-                        <DeleteIcon />
-                    </Button>
-                    <Button
-                        className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-                        onClick={() => setShowOrders(true)}
-                    >
-                        تعديل
-                    </Button>
-                </div>
-            ),
-        },
-    ];
+		},
+		{
+			header: t("suppliers.actions"),
+			cell: () => (
+				<div className="flex flex-row-reverse justify-center gap-1">
+					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
+						{t("suppliers.delete")}
+						<DeleteIcon />
+					</Button>
+					<Button
+						className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+						onClick={() => setShowOrders(true)}
+					>
+						تعديل
+					</Button>
+				</div>
+			),
+		},
+	];
 	const offersColumns: ColumnDef<QuotationType>[] = [
 		{
 			header: t("suppliers.offerDescription"),
@@ -125,41 +126,69 @@ export default function Page() {
 
 	const InvoiceColumns: ColumnDef<InvoiceType>[] = [
 		{
-			header: t("suppliers.invoiceNumber"),
-			accessorKey: "invoiceNumber",
+		  header: t("suppliers.invoiceNumber"),
+		  accessorKey: "invoiceNumber",
+		  cell: ({ row }) => (
+			<div className="text-right">
+			  {row.original.invoiceNumber || '---'}
+			</div>
+		  ),
 		},
 		{
-			header: t("suppliers.date"),
-			accessorKey: "date",
+		  header: t("suppliers.date"),
+		  accessorKey: "date",
+		  cell: ({ row }) => (
+			<div className="text-right">
+			  {row.original.date ? new Date(row.original.date).toLocaleDateString('ar-EG') : '---'}
+			</div>
+		  ),
 		},
 		{
-			header: t("suppliers.totalAmount"),
-			accessorKey: "totalAmount",
+		  header: t("suppliers.totalAmount"),
+		  accessorKey: "totalAmount",
+		  cell: ({ row }) => (
+			<div className="text-right">
+			  {row.original.totalAmount ? 
+				Number(row.original.totalAmount).toLocaleString('ar-EG') + ' ج.م' : 
+				'---'}
+			</div>
+		  ),
 		},
 		{
-			header: t("suppliers.remainingAmount"),
-			accessorKey: "remainingAmount",
+		  header: t("suppliers.remainingAmount"),
+		  accessorKey: "remainingAmount",
+		  cell: ({ row }) => (
+			<div className="text-right">
+			  {row.original.remainingAmount ? 
+				Number(row.original.remainingAmount).toLocaleString('ar-EG') + ' ج.م' : 
+				'---'}
+			</div>
+		  ),
 		},
 		{
-			id: "actions",
-			header: t("suppliers.actions"),
-			cell: () => (
-				<CustomPopUp
-					DialogTriggerComponent={() => (
-						<Button
-							variant="outline"
-							size="sm"
-							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-						>
-							<ShowIcon />
-							{t("suppliers.show")}
-						</Button>
-					)}
-					DialogContentComponent={() => <InvoicesTable />}
-				/>
-			),
+		  id: "actions",
+		  header: t("suppliers.actions"),
+		  cell: ({ row }) => (
+			<div className="flex justify-center">
+			  <CustomPopUp
+				DialogTriggerComponent={() => (
+				  <Button
+					variant="outline"
+					size="sm"
+					className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+				  >
+					<ShowIcon />
+					{t("suppliers.show")}
+				  </Button>
+				)}
+				DialogContentComponent={() => (
+				  <InvoiceDetails  />
+				)}
+			  />
+			</div>
+		  ),
 		},
-	];
+	  ];
 	const supplierColumns: ColumnDef<SuppliersType>[] = [
 		{
 			header: t("suppliers.supplierName"),
@@ -200,13 +229,13 @@ export default function Page() {
 
 	return (
 		<ReusableManyTable
-				dataSets={[
-                    {
-                        data: types || [], // تمرير البيانات المسترجعة هنا
-                        columns: AddSupplierCol, // الأعمدة التي تريد عرضها
-                        withFilter: false,
-                        label: t("suppliers.addTypeSupplier"),
-                        UserComponent: () => (
+			dataSets={[
+				{
+					data: types || [], // تمرير البيانات المسترجعة هنا
+					columns: AddSupplierCol, // الأعمدة التي تريد عرضها
+					withFilter: false,
+					label: t("suppliers.addTypeSupplier"),
+					UserComponent: () => (
 						<div className="flex flex-col gap-5 p-6">
 							<h2 className="text-[26px] font-bold">
 								{t("suppliers.addTypeSupplier")}

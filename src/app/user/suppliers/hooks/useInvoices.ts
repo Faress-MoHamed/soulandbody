@@ -8,198 +8,52 @@ export type InvoiceType = {
 	totalAmount: number;
 	remainingAmount: number;
 };
+type ApiInvoiceType = {
+	id: number;
+	invoice_no: string;
+	date: string;
+	total_amount: string; // لأنه جاي كـ string
+	outstanding: number;
+	items: any[]; // لو هتستخدمها بعدين
+};
 
-// Sample data from the image
-const invoicesData: InvoiceType[] = [
-	{
-		invoiceNumber: "1542",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "12454",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5482",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1245",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5145",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "9562",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "989623",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "87894",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1542",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "12454",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5482",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1245",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5145",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "9562",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "989623",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "87894",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1542",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "12454",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5482",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1245",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5145",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "9562",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "989623",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "87894",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-];
 
 export function useInvoices() {
-	return useQuery({
+	return useQuery<InvoiceType[]>({
 		queryKey: ["invoices"],
 		queryFn: async () => {
-			// In a real app, this would fetch from an API
-			return invoicesData;
+			const response = await fetch("http://192.168.1.15:8008/api/invoices", {
+				headers: {
+					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
+					"Content-Type": "application/json",
+				},
+			});
+
+			if (!response.ok) {
+				throw new Error("فشل في جلب الفواتير");
+			}
+
+			const apiData: ApiInvoiceType[] = await response.json();
+
+			return apiData.map(item => ({
+				invoiceNumber: item.invoice_no,
+				date: formatDate(item.date),
+				totalAmount: Number(item.total_amount),
+				remainingAmount: Number(item.outstanding),
+			  }));
+			  
 		},
+		staleTime: 5 * 60 * 1000, // البيانات تصبح قديمة بعد 5 دقائق
+		retry: 2, // عدد المحاولات عند الفشل
 	});
 }
 
+// دالة مساعدة لتنسيق التاريخ (اختياري)
+function formatDate(dateString: string): string {
+	const options: Intl.DateTimeFormatOptions = {
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit'
+	};
+	return new Date(dateString).toLocaleDateString('ar-EG', options);
+}
