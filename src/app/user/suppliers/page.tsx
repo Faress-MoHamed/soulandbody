@@ -14,7 +14,7 @@ import CustomInput from "@/components/customInput";
 import { useSuppliers, type SuppliersType } from "./hooks/useSuppliers";
 import AddNewSupplier from "./components/AddNewSupplier";
 import { useOffers, type OfferType } from "./hooks/useOffers";
-import { useTypes } from "./hooks/useAddSupp";
+import { useTypes } from "./hooks/useTypeSup";
 import {
 	useProductDetails,
 	type ProductDetailType,
@@ -26,12 +26,15 @@ import InvoicesTable from "@/components/InvoicesTable";
 import ShowIcon from "@/iconsSvg/Show";
 import DeleteIcon from "@/iconsSvg/DeleteIcon";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
-import { AddSuppliersType } from "./hooks/useAddSupp";
+import { AddSuppliersType } from "./hooks/useTypeSup";
+import { useAddSupplierType } from "./hooks/useAddSup";
+import { Toaster, toast } from 'react-hot-toast';
 
 export default function Page() {
 	const { t } = useTypedTranslation();
 	const [ShowOrders, setShowOrders] = useState(false);
-
+	const [newType, setNewType] = useState("");
+	const addType = useAddSupplierType();
 	const { data: AmountDuesData, isLoading: AmountDuesLoading } =
 		useAmountsDues();
 	const { data: InvoicesData, isLoading: InvoicesLoading } = useInvoices();
@@ -49,20 +52,25 @@ export default function Page() {
 			accessorKey: "RemainingAmount",
 		},
 	];
-
+	const notifySuccess = () => {
+		toast.success("تم إضافة النوع بنجاح!");
+	};
 	const AddSupplierCol: ColumnDef<AddSuppliersType>[] = [
 		{
 			header: "النوع",
 			cell: () => (
 				<div className="flex flex-row-reverse justify-center gap-1">
-					{types?.map((type: AddSuppliersType) => (
-						<span key={type.id}>{type.type}</span>
-					))}
+					{types && types.length > 0 ? (
+						types.map((typee: AddSuppliersType) => (
+							<span key={typee.id}>{typee.type}</span>
+						))
+					) : (
+						<span>لا توجد أنواع حالياً</span>
+					)}
+
 				</div>
-			)
-		}
-		
-	,
+			),
+		},
 		{
 			header: t("suppliers.actions"),
 			cell: () => (
@@ -198,7 +206,7 @@ export default function Page() {
 		<ReusableManyTable
 			dataSets={[
 				{
-					data: AmountDuesData || [],
+					data: AddSupplierCol || [],
 					columns: AddSupplierCol,
 					withFilter: false,
 					label: t("suppliers.addTypeSupplier"),
@@ -221,13 +229,26 @@ export default function Page() {
 									)}
 									DialogContentComponent={() => (
 										<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
-											<div className="flex flex-col gap-2">
-												<label className="text-sm font-medium text-gray-700">النوع</label>
-												<CustomInput />
-											</div>
+											<input
+												value={newType}
+												onChange={(e) => setNewType(e.target.value)} // تحديث قيمة newType عند التغيير
+												type="text"
+												className="border border-gray-300 rounded px-3 py-2 w-full"
+											/>
+
+
+
+
 											<Button
 												variant="outline"
 												size="sm"
+												onClick={() => {
+													const formData = new FormData();
+													formData.append("type", newType); // إضافة القيمة المدخلة
+													addType.mutate(formData); // إرسال الفورم داتا
+
+													notifySuccess(); // إظهار التوست عند التأكيد
+												}}
 												className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
 											>
 												تأكيد الإضافة
@@ -235,6 +256,7 @@ export default function Page() {
 										</div>
 									)}
 								/>
+
 
 							</div>
 						</div>

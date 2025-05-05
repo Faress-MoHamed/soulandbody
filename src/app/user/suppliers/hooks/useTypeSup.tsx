@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 export type AddSuppliersType = {
     id: number;
     type: string;
-};
+}
 export function useTypes() {
     return useQuery<AddSuppliersType[]>({
         queryKey: ["supplier-types"],
@@ -21,6 +21,7 @@ export function useTypes() {
             }
 
             const data = await res.json();
+
             return data;
         },
     });

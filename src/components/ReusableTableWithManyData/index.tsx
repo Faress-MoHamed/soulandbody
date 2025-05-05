@@ -340,8 +340,6 @@ const selectableItems = useMemo(() => {
 	nestedTable, // Just include the whole array rather than spreading its properties
 	nestedPaginationStates, // Just include the whole array
 ]);
-	console.log(title || ButtonTrigger || withFilter);
-
 	return (
 		<>
 			<Card
