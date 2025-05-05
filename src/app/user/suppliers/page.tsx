@@ -50,7 +50,6 @@ export default function Page() {
 	const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
 	const updateMutation = useUpdateSupplierType();
 
-
 	const AmountDuesColumns: ColumnDef<SuppliersType>[] = [
 		{
 			header: t("suppliers.supplierName"),
@@ -88,7 +87,6 @@ export default function Page() {
 			header: t("suppliers.actions"),
 			cell: ({ row }) => {
 				const type = row.original;
-
 				return (
 					<div className="flex flex-row-reverse justify-center gap-1">
 
@@ -110,33 +108,11 @@ export default function Page() {
 								</Button>
 							)}
 							DialogContentComponent={() => (
-								<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
-									<input
-										id="newEditType" 
-										value={newEditType}
-										onChange={(e) => setNewEditType(e.target.value)}
-										type="text"
-										className="border border-gray-300 rounded px-3 py-2 w-full"
-									/>
-
-									<Button
-										variant="outline"
-										size="sm"
-										onClick={() => {
-											if (!newEditType.trim()) {
-												toast.error("يجب إدخال قيمة صالحة");
-												return;
-											}
-											const formData = new FormData();
-											formData.append("type", newEditType);
-											updateMutation.mutate({ id: type.id, formData });
-										}}
-										className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
-									>
-										تعديل الاسم
-									</Button>
+								<div>
+									<InterStateComp type={type} />
 								</div>
-							)}
+							)
+							}
 						/>
 					</div>
 				);
@@ -289,7 +265,14 @@ export default function Page() {
 		<ReusableManyTable
 			dataSets={[
 				{
-					data: types || [], // تمرير البيانات المسترجعة هنا
+					data: types || [
+						{
+							deleted_at: new Date(),
+							types: 'wef',
+							id: 2323,
+							type: 'fwedf'
+						}
+					], // تمرير البيانات المسترجعة هنا
 					columns: AddSupplierCol, // الأعمدة التي تريد عرضها
 					withFilter: false,
 					label: t("suppliers.addTypeSupplier"),
@@ -422,4 +405,36 @@ export default function Page() {
 			]}
 		/>
 	);
+}
+function InterStateComp(props: any) {
+	const [newEditType, setNewEditType] = useState('')
+	const updateMutation = useUpdateSupplierType();
+	return (
+		<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
+			<input
+				name="newEditType"
+				value={newEditType}
+				onChange={(e) => setNewEditType(e.target.value)}
+				type="text"
+				className="border border-gray-300 rounded px-3 py-2 w-full"
+			/>
+
+			<Button
+				variant="outline"
+				size="sm"
+				onClick={() => {
+					if (!newEditType.trim()) {
+						toast.error("يجب إدخال قيمة صالحة");
+						return;
+					}
+					const formData = new FormData();
+					formData.append("type", newEditType);
+					updateMutation.mutate({ id: props.type.id, formData });
+				}}
+				className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
+			>
+				تعديل الاسم
+			</Button>
+		</div>
+	)
 }
