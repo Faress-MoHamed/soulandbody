@@ -27,11 +27,15 @@ import ShowIcon from "@/iconsSvg/Show";
 import DeleteIcon from "@/iconsSvg/DeleteIcon";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { AddSuppliersType } from "./hooks/useTypeSup";
-import { useAddSupplierType } from "./hooks/useAddSup";
+import { useAddSupplierType, useUpdateSupplierType } from "./hooks/useAddSup";
 import { Toaster, toast } from 'react-hot-toast';
 import InvoiceDetails from "@/app/test/components/InvoiceDetails";
+import { useDeleteSupplierType } from "./hooks/useAddSup"; // تأكد من استيراد الـ hook
+
 
 export default function Page() {
+	const { mutate: deleteSupplier } = useDeleteSupplierType(); // نحصل على mutate من الـ hook
+
 	const { t } = useTypedTranslation();
 	const [ShowOrders, setShowOrders] = useState(false);
 	const [newType, setNewType] = useState("");
@@ -42,6 +46,8 @@ export default function Page() {
 	const { data: SuppliersData, isLoading: SuppliersLoading } = useSuppliers();
 	const { data: offersData, isLoading: offersLoading } = useOffers();
 	const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
+	const updateMutation = useUpdateSupplierType();
+
 
 	const AmountDuesColumns: ColumnDef<SuppliersType>[] = [
 		{
@@ -73,21 +79,59 @@ export default function Page() {
 		},
 		{
 			header: t("suppliers.actions"),
-			cell: () => (
-				<div className="flex flex-row-reverse justify-center gap-1">
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-						{t("suppliers.delete")}
-						<DeleteIcon />
-					</Button>
-					<Button
-						className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-						onClick={() => setShowOrders(true)}
-					>
-						تعديل
-					</Button>
-				</div>
-			),
-		},
+			cell: ({ row }) => {
+				const type = row.original;
+
+				return (
+					<div className="flex flex-row-reverse justify-center gap-1">
+
+						<Button
+							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
+							onClick={() => deleteSupplier({ id: type.id })} // تنفيذ الـ mutation عند الضغط
+						>
+							{t("suppliers.delete")}
+							<DeleteIcon />
+						</Button>
+						<CustomPopUp
+							DialogTriggerComponent={() => (
+								<Button
+									variant="outline"
+									size="sm"
+									className="flex items-center justify-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:opacity-85 h-[38px] w-[160px] rounded-[8px] border border-[#16C47F] text-sm"
+								>
+									تعديل
+								</Button>
+							)}
+							DialogContentComponent={() => (
+								<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
+									<input
+										value={newType}
+										onChange={(e) => setNewType(e.target.value)}
+										type="text"
+										placeholder="أدخل الاسم الجديد"
+										className="border border-gray-300 rounded px-3 py-2 w-full"
+									/>
+									<Button
+										variant="outline"
+										size="sm"
+										onClick={() => {
+											const formData = new FormData();
+											formData.append("type", newType);
+											updateMutation.mutate({ id: type.id, formData });
+											setNewType("");
+										}}
+										className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
+									>
+										تعديل الاسم
+									</Button>
+								</div>
+							)}
+						/>
+					</div>
+				);
+			},
+		}
+
 	];
 	const offersColumns: ColumnDef<QuotationType>[] = [
 		{
@@ -126,69 +170,69 @@ export default function Page() {
 
 	const InvoiceColumns: ColumnDef<InvoiceType>[] = [
 		{
-		  header: t("suppliers.invoiceNumber"),
-		  accessorKey: "invoiceNumber",
-		  cell: ({ row }) => (
-			<div className="text-right">
-			  {row.original.invoiceNumber || '---'}
-			</div>
-		  ),
+			header: t("suppliers.invoiceNumber"),
+			accessorKey: "invoiceNumber",
+			cell: ({ row }) => (
+				<div className="text-right">
+					{row.original.invoiceNumber || '---'}
+				</div>
+			),
 		},
 		{
-		  header: t("suppliers.date"),
-		  accessorKey: "date",
-		  cell: ({ row }) => (
-			<div className="text-right">
-			  {row.original.date ? new Date(row.original.date).toLocaleDateString('ar-EG') : '---'}
-			</div>
-		  ),
+			header: t("suppliers.date"),
+			accessorKey: "date",
+			cell: ({ row }) => (
+				<div className="text-right">
+					{row.original.date ? new Date(row.original.date).toLocaleDateString('ar-EG') : '---'}
+				</div>
+			),
 		},
 		{
-		  header: t("suppliers.totalAmount"),
-		  accessorKey: "totalAmount",
-		  cell: ({ row }) => (
-			<div className="text-right">
-			  {row.original.totalAmount ? 
-				Number(row.original.totalAmount).toLocaleString('ar-EG') + ' ج.م' : 
-				'---'}
-			</div>
-		  ),
+			header: t("suppliers.totalAmount"),
+			accessorKey: "totalAmount",
+			cell: ({ row }) => (
+				<div className="text-right">
+					{row.original.totalAmount ?
+						Number(row.original.totalAmount).toLocaleString('ar-EG') + ' ج.م' :
+						'---'}
+				</div>
+			),
 		},
 		{
-		  header: t("suppliers.remainingAmount"),
-		  accessorKey: "remainingAmount",
-		  cell: ({ row }) => (
-			<div className="text-right">
-			  {row.original.remainingAmount ? 
-				Number(row.original.remainingAmount).toLocaleString('ar-EG') + ' ج.م' : 
-				'---'}
-			</div>
-		  ),
+			header: t("suppliers.remainingAmount"),
+			accessorKey: "remainingAmount",
+			cell: ({ row }) => (
+				<div className="text-right">
+					{row.original.remainingAmount ?
+						Number(row.original.remainingAmount).toLocaleString('ar-EG') + ' ج.م' :
+						'---'}
+				</div>
+			),
 		},
 		{
-		  id: "actions",
-		  header: t("suppliers.actions"),
-		  cell: ({ row }) => (
-			<div className="flex justify-center">
-			  <CustomPopUp
-				DialogTriggerComponent={() => (
-				  <Button
-					variant="outline"
-					size="sm"
-					className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-				  >
-					<ShowIcon />
-					{t("suppliers.show")}
-				  </Button>
-				)}
-				DialogContentComponent={() => (
-				  <InvoiceDetails  />
-				)}
-			  />
-			</div>
-		  ),
+			id: "actions",
+			header: t("suppliers.actions"),
+			cell: ({ row }) => (
+				<div className="flex justify-center">
+					<CustomPopUp
+						DialogTriggerComponent={() => (
+							<Button
+								variant="outline"
+								size="sm"
+								className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+							>
+								<ShowIcon />
+								{t("suppliers.show")}
+							</Button>
+						)}
+						DialogContentComponent={() => (
+							<InvoiceDetails />
+						)}
+					/>
+				</div>
+			),
 		},
-	  ];
+	];
 	const supplierColumns: ColumnDef<SuppliersType>[] = [
 		{
 			header: t("suppliers.supplierName"),
