@@ -13,7 +13,7 @@ import { useState } from "react";
 import CustomInput from "@/components/customInput";
 import { useSuppliers, type SuppliersType } from "./hooks/useSuppliers";
 import AddNewSupplier from "./components/AddNewSupplier";
-import { useOffers, type OfferType } from "./hooks/useOffers";
+import { useOffers, type QuotationType } from "./hooks/useQuotations";
 import { useTypes } from "./hooks/useTypeSup";
 import {
 	useProductDetails,
@@ -40,7 +40,7 @@ export default function Page() {
 	const { data: InvoicesData, isLoading: InvoicesLoading } = useInvoices();
 	const { data: SuppliersData, isLoading: SuppliersLoading } = useSuppliers();
 	const { data: offersData, isLoading: offersLoading } = useOffers();
-	const { data: types, isLoading: typesloading } = useTypes();
+    const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
 
 	const AmountDuesColumns: ColumnDef<SuppliersType>[] = [
 		{
@@ -58,41 +58,37 @@ export default function Page() {
 	const AddSupplierCol: ColumnDef<AddSuppliersType>[] = [
 		{
 			header: "النوع",
-			cell: () => (
-				<div className="flex flex-row-reverse justify-center gap-1">
-					{types && types.length > 0 ? (
-						types.map((typee: AddSuppliersType) => (
-							<span key={typee.id}>{typee.type}</span>
-						))
-					) : (
-						<span>لا توجد أنواع حالياً</span>
-					)}
-
+			accessorKey: "type",
+			cell: ({ row }) => {
+			  const type = row.original;
+			  return (
+				<div className="flex justify-center gap-2">
+				  <span className="px-2 py-1 border rounded">
+					{type.type}
+				  </span>
 				</div>
-			),
-		},
-		{
-			header: t("suppliers.actions"),
-			cell: () => (
-				<div className="flex flex-row-reverse justify-center gap-1">
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-						{t("suppliers.delete")}
-						<DeleteIcon />
-					</Button>
-					<Button
-						className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-						onClick={() => setShowOrders(true)}
-					>
-						تعديل
-
-
-					</Button>
-				</div>
-			),
-		},
-	];
-
-	const offersColumns: ColumnDef<OfferType>[] = [
+			  );
+			},
+		  },
+        {
+            header: t("suppliers.actions"),
+            cell: () => (
+                <div className="flex flex-row-reverse justify-center gap-1">
+                    <Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
+                        {t("suppliers.delete")}
+                        <DeleteIcon />
+                    </Button>
+                    <Button
+                        className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+                        onClick={() => setShowOrders(true)}
+                    >
+                        تعديل
+                    </Button>
+                </div>
+            ),
+        },
+    ];
+	const offersColumns: ColumnDef<QuotationType>[] = [
 		{
 			header: t("suppliers.offerDescription"),
 			accessorKey: "description",
@@ -204,13 +200,13 @@ export default function Page() {
 
 	return (
 		<ReusableManyTable
-			dataSets={[
-				{
-					data: AddSupplierCol || [],
-					columns: AddSupplierCol,
-					withFilter: false,
-					label: t("suppliers.addTypeSupplier"),
-					UserComponent: () => (
+				dataSets={[
+                    {
+                        data: types || [], // تمرير البيانات المسترجعة هنا
+                        columns: AddSupplierCol, // الأعمدة التي تريد عرضها
+                        withFilter: false,
+                        label: t("suppliers.addTypeSupplier"),
+                        UserComponent: () => (
 						<div className="flex flex-col gap-5 p-6">
 							<h2 className="text-[26px] font-bold">
 								{t("suppliers.addTypeSupplier")}
@@ -235,10 +231,6 @@ export default function Page() {
 												type="text"
 												className="border border-gray-300 rounded px-3 py-2 w-full"
 											/>
-
-
-
-
 											<Button
 												variant="outline"
 												size="sm"
@@ -325,7 +317,7 @@ export default function Page() {
 						: undefined,
 				},
 				{
-					data: AddSupplierCol || [],
+					data: AmountDuesData || [],
 					loading: AmountDuesLoading,
 					columns: AmountDuesColumns,
 					withFilter: false,

@@ -20,7 +20,7 @@ export function useAddSupplierType() {
 			return res.json();
 		},
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["supplier-types"] });
+			queryClient.invalidateQueries({ queryKey: ["type"] });
 		},
 	});
 }

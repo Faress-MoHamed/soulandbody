@@ -2,12 +2,13 @@
 
 import { useQuery } from "@tanstack/react-query";
 export type AddSuppliersType = {
+	types: any;
     id: number;
     type: string;
 }
 export function useTypes() {
     return useQuery<AddSuppliersType[]>({
-        queryKey: ["supplier-types"],
+        queryKey: ["type"],
         queryFn: async () => {
             const res = await fetch("http://192.168.1.15:8008/api/supplier-types", {
                 headers: {
