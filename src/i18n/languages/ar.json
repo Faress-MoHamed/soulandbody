@@ -1502,6 +1502,7 @@
 	"suppliers": {
 		"title": "موردين",
 		"addSupplier": "اضافة مورد",
+		"addTypeSupplier": "اضافة نوع مورد",
 		"addOffer": "اضافة عرض",
 		"supplierName": "اسم المورد",
 		"phone": "الهاتف",

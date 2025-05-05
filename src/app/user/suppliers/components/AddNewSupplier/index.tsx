@@ -15,7 +15,7 @@ export default function AddNewSupplier() {
 		<Card className="flex flex-col px-6 py-9 pt-0 gap-6  w-[100%] h-fit">
 			<CardHeader className="flex flex-row items-center justify-between p-0">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
-					اضافة مورد جديد
+				اضافة مورد جديد
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="grid md:grid-cols-3 items-end grid-cols-1 gap-5">
