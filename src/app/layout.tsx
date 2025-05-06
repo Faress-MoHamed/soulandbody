@@ -12,10 +12,10 @@ import ReduxProvider from "@/providers/reduxProvider";
 import { Toaster } from "react-hot-toast";
 import NextTopLoader from "nextjs-toploader";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
+// const geistSans = Geist({
+// 	variable: "--font-geist-sans",
+// 	subsets: ["latin"],
+// });
 
 const geistMono = Geist_Mono({
 	variable: "--font-geist-mono",
@@ -46,7 +46,7 @@ export default async function RootLayout({
 			</head>
 			<body
 				suppressHydrationWarning
-				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#fafafa]`}
+				// className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#fafafa]`}
 			>
 				<NextTopLoader
 					color="#16C47F"

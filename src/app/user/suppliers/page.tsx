@@ -11,10 +11,9 @@ import AddButton from "@/components/AddButton";
 import { useDeleteQuotations, useInvoices, type InvoiceType } from "./hooks/useInvoices";
 import { useState } from "react";
 import CustomInput from "@/components/customInput";
-import { useSuppliers, type SuppliersType } from "./hooks/useSuppliers";
+import { invoicesTypee, QuotationTypee, SupplierDetailsType, useDeleteSupplier, useSuppliers, type SuppliersType } from "./hooks/useSuppliers";
 import AddNewSupplier from "./components/AddNewSupplier";
-import { useOffers, type QuotationType } from "./hooks/useQuotations";
-import { useTypes } from "./hooks/useTypeSup";
+import { useTypes } from "./hooks/useAddSup";
 import {
 	useProductDetails,
 	type ProductDetailType,
@@ -26,15 +25,17 @@ import InvoicesTable from "@/components/InvoicesTable";
 import ShowIcon from "@/iconsSvg/Show";
 import DeleteIcon from "@/iconsSvg/DeleteIcon";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
-import { AddSuppliersType } from "./hooks/useTypeSup";
+import { AddSuppliersType } from "./hooks/useAddSup";
 import { useAddSupplierType, useUpdateSupplierType } from "./hooks/useAddSup";
 import { Toaster, toast } from 'react-hot-toast';
 import InvoiceDetails from "@/app/test/components/InvoiceDetails";
 import { useDeleteSupplierType } from "./hooks/useAddSup"; // تأكد من استيراد الـ hook
+import { useSupplierById } from "./hooks/useSuppliers";
 
 
 export default function Page() {
-	const { mutate: deleteSupplier } = useDeleteSupplierType(); // نحصل على mutate من الـ hook
+	const { mutate: deleteSupplierType } = useDeleteSupplierType(); // نحصل على mutate من الـ hook
+	const { mutate: deleteSupplier } = useDeleteSupplier(); // نحصل على mutate من الـ hook
 	const { mutate: deleteQuototion } = useDeleteQuotations(); // نحصل على mutate من الـ hook
 
 	const { t } = useTypedTranslation();
@@ -43,18 +44,62 @@ export default function Page() {
 		useAmountsDues();
 	const { data: InvoicesData, isLoading: InvoicesLoading } = useInvoices();
 	const { data: SuppliersData, isLoading: SuppliersLoading } = useSuppliers();
-	const { data: offersData, isLoading: offersLoading } = useOffers();
 	const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
+	const { fetchSupplier } = useSupplierById();
+	const [supplierData, setSupplierData] = useState({
+		id: null,
+		name: "",
+		phone: "",
+		address: "",
+		invoices: [],
+		quotations: [],
+	});
 
+	function aaaa() {
+		<div className="grid grid-cols-2 gap-5 p-6">
+			<div className="col-span-1">
+				<CustomInput
+					label={t("suppliers.supplierName")}
+					value={supplierData.name}
+					onChange={(e) =>
+						setSupplierData((prev) => ({ ...prev, name: e.target.value }))
+					}
+				/>
+			</div>
+			<div className="col-span-1">
+				<CustomInput
+					label={t("suppliers.phone")}
+					value={supplierData.phone}
+					onChange={(e) =>
+						setSupplierData((prev) => ({ ...prev, phone: e.target.value }))
+					}
+				/>
+			</div>
+			<div className="col-span-1">
+				<CustomInput
+					label={t("suppliers.address")}
+					value={supplierData.address}
+					onChange={(e) =>
+						setSupplierData((prev) => ({ ...prev, address: e.target.value }))
+					}
+				/>
+			</div>
+			<div className="col-span-1 flex items-end">
+				<Button className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] py-[10px] px-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 rounded-lg">
+					{t("suppliers.save")}
+				</Button>
+			</div>
+		</div>
+	}
 
-	const AmountDuesColumns: ColumnDef<SuppliersType>[] = [
+	const AmountDuesColumns: ColumnDef<AmountsDuesType>[] = [
 		{
 			header: t("suppliers.supplierName"),
-			accessorKey: "supplierName",
+			accessorKey: "name",
 		},
 		{
 			header: t("suppliers.remainingAmount"),
-			accessorKey: "RemainingAmount",
+			accessorKey: "total_outstanding",
 		},
 	];
 
@@ -64,21 +109,11 @@ export default function Page() {
 			accessorKey: "type",
 			cell: ({ row }) => {
 				const type = row.original;
-				if (type.deleted_at === null) {
-					return (
-						<div className="flex justify-center gap-2">
-							<span className="px-2 py-1 border rounded">
-								{type.type}
-							</span>
-						</div>
-					);
-				} else {
-					return <div className="flex justify-center gap-2">
-						<span className="px-2 py-1 border rounded">
-							تم الحذف
-						</span>
-					</div>; // أو ممكن تعرض علامة محذوف مثلاً
-				}
+				return <div className="flex justify-center gap-2">
+					<span className="px-2 py-1 rounded">
+						{type.type}
+					</span>
+				</div>
 			},
 		},
 
@@ -92,11 +127,17 @@ export default function Page() {
 
 						<Button
 							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
-							onClick={() => deleteSupplier({ id: type.id })} // تنفيذ الـ mutation عند الضغط
+							onClick={() => {
+								const confirmDelete = window.confirm("هل أنت متأكد أنك تريد الحذف؟");
+								if (confirmDelete) {
+									deleteSupplierType({ id: type.id });
+								}
+							}}
 						>
 							{t("suppliers.delete")}
 							<DeleteIcon />
 						</Button>
+
 						<CustomPopUp
 							DialogTriggerComponent={() => (
 								<Button
@@ -107,9 +148,12 @@ export default function Page() {
 									تعديل
 								</Button>
 							)}
-							DialogContentComponent={() => (
+							DialogContentComponent={({ closePopup }) => (
 								<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
-									<InterStateCompUpdate type={type} />
+									<InterStateCompUpdate
+										type={type}
+										closePopup={closePopup}
+										currentName={type.type} />
 								</div>
 							)}
 						/>
@@ -119,51 +163,76 @@ export default function Page() {
 		}
 
 	];
-	const offersColumns: ColumnDef<QuotationType>[] = [
+	const offersColumns: ColumnDef<QuotationTypee>[] = [
 		{
 			header: t("suppliers.offerDescription"),
-			accessorKey: "description",
+			cell: ({ row }) => {
+				const offer = row.original;
+				return (
+					<div className="flex justify-center gap-2">
+						<span className="px-2 py-1 rounded">
+							{offer.description}
+						</span>
+					</div>
+				);
+			},
 		},
 		{
 			header: t("suppliers.date"),
-			accessorKey: "date",
+			cell: ({ row }) => {
+				const offer = row.original;
+				return (
+					<div className="flex justify-center gap-2">
+						<span className="px-2 py-1 rounded">
+							{offer.date}
+						</span>
+					</div>
+				);
+			},
 		},
 		{
 			header: t("suppliers.actions"),
 			cell: ({ row }) => {
 				const quotation = row.original;
 
-				<div className="flex justify-center gap-2">
-					<CustomPopUp
-						DialogTriggerComponent={() => (
-							<Button
-								variant="outline"
-								size="sm"
-								className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-							>
-								<ShowIcon />
-								{t("suppliers.show")}
-							</Button>
-						)}
-						DialogContentComponent={() => <ShowOffers />}
-					/>
-					<Button onClick={() => deleteQuototion({ id: quotation.id })} // تنفيذ الـ mutation عند الضغط
-						className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-						<DeleteIcon />
-						{t("suppliers.delete")}
-					</Button>
-				</div>
+				return (
+					<div className="flex justify-center gap-2">
+						<CustomPopUp
+							DialogTriggerComponent={() => (
+								<Button
+									variant="outline"
+									size="sm"
+									className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+								>
+									<ShowIcon />
+									{t("suppliers.show")}
+								</Button>
+							)}
+							DialogContentComponent={() => <ShowOffers quotation={supplierData.quotations} />}
+						/>
+						<Button
+							onClick={() => {
+								const confirmDelete = window.confirm("هل أنت متأكد أنك تريد الحذف؟");
+								if (confirmDelete) { deleteQuototion({ id: quotation.id }) }
+							}}
+							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
+						>
+							<DeleteIcon />
+							{t("suppliers.delete")}
+						</Button>
+					</div>
+				);
 			},
 		},
-	];
+	]
 
-	const InvoiceColumns: ColumnDef<InvoiceType>[] = [
+	const InvoiceColumns: ColumnDef<invoicesTypee>[] = [
 		{
 			header: t("suppliers.invoiceNumber"),
-			accessorKey: "invoiceNumber",
+			accessorKey: "invoice_no",
 			cell: ({ row }) => (
 				<div className="text-right">
-					{row.original.invoiceNumber || '---'}
+					{row.original.invoice_no || '---'}
 				</div>
 			),
 		},
@@ -178,22 +247,22 @@ export default function Page() {
 		},
 		{
 			header: t("suppliers.totalAmount"),
-			accessorKey: "totalAmount",
+			accessorKey: "total_amount",
 			cell: ({ row }) => (
 				<div className="text-right">
-					{row.original.totalAmount ?
-						Number(row.original.totalAmount).toLocaleString('ar-EG') + ' ج.م' :
+					{row.original.total_amount ?
+						Number(row.original.total_amount).toLocaleString('ar-EG') + ' ج.م' :
 						'---'}
 				</div>
 			),
 		},
 		{
 			header: t("suppliers.remainingAmount"),
-			accessorKey: "remainingAmount",
+			accessorKey: "outstanding",
 			cell: ({ row }) => (
 				<div className="text-right">
-					{row.original.remainingAmount ?
-						Number(row.original.remainingAmount).toLocaleString('ar-EG') + ' ج.م' :
+					{row.original.outstanding ?
+						Number(row.original.outstanding).toLocaleString('ar-EG') + ' ج.م' :
 						'---'}
 				</div>
 			),
@@ -225,7 +294,7 @@ export default function Page() {
 	const supplierColumns: ColumnDef<SuppliersType>[] = [
 		{
 			header: t("suppliers.supplierName"),
-			accessorKey: "supplierName",
+			accessorKey: "name",
 		},
 		{
 			header: t("suppliers.phone"),
@@ -241,28 +310,39 @@ export default function Page() {
 		},
 		{
 			header: t("suppliers.actions"),
-		cell: ({ row }) => {
-	const supplier = row.original;
+			cell: ({ row }) => {
+				const supplier = row.original;
 
-	return (
-		<div className="flex flex-row-reverse justify-center gap-1">
-			<Button
-				className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
-				onClick={() => deleteSupplier({ id: supplier.id })} // مثال لتنفيذ حذف
-			>
-				{t("suppliers.delete")}
-				<DeleteIcon />
-			</Button>
-			<Button
-				className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
-				onClick={() => setShowOrders(supplier)} // مثال للعرض
-			>
-				<ShowIcon />
-				{t("suppliers.show")}
-			</Button>
-		</div>
-	);
-},
+				return (
+					<div className="flex flex-row-reverse justify-center gap-1">
+						<Button
+							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
+							onClick={() => {
+								const confirmDelete = window.confirm("هل أنت متأكد أنك تريد الحذف؟");
+								if (confirmDelete) { deleteSupplier({ id: supplier.id }) }
+							}}
+						>
+							{t("suppliers.delete")}
+							<DeleteIcon />
+						</Button>
+						<Button
+							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
+							onClick={async () => {
+								const data = await fetchSupplier(supplier.id);
+								console.log("✅ fetched supplier data:", data); // لازم تظهر quotations جوا
+								setSupplierData(data);
+
+								setShowOrders(true); // مجرد فلاغ بدل ما تبعت ID تاني
+							}}
+						>
+							<ShowIcon />
+							{t("suppliers.show")}
+						</Button>
+
+
+					</div>
+				);
+			},
 
 		},
 	];
@@ -271,7 +351,7 @@ export default function Page() {
 		<ReusableManyTable
 			dataSets={[
 				{
-					data: types || [], // تمرير البيانات المسترجعة هنا
+					data: types?.filter(el => !el?.deleted_at) || [], // تمرير البيانات المسترجعة هنا
 					columns: AddSupplierCol, // الأعمدة التي تريد عرضها
 					withFilter: false,
 					label: t("suppliers.addTypeSupplier"),
@@ -292,9 +372,10 @@ export default function Page() {
 											اضافة نوع مورد جديد
 										</Button>
 									)}
-									DialogContentComponent={() => (
+									DialogContentComponent={({ closePopup }) => (
 										<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
-											<InterStateCompAdd />
+											<InterStateCompAdd
+												closePopup={closePopup} />
 										</div>
 									)}
 								/>
@@ -304,24 +385,55 @@ export default function Page() {
 						</div>
 					),
 				},
+
 				{
-					data: ShowOrders ? offersData || [] : SuppliersData || [],
-					loading: ShowOrders ? offersLoading : SuppliersLoading,
+
+					data: ShowOrders ? supplierData.quotations || [] : SuppliersData || [],
+					loading: ShowOrders ? SuppliersLoading : SuppliersLoading, // هنا تم تصحيح الـ loading
 					columns: ShowOrders ? offersColumns : supplierColumns,
 					withFilter: false,
 					title: ShowOrders ? t("suppliers.addOffer") : t("suppliers.title"),
 					label: t("suppliers.title"),
+
 					UserComponent: ShowOrders
 						? () => (
+
 							<div>
-								<div className="flex gap-5 items-end md:flex-row flex-col p-6">
-									<CustomInput label={t("suppliers.supplierName")} />
-									<CustomInput label={t("suppliers.phone")} />
-									<CustomInput label={t("suppliers.address")} />
-									<Button className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none cursor-pointer rounded-lg">
-										{t("suppliers.save")}
-									</Button>
+								<div className="grid grid-cols-2 gap-5 p-6">
+									<div className="col-span-1">
+										<CustomInput
+											label={t("suppliers.supplierName")}
+											value={supplierData.name}
+											onChange={(e) =>
+												setSupplierData((prev) => ({ ...prev, name: e.target.value }))
+											}
+										/>
+									</div>
+									<div className="col-span-1">
+										<CustomInput
+											label={t("suppliers.phone")}
+											value={supplierData.phone}
+											onChange={(e) =>
+												setSupplierData((prev) => ({ ...prev, phone: e.target.value }))
+											}
+										/>
+									</div>
+									<div className="col-span-1">
+										<CustomInput
+											label={t("suppliers.address")}
+											value={supplierData.address}
+											onChange={(e) =>
+												setSupplierData((prev) => ({ ...prev, address: e.target.value }))
+											}
+										/>
+									</div>
+									<div className="col-span-1 flex items-end">
+										<Button className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] py-[10px] px-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 rounded-lg">
+											{t("suppliers.save")}
+										</Button>
+									</div>
 								</div>
+
 								<div className="border border-t border-[#D9d9d9]" />
 								<div className="p-6 w-full flex md:flex-row md:gap-0 gap-5 flex-col justify-between md:items-end">
 									<SearchBar />
@@ -360,7 +472,7 @@ export default function Page() {
 						? [
 							{
 								title: t("suppliers.invoices"),
-								data: InvoicesData || [],
+								data: supplierData.invoices || [],
 								columns: InvoiceColumns,
 							},
 						]
@@ -388,12 +500,16 @@ export default function Page() {
 }
 function InterStateCompUpdate(props: any) {
 	const [newEditType, setNewEditType] = useState('')
-	const updateMutation = useUpdateSupplierType();
+	const updateMutation = useUpdateSupplierType()
+	const notifySuccess = () => {
+		toast.success("تم تعديل النوع بنجاح!");
+	};
 	return (
 		<div className="bg-white p-6 rounded-md w-full max-w-[400px] space-y-4">
-			<input
+			<CustomInput
 				name="newEditType"
 				value={newEditType}
+				label={props.CurrentName}
 				onChange={(e) => setNewEditType(e.target.value)}
 				type="text"
 				className="border border-gray-300 rounded px-3 py-2 w-full"
@@ -410,6 +526,8 @@ function InterStateCompUpdate(props: any) {
 					const formData = new FormData();
 					formData.append("type", newEditType);
 					updateMutation.mutate({ id: props.type.id, formData });
+					notifySuccess(); // إظهار التوست عند التأكيد
+					props.closePopup()
 				}}
 				className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
 			>
@@ -418,19 +536,19 @@ function InterStateCompUpdate(props: any) {
 		</div>
 	)
 }
-function InterStateCompAdd() {
+function InterStateCompAdd(props: any) {
 	const [newType, setNewType] = useState("");
 	const addType = useAddSupplierType();
 	const notifySuccess = () => {
 		toast.success("تم إضافة النوع بنجاح!");
 	};
 	return (
-		<div>
+		<div className="p-6">
 			<CustomInput
 				value={newType}
 				onChange={(e) => setNewType(e.target.value)} // تحديث قيمة newType عند التغيير
 				type="text"
-				className="border border-gray-300 rounded px-3 py-2 w-full"
+				className="border border-gray-300 rounded px-13 py-6 w-full"
 			/>
 			<Button
 				variant="outline"
@@ -441,6 +559,7 @@ function InterStateCompAdd() {
 					addType.mutate(formData); // إرسال الفورم داتا
 
 					notifySuccess(); // إظهار التوست عند التأكيد
+					props.closePopup()
 				}}
 				className="w-full text-[#16C47F] border border-[#16C47F] hover:opacity-85 rounded-[8px] py-2"
 			>

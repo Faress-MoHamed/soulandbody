@@ -12,9 +12,20 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-export default function ShowOffers() {
-	const { data: ProductDetailsData, isLoading: ProductDetailsLoading } =
-		useProductDetails();
+export default function ShowOffers(props : any) {
+	const rawData = props.quotations || [];
+	const transformedData = rawData.map((item: any) => ({
+		productCode: item.product_code,
+		productName: item.product_name,
+		category: `الفئة ${item.product_cat} (${item.measure_unit_name})`,
+		quantity: item.qty,
+		unitPrice: parseFloat(item.unit_price),
+		tax: `${item.tax}%`,
+		discount: `${item.discount}%`,
+		description: item.description,
+		total: parseFloat(item.total_amount),
+	  }));
+	  
 	const productDetailsColumns: ColumnDef<ProductDetailType>[] = [
 		{ header: "كود المنتج", accessorKey: "productCode" },
 		{ header: "اسم المنتج", accessorKey: "productName" },
@@ -38,8 +49,7 @@ export default function ShowOffers() {
 					dataSets={[
 						{
 							columns: productDetailsColumns,
-							data: ProductDetailsData || [],
-							loading: ProductDetailsLoading,
+							data: transformedData || [],
 							withFilter: false,
 							withPagination: false,
 						},

@@ -6,7 +6,7 @@ export function useDeleteQuotations() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: async ({ id }: { id: number;  }) => {
+		mutationFn: async ({ id }: { id: number; }) => {
 			const res = await fetch(`http://192.168.1.15:8008/api/quotations/${id}`, {
 				method: "DELETE", // Laravel يتعامل مع POST في حالة الـ update أحيانًا بدلاً من PUT
 				headers: {
@@ -27,10 +27,11 @@ export function useDeleteQuotations() {
 }
 
 export type InvoiceType = {
-	invoiceNumber: string;
+	supplier_name: any;
+	invoice_no: string;
 	date: string;
-	totalAmount: number;
-	remainingAmount: number;
+	total_amount: number;
+	outstanding: number;
 };
 type ApiInvoiceType = {
 	id: number;
@@ -38,7 +39,7 @@ type ApiInvoiceType = {
 	date: string;
 	total_amount: string; // لأنه جاي كـ string
 	outstanding: number;
-	items: any[]; // لو هتستخدمها بعدين
+	items: any[]; 
 };
 
 
@@ -60,19 +61,17 @@ export function useInvoices() {
 			const apiData: ApiInvoiceType[] = await response.json();
 
 			return apiData.map(item => ({
-				invoiceNumber: item.invoice_no,
+				invoice_no: item.invoice_no,
 				date: formatDate(item.date),
-				totalAmount: Number(item.total_amount),
-				remainingAmount: Number(item.outstanding),
-			  }));
-			  
+				total_amount: Number(item.total_amount),
+				outstanding: Number(item.outstanding),
+			}));
+
 		},
 		staleTime: 5 * 60 * 1000, // البيانات تصبح قديمة بعد 5 دقائق
-		retry: 2, // عدد المحاولات عند الفشل
 	});
 }
 
-// دالة مساعدة لتنسيق التاريخ (اختياري)
 function formatDate(dateString: string): string {
 	const options: Intl.DateTimeFormatOptions = {
 		year: 'numeric',
