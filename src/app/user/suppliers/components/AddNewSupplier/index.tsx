@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import CustomInput from "@/components/customInput";
 import CustomSelect from "@/components/customSelect";
 import { useAddSupplier } from "../../hooks/useSuppliers";
-import { useTypes } from "../../hooks/useAddSup";
+import { useTypes } from "../../hooks/useTypesSup";
 import toast from "react-hot-toast";
 
 export default function AddNewSupplier() {
@@ -21,7 +21,7 @@ export default function AddNewSupplier() {
 	const [nameSup, setNameSup] = useState("");
 	const [phone, setPhone] = useState("");
 	const [address, setAddress] = useState("");
-	const [supplierType, setSupplierType] = useState();
+	const [supplierType, setSupplierType] = useState<number | null>(null); // تحديد النوع
 	const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
 	const supplierTypeOptions = types?.map((type) => ({
 		label: type.type,
@@ -46,7 +46,7 @@ export default function AddNewSupplier() {
 		formData.append("name", nameSup);
 		formData.append("phone", phone);
 		formData.append("address", address);
-		formData.append("supplier_type_id", supplierType); // تأكد من تحويلها إلى سلسلة
+		formData.append("supplier_type_id", supplierType);
 
 
 		addSupplier.mutate(formData, {
@@ -101,9 +101,12 @@ export default function AddNewSupplier() {
 				<Button
 					type="submit"
 					onClick={handleSubmit}
+					disabled={addSupplier.isPending} // تعطيل الزر أثناء التحميل
+
 					className="text-[16px] font-[500] text-white bg-[#16C47F] py-[10px] px-3 w-[182px] h-[48px] hover:bg-[#16C47F]/70 rounded-lg"
 				>
-					حفظ
+					{addSupplier.isPending ? "جاري الحفظ..." : "حفظ"}
+
 				</Button>
 
 			</CardContent>

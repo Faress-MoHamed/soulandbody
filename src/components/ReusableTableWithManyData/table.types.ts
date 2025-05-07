@@ -107,6 +107,7 @@ export type HorizontalTableProps<TData> = Pick<
 >;
 
 export type NestedTableConfig<TData> = {
+	id: string | undefined;
 	data: TData[];
 	columns: ColumnDef<TData>[];
 	title?: string;

@@ -4,45 +4,37 @@ import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import { useAmountsDues, type AmountsDuesType } from "./hooks/useAmountsDues";
 import type { ColumnDef } from "@tanstack/react-table";
 import SearchBar from "@/components/searchBar";
-import ActionButtons from "@/components/ActionButtons";
 import { Button } from "@/components/ui/button";
 import CustomPopUp from "@/components/popups";
 import AddButton from "@/components/AddButton";
-import { useDeleteQuotations, useInvoices, type InvoiceType } from "./hooks/useInvoices";
+import { useDeleteQuotations } from "./hooks/useQuotations";
 import { useState } from "react";
 import CustomInput from "@/components/customInput";
-import { invoicesTypee, QuotationTypee, SupplierDetailsType, useDeleteSupplier, useSuppliers, type SuppliersType } from "./hooks/useSuppliers";
+import { invoicesTypee, QuotationTypee, useDeleteSupplier, useSuppliers, type SuppliersType } from "./hooks/useSuppliers";
 import AddNewSupplier from "./components/AddNewSupplier";
-import { useTypes } from "./hooks/useAddSup";
-import {
-	useProductDetails,
-	type ProductDetailType,
-} from "./hooks/useProductDetails";
+import { useTypes } from "./hooks/useTypesSup";
 import AddQuote from "./components/AddQuote";
-import PriceOfferTable from "./components/AddQuote/table";
 import ShowOffers from "./components/productDetailsPopUp";
-import InvoicesTable from "@/components/InvoicesTable";
 import ShowIcon from "@/iconsSvg/Show";
 import DeleteIcon from "@/iconsSvg/DeleteIcon";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
-import { AddSuppliersType } from "./hooks/useAddSup";
-import { useAddSupplierType, useUpdateSupplierType } from "./hooks/useAddSup";
+import { AddSuppliersType } from "./hooks/useTypesSup";
+import { useAddSupplierType, useUpdateSupplierType } from "./hooks/useTypesSup";
 import { Toaster, toast } from 'react-hot-toast';
 import InvoiceDetails from "@/app/test/components/InvoiceDetails";
-import { useDeleteSupplierType } from "./hooks/useAddSup"; // تأكد من استيراد الـ hook
+import { useDeleteSupplierType } from "./hooks/useTypesSup"; // تأكد من استيراد الـ hook
 import { useSupplierById } from "./hooks/useSuppliers";
 
 
 export default function Page() {
 	const { mutate: deleteSupplierType } = useDeleteSupplierType(); // نحصل على mutate من الـ hook
-	const { mutate: deleteSupplier } = useDeleteSupplier(); // نحصل على mutate من الـ hook
+	const { mutate: deleteSupplier ,isError,isSuccess} = useDeleteSupplier(); // نحصل على mutate من الـ hook
 	const { mutate: deleteQuototion } = useDeleteQuotations(); // نحصل على mutate من الـ hook
 
 	const { t } = useTypedTranslation();
 	const [ShowOrders, setShowOrders] = useState(false);
 	const { data: AmountDuesData, isLoading: AmountDuesLoading } =
 		useAmountsDues();
-	const { data: InvoicesData, isLoading: InvoicesLoading } = useInvoices();
 	const { data: SuppliersData, isLoading: SuppliersLoading } = useSuppliers();
 	const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
 	const { fetchSupplier } = useSupplierById();
@@ -55,42 +47,6 @@ export default function Page() {
 		quotations: [],
 	});
 
-	function aaaa() {
-		<div className="grid grid-cols-2 gap-5 p-6">
-			<div className="col-span-1">
-				<CustomInput
-					label={t("suppliers.supplierName")}
-					value={supplierData.name}
-					onChange={(e) =>
-						setSupplierData((prev) => ({ ...prev, name: e.target.value }))
-					}
-				/>
-			</div>
-			<div className="col-span-1">
-				<CustomInput
-					label={t("suppliers.phone")}
-					value={supplierData.phone}
-					onChange={(e) =>
-						setSupplierData((prev) => ({ ...prev, phone: e.target.value }))
-					}
-				/>
-			</div>
-			<div className="col-span-1">
-				<CustomInput
-					label={t("suppliers.address")}
-					value={supplierData.address}
-					onChange={(e) =>
-						setSupplierData((prev) => ({ ...prev, address: e.target.value }))
-					}
-				/>
-			</div>
-			<div className="col-span-1 flex items-end">
-				<Button className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] py-[10px] px-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 rounded-lg">
-					{t("suppliers.save")}
-				</Button>
-			</div>
-		</div>
-	}
 
 	const AmountDuesColumns: ColumnDef<AmountsDuesType>[] = [
 		{
@@ -143,7 +99,7 @@ export default function Page() {
 								<Button
 									variant="outline"
 									size="sm"
-									className="flex items-center justify-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:opacity-85 h-[38px] w-[160px] rounded-[8px] border border-[#16C47F] text-sm"
+									className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F] text-sm"
 								>
 									تعديل
 								</Button>
@@ -164,6 +120,19 @@ export default function Page() {
 
 	];
 	const offersColumns: ColumnDef<QuotationTypee>[] = [
+		{
+			header: "رقم العرض",
+			cell: ({ row }) => {
+				const offer = row.original;
+				return (
+					<div className="flex justify-center gap-2">
+						<span className="px-2 py-1 rounded">
+							{offer.id}
+						</span>
+					</div>
+				);
+			},
+		},
 		{
 			header: t("suppliers.offerDescription"),
 			cell: ({ row }) => {
@@ -193,7 +162,7 @@ export default function Page() {
 		{
 			header: t("suppliers.actions"),
 			cell: ({ row }) => {
-				const quotation = row.original;
+				const offer = row.original;
 
 				return (
 					<div className="flex justify-center gap-2">
@@ -208,18 +177,22 @@ export default function Page() {
 									{t("suppliers.show")}
 								</Button>
 							)}
-							DialogContentComponent={() => <ShowOffers quotation={supplierData.quotations} />}
+							DialogContentComponent={() => <ShowOffers QuotaionId={offer.id}
+							/>}
 						/>
 						<Button
 							onClick={() => {
 								const confirmDelete = window.confirm("هل أنت متأكد أنك تريد الحذف؟");
-								if (confirmDelete) { deleteQuototion({ id: quotation.id }) }
+								if (confirmDelete) { deleteQuototion({ id: offer.id }) }
 							}}
 							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
 						>
 							<DeleteIcon />
 							{t("suppliers.delete")}
 						</Button>
+						{isLoading && <p>جاري الحذف...</p>}
+						{isError && <p>حدث خطأ أثناء الحذف.</p>}
+						{isSuccess && <p>تم الحذف بنجاح.</p>}
 					</div>
 				);
 			},
@@ -231,7 +204,7 @@ export default function Page() {
 			header: t("suppliers.invoiceNumber"),
 			accessorKey: "invoice_no",
 			cell: ({ row }) => (
-				<div className="text-right">
+				<div className="text-center">
 					{row.original.invoice_no || '---'}
 				</div>
 			),
@@ -240,7 +213,7 @@ export default function Page() {
 			header: t("suppliers.date"),
 			accessorKey: "date",
 			cell: ({ row }) => (
-				<div className="text-right">
+				<div className="text-center">
 					{row.original.date ? new Date(row.original.date).toLocaleDateString('ar-EG') : '---'}
 				</div>
 			),
@@ -249,7 +222,7 @@ export default function Page() {
 			header: t("suppliers.totalAmount"),
 			accessorKey: "total_amount",
 			cell: ({ row }) => (
-				<div className="text-right">
+				<div className="text-center">
 					{row.original.total_amount ?
 						Number(row.original.total_amount).toLocaleString('ar-EG') + ' ج.م' :
 						'---'}
@@ -260,7 +233,7 @@ export default function Page() {
 			header: t("suppliers.remainingAmount"),
 			accessorKey: "outstanding",
 			cell: ({ row }) => (
-				<div className="text-right">
+				<div className="text-center">
 					{row.original.outstanding ?
 						Number(row.original.outstanding).toLocaleString('ar-EG') + ' ج.م' :
 						'---'}
@@ -284,8 +257,9 @@ export default function Page() {
 							</Button>
 						)}
 						DialogContentComponent={() => (
-							<InvoiceDetails />
+							<InvoiceDetails invoiceId={row.original.id} />
 						)}
+
 					/>
 				</div>
 			),
@@ -420,11 +394,13 @@ export default function Page() {
 									</div>
 									<div className="col-span-1">
 										<CustomInput
+
 											label={t("suppliers.address")}
 											value={supplierData.address}
 											onChange={(e) =>
 												setSupplierData((prev) => ({ ...prev, address: e.target.value }))
 											}
+
 										/>
 									</div>
 									<div className="col-span-1 flex items-end">
@@ -509,7 +485,7 @@ function InterStateCompUpdate(props: any) {
 			<CustomInput
 				name="newEditType"
 				value={newEditType}
-				label={props.CurrentName}
+				label={props.currentName}
 				onChange={(e) => setNewEditType(e.target.value)}
 				type="text"
 				className="border border-gray-300 rounded px-3 py-2 w-full"

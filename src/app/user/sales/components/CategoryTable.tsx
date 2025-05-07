@@ -1,9 +1,9 @@
 import React from "react";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
-export default function CategoryTable() {
+export default function CategoryTable(props: any) {
 	const { t } = useTypedTranslation();
-
+	const data = props?.data
 	return (
 		<div className="overflow-x-auto">
 			<table className="w-full border-collapse">
@@ -51,22 +51,22 @@ export default function CategoryTable() {
 				<tbody>
 					<tr className="bg-white">
 						<td className="border border-[#B9EDD9] px-4 py-2 text-center">
-							كرتونة
+							{data.measure_unit}
 						</td>
 						<td className="border border-[#B9EDD9] px-4 py-2 text-center">
-							500
+							{data.unit_price}
 						</td>
 						<td className="border border-[#B9EDD9] px-4 py-2 text-center">
-							50
+							{data.qty}
 						</td>
 						<td className="border border-[#B9EDD9] px-4 py-2 text-center">
-							12
+							{data.sale_price}
 						</td>
 						<td className="border border-[#B9EDD9] px-4 py-2 text-center">
-							42
+							{data.total_price}
 						</td>
 						<td className="border border-[#B9EDD9] px-4 py-2 text-center">
-							10
+							{data.purchase_price}
 						</td>
 					</tr>
 				</tbody>

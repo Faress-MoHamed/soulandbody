@@ -305,8 +305,8 @@ const selectableItems = useMemo(() => {
 			label: table.title || "Details",
 			component: (
 				<NestedTable
-					key={index}
-					data={table.data}
+				key={table.id || table.title}
+				data={table.data}
 					paginatedData={paginatedData}
 					columns={table.columns}
 					pageIndex={nestedPageIndex}
@@ -340,6 +340,8 @@ const selectableItems = useMemo(() => {
 	nestedTable, // Just include the whole array rather than spreading its properties
 	nestedPaginationStates, // Just include the whole array
 ]);
+	console.log(title || ButtonTrigger || withFilter);
+
 	return (
 		<>
 			<Card

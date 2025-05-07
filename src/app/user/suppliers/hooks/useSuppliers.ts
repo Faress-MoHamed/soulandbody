@@ -144,6 +144,7 @@ export type SupplierDetailsType = {
 	quotations: QuotationTypee[];
 	supplier_type?: string | null;
 	total_outstanding: number;
+	total_amounts:number
 };
 
 
@@ -154,12 +155,14 @@ export type QuotationTypee = {
 	quotation_no: string;
 	date: string;
 	total_amount: number;
+	total_amounts: number;
 	description: string | null;
 	created_at: string;
 	updated_at: string;
 	deleted_at: string | null;
 };
 export type invoicesTypee = {
+	tax: string;
 	id: number;
 	supplier_id: number;
 	invoice_no: string;
@@ -201,6 +204,7 @@ export function useSupplierById() {
 			name: responseData.data.name,
 			description: responseData.data.description,
 			phone: responseData.data.phone,
+			total_amounts: responseData.data.total_amounts ,
 			address: responseData.data.address,
 			invoices: responseData.data.invoices || [],
 			quotations: responseData.data.quotations || [],

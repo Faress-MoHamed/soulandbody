@@ -1,53 +1,25 @@
-"use client";
+import { useQuery } from "@tanstack/react-query";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
-export function useDeleteQuotations() {
-	const queryClient = useQueryClient();
-
-	return useMutation({
-		mutationFn: async ({ id }: { id: number; }) => {
-			const res = await fetch(`http://192.168.1.15:8008/api/quotations/${id}`, {
-				method: "DELETE", // Laravel يتعامل مع POST في حالة الـ update أحيانًا بدلاً من PUT
-				headers: {
-					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
-				},
-			});
-
-			if (!res.ok) {
-				throw new Error("فشل في التعديل");
-			}
-
-			return res.json();
-		},
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["type"] });
-		},
-	});
-}
-
-export type InvoiceType = {
-	supplier_name: any;
-	invoice_no: string;
-	date: string;
-	total_amount: number;
-	outstanding: number;
-};
-type ApiInvoiceType = {
+export type invoicesTypeDet = {
+	tax: string;
 	id: number;
+	supplier_id: number;
 	invoice_no: string;
 	date: string;
-	total_amount: string; // لأنه جاي كـ string
+	amount: string;           // لاحظ إنها string وليست number
+	discount: string;
+	total_amount: string;
+	paid: string;
+	sales_tax_id: number;
+	income_tax_id: number;
 	outstanding: number;
-	items: any[]; 
 };
 
-
-export function useInvoices() {
-	return useQuery<InvoiceType[]>({
-		queryKey: ["invoices"],
+export function useInvoiceDetails(invoiceId: number) {
+	return useQuery({
+		queryKey: ["invoice-details", invoiceId],
 		queryFn: async () => {
-			const response = await fetch("http://192.168.1.15:8008/api/invoices", {
+			const response = await fetch(`http://192.168.1.15:8008/api/invoices/${invoiceId}`, {
 				headers: {
 					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
 					"Content-Type": "application/json",
@@ -55,28 +27,15 @@ export function useInvoices() {
 			});
 
 			if (!response.ok) {
-				throw new Error("فشل في جلب الفواتير");
+				throw new Error("فشل في جلب تفاصيل الفاتورة");
 			}
 
-			const apiData: ApiInvoiceType[] = await response.json();
+			const data = await response.json();
 
-			return apiData.map(item => ({
-				invoice_no: item.invoice_no,
-				date: formatDate(item.date),
-				total_amount: Number(item.total_amount),
-				outstanding: Number(item.outstanding),
-			}));
+		
 
+			return data; // أو data.items.map() لو عايز تعدل الشكل
 		},
-		staleTime: 5 * 60 * 1000, // البيانات تصبح قديمة بعد 5 دقائق
+		enabled: !!invoiceId, // لتفادي الاستدعاء قبل وصول الـ ID
 	});
-}
-
-function formatDate(dateString: string): string {
-	const options: Intl.DateTimeFormatOptions = {
-		year: 'numeric',
-		month: '2-digit',
-		day: '2-digit'
-	};
-	return new Date(dateString).toLocaleDateString('ar-EG', options);
 }

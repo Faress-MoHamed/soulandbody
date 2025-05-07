@@ -1,122 +1,104 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useInvoiceDetails } from "../../../user/suppliers/hooks/useInvoices";
+import { useTypedTranslation } from "@/hooks/useTypedTranslation";
+import { ColumnDef } from "@tanstack/react-table";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
+import FinalInvoicesTable from "@/app/companies/SalesInvoices/components/FinalInvoicesTable";
+import CategoryTable from "@/app/user/sales/components/CategoryTable";
+import TaxOnProduct from "@/app/companies/SalesInvoices/components/TaxOnProduct";
+import CustomPopUp from "@/components/popups";
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+export default function InvoiceDetails(props: any) {
+  const invoiceId = props?.invoiceId ?? null;
+  const { data, isLoading, isError } = useInvoiceDetails(invoiceId);
+  const { t } = useTypedTranslation();
 
-interface InvoiceItem {
-	totalInvoice: string;
-	totalDiscount: string;
-	totalVAT: string;
-	totalTableTax: string;
-	totalDiscountAndAdditionTax: string;
-	netInvoice: string;
-	paymentMethod: number;
-}
+  if (isLoading) {
+    return <div>جاري التحميل...</div>;
+  }
 
-export default function InvoiceDetails() {
-	const t = useTranslations("returnsTable");
+  if (isError || !data) {
+    return <div>حدث خطأ أثناء جلب البيانات. يرجى المحاولة مرة أخرى.</div>;
+  }
 
-	const [data, setData] = useState<InvoiceItem[]>([
-		{
-			totalInvoice: "5454",
-			totalDiscount: "15",
-			totalVAT: "15",
-			totalTableTax: "15",
-			totalDiscountAndAdditionTax: "300 ج.م",
-			netInvoice: "1850 ج.م",
-			paymentMethod: 400,
-		},
-	]);
+  // ✅ تعديل هنا لعرض المنتجات داخل الجدول
+  const dataToDisplay = data?.items ?? [];
 
-	const headers = [
-		"اجمالي الفاتورة",
-		"العمولة",
-		"نسبة ضريبة المبيعات 16%",
-		"الأجور",
-		"عمالة",
-		"رسوم بلدية",
-		"اجمالي المصاريف",
-		"صافي الفاتورة",
-	];
+  const columns: ColumnDef<any>[] = [
+    {
+      accessorKey: "product_code",
+      header: "كود المنتج",
+    },
+    {
+      accessorKey: "product_name",
+      header: "اسم المنتج",
+    },
+    {
+      accessorKey: "qty",
+      header: "الكمية",
+    },
+    {
+      accessorKey: "sale_price",
+      header: "سعر البيع",
+    },
+    {
+      accessorKey: "measure_unit",
+      header: "الوحدة",
+    },
+    {
+      accessorKey: "total_price",
+      header: "الإجمالي",
+    },
+    {
+      accessorKey: "tax",
+      header: t("sales.salesInvoices.columns.tax"),
+      cell: ({ row }) =>
+        row.original.tax === t("sales.salesInvoices.columns.addTax") ? (
+          <CustomPopUp
+            DialogTriggerComponent={() => (
+              <span
+                style={{
+                  color: "green",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                }}
+              >
+                عرض الضريبه
+              </span>
+            )}
+            DialogContentComponent={() => <TaxOnProduct />}
+          />
+        ) : (
+          <span>{row.original.tax}</span>
+        ),
+    },
+  ];
 
-	return (
-		<div className="w-full flex flex-col gap-4 px-6 pb-2">
-			<Card className="border-none rounded-md">
-				<div className="w-full overflow-auto">
-					<table className="w-full caption-bottom text-sm border border-[#B9EDD9] rounded-[4px]">
-						<thead>
-							<tr>
-								{headers.map((header, index) => (
-									<th
-										key={index}
-										className={`text-[16px] text-nowrap text-start font-[500] px-3 py-[10px] w-[187px] h-[62px] ${
-											index >= 6 ? "bg-[#16C47F]" : "bg-[#00000014]"
-										} border-t align-top border-l border-[#B9EDD9]`}
-									>
-										{header}
-									</th>
-								))}
-							</tr>
-						</thead>
-						<tbody>
-							{data.length > 0 ? (
-								data.map((item, rowIndex) => (
-									<tr
-										key={rowIndex}
-										className="transition-colors hover:bg-muted/50"
-									>
-										<td className="px-3 py-[10px] align-middle text-center text-[16px] border-t border-l border-[#B9EDD9]">
-											{item.totalInvoice}
-										</td>
-										<td className="px-3 py-[10px] align-middle text-center text-[16px] border-t border-l border-[#B9EDD9]">
-											{item.totalDiscount}
-										</td>
-										<td className="px-3 py-[10px] align-middle text-center text-[16px] border-t border-l border-[#B9EDD9]">
-											{item.totalVAT}
-										</td>
-										<td className="px-3 py-[10px] align-middle text-center text-[16px] border-t border-l border-[#B9EDD9]">
-											{item.totalTableTax}
-										</td>
-										<td className="px-3 py-[10px] align-middle text-center text-[16px] border-t border-l border-[#B9EDD9]">
-											{item.totalDiscountAndAdditionTax}
-										</td>
-										<td className="px-3 py-[10px] align-middle text-center text-[16px] border-t border-l border-[#B9EDD9]">
-											{item.netInvoice}
-										</td>
-										<td className="px-3 py-[10px] align-middle text-center text-[16px] border-t border-l border-[#B9EDD9]">
-											{/* Replace with real value if needed */}
-											--
-										</td>
-										<td className="px-3 py-[10px] align-middle text-center text-[16px] border-t border-l border-[#B9EDD9]">
-											{item.paymentMethod}
-										</td>
-									</tr>
-								))
-							) : (
-								<tr>
-									<td colSpan={headers.length} className="h-24 text-center">
-										{t("noResults")}
-									</td>
-								</tr>
-							)}
-						</tbody>
-					</table>
-				</div>
-			</Card>
-			<div className="self-end flex gap-2">
-				<Button className="px-3 py-[10px] w-[148px] h-[44px] bg-[#16C47F] hover:bg-[#16C47F]/70">
-					حفظ الفاتورة
-				</Button>
-				<Button
-					variant={"outline"}
-					className="px-3 py-[10px] w-[148px] h-[44px] border-[#16C47F]"
-				>
-					الغاء
-				</Button>
-			</div>
-		</div>
-	);
+  return (
+    <div className="p-4">
+      <ReusableManyTable
+        dataSets={[
+          {
+            data: dataToDisplay,
+            columns,
+            FooterComponent: () => <FinalInvoicesTable withActions={false} />,
+            onCellClick: (cell) => {
+              if (cell?.column?.id !== "category") return null;
+              return <CategoryTable data={dataToDisplay}/>;
+            },
+            withFilter: false,
+            containerClassName: "p-5",
+          },
+        ]}
+        withTopPrinter={false}
+      />
+
+      {/* عرض الإجماليات تحت الجدول */}
+      <div className="mt-6 p-4 border rounded bg-gray-50 shadow-sm">
+        <p>إجمالي الفاتورة: <strong>{data.total_amount}</strong> جنيه</p>
+        <p>إجمالي الخصم: <strong>{data.total_discount}</strong> جنيه</p>
+      </div>
+    </div>
+  );
 }

@@ -25,6 +25,7 @@ export function useTypes() {
             // نرجّع فقط الأنواع اللي مش متشالة (deleted_at === null)
             return data.filter(type => !type.deleted_at);
         },
+		
     });
 }
 
