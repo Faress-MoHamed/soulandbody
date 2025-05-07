@@ -69,7 +69,7 @@ export default async function RootLayout({
 						<ReactQueryProvider>
 							<HeroUiProvider>
 								<ReduxProvider>
-									<Home>{children}</Home>
+									{children}
 									<Toaster position="top-right" />
 								</ReduxProvider>
 							</HeroUiProvider>

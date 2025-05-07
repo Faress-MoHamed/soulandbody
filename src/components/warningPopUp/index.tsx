@@ -21,7 +21,7 @@ import { useCreateDisciplinaryWarning, useWarnings } from "./useWarnings";
 import { useTypedSelector } from "@/hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
 import { setWarningField } from "./warningSlice.slice";
-import { useEmployees } from "@/app/hr/employees/useEmployee";
+import { useEmployees } from "@/app/dashboard/hr/employees/useEmployee";
 
 export default function WarningPopUp({ closePopup }: { closePopup?: any }) {
 	const { t } = useTypedTranslation();

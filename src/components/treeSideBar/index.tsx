@@ -6,7 +6,7 @@ import Image from "next/image";
 import SideBarSelector from "./SideBarSelector";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import CustomPopUp from "../popups";
-import MovementAccountTopComponent from "@/app/user/movementacount/components/MovementAccount";
+import MovementAccountTopComponent from "@/app/dashboard/user/movementacount/components/MovementAccount";
 // استيراد الصور بشكل صحيح
 const headimg = require("./assets/34363121.png").default;
 const money = require("./assets/money-bag_97216241.png").default;

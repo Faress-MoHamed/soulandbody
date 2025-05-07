@@ -8,7 +8,7 @@ export default function Home() {
 	const router = useRouter();
 
 	useEffect(() => {
-		router.replace("/hr");
+		router.replace("/dashboard/hr");
 	}, [router]);
 
 	return null; // or <></>

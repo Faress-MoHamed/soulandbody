@@ -1,20 +1,22 @@
-import React from "react";
-import CustomPopUp from "../popups";
+"use client";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { ColumnDef } from "@tanstack/react-table";
-import type { EmployeesInvoicesType } from "@/app/dashboard/companies/Employees/hooks/useInvoicesEmployees";
+import React from "react";
+
+import CustomPopUp from "@/components/popups";
+import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import {
 	useSalesInvoices,
 	type SalesInvoice,
 } from "@/app/dashboard/companies/SalesInvoices/hooks/useSalesInvoices";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
-import TaxOnProduct from "@/app/dashboard/companies/SalesInvoices/components/TaxOnProduct";
-import ReusableManyTable from "../ReusableTableWithManyData";
 import FinalInvoicesTable from "@/app/dashboard/companies/SalesInvoices/components/FinalInvoicesTable";
-import CategoryTable from "@/app/dashboard/user/sales/components/CategoryTable";
+import TaxOnProduct from "@/app/dashboard/companies/SalesInvoices/components/TaxOnProduct";
+import CategoryTable from "./CategoryTable";
 
-export default function InvoicesTable() {
+export default function DisplayInovices() {
+	const { data: allData, isLoading: allDataWithLoading } = useSalesInvoices();
 	const { t } = useTypedTranslation();
-	const { data: allData, isLoading: InvoiceBuyingLoading } = useSalesInvoices();
 	const columns: ColumnDef<SalesInvoice>[] = [
 		{
 			accessorKey: "code",
@@ -35,9 +37,6 @@ export default function InvoicesTable() {
 		{
 			accessorKey: "saleUnit",
 			header: t("sales.salesInvoices.columns.saleUnit"),
-			cell: (props) => {
-				return <>كرتونه</>;
-			},
 		},
 		{
 			accessorKey: "total",
@@ -61,7 +60,7 @@ export default function InvoicesTable() {
 									textDecoration: "underline",
 								}}
 							>
-								عرض الضريبه
+								{row.original.tax}
 							</span>
 						)}
 						DialogContentComponent={() => <TaxOnProduct />}
@@ -76,24 +75,28 @@ export default function InvoicesTable() {
 		},
 	];
 	return (
-		<div className="p-4">
-			<ReusableManyTable
-				dataSets={[
-					{
-						data: allData || [],
-						columns,
-						FooterComponent: () => <FinalInvoicesTable withActions={false} />,
-						onCellClick: (cell) => {
-							console.log(cell);
-							if (cell?.column?.id !== "category") return null;
-							return <CategoryTable />;
+		<Card>
+			<CardHeader>عرض الفاتورة</CardHeader>
+			<CardContent className="p-5">
+				<ReusableManyTable
+					dataSets={[
+						{
+							data: allData?.slice(0, 2) || [],
+							columns: columns,
+							FooterComponent: () => <FinalInvoicesTable withActions={false} />,
+							withPrinter: false,
+							containerClassName: "bg-white border-none",
+							loading: allDataWithLoading,
+							onCellClick: (cell) => {
+								console.log(cell);
+								if (cell?.column?.id !== "category") return null;
+								return <CategoryTable />;
+							},
 						},
-						withFilter: false,
-						containerClassName: "p-5",
-					},
-				]}
-				withTopPrinter={false}
-			/>
-		</div>
+					]}
+					withTopPrinter={false}
+				/>
+			</CardContent>
+		</Card>
 	);
 }

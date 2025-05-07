@@ -5,7 +5,6 @@ import { Upload, Check, X, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import FileUploadList from "../file-upload-list";
-// import type { FileItem } from "@/app/test/page";
 import CustomPopUp from "../popups";
 import CustomCard from "../customCard";
 import Link from "next/link";
@@ -15,7 +14,7 @@ import {
 	setEmployeeAttachments,
 	setEmployeeField,
 	removeEmployeeAttachment,
-} from "@/app/hr/employees/add/createNewEmployee.slice";
+} from "@/app/dashboard/hr/employees/add/createNewEmployee.slice";
 
 type UploadState = "idle" | "uploading" | "success";
 

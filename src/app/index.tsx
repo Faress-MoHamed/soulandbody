@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export default function Home({ children }: { children: any }) {
 	const { open } = useSidebar();
 	return (
-		<div className={cn(open ? "flex flex-1 justify-between w-full" : "")}>
+		<div className={cn(open ? "flex flex-1 justify-between w-full not-md:max-w-auto" : "")}>
 			<HomeSideBar />
 			<div
 		 	    // style={{
