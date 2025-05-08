@@ -31,93 +31,57 @@ interface InvoiceItem {
 	netInvoice: string;
 	paymentMethod: string;
 }
-
 export default function FinalInvoicesTable({
 	withActions = true,
-}: {
+	data = [],
+  }: {
 	withActions?: boolean;
-}) {
+	data: InvoiceItem[];
+  }) {
 	const { t } = useTypedTranslation();
-
-	const [data, setData] = useState<InvoiceItem[]>([
-		{
-			totalInvoice: "5454",
-			totalDiscount: "15",
-			totalVAT: "15",
-			totalTableTax: "15",
-			totalDiscountAndAdditionTax: "300 ج.م",
-			netInvoice: "1850 ج.م",
-			paymentMethod: "نقدي",
-		},
-	]);
-
+  
 	const paymentMethods = [
-		{ value: "نقدي", label: t("salesInvoicesTable.invoiceSmallTable.cash") },
-		{
-			value: "تحويل بنكي",
-			label: t("salesInvoicesTable.invoiceSmallTable.bankTransfer"),
-		},
+	  { value: "نقدي", label: t("salesInvoicesTable.invoiceSmallTable.cash") },
+	  {
+		value: "تحويل بنكي",
+		label: t("salesInvoicesTable.invoiceSmallTable.bankTransfer"),
+	  },
 	];
+  
 	const [selectedType, setSelectedType] = useState(paymentMethods[0].value);
-
+  
 	const columns: ColumnDef<InvoiceItem>[] = [
-		{
-			accessorKey: "totalInvoice",
-			header: t("salesInvoicesTable.invoiceSmallTable.totalInvoice"),
-		},
-		{
-			accessorKey: "totalDiscount",
-			header: t("salesInvoicesTable.invoiceSmallTable.totalDiscount"),
-		},
-		{
-			accessorKey: "totalVAT",
-			header: t("salesInvoicesTable.invoiceSmallTable.totalVAT"),
-		},
-		{
-			accessorKey: "totalTableTax",
-			header: t("salesInvoicesTable.invoiceSmallTable.totalTableTax"),
-		},
-		{
-			accessorKey: "totalDiscountAndAdditionTax",
-			header: t("salesInvoicesTable.invoiceSmallTable.discountAndAdditionTax"),
-		},
-		{
-			accessorKey: "netInvoice",
-			header: t("salesInvoicesTable.invoiceSmallTable.netInvoice"),
-		},
-		{
-			accessorKey: "paymentMethod",
-			header: t("salesInvoicesTable.invoiceSmallTable.paymentMethod"),
-			cell: () => (
-				<Select
-					value={selectedType}
-					onValueChange={(value) => {
-						setSelectedType(value);
-					}}
-				>
-					<SelectTrigger className="w-[180px] border-none shadow-none focus-visible:ring-0">
-						<SelectValue
-							placeholder={t(
-								"salesInvoicesTable.invoiceSmallTable.paymentMethodPlaceholder"
-							)}
-						/>
-					</SelectTrigger>
-					<SelectContent>
-						{paymentMethods.map((method) => (
-							<SelectItem key={method.value} value={method.value}>
-								{method.label}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
-			),
-		},
+	  {
+		accessorKey: "totalInvoice",
+		header: t("salesInvoicesTable.invoiceSmallTable.totalInvoice"),
+	  },
+	  {
+		accessorKey: "totalDiscount",
+		header: t("salesInvoicesTable.invoiceSmallTable.totalDiscount"),
+	  },
+	  {
+		accessorKey: "totalVAT",
+		header: t("salesInvoicesTable.invoiceSmallTable.totalVAT"),
+	  },
+	  {
+		accessorKey: "totalTableTax",
+		header: t("salesInvoicesTable.invoiceSmallTable.totalTableTax"),
+	  },
+	  {
+		accessorKey: "totalDiscountAndAdditionTax",
+		header: t("salesInvoicesTable.invoiceSmallTable.discountAndAdditionTax"),
+	  },
+	  {
+		accessorKey: "netInvoice",
+		header: t("salesInvoicesTable.invoiceSmallTable.netInvoice"),
+	  },
+	 
 	];
-
+  
 	const table = useReactTable({
-		data,
-		columns,
-		getCoreRowModel: getCoreRowModel(),
+	  data,
+	  columns,
+	  getCoreRowModel: getCoreRowModel(),
 	});
 
 	return (
@@ -176,13 +140,7 @@ export default function FinalInvoicesTable({
 				</div>
 			</Card>
 
-			<div className="flex gap-6">
-				<p>
-					{t("salesInvoicesTable.invoiceSmallTable.receiptNumber")}:
-					2542554854891
-				</p>
-				<p>{t("salesInvoicesTable.invoiceSmallTable.amount")}: 5000</p>
-			</div>
+		
 
 			{withActions && (
 				<div className="self-end flex gap-2">

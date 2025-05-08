@@ -1,205 +1,54 @@
-"use client";
-
 import { useQuery } from "@tanstack/react-query";
-
-export type InvoiceType = {
-	invoiceNumber: string;
-	date: string;
-	totalAmount: number;
-	remainingAmount: number;
-};
-
-// Sample data from the image
-const invoicesData: InvoiceType[] = [
-	{
-		invoiceNumber: "1542",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "12454",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5482",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1245",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5145",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "9562",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "989623",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "87894",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1542",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "12454",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5482",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1245",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5145",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "9562",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "989623",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "87894",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1542",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "12454",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5482",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "1245",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "45451",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "5145",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "9562",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "989623",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-	{
-		invoiceNumber: "87894",
-		date: "0105851212",
-		totalAmount: 5000,
-		remainingAmount: 200,
-	},
-];
-
-export function useInvoices() {
+export type InvoiceItem = {
+	id: number;
+	invoice_id: number;
+	product_id: number;
+	qty: number;
+	discount: string;
+	tax: string;
+	unit_price: string;
+	product_code: string;
+	product_name: string;
+	description: string;
+	purchase_price: string;
+	sale_price: string;
+	measure_unit: string;
+	category_name: string;
+	total: number;
+	total_price: number;
+  };
+  
+  export type InvoiceDetailsResponseType = {
+	total_amount: string;
+	total_discount: string;
+	total_invoice_amount: number;
+	sales_tax: string;
+	income_tax: string;
+	net_invoice: number;
+	items: InvoiceItem[];
+  };
+  
+export function useInvoiceDetails(invoiceId: number) {
 	return useQuery({
-		queryKey: ["invoices"],
+		queryKey: ["invoice-details", invoiceId],
 		queryFn: async () => {
-			// In a real app, this would fetch from an API
-			return invoicesData;
+			const response = await fetch(`http://192.168.1.15:8000/api/invoices/${invoiceId}`, {
+				headers: {
+					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
+					"Content-Type": "application/json",
+				},
+			});
+
+			if (!response.ok) {
+				throw new Error("فشل في جلب تفاصيل الفاتورة");
+			}
+
+			const data = await response.json();
+
+		
+
+			return data; // أو data.items.map() لو عايز تعدل الشكل
 		},
+		enabled: !!invoiceId, // لتفادي الاستدعاء قبل وصول الـ ID
 	});
 }
-

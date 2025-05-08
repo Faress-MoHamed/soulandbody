@@ -28,7 +28,7 @@ import { useSupplierById } from "./hooks/useSuppliers";
 
 export default function Page() {
 	const { mutate: deleteSupplierType } = useDeleteSupplierType(); // نحصل على mutate من الـ hook
-	const { mutate: deleteSupplier ,isError,isSuccess} = useDeleteSupplier(); // نحصل على mutate من الـ hook
+	const { mutate: deleteSupplier, isError, isSuccess } = useDeleteSupplier(); // نحصل على mutate من الـ hook
 	const { mutate: deleteQuototion } = useDeleteQuotations(); // نحصل على mutate من الـ hook
 
 	const { t } = useTypedTranslation();
@@ -46,7 +46,6 @@ export default function Page() {
 		invoices: [],
 		quotations: [],
 	});
-
 
 	const AmountDuesColumns: ColumnDef<AmountsDuesType>[] = [
 		{
@@ -376,15 +375,19 @@ export default function Page() {
 								<div className="grid grid-cols-2 gap-5 p-6">
 									<div className="col-span-1">
 										<CustomInput
+											name="name"
 											label={t("suppliers.supplierName")}
 											value={supplierData.name}
-											onChange={(e) =>
-												setSupplierData((prev) => ({ ...prev, name: e.target.value }))
-											}
+											onChange={(e) => {
+												console.log("Typing Name:", e.target.value);
+												setSupplierData((prev) => ({ ...prev, name: e.target.value }));
+											}}
 										/>
+
 									</div>
 									<div className="col-span-1">
 										<CustomInput
+											name="phone"
 											label={t("suppliers.phone")}
 											value={supplierData.phone}
 											onChange={(e) =>
@@ -394,7 +397,7 @@ export default function Page() {
 									</div>
 									<div className="col-span-1">
 										<CustomInput
-
+											name="address"
 											label={t("suppliers.address")}
 											value={supplierData.address}
 											onChange={(e) =>
@@ -450,7 +453,7 @@ export default function Page() {
 								title: t("suppliers.invoices"),
 								data: supplierData.invoices || [],
 								columns: InvoiceColumns,
-								
+
 							},
 						]
 						: undefined,

@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import CustomPopUp from "@/components/popups";
 import AddButton from "@/components/AddButton";
 import AddNewClient from "./components/AddNewClient";
-import { useInvoices, type InvoiceType } from "./hooks/useInvoices";
+// import { useInvoices, type InvoiceType } from "./hooks/useInvoices";
 import { useState } from "react";
 import CustomInput from "@/components/customInput";
 import InvoicesTable from "@/components/InvoicesTable";
@@ -23,7 +23,6 @@ export default function page() {
 	const { data: AmountDuesData, isLoading: AmountDuesLoading } =
 		useAmountsDues();
 	const { data: CustomersData, isLoading: CustomersLoading } = useCustomers();
-	const { data: InvoicesData, isLoading: InvoicesLoading } = useInvoices();
 	const [ShowInvoices, setShowInvoices] = useState(false);
 	const AmountDuesColumns: ColumnDef<AmountsDuesType>[] = [
 		{
@@ -73,7 +72,7 @@ export default function page() {
 			},
 		},
 	];
-	const InvoiceColumns: ColumnDef<InvoiceType>[] = [
+	const InvoiceColumns: ColumnDef<any>[] = [
 		{
 			header: t("clients.invoiceNumber"),
 			accessorKey: "invoiceNumber",
@@ -139,8 +138,8 @@ export default function page() {
 					label: t("clients.amountsDue"),
 				},
 				{
-					data: ShowInvoices ? InvoicesData : (CustomersData as any) || [],
-					loading: ShowInvoices ? InvoicesLoading : CustomersLoading,
+					data: ShowInvoices ? [] : (CustomersData as any) || [],
+					loading: ShowInvoices ? false : CustomersLoading,
 					title: ShowInvoices ? "" : t("clients.title"),
 					columns: ShowInvoices ? InvoiceColumns : CustomerColumns,
 					withFilter: false,

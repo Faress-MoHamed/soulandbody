@@ -182,7 +182,7 @@ export function useSupplierById() {
 	const queryClient = useQueryClient();
 
 	const fetchSupplier = async (id: number) => {
-		const response = await fetch(`http://192.168.1.15:8008/api/suppliers/supplier_file/${id}`, {
+		const response = await fetch(`http://192.168.1.15:8000/api/suppliers/supplier_file/${id}`, {
 			headers: {
 				Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
 				"Content-Type": "application/json",
@@ -217,3 +217,37 @@ export function useSupplierById() {
 		queryClient,  // لو حبيت تعمل caching أو invalidate
 	};
 }
+
+
+// type SupplierType = {
+// 	id: number;
+// 	name: string;
+// 	phone: string;
+// 	address: string;
+	
+//   };
+  
+//   export function useUpdateSupplierType() {
+// 	const queryClient = useQueryClient();
+
+// 	return useMutation({
+// 		mutationFn: async ({ id }: { id: number;  }) => {
+// 			const res = await fetch(`http://192.168.1.15:8008/api/suppliers/${id}`, {
+// 				method: "POST", 
+// 				headers: {
+// 					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
+// 				},
+				
+// 			});
+
+// 			if (!res.ok) {
+// 				throw new Error("فشل في التعديل");
+// 			}
+
+// 			return res.json();
+// 		},
+// 		onSuccess: () => {
+// 			queryClient.invalidateQueries({ queryKey: ["type"] });
+// 		},
+// 	});
+// }
