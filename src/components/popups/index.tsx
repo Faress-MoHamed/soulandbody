@@ -54,7 +54,7 @@ export default function CustomPopUp({
 							<SidebarProvider>
 								<ReactQueryProvider>
 									<NextIntlClientProvider locale={locale} messages={messages}>
-										<DialogContentComponent closePopup={closePopup} />
+										<DialogContentComponent key={Date.now()} closePopup={closePopup} />
 									</NextIntlClientProvider>
 								</ReactQueryProvider>
 							</SidebarProvider>
@@ -83,3 +83,37 @@ export default function CustomPopUp({
 		</div>
 	);
 }
+
+
+
+// import {
+// 	Dialog,
+// 	DialogContent,
+// 	DialogTrigger,
+//   } from "@/components/ui/dialog";
+  
+//   export default function CustomPopUp({
+// 	DialogTriggerComponent,
+// 	DialogContentComponent,
+//   }: {
+// 	DialogTriggerComponent: () => JSX.Element;
+// 	DialogContentComponent: ({ closePopup }: { closePopup?: () => void }) => JSX.Element;
+//   }) {
+// 	const [open, setOpen] = React.useState(false);
+  
+// 	const closePopup = () => setOpen(false);
+  
+// 	return (
+// 	  <Dialog open={open} onOpenChange={setOpen}>
+// 		<DialogTrigger asChild>
+// 		  <div className="cursor-pointer">
+// 			<DialogTriggerComponent />
+// 		  </div>
+// 		</DialogTrigger>
+// 		<DialogContent className="max-w-md w-full p-6">
+// 		  <DialogContentComponent closePopup={closePopup} />
+// 		</DialogContent>
+// 	  </Dialog>
+// 	);
+//   }
+  

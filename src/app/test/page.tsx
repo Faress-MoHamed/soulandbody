@@ -4,9 +4,6 @@ import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import type { ColumnDef } from "@tanstack/react-table";
 import React, { useState } from "react";
 import InvoiceTopComponent from "./components/InvoiceTopComponent";
-import { useExecutions } from "../userHr/execuse/hooks/useExecuses";
-import type { ExecuseRecord } from "../userHr/breakTime/hooks/useBreakTime";
-import StatusCard from "../userHr/execuse/components/statuseCards";
 import InvoiceDetails from "./components/InvoiceDetails";
 import {
 	useInventoryItemsData,
