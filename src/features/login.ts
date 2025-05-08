@@ -37,22 +37,10 @@ export function useLogin() {
 			// Redirect to a protected route, e.g., dashboard or home page
 			router.push("/");
 		},
-		onError: (error: any) => {
-			// Handle error and show appropriate message
-			const errorMessages = error?.response?.data?.message;
+		onError: (error:any) => {
+			// console.log(error)
+			toast.error(error?.response?.data?.message);
 
-			if (errorMessages && typeof errorMessages === "object") {
-				// Show individual error messages if they exist
-				Object.keys(errorMessages).forEach((field) => {
-					const messages = errorMessages[field];
-					messages.forEach((message: any) => {
-						toast.error(`${message}`);
-					});
-				});
-			} else {
-				// Show generic error message
-				toast.error("An error occurred. Please try again.");
-			}
 		},
 	});
 }
