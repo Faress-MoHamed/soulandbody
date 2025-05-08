@@ -3,12 +3,8 @@
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import type { ColumnDef } from "@tanstack/react-table";
 import React, { useState } from "react";
-import {
-	useOrderProducts,
-	type OrderProductType,
-} from "./hooks/useOrderProducts";
-import { Button } from "@/components/ui/button";
-import QuantitySelector from "@/components/QuantitySelector";
+
+// import { Button } from "@/components/ui/button";
 import {
 	useInventoryProducts,
 	type InventoryProductType,
@@ -16,17 +12,22 @@ import {
 import TopComponentsinventoryProduct from "./components/topComponentsinventoryProduct";
 // import type { SupplierType } from "../user/purchases/hooks/useSupplier";
 import {
-	useOrders,
-	type OrderType,
+	useDeleteMyOrders,
+	useMyOrders,
 	// type ProductType,
 } from "./hooks/useMyOrders";
-import { useSuppliers, type SupplierType } from "./hooks/useSuppliers";
-import { useProducts, type ProductType } from "./hooks/useProductSupplier";
+import { useQuotationFromEachSupplier, type SupplierType } from "./hooks/useQuotationFromEachSupplier";
+import { useOrderProductFromSupplier, useProductsFromThisSupplier,  } from "./hooks/useProductsFromThisSupplier";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import ShowIcon from "@/iconsSvg/Show";
 import DeleteIcon from "@/iconsSvg/DeleteIcon";
 import CustomPopUp from "@/components/popups";
 import ShowSupplierOffers from "./components/showSupplierOffer";
+import { Button } from "@heroui/react";
+import { usependingOrders } from "./hooks/usePendingOrders";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { useDispatch } from "react-redux";
+import { removeProduct } from "./components/topComponentsinventoryProduct/inventorySlice";
 function EyeIcon() {
 	return (
 		<svg
@@ -50,218 +51,189 @@ function EyeIcon() {
 
 export default function page() {
 	const { t } = useTypedTranslation();
-	const { data: orderProductsData, isLoading: orderProductsLoading } =
-		useOrderProducts();
-	const { data: inventoryProductsData, isLoading: inventoryProductLoading } =
-		useInventoryProducts();
+	// const { data: inventoryProductsData, isLoading: inventoryProductLoading } =
+	// 	useInventoryProducts();
+	const {products}=useTypedSelector(s=>s.inventory)
 	// like the order id and show me the order with the suppliers
-	const [showOrderDetails, setShowOrderDetails] = useState("");
+	const [showOrderDetails, setShowOrderDetails] = useState<string|undefined>();
 	const [showSupplierAndOrderDetails, setShowSupplierAndOrderDetails] =
-		useState("");
+		useState<string|undefined>();
 
-	const orderProductColumns: ColumnDef<OrderProductType>[] = [
-		{
-			header: t("ordersInUser.productName"),
-			accessorKey: "name",
-		},
-		{
-			header: t("ordersInUser.quantity"),
-			accessorKey: "quantity",
-		},
-		{
-			header: t("ordersInUser.unitPrice"),
-			accessorKey: "unitPrice",
-			cell: ({ getValue }) => `${getValue()} ج`,
-		},
-		{
-			header: t("ordersInUser.total"),
-			accessorKey: "total",
-			cell: ({ getValue }) => `${getValue()} ج`,
-		},
-		{
-			header: t("ordersInUser.supplierName"),
-			accessorKey: "supplier",
-		},
-		{
-			header: "",
-			id: "actions",
-			cell: () => (
-				<div className="flex justify-center">
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-						<DeleteIcon />
-						{t("ordersInUser.delete")}
-					</Button>
-				</div>
-			),
-		},
-	];
 
-	const inventoryProductColumns: ColumnDef<InventoryProductType>[] = [
-		{
-			header: t("ordersInUser.productName"),
-			accessorKey: "name",
-		},
-		{
-			header: t("ordersInUser.quantity"),
-			accessorKey: "quantity",
-		},
-		{
-			header: "",
-			id: "actions",
-			cell: () => (
-				<div className="flex justify-center">
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
-						<DeleteIcon />
-						{t("ordersInUser.delete")}
-					</Button>
-				</div>
-			),
-		},
-	];
 
+	const { data: QuotationFromEachSupplier, isLoading: QuotationFromEachSupplierLoading } = useQuotationFromEachSupplier(showOrderDetails);
+			// const { orders, error, isLoading } = useOrders();
+			const {data:pendingOrders,isLoading:pendingOrdersLoading}=usependingOrders()
+			// Orders Table Columns
+			// const { orders: MyOrders } = useOrders();
+			const {data:MyOrders,isLoading:myOrdersLoading}=useMyOrders();
+			const {mutate:deleteMyOrder,isPending:deleteMyOrderLoading}=useDeleteMyOrders()
+			// Orders Table Columns
+			const { data: ProductsFromThisSupplier, isLoading: ProductsFromThisSupplierLoading } =
+			useProductsFromThisSupplier(showSupplierAndOrderDetails);
 	// Suppliers Table Columns
-	const supplierColumns: ColumnDef<SupplierType>[] = [
-		{
-			header: t("ordersInUser.supplierName"),
-			accessorKey: "name",
-		},
-		{
-			header: t("ordersInUser.date"),
-			accessorKey: "date",
-		},
-		{
-			header: t("ordersInUser.options"),
-			id: "actions",
-			cell: ({
-				row: {
-					original: { code },
+			const QuotationFromEachSupplierColumns: ColumnDef<any>[] = [
+				{
+					header: t("ordersInUser.supplierName"),
+					accessorKey: "supplier_name",
 				},
-			}) => (
-				<div className="flex space-x-2 justify-center">
-					<Button
-						onClick={() => setShowSupplierAndOrderDetails(code)}
-						className="flex items-center gap-2 px-4 py-2 bg-white text-green-500 hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-green-500 ml-2"
-					>
-						<ShowIcon />
-						{t("ordersInUser.show")}
-					</Button>
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#C41619]">
-						<DeleteIcon />
-						{t("ordersInUser.delete")}
-					</Button>
-				</div>
-			),
-		},
-	];
-
-	const { data: suppliers, isLoading: suppliersLoading } = useSuppliers();
-	const { orders, error, isLoading } = useOrders();
-	// Orders Table Columns
-	const orderColumns: ColumnDef<OrderType>[] = [
-		{
-			header: t("ordersInUser.orderNumber"),
-			accessorKey: "orderNumber",
-		},
-		{
-			header: t("ordersInUser.date"),
-			accessorKey: "date",
-		},
-		{
-			header: t("ordersInUser.amount"),
-			accessorKey: "ordersCount",
-		},
-		{
-			header: t("ordersInUser.options"),
-			id: "actions",
-			cell: ({
-				row: {
-					original: { orderNumber },
+				{
+					header: t("ordersInUser.date"),
+					accessorKey: "date",
 				},
-			}) => (
-				<div className="flex space-x-2 justify-center">
-					<Button
-						onClick={() => setShowOrderDetails(orderNumber)}
-						className="flex items-center gap-2 px-4 py-2 bg-white text-green-500 hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-green-500 ml-2"
-					>
-						<ShowIcon />
-						{t("ordersInUser.show")}
-					</Button>
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#C41619]">
-						<DeleteIcon />
-						{t("ordersInUser.delete")}
-					</Button>
-				</div>
-			),
-		},
-	];
-	const { orders: MyOrders } = useOrders();
-	// Orders Table Columns
-	const MyOrdersColumns: ColumnDef<OrderType>[] = [
-		{
-			header: t("ordersInUser.orderNumber"),
-			accessorKey: "orderNumber",
-		},
-		{
-			header: t("ordersInUser.date"),
-			accessorKey: "date",
-		},
-		{
-			header: t("ordersInUser.amount"),
-			accessorKey: "ordersCount",
-		},
-		{
-			header: t("ordersInUser.options"),
-			id: "actions",
-			cell: ({
-				row: {
-					original: { orderNumber },
+				{
+					header: t("ordersInUser.options"),
+					id: "actions",
+					cell: ({
+						row: {
+							original: { quotation_id },
+						},
+					}) => (
+						<div className="flex space-x-2 justify-center">
+							<button
+								onClick={() => setShowSupplierAndOrderDetails(quotation_id)}
+								className="flex items-center gap-2 px-4 py-2 bg-white text-green-500 hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-green-500 ml-2"
+							>
+								<ShowIcon />
+								{t("ordersInUser.show")}
+							</button>
+							<button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#C41619]">
+								<DeleteIcon />
+								{t("ordersInUser.delete")}
+							</button>
+						</div>
+					),
 				},
-			}) => (
-				<div className="flex space-x-2 justify-center">
-					<CustomPopUp
-						DialogTriggerComponent={() => {
-							return (
-								<Button className="flex items-center gap-2 px-4 py-2 bg-white text-green-500 hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-green-500 ml-2">
-									<ShowIcon />
-									{t("ordersInUser.show")}
-								</Button>
-							);
-						}}
-						DialogContentComponent={() => {
-							return <ShowSupplierOffers />;
-						}}
-					/>
+			];
 
-					<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#C41619]">
-						<DeleteIcon />
-						{t("ordersInUser.delete")}
-					</Button>
-				</div>
-			),
-		},
-	];
+			const dispatch = useDispatch()
 
-	const { data: productsSupplier, isLoading: productsSupplierLoading } =
-		useProducts();
+			const inventoryProductColumns: ColumnDef<any>[] = [
+				{
+					header: t("ordersInUser.productName"),
+					accessorKey: "productNameLabel",
+				},
+				{
+					header: t("ordersInUser.quantity"),
+					accessorKey: "quantity",
+				},
+				{
+					header: "",
+					id: "actions",
+					cell: ({row:{original:{index}}}) => (
+						<div className="flex justify-center">
+							<Button onPress={()=>dispatch(removeProduct(index))} className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
+								<DeleteIcon />
+								{t("ordersInUser.delete")}
+							</Button>
+						</div>
+					),
+				},
+			];
+			const PendingorderColumns: ColumnDef<any>[] = [
+				{
+					header: t("ordersInUser.orderNumber"),
+					accessorKey: "id",
+				},
+				{
+					header: t("ordersInUser.date"),
+					accessorKey: "date",
+				},
+				{
+					header: t("ordersInUser.amount"),
+					accessorKey: "total_amount",
+				},
+				{
+					header: t("ordersInUser.options"),
+					id: "actions",
+					cell: ({
+						row: {
+							original: { id },
+						},
+					}) => (
+						<div className="flex space-x-2 justify-center">
+							<button
+								onClick={() => setShowOrderDetails(id)}
+								className="flex items-center gap-2 px-4 py-2 bg-white text-green-500 hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-green-500 ml-2"
+							>
+								<ShowIcon />
+								{t("ordersInUser.show")}
+							</button>
+							<button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#C41619]">
+								<DeleteIcon />
+								{t("ordersInUser.delete")}
+							</button>
+						</div>
+					),
+				},
+			];
 
-	const Productcolumns: ColumnDef<ProductType>[] = [
+			const MyOrdersColumns: ColumnDef<any>[] = [
+				{
+					header: t("ordersInUser.orderNumber"),
+					accessorKey: "purchase_request_id",
+				},
+				{
+					header: t("ordersInUser.date"),
+					accessorKey: "created_at",
+				},
+				{
+					header: t("ordersInUser.amount"),
+					accessorKey: "total_price",
+				},
+				{
+					header: t("ordersInUser.options"),
+					id: "actions",
+					cell: ({
+						row: {
+							original: { purchase_request_id },
+						},
+					}) => (
+						<div className="flex space-x-2 justify-center">
+							<CustomPopUp
+								DialogTriggerComponent={() => {
+									return (
+										<button className="flex items-center gap-2 px-4 py-2 bg-white text-green-500 hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-green-500 ml-2">
+											<ShowIcon />
+											{t("ordersInUser.show")}
+										</button>
+									);
+								}}
+								DialogContentComponent={() => {
+									return <ShowSupplierOffers id={purchase_request_id}/>;
+								}}
+							/>
+
+							<Button isLoading={deleteMyOrderLoading} onPress={()=>{
+								deleteMyOrder(purchase_request_id)
+							}} className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] rounded-[8px] border border-[#C41619]">
+								<DeleteIcon />
+								{t("ordersInUser.delete")}
+							</Button>
+						</div>
+					),
+				},
+			];
+
+			const {mutate,isPending}=useOrderProductFromSupplier()
+	const ProductsFromThisSupplierColumns: ColumnDef<any>[] = [
 		{
 			header: t("ordersInUser.productTable.code"),
-			accessorKey: "code",
+			accessorKey: "id",
 			// cell({ row }) {
 			// 	return <div className="bg-[#E8F9F2]">{row.original.code}</div>;
 			// },
 		},
 		{
 			header: t("ordersInUser.productTable.name"),
-			accessorKey: "name",
+			accessorKey: "product_name",
 			// cell({ row }) {
 			// 	return <div className="bg-[#E8F9F2]">{row.original.name}</div>;
 			// },
 		},
 		{
 			header: t("ordersInUser.productTable.quantity"),
-			accessorKey: "quantity",
+			accessorKey: "available_qty",
 			// cell({ row }) {
 			// 	return <div className="bg-[#E8F9F2]">{row.original.quantity}</div>;
 			// },
@@ -272,33 +244,34 @@ export default function page() {
 		},
 		{
 			header: t("ordersInUser.productTable.price"),
-			accessorKey: "price",
+			accessorKey: "unit_price",
 		},
 		{
 			header: t("ordersInUser.productTable.action"),
 			id: "actions",
 			cell: ({
 				row: {
-					original: { code, available },
+					original: { id, status },
 				},
 			}) => (
 				<div className="flex justify-center">
-					<Button
-						variant={"outline"}
+					<button
+						// variant={"outline"}
 						onClick={() => {
-							if (available) {
-								console.log(`طلب المنتج: ${code}`);
-							}
+							// if (status==="pending") {
+								console.log(`طلب المنتج: ${id}`);
+								mutate({qutation_id:showSupplierAndOrderDetails,item_id:id})
+							// }
 						}}
 						className={`flex items-center gap-2 px-4 py-2 w-[128px] h-[32px] rounded-[8px] ${
-							available
+							status==="pending"
 								? "border-[#16C47F] text-emerald-600 bg-white border"
 								: "bg-gray-200 text-gray-500 cursor-not-allowed opacity-50"
 						}`}
-						disabled={!available}
+						// disabled={status==="pending"}
 					>
 						{t("ordersInUser.productTable.order")}
-					</Button>
+					</button>
 				</div>
 			),
 		},
@@ -310,30 +283,30 @@ export default function page() {
 					{
 						columns: MyOrdersColumns,
 						data: MyOrders || [],
-						loading: orderProductsLoading,
-						FooterComponent: () => {
-							return (
-								<div className="w-full flex justify-end p-5">
-									<div className="flex justify-start items-center gap-2">
-										<Button className="bg-[#16C47F] text-white rounded-[8px] w-[148px] h-[44px]">
-											{t("ordersInUser.sendOrders")}
-										</Button>
-										<Button
-											variant={"outline"}
-											className="border-[#16C47F] text-[#16C47F] w-[148px] h-[44px] rounded-[8px]"
-										>
-											{t("ordersInUser.cancel")}
-										</Button>
-									</div>
-								</div>
-							);
-						},
+						loading: myOrdersLoading,
+						// FooterComponent: () => {
+						// 	return (
+						// 		<div className="w-full flex justify-end p-5">
+						// 			<div className="flex justify-start items-center gap-2">
+						// 				<Button className="bg-[#16C47F] text-white rounded-[8px] w-[148px] h-[44px]">
+						// 					{t("ordersInUser.sendOrders")}
+						// 				</Button>
+						// 				<Button
+						// 					variant={"outline"}
+						// 					className="border-[#16C47F] text-[#16C47F] w-[148px] h-[44px] rounded-[8px]"
+						// 				>
+						// 					{t("ordersInUser.cancel")}
+						// 				</Button>
+						// 			</div>
+						// 		</div>
+						// 	);
+						// },
 						label: t("ordersInUser.ordersList"),
 					},
 					{
-						data: (inventoryProductsData as any) || [],
+						data: (products as any) || [],
 						columns: inventoryProductColumns,
-						loading: inventoryProductLoading,
+						// loading: inventoryProductLoading,
 						label: t("ordersInUser.addOrder"),
 						UserComponent: () => {
 							return <TopComponentsinventoryProduct />;
@@ -342,16 +315,16 @@ export default function page() {
 					{
 						label: t("ordersInUser.myOrders"),
 						data: showSupplierAndOrderDetails
-							? productsSupplier
+							? ProductsFromThisSupplier?.items||[]
 							: showOrderDetails
-							? suppliers || []
-							: (orders as any) || [],
+							? QuotationFromEachSupplier || []
+							: (pendingOrders as any) || [],
 						columns: showSupplierAndOrderDetails
-							? Productcolumns
+							? ProductsFromThisSupplierColumns
 							: showOrderDetails
-							? supplierColumns
-							: orderColumns,
-						loading: isLoading || suppliersLoading,
+							?QuotationFromEachSupplierColumns
+							: PendingorderColumns,
+						loading: pendingOrdersLoading ||ProductsFromThisSupplierLoading || QuotationFromEachSupplierLoading,
 						UserComponent: showSupplierAndOrderDetails
 							? () => {
 									return (

@@ -8,6 +8,8 @@ import attendanceReducer from "@/app/dashboard/userHr/components/attendance/atte
 import { combineReducers } from "redux";
 import { executionsReducer } from "@/app/dashboard/userHr/execuse/executions.slice";
 import { overtimeReducer } from "@/app/dashboard/userHr/components/additionalTimeRequest/overTime.slice";
+import  vacationsSlice  from "@/app/dashboard/hr/vacations/vacation.slice";
+import  inventorySlice  from "@/app/dashboard/user/orders/components/topComponentsinventoryProduct/inventorySlice";
 
 const reducer = combineReducers({
 	employee: employeeReducer,
@@ -19,6 +21,8 @@ const reducer = combineReducers({
 	attendance: attendanceReducer,
 	executions: executionsReducer,
 	overTime: overtimeReducer,
+	vacations:vacationsSlice,
+	inventory:inventorySlice
 });
 
 export type RootState = ReturnType<typeof reducer>;

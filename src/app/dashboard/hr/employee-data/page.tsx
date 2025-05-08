@@ -186,7 +186,7 @@ function EmployeeData() {
 					</div>
 				</div>
 				<Link
-					href={"/hr/employees/add"}
+					href={"/dashboard/hr/employees/add"}
 					className="bg-emerald-500 hover:bg-emerald-600 text-nowrap lg:w-[148px] w-[180px] lg:h-[44px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px] px-4 py-2 text-white"
 				>
 					<img src="/add.svg" className="h-6 w-6" />

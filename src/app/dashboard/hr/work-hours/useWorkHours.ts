@@ -3,6 +3,7 @@
 import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export interface WorkHour {
 	id: number;
@@ -21,6 +22,11 @@ export function useWorkHours() {
 			const { data } = await AxiosInstance.get("company-work-hours");
 			return data;
 		},
+		// onSuccess: () => {
+		// 	toast.success("saved successfully");
+		
+		// 	queryClient.invalidateQueries({ queryKey: ["workHours"] });
+		// },
 	});
 }
 
@@ -43,22 +49,40 @@ export function useUpdateWorkHours() {
 	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: async ({
+			id,
+			break_end_time,
+			break_start_time,
 			day,
-			startTime,
-			endTime,
+			break_time,
+			work_end_time,
+			work_start_time,
+			work_status
 		}: {
-			day: string;
-			startTime: string;
-			endTime: string;
-		}) => {
-			const { data } = await axios.post("/api/workhours", {
+			"id": string,
+			"day": string,
+			"work_status": string,
+			"work_start_time": string,
+			"work_end_time": string,
+			"break_time": number,
+			"break_start_time": string,
+			"break_end_time": string
+		  }
+		  ) => {
+			const { data } = await AxiosInstance.post(`company-work-hours`, {
+				id:parseInt(id),
+				break_end_time,
+				break_start_time,
 				day,
-				startTime,
-				endTime,
+				break_time,
+				work_end_time,
+				work_start_time,
+				work_status
 			});
 			return data;
 		},
 		onSuccess: () => {
+			toast.success("saved successfully");
+
 			queryClient.invalidateQueries({ queryKey: ["workHours"] });
 		},
 	});
@@ -79,6 +103,8 @@ export function useUpdateBreakHours() {
 			return data;
 		},
 		onSuccess: () => {
+			toast.success("saved successfully");
+
 			queryClient.invalidateQueries({ queryKey: ["workHours"] });
 		},
 	});

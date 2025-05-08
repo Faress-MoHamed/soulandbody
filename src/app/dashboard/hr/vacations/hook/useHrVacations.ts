@@ -65,3 +65,31 @@ export function useUpdateVacations(id: string) {
 		},
 	});
 }
+export type CreateVacationInput = {
+	employee_id: number;
+	vacation_type: string;
+	number_of_days: number;
+	vacation_start_date: string;
+	return_date: string;
+	status: string;
+};
+
+export function useCreateVacation() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: async (newVacation: CreateVacationInput) => {
+			const { data } = await AxiosInstance.post("user-vacation-requests", newVacation);
+			return data;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["HrVacations"] });
+			toast.success("Vacation created successfully");
+		},
+		onError: (error: any) => {
+			console.log(error)
+			toast.error(error?.response?.data?.error);
+
+		},
+	});
+}

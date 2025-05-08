@@ -24,7 +24,7 @@ import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function Page() {
 	const { t } = useTypedTranslation();
-	const { data: BreakData } = useBreakTimes();
+	const { data: BreakData, isLoading: loading  } = useBreakTimes();
 
 	const columns = [
 		{ accessorKey: "date", header: t("breakTime.columns.date") },
@@ -47,6 +47,7 @@ export default function Page() {
 						withActionButtons: false,
 						withPrinter: true,
 						containerClassName: "border-none",
+						loading,
 					},
 				]}
 				withTopPrinter={false}

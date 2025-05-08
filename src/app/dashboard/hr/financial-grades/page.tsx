@@ -34,6 +34,7 @@ import { useDispatch } from "react-redux";
 import { setTransactionField } from "./financialTransactions.slice";
 import { Button as MainButton } from "@heroui/react";
 import type { ColumnDef } from "@tanstack/react-table";
+import { MonthPicker } from "@/components/monthPicker";
 
 const leaveTypes = ["عادية", "مرضية", "طارئة"];
 
@@ -150,127 +151,23 @@ const LeaveForm = ({ closePopup }: any) => {
 	);
 };
 
-function SalariesForm() {
-	const { t } = useTypedTranslation();
-	const [formData, setFormData] = useState<SalaryFormType>({
-		employee: "",
-		date: "",
-		netSalary: "",
-		extras: "",
-		allowances: "",
-		totalSalary: "",
-	});
-	const [errors, setErrors] = useState<Partial<SalaryFormType>>({});
 
-	const validateForm = (): boolean => {
-		let newErrors: Partial<SalaryFormType> = {};
-		if (!formData.employee) newErrors.employee = t("errors.requiredField");
-		if (!formData.date) newErrors.date = t("errors.requiredField");
-		if (
-			!formData.netSalary ||
-			isNaN(Number(formData.netSalary)) ||
-			Number(formData.netSalary) < 0
-		)
-			newErrors.netSalary = t("errors.invalidAmount");
-		if (
-			!formData.extras ||
-			isNaN(Number(formData.extras)) ||
-			Number(formData.extras) < 0
-		)
-			newErrors.extras = t("errors.invalidAmount");
-		if (
-			!formData.allowances ||
-			isNaN(Number(formData.allowances)) ||
-			Number(formData.allowances) < 0
-		)
-			newErrors.allowances = t("errors.invalidAmount");
-		if (
-			!formData.totalSalary ||
-			isNaN(Number(formData.totalSalary)) ||
-			Number(formData.totalSalary) < 0
-		)
-			newErrors.totalSalary = t("errors.invalidAmount");
-
-		setErrors(newErrors);
-		return Object.keys(newErrors).length === 0;
-	};
-
-	const handleChange = (field: keyof SalaryFormType, value: string) => {
-		setFormData((prev) => ({ ...prev, [field]: value }));
-	};
-
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		if (validateForm()) {
-			console.log("Salary Form Submitted", formData);
-		}
-	};
-	return (
-		<Card className="p-6">
-			<CardTitle>{t("financial.salaryTitle")}</CardTitle>
-			<CardContent>
-				<form onSubmit={handleSubmit} className="flex flex-col gap-4 lg:pl-6">
-					<div className="grid lg:grid-cols-3 grid-cols-1 items-center gap-4">
-						{/* Employee Field */}
-						<CustomSelect
-							label={t("financial.employee")}
-							className=""
-							value={formData.employee}
-							onValueChange={(value) => handleChange("employee", value)}
-							options={[]}
-							placeholder={t("financial.employee")}
-						/>
-						<CustomInput
-							label={t("financial.date")}
-							type="date"
-							value={formData.date}
-							wrapperClassName=""
-							onChange={(e) => handleChange("date", e.target.value)}
-							error={errors.date}
-						/>
-
-						{/* Salary Fields */}
-						{[
-							{ label: t("financial.netSalary"), field: "netSalary" },
-							{ label: t("financial.extras"), field: "extras" },
-							{ label: t("financial.allowances"), field: "allowances" },
-							{ label: t("financial.totalSalary"), field: "totalSalary" },
-						].map(({ label, field }) => (
-							<CustomInput
-								label={label}
-								type="number"
-								value={formData[field as keyof SalaryFormType]}
-								onChange={(e) =>
-									handleChange(field as keyof SalaryFormType, e.target.value)
-								}
-								wrapperClassName=""
-								error={errors[field as keyof SalaryFormType]}
-							/>
-						))}
-					</div>
-
-					{/* Submit Button */}
-					<div className="pt-7 flex justify-end">
-						<Button
-							type="submit"
-							className="text-white bg-[#16C47F] p-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none"
-						>
-							{t("financial.submit")}
-						</Button>
-					</div>
-				</form>
-			</CardContent>
-		</Card>
-	);
-}
 
 export default function Page() {
 	const { t } = useTypedTranslation();
 	const { data: salaryData, isLoading: salaryLoading } = useSalaries();
 	const { data: deductionData, isLoading: deductionLoading } = useDeductions();
+	const [oneEmployee, setOneEmployee] = useState("");
+const { data, isLoading, error } = useEmployees();
+const filteredData = data?.filter((item: any) => {
+	const matchEmployee =
+		!oneEmployee || item.id?.toString() === oneEmployee?.toString();
+	return matchEmployee ;
+});
+
 	console.log(salaryData, deductionData);
 	const salaryColumns: ColumnDef<any>[] = [
-		{ accessorKey: "transaction_date", header: t("financial.date") },
+		// { accessorKey: "transaction_date", header: t("financial.date") },
 		{ accessorKey: "name", header: t("financial.employee") },
 		{ accessorKey: "net_salary", header: t("financial.salary") },
 		{
@@ -302,19 +199,37 @@ export default function Page() {
 					{
 						label: t("financial.salaries"),
 						columns: salaryColumns,
-						data: salaryData ?? [],
+						data: filteredData ?? [],
 						withActionButtons: false,
 						loading: salaryLoading,
-						ButtonTrigger: () => (
-							<CustomPopUp
-								DialogTriggerComponent={() => (
-									<AddButton
-										onClickAdd={() => {}}
-										AddTitle={t("financial.addSalary")}
-									/>
-								)}
-								DialogContentComponent={() => <SalariesForm />}
-							/>
+						UserComponent: () => (<div className="flex justify-start p-6">
+<div className="flex flex-col lg:flex-row justify-start gap-4 mb-6">
+	<div className="flex flex-col lg:flex-row items-end gap-5">
+		<CustomSelect
+			value={oneEmployee}
+			options={data?.map((el: any) => ({
+				label: el?.name,
+				value: el?.id,
+			}))}
+			label={t("filter.employee")}
+			onValueChange={(e) => {
+				setOneEmployee(prev => (prev === e ? "" : e));
+			}}
+		/>
+
+
+		<Button
+			className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
+			onClick={() => {
+				setOneEmployee("");
+			}}
+		>
+			clear
+		</Button>
+	</div>
+	</div>
+</div>
+
 						),
 						withPrinter: true,
 					},

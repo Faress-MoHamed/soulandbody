@@ -204,7 +204,7 @@ function VacationsRecodrs() {
 										AddTitle={t("hrVacations.titles.addVacation")}
 									/>
 								)}
-								DialogContentComponent={() => <VacationRequestPopUp />}
+								DialogContentComponent={({closePopup}) => <VacationRequestPopUp closePopup={closePopup}/>}
 							/>
 						</div>
 					),

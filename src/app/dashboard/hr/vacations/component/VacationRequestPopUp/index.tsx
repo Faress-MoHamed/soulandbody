@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
 	Card,
 	CardContent,
@@ -8,144 +8,120 @@ import {
 } from "@/components/ui/card";
 import CustomInput from "@/components/customInput";
 import CustomSelect from "@/components/customSelect";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { setFormData } from "../../vacation.slice";
+import { useEmployee, useEmployees } from "../../../employees/useEmployee";
+import { useCreateVacation } from "../../hook/useHrVacations";
+import { Button } from "@heroui/react";
 
-export default function VacationRequestPopUp() {
+export default function VacationRequestPopUp({closePopup}:{closePopup?:any}) {
 	const { t } = useTypedTranslation();
-	const [formData, setFormData] = useState<Record<string, any>>({
-		employee: "",
-		leaveType: "",
-		leaveDays: "",
-		leaveStart: "",
-		leaveEnd: "",
-		deduction: "",
-	});
-	const [errors, setErrors] = useState<Record<string, any>>({});
+	const { formData, formErrors } = useTypedSelector((state) => state.vacations);
+	const dispatch = useDispatch();
+	const {data}=useEmployees();
+	const [oneEmployee, setOneEmployee] = useState("");
+	const {mutate,isPending}=useCreateVacation()
+	// Handle input changes and dispatch them to the store
+	const handleInputChange = useCallback(
+		(field: keyof typeof formData) =>
+			(e: React.ChangeEvent<HTMLInputElement>) => {
+				dispatch(setFormData({ [field]: e.target.value }));
+			},
+		[dispatch]
+	);
 
-	const validateForm = () => {
-		let newErrors: any = {};
-		if (!formData.employee)
-			newErrors.employee = t("hrVacations.errors.employeeRequired");
-		if (!formData.leaveType)
-			newErrors.leaveType = t("hrVacations.errors.leaveTypeRequired");
-		if (
-			!formData.leaveDays ||
-			isNaN(formData.leaveDays) ||
-			formData.leaveDays <= 0
-		)
-			newErrors.leaveDays = t("hrVacations.errors.validLeaveDays");
-		if (!formData.leaveStart)
-			newErrors.leaveStart = t("hrVacations.errors.leaveStartRequired");
-		if (!formData.leaveEnd)
-			newErrors.leaveEnd = t("hrVacations.errors.leaveEndRequired");
-		if (
-			formData.leaveStart &&
-			formData.leaveEnd &&
-			formData.leaveStart > formData.leaveEnd
-		)
-			newErrors.leaveEnd = t("hrVacations.errors.leaveEndRequired");
-		if (
-			!formData.deduction ||
-			isNaN(formData.deduction) ||
-			formData.deduction < 0
-		)
-			newErrors.deduction = t("hrVacations.errors.validDeduction");
-
-		setErrors(newErrors);
-		return Object.keys(newErrors).length === 0;
+	// Handle select changes and dispatch them to the store
+	const handleSelectChange = useCallback(
+		(field: keyof typeof formData) =>
+			(value: string) => {
+				dispatch(setFormData({ [field]:field==="number_of_days"?parseInt(value): value }));
+			},
+		[dispatch]
+	);
+	// Handle employee selection change
+	const handleEmployeeSelectChange = (employeeId: string) => {
+		setOneEmployee(employeeId);
+		// Update the formData with the selected employee's ID
+		dispatch(setFormData({ employee_id: parseInt(employeeId) }));
 	};
-
-	const handleSubmit = (e: { preventDefault: () => void }) => {
-		e.preventDefault();
-		if (validateForm()) {
-			console.log("Form submitted successfully", formData);
-			// Handle form submission logic here
-		}
-	};
+	const handleNumberOfDays = useCallback(
+		(field: keyof typeof formData) =>
+			(e: React.ChangeEvent<HTMLInputElement>) => {
+				dispatch(setFormData({ number_of_days: parseInt(e.target.value) }));
+			},
+		[dispatch]
+	);
 	return (
-		<Card className="flex flex-col px-6 py-9 gap-6  w-[100%] h-fit">
+		<Card className="flex flex-col px-6 py-9 gap-6 w-[100%] h-fit">
 			<CardHeader className="flex flex-row items-center justify-between">
 				<CardTitle className="text-center flex-1 lg:text-[18px] font-[600] text-black">
 					{t("hrVacations.vacation")}
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
+				<div className="flex flex-col gap-4">
 					<div className="grid lg:grid-cols-3 gap-4">
 						<CustomInput
 							label={t("hrVacations.deduction")}
 							type="number"
-							value={formData.deduction}
-							onChange={(e) =>
-								setFormData({
-									...formData,
-									deduction: e.target.value,
-								})
-							}
-							error={errors?.deduction}
+							value={formData.number_of_days}
+							onChange={handleInputChange("number_of_days")}
+							error={formErrors.number_of_days}
 						/>
 						<CustomSelect
-							value={formData.employee}
-							label={t("hrVacations.employee")}
-							options={[]}
-							onValueChange={(e) => setFormData({ ...formData, employee: e })}
-							error={errors?.employee}
+							value={data
+								?.map((el: any) => ({
+									label: el?.name,
+									value: el?.id,
+								}))
+								?.find(
+									(el: any) => el?.value?.toString() === oneEmployee?.toString()
+								)
+								?.value?.toString()}
+							options={data?.map((el: any) => ({
+								label: el?.name,
+								value: el?.id,
+							}))}
+							label={t("filter.employee")}
+							onValueChange={handleEmployeeSelectChange}
 						/>
 						<CustomSelect
-							value={formData.leaveType}
-							onValueChange={(e) => setFormData({ ...formData, leaveType: e })}
+							value={formData.vacation_type}
+							onValueChange={handleSelectChange("vacation_type")}
 							label={t("hrVacations.leaveType")}
-							options={[]}
-							error={errors?.leaveType}
+							options={['Sick',"Annual","Casual"]} // Populate this with leave types
+							error={formErrors.vacation_type}
 						/>
 						<CustomInput
 							label={t("hrVacations.leaveStart")}
-							type="time"
-							value={formData.leaveStart}
-							onChange={(e) =>
-								setFormData({
-									...formData,
-									leaveStart: e.target.value,
-								})
-							}
-							error={errors?.leaveStart}
+							type="date"
+							value={formData.vacation_start_date}
+							onChange={handleInputChange("vacation_start_date")}
+							error={formErrors.vacation_start_date}
 						/>
 						<CustomInput
 							label={t("hrVacations.leaveEnd")}
-							type="time"
-							value={formData.leaveEnd}
-							onChange={(e) =>
-								setFormData({
-									...formData,
-									leaveEnd: e.target.value,
-								})
-							}
-							error={errors?.leaveEnd}
+							type="date"
+							value={formData.return_date}
+							onChange={handleInputChange("return_date")}
+							error={formErrors.return_date}
 						/>
 						<CustomInput
 							label={t("hrVacations.leaveDays")}
-							value={formData.leaveDays}
-							onChange={(e) =>
-								setFormData({
-									...formData,
-									leaveDays: e.target.value,
-								})
-							}
-							error={errors?.leaveDays}
+							value={formData.number_of_days.toString()}
+							onChange={handleNumberOfDays("number_of_days")}
+							error={formErrors.number_of_days}
 						/>
 					</div>
-				</form>
-				{/* <div className="flex md:mt-0 mt-3">
-					<Button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md w-[148px] h-[48px] md:mt-8">
-						ارسال الطلب
-					</Button>
-				</div> */}
+				</div>
 			</CardContent>
 			<CardFooter className="flex gap-3 justify-end">
-				{formData.leaveType === "مرضية" && (
+				{/* {formData.vacation_type === "Sick" && (
 					<Button
-						// onClick={onClickAdd}
+						// Add relevant functionality here
 						className="border border-[#16C47F] text-[#16C47F] bg-transparent hover:bg-transparent lg:min-w-[148px] min-w-[140px] lg:h-[48px] h-[35px] text-[16px] flex items-center gap-[10px] cursor-pointer rounded-[8px]"
 					>
 						<svg
@@ -162,10 +138,21 @@ export default function VacationRequestPopUp() {
 						</svg>
 						{t("hrVacations.medicalAttachments")}
 					</Button>
-				)}
+				)} */}
 				<Button
-					type="submit"
-					className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px]  hover:bg-[#16C47F]/70 shadow-none cursor-pointer rounded-lg"
+				isLoading={isPending}
+				disabled={isPending}
+					onPress={()=>{
+						mutate({
+							...formData
+						},{
+							onSuccess:()=>{
+
+								closePopup()
+							}
+						});
+					}}
+					className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px] hover:bg-[#16C47F]/70 shadow-none cursor-pointer rounded-lg"
 				>
 					{t("hrVacations.save")}
 				</Button>
@@ -173,36 +160,3 @@ export default function VacationRequestPopUp() {
 		</Card>
 	);
 }
-// 						DialogContentComponent={() => {
-
-// 							return (
-// 								<CustomCard
-// 									title={"اجازات"}
-// 									width={1010}
-// 									height={450}
-// 									className={`lg:w-[1010px] lg:h-[450px] h-[550px] overflow-auto [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar-track]:bg-gray-100
-// [&::-webkit-scrollbar-thumb]:bg-gray-300  dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 w-[350px] `}
-// 									Content={
-// 										<form
-// 											onSubmit={handleSubmit}
-// 											className="flex flex-col gap-4"
-// 										>
-//
-//
-//
-
-//
-// 											</div>
-// 											<div className="pt-7 flex justify-end">
-// 												<Button
-// 													type="submit"
-// 													className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px]  hover:bg-[#16C47F]/70 shadow-none cursor-pointer"
-// 												>
-// 													حفظ
-// 												</Button>
-// 											</div>
-// 										</form>
-// 									}
-// 								/>
-// 							);
-// 						}}

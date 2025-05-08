@@ -1,6 +1,8 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { AxiosInstance } from "@/lib/AxiosConfig";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 // Types for each table
 export type ProductType = {
@@ -126,4 +128,28 @@ export function useOrders() {
 		isLoading,
 		error,
 	};
+}
+
+
+export function useMyOrders() {
+	return useQuery({
+		queryKey: ["myOrders"],
+		queryFn: async () => {
+			const { data } = await AxiosInstance.get("admin-purchase-requests");
+			return data;
+		},
+	});
+}
+export function useDeleteMyOrders() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: async (id: string) => {
+			await AxiosInstance.delete(`admin-purchase-requests/${id}`);
+			toast.success(`تم حذف الطلب بنجاح`);
+			return id;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["myOrders"] });
+		},
+	});
 }

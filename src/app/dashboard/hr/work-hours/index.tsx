@@ -11,6 +11,7 @@ import {
 	useWorkHours,
 } from "./useWorkHours";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
+import { ColumnDef } from "@tanstack/react-table";
 
 export default function EmployeeManagement({
 	saveHandler,
@@ -20,19 +21,12 @@ export default function EmployeeManagement({
 	mode?: "edit" | "view";
 }) {
 	const { t } = useTypedTranslation();
-
 	const { data: workHours, isLoading } = useWorkHours();
-	const { mutate: toggleWorkDay, isPending: toggleWorkDayPending } =
-		useToggleWorkDay();
-	const { mutate: updateWorkHours, isPending: updateWorkHoursPending } =
-		useUpdateWorkHours();
-	const { mutate: updateBreakHours, isPending: updateBreakHoursPending } =
-		useUpdateBreakHours();
-
+	const updateWorkHours = useUpdateWorkHours();
 	const [pendingChanges, setPendingChanges] = useState<Record<string, any>>({});
 
 	const handleChange = (day: string, field: string, value: any) => {
-		if (mode !== "edit") return; // Don't allow changes in view mode
+		if (mode !== "edit") return;
 		setPendingChanges((prev) => ({
 			...prev,
 			[day]: {
@@ -43,37 +37,45 @@ export default function EmployeeManagement({
 	};
 
 	const handleSave = () => {
-		if (mode !== "edit") return; // Don't allow saving in view mode
+		if (mode !== "edit") return;
 		Object.entries(pendingChanges).forEach(([day, changes]: any) => {
-			if (changes.is_active !== undefined) {
-				toggleWorkDay(day);
-			}
-			if (changes.start_time || changes.end_time) {
-				updateWorkHours({
-					day,
-					startTime:
-						changes.start_time ??
-						workHours.find((d: { day: any }) => d.day === day)?.start_time,
-					endTime:
-						changes.end_time ??
-						workHours.find((d: { day: any }) => d.day === day)?.end_time,
-				});
-			}
-			if (changes.break_hours !== undefined) {
-				updateBreakHours({
-					day,
-					breakHours: changes.break_hours,
-				});
-			}
+			const original = workHours?.data.find((d: { day: string }) => d.day === day) || {};
+
+			updateWorkHours.mutate({
+				id:original.id,
+				day,
+				work_start_time: changes.work_start_time ?? original.work_start_time,
+				work_end_time: changes.work_end_time ?? original.work_end_time,
+				break_start_time: original.break_start_time,
+				break_end_time: original.break_end_time,
+				break_time: changes.break_time ?? original.break_time,
+				work_status:
+					changes.is_active !== undefined
+						? changes.is_active
+							? "work"
+							: "dayoff"
+						: original.work_status,
+			});
 		});
 		setPendingChanges({});
 	};
 
-	const columns = [
+	const columns:ColumnDef<any>[] = [
 		{
 			accessorKey: "day",
 			header: t("workHours.columns.day"),
 			enableSorting: false,
+			cell:({ row }: any) =>{return <>{row.original.day}
+							<input
+						type="hidden"
+						value={
+							pendingChanges[row.original.day]?.id ??
+							row.original.id
+						}
+						onChange={(e) =>
+							handleChange(row.original.day, "id", e.target.value)
+						}
+					/></>}
 		},
 		{
 			accessorKey: "is_active",
@@ -99,15 +101,15 @@ export default function EmployeeManagement({
 					<input
 						type="time"
 						value={
-							pendingChanges[row.original.day]?.start_time ??
+							pendingChanges[row.original.day]?.work_start_time ??
 							row.original.work_start_time
 						}
 						onChange={(e) =>
-							handleChange(row.original.day, "start_time", e.target.value)
+							handleChange(row.original.day, "work_start_time", e.target.value)
 						}
 					/>
 				) : (
-					<span>{row.original.start_time || "-"}</span>
+					<span>{row.original.work_start_time || "-"}</span>
 				),
 		},
 		{
@@ -118,7 +120,7 @@ export default function EmployeeManagement({
 					<input
 						type="time"
 						value={
-							pendingChanges[row.original.day]?.end_time ??
+							pendingChanges[row.original.day]?.work_end_time ??
 							row.original.work_end_time
 						}
 						onChange={(e) =>
@@ -126,11 +128,11 @@ export default function EmployeeManagement({
 						}
 					/>
 				) : (
-					<span>{row.original.end_time || "-"}</span>
+					<span>{row.original.work_end_time || "-"}</span>
 				),
 		},
 		{
-			accessorKey: "break_hours",
+			accessorKey: "break_time",
 			header: t("workHours.columns.break_hours"),
 			cell: ({ row }: any) =>
 				mode === "edit" ? (
@@ -138,7 +140,7 @@ export default function EmployeeManagement({
 						type="number"
 						className="max-w-[80px]"
 						value={
-							pendingChanges[row.original.day]?.break_hours ??
+							pendingChanges[row.original.day]?.break_time ??
 							row.original.break_time
 						}
 						onChange={(e) =>
@@ -150,19 +152,13 @@ export default function EmployeeManagement({
 				),
 		},
 	];
-	console.log(workHours);
 
 	return (
 		<div>
 			<SmallTable
-				loading={
-					isLoading ||
-					toggleWorkDayPending ||
-					updateWorkHoursPending ||
-					updateBreakHoursPending
-				}
+				loading={isLoading || updateWorkHours.isPending}
 				columns={columns}
-				data={workHours?.data ||[]}
+				data={workHours?.data || []}
 				title={t("workHours.title")}
 			/>
 			{mode === "edit" && (
@@ -171,9 +167,8 @@ export default function EmployeeManagement({
 					className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md mt-2"
 					onClick={() => {
 						console.log(pendingChanges);
-
-						// handleSave();
-						// saveHandler?.();
+						handleSave();
+						saveHandler?.();
 					}}
 					disabled={Object.keys(pendingChanges).length === 0 && !saveHandler}
 				>
