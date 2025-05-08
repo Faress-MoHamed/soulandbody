@@ -92,7 +92,7 @@ export default function SmallTable<TData>({
 											))}
 										</thead>
 										<tbody>
-											{table.getRowModel().rows.map((row) => (
+											{table.getRowModel()?.rows?.map((row) => (
 												<tr
 													key={row.id}
 													className=" hover:bg-muted/50 text-center"

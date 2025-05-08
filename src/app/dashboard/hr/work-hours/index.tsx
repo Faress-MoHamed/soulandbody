@@ -162,7 +162,7 @@ export default function EmployeeManagement({
 					updateBreakHoursPending
 				}
 				columns={columns}
-				data={workHours?.data}
+				data={workHours?.data ||[]}
 				title={t("workHours.title")}
 			/>
 			{mode === "edit" && (
