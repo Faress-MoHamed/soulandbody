@@ -1,10 +1,9 @@
 "use client";
 
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
-import { useAmountsDues, type AmountsDuesType } from "./hooks/useAmountsDues";
 import type { ColumnDef } from "@tanstack/react-table";
 import SearchBar from "@/components/searchBar";
-import { useCustomers, type CustomerType } from "./hooks/useCustomers";
+import { useAddCustomer, fetchCustomerById, useCustomers, type CustomerType, Customer, Invoice, deleteCustomerById } from "./hooks/useCustomers";
 import ActionButtons from "@/components/ActionButtons";
 import { Button } from "@/components/ui/button";
 import CustomPopUp from "@/components/popups";
@@ -17,21 +16,24 @@ import InvoicesTable from "@/components/InvoicesTable";
 import DeleteIcon from "@/iconsSvg/DeleteIcon";
 import ShowIcon from "@/iconsSvg/Show";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
+import toast from "react-hot-toast";
 
-export default function page() {
+export default function Page() {
 	const { t } = useTypedTranslation();
-	const { data: AmountDuesData, isLoading: AmountDuesLoading } =
-		useAmountsDues();
+
 	const { data: CustomersData, isLoading: CustomersLoading } = useCustomers();
 	const [ShowInvoices, setShowInvoices] = useState(false);
-	const AmountDuesColumns: ColumnDef<AmountsDuesType>[] = [
+	const [customer, setCustomer] = useState<Customer | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<any>(null);
+	const AmountDuesColumns: ColumnDef<CustomerType>[] = [
 		{
 			header: t("clients.supplierName"),
-			accessorKey: "supplierName",
+			accessorKey: "name",
 		},
 		{
 			header: t("clients.remainingAmount"),
-			accessorKey: "RemainingAmount",
+			accessorKey: "outstanding_amount",
 		},
 	];
 
@@ -52,30 +54,54 @@ export default function page() {
 			id: "actions",
 			header: t("clients.options"),
 			cell: ({ row }) => {
+				const customer = row.original;
+
 				return (
 					<div className="flex justify-center gap-1">
-						<Button className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]">
+						<Button
+							onClick={async () => {
+								try {
+									await deleteCustomerById(customer.id);
+									toast.success("تم الحذف بنجاح");
+								} catch (error) {
+									toast.error("فشل الحذف");
+								}
+							}}
+							className="flex items-center gap-2 px-4 py-2 bg-white text-[#C41619] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#C41619]"
+						>
 							<DeleteIcon />
 							{t("clients.delete")}
 						</Button>
+
 						<Button
-							onClick={() => {
-								setShowInvoices(true);
+							onClick={async () => {
+								setIsLoading(true);
+								try {
+									const data = await fetchCustomerById(customer.id);  // استخدم الـ id من العميل بدلاً من 1
+									setCustomer(data);  // تعيين بيانات العميل
+									setShowInvoices(true);  // تفعيل عرض الفواتير
+								} catch (err) {
+									setError(err);
+								} finally {
+									setIsLoading(false);
+								}
 							}}
 							className="flex items-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
 						>
 							<ShowIcon />
 							{t("clients.show")}
 						</Button>
+
 					</div>
 				);
 			},
 		},
 	];
-	const InvoiceColumns: ColumnDef<any>[] = [
+
+	const InvoiceColumns: ColumnDef<Invoice>[] = [
 		{
 			header: t("clients.invoiceNumber"),
-			accessorKey: "invoiceNumber",
+			accessorKey: "invoice_no",
 		},
 		{
 			header: t("clients.date"),
@@ -83,18 +109,17 @@ export default function page() {
 		},
 		{
 			header: t("clients.invoiceAmount"),
-			accessorKey: "totalAmount",
+			accessorKey: "total_amount",
 		},
 		{
 			header: t("clients.remainingAmount"),
-			accessorKey: "remainingAmount",
+			accessorKey: "outstanding_amount",
 		},
 		{
 			id: "actions",
 			header: t("clients.options"),
 			cell: ({ row }) => {
 				const invoice = row.original;
-
 				return (
 					<CustomPopUp
 						DialogTriggerComponent={() => {
@@ -110,19 +135,21 @@ export default function page() {
 							);
 						}}
 						DialogContentComponent={() => {
-							return <InvoicesTable />;
+							return <InvoicesTable invoice={invoice} />;  // تمرير الفاتورة كـ prop
 						}}
 					/>
 				);
 			},
 		},
 	];
+
+
 	return (
 		<ReusableManyTable
 			dataSets={[
 				{
-					data: AmountDuesData || [],
-					loading: AmountDuesLoading,
+					data: CustomersData || [],
+					loading: CustomersLoading,
 					columns: AmountDuesColumns,
 					withFilter: false,
 					UserComponent: () => {
@@ -138,59 +165,52 @@ export default function page() {
 					label: t("clients.amountsDue"),
 				},
 				{
-					data: ShowInvoices ? [] : (CustomersData as any) || [],
-					loading: ShowInvoices ? false : CustomersLoading,
-					title: ShowInvoices ? "" : t("clients.title"),
+					data: ShowInvoices ? customer?.sell_invoices || [] : CustomersData || [],
 					columns: ShowInvoices ? InvoiceColumns : CustomerColumns,
+					loading: ShowInvoices ? isLoading : CustomersLoading,
 					withFilter: false,
 					label: t("clients.title"),
 					UserComponent: ShowInvoices
 						? () => {
-								return (
-									<div>
-										<div className="flex gap-5 items-end md:flex-row flex-col p-6">
-											<CustomInput label={t("clients.customerName")} />
-											<CustomInput label={t("clients.phone")} />
-											<CustomInput label={t("clients.address")} />
-											<Button className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px]  hover:bg-[#16C47F]/70 shadow-none cursor-pointer rounded-lg">
-												{t("clients.save")}
-											</Button>
-										</div>
-										<div className="border border-t border-[#D9d9d9]" />
-										<div className="p-6">
-											<SearchBar />
-										</div>
-									</div>
-								);
-						  }
+							return (
+								<div className="flex gap-5 items-end md:flex-row flex-col p-6">
+									<CustomInput label={t("clients.customerName")} value={customer?.name || ""} />
+									<CustomInput label={t("clients.phone")} value={customer?.phone || ""} />
+									<CustomInput label={t("clients.address")} value={customer?.address || ""} />
+									<Button className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px]  hover:bg-[#16C47F]/70 shadow-none cursor-pointer rounded-lg">
+										{t("clients.save")}
+									</Button>
+								</div>
+							);
+						}
 						: () => {
-								return (
-									<div className="flex flex-col gap-5 p-6">
-										<SearchBar />
-									</div>
-								);
-						  },
+							return (
+								<div className="flex flex-col gap-5 p-6">
+									<SearchBar />
+								</div>
+							);
+						},
 					ButtonTrigger: ShowInvoices
 						? () => {
-								return <></>;
-						  }
+							return <></>;
+						}
 						: () => {
-								return (
-									<CustomPopUp
-										DialogTriggerComponent={() => {
-											return (
-												<AddButton
-													AddTitle={t("clients.addNewClient")}
-													onClickAdd={() => {}}
-												/>
-											);
-										}}
-										DialogContentComponent={() => {
-											return <AddNewClient />;
-										}}
-									/>
-								);
-						  },
+							return (
+								<CustomPopUp
+									DialogTriggerComponent={() => {
+										return (
+											<AddButton
+												AddTitle={t("clients.addNewClient")}
+												onClickAdd={() => { }}
+											/>
+										);
+									}}
+									DialogContentComponent={() => {
+										return <AddNewClient />;
+									}}
+								/>
+							);
+						},
 					onClick: () => {
 						setShowInvoices(false);
 					},

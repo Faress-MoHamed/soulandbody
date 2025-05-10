@@ -12,7 +12,8 @@ import ReusableManyTable from "../ReusableTableWithManyData";
 import FinalInvoicesTable from "@/app/dashboard/companies/SalesInvoices/components/FinalInvoicesTable";
 import CategoryTable from "@/app/dashboard/user/sales/components/CategoryTable";
 
-export default function InvoicesTable() {
+export default function InvoicesTable(props: any) {
+	invoice = props?.invoice
 	const { t } = useTypedTranslation();
 	const { data: allData, isLoading: InvoiceBuyingLoading } = useSalesInvoices();
 	const columns: ColumnDef<SalesInvoice>[] = [

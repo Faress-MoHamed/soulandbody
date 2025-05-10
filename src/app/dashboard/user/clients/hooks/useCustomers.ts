@@ -1,28 +1,64 @@
-"use client";
+import { AxiosInstance } from "@/lib/AxiosConfig";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { useQuery } from "@tanstack/react-query";
+// نوع الفاتورة
+export interface Invoice {
+	invoice_no: string;
+	date: string;
+	total_amount: string;
+	outstanding_amount: string;
+}
 
-export type CustomerType = {
+// نوع العميل
+export interface Customer {
+	id: number;
 	name: string;
 	phone: string;
 	address: string;
+	updated_at: string;
+	sell_invoices: Invoice[];
+}
+
+export type CustomerType = {
+	id: number;
+	name: string;
+	phone: string;
+	address: string;
+	invoice_no: string;
+	outstanding_amount: string;
 };
 
-// The data from the image shows multiple entries for Ahmed Hussein with the same details
-const customersData: CustomerType[] = Array(100).fill({
-	name: "أحمد حسين",
-	phone: "0105581212",
-	address: "جهاز الموبايل",
-});
-
 export function useCustomers() {
-	return useQuery({
-		queryKey: ["customers"],
+	return useQuery<Customer[]>({
+		queryKey: ["customers"], // خليه بصيغة جمع للتفريق بينه وبين "customer"
 		queryFn: async () => {
-			// In a real app, this would fetch from an API
-			// This is simulating that with the static data
-			return customersData;
+			const { data } = await AxiosInstance.get("clients");
+			return data; // من المفترض أن البيانات هنا هي مصفوفة من العملاء
 		},
 	});
 }
+export const fetchCustomerById = async (id: number): Promise<Customer> => {
+	const { data } = await AxiosInstance.get<Customer>(`clients/${id}`);
+	return data; // ترجع العميل كامل بكل بياناته والفواتير
+};
+export const deleteCustomerById = async (id: number) => {
+	const { data } = await AxiosInstance.delete<Customer>(`clients/${id}`);
+	return data;
+};
 
+
+
+
+export function useAddCustomer() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: async (newCustomer: CustomerType) => { // تأكد من أن البيانات التي يتم إرسالها هي من نوع CustomerType
+			const { data } = await AxiosInstance.post("clients", newCustomer);
+			return data;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["customers"] });
+		},
+	});
+}

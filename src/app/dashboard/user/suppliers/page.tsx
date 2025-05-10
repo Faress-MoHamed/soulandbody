@@ -304,7 +304,6 @@ export default function Page() {
 								const data = await fetchSupplier(supplier.id);
 								console.log("✅ fetched supplier data:", data); // لازم تظهر quotations جوا
 								setSupplierData(data);
-
 								setShowOrders(true); // مجرد فلاغ بدل ما تبعت ID تاني
 							}}
 						>

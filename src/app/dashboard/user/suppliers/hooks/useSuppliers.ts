@@ -177,6 +177,30 @@ export type invoicesTypee = {
 };
 
 
+export function useUpdateSupplierDet() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: async ({ id, formData }: { id: number; formData: FormData }) => {
+			const res = await fetch(`http://192.168.1.15:8008/api/suppliers/${id}`, {
+				method: "POST", 
+				headers: {
+					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
+				},
+				body: formData,
+			});
+
+			if (!res.ok) {
+				throw new Error("فشل في التعديل");
+			}
+
+			return res.json();
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["suppliers"] });
+		},
+	});
+}
 
 export function useSupplierById() {
 	const queryClient = useQueryClient();
