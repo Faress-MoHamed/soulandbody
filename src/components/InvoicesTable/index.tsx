@@ -13,7 +13,7 @@ import FinalInvoicesTable from "@/app/dashboard/companies/SalesInvoices/componen
 import CategoryTable from "@/app/dashboard/user/sales/components/CategoryTable";
 
 export default function InvoicesTable(props: any) {
-	invoice = props?.invoice
+	const invoice = props?.invoice
 	const { t } = useTypedTranslation();
 	const { data: allData, isLoading: InvoiceBuyingLoading } = useSalesInvoices();
 	const columns: ColumnDef<SalesInvoice>[] = [

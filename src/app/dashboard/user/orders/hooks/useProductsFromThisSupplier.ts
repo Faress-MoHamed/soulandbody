@@ -18,7 +18,7 @@ export function useProductsFromThisSupplier(id?: string) {
 export function useOrderProductFromSupplier() {
 	const queryClient = useQueryClient();
 	return useMutation({
-		mutationFn: async (qutation_id?:any,item_id?:any) => {
+		mutationFn: async ({ qutation_id, item_id }: { qutation_id: any; item_id: any }) => {
 			const { data } = await AxiosInstance.post(
 				`quotations/request-supplier-qutation/qutation_id=${qutation_id}/item_id=${item_id}`,
 				

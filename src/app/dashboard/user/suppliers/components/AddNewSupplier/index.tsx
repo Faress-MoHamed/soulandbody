@@ -21,11 +21,11 @@ export default function AddNewSupplier() {
 	const [nameSup, setNameSup] = useState("");
 	const [phone, setPhone] = useState("");
 	const [address, setAddress] = useState("");
-	const [supplierType, setSupplierType] = useState<number | null>(null); // تحديد النوع
+	const [supplierType, setSupplierType] = useState<number | any>(null); // تحديد النوع
 	const { data: types, isLoading, error } = useTypes(); // جلب البيانات من useTypes
 	const supplierTypeOptions = types?.map((type) => ({
-		label: type.type,
-		value: type.id
+		label: type?.type,
+		value: type?.id as any
 	})) || [];
 	console.log(supplierType)
 

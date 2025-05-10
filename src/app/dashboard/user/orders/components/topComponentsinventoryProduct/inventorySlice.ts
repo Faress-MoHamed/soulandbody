@@ -16,9 +16,12 @@ export const inventorySlice = createSlice({
       const index = action.payload; // the index of the product to delete
       state.products = state.products.filter((item: any, i: any) => item?.index !== index); // remove the product at the specified index
     },
+    clearinventorySlice: (state) => {
+      state.products = [];
+    },
   },
 });
 
-export const { addProduct, removeProduct } = inventorySlice.actions;
+export const { addProduct, removeProduct,clearinventorySlice } = inventorySlice.actions;
 
 export default inventorySlice.reducer;

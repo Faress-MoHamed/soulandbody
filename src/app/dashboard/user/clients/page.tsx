@@ -173,7 +173,7 @@ export default function Page() {
 					UserComponent: ShowInvoices
 						? () => {
 							return (
-								<div className="flex gap-5 items-end md:flex-row flex-col p-6">
+								<div className="flex gap-5 items-end md:flex-row flex-col flex-wrap p-6">
 									<CustomInput label={t("clients.customerName")} value={customer?.name || ""} />
 									<CustomInput label={t("clients.phone")} value={customer?.phone || ""} />
 									<CustomInput label={t("clients.address")} value={customer?.address || ""} />

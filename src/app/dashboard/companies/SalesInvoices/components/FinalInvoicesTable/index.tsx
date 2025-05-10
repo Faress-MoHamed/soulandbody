@@ -36,7 +36,7 @@ export default function FinalInvoicesTable({
 	data = [],
   }: {
 	withActions?: boolean;
-	data: InvoiceItem[];
+	data?: InvoiceItem[];
   }) {
 	const { t } = useTypedTranslation();
   

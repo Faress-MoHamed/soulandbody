@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
-import { format, addYears, subYears } from "date-fns";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -46,6 +45,18 @@ export function MonthPicker({
 		"December",
 	];
 
+	const formatDate = (date: Date) =>
+		new Intl.DateTimeFormat("en", {
+			month: "long",
+			year: "numeric",
+		}).format(date);
+
+	const changeYear = (date: Date, diff: number) => {
+		const newDate = new Date(date);
+		newDate.setFullYear(date.getFullYear() + diff);
+		return newDate;
+	};
+
 	const handleMonthSelect = (monthIndex: number) => {
 		const newDate = new Date(date);
 		newDate.setMonth(monthIndex);
@@ -55,10 +66,12 @@ export function MonthPicker({
 	};
 
 	const handleYearChange = (increment: number) => {
-		const newDate = increment > 0 ? addYears(date, 1) : subYears(date, 1);
+		const newDate = changeYear(date, increment);
 		setDate(newDate);
 	};
+
 	const { t } = useTypedTranslation();
+
 	return (
 		<div className={cn("flex flex-col gap-2 w-full", wrapperClassName)}>
 			{label && <label className="text-start">{label}</label>}
@@ -67,13 +80,13 @@ export function MonthPicker({
 					<Button
 						variant="outline"
 						className={cn(
-							"	!h-[48px] lg:w-[302px] w-full bg-white justify-start text-left font-normal",
+							"!h-[48px] lg:w-[302px] w-full bg-white justify-start text-left font-normal",
 							!date && "text-muted-foreground",
 							className
 						)}
 					>
 						<Calendar className="mr-2 h-4 w-4" />
-						{format(date, "MMMM yyyy")}
+						{formatDate(date)}
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent className="w-auto p-0" align="start">

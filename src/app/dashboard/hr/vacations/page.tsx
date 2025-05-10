@@ -10,7 +10,6 @@ import VacationRequestPopUp from "./component/VacationRequestPopUp";
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
-import { format, parseISO } from "date-fns";
 import { useEmployees } from "../employees/useEmployee";
 import { Button } from "@/components/ui/button";
 import StatusButton from "./component/StatusButton";
@@ -20,15 +19,23 @@ function VacationsRecodrs() {
 	const { data, isLoading, error } = useEmployees();
 	const [oneEmployee, setOneEmployee] = useState("");
 	const [MonthEmployee, setMonthEmployee] = useState<any>();
+
+
+	
+	const formatDate = (isoString: string) => {
+		const date = new Date(isoString);
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, "0");
+		const day = String(date.getDate()).padStart(2, "0");
+		return `${year}-${month}-${day}`;
+	};
 	let columns: ColumnDef<any>[] = [
 		{
 			accessorKey: "created_at",
 			header: t("hrVacations.table.date"),
 			cell: ({ row: { original } }) => {
-				const parsedDate = parseISO(original?.created_at);
 
-				const formatted = format(parsedDate, "yyyy-MM-dd");
-				return <>{formatted}</>;
+				return <>{formatDate(original?.created_at)}</>;
 			},
 		},
 		{ accessorKey: "employee", header: t("hrVacations.table.employee") },
@@ -36,20 +43,16 @@ function VacationsRecodrs() {
 			accessorKey: "vacation_start_date",
 			header: t("hrVacations.table.leaveStart"),
 			cell: ({ row: { original } }) => {
-				const parsedDate = parseISO(original?.vacation_start_date);
 
-				const formatted = format(parsedDate, "yyyy-MM-dd");
-				return <>{formatted}</>;
+				return <>{formatDate(original?.vacation_start_date)}</>;
 			},
 		},
 		{
 			accessorKey: "return_date",
 			header: t("hrVacations.table.leaveEnd"),
 			cell: ({ row: { original } }) => {
-				const parsedDate = parseISO(original?.return_date);
 
-				const formatted = format(parsedDate, "yyyy-MM-dd");
-				return <>{formatted}</>;
+				return <>{formatDate(original?.return_date)}</>;
 			},
 		},
 		{ accessorKey: "number_of_days", header: t("hrVacations.table.leaveDays") },

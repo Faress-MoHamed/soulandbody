@@ -13,6 +13,9 @@ import { MultiSelect } from "@/components/multiSelector";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import { useCreateOrderToSupplier, useSupplier, useSupplierType } from "../../hooks/useSendToSupplier";
 import { useTypedSelector } from "@/hooks/useTypedSelector";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { clearinventorySlice } from "../topComponentsinventoryProduct/inventorySlice";
 
 export default function SendToSupplier() {
 	const [selectedSupplierType, setSelectedSupplierType] = useState<string | null>(null);
@@ -24,80 +27,7 @@ export default function SendToSupplier() {
 		(		el: { supplier_type: string | null; }) => el?.supplier_type === selectedSupplierType
 	) || [];
 	console.log(selectedSupplierType,filteredSuppliers)
-// البيانات اللي عندك
-// const rawData = [
-// 	{
-// 	  productName: 2,
-// 	  productCategory: "cadcac",
-// 	  quantity: 4,
-// 	},
-// 	{
-// 	  productName: 2,
-// 	  productCategory: "saxaxcac",
-// 	  quantity: 3,
-// 	},
-// 	{
-// 	  productName: 3,
-// 	  productCategory: 1,
-// 	  quantity: 3,
-// 	},
-// 	{
-// 	  productName: 2,
-// 	  productCategory: 2,
-// 	  quantity: 4,
-// 	},
-// 	{
-// 	  productName: "",
-// 	  productCategory: "",
-// 	  quantity: 0,
-// 	}
-//   ];
-// [
-//     {
-//         "productName": 2,
-//         "productCategory": "cadcac",
-//         "quantity": 4,
-//         "productNameLabel": "Product B",
-//         "productCategoryLabel": "cadcac",
-//         "unitLabel": "cadcac",
-//         "index": 8
-//     },
-//     {
-//         "productName": 2,
-//         "productCategory": "saxaxcac",
-//         "quantity": 3,
-//         "productNameLabel": "Product B",
-//         "productCategoryLabel": "saxaxcac",
-//         "unitLabel": "saxaxcac",
-//         "index": 2
-//     },
-//     {
-//         "productName": 3,
-//         "productCategory": 1,
-//         "quantity": 3,
-//         "productNameLabel": "Product Cc",
-//         "productCategoryLabel": 1,
-//         "unitLabel": "saxaxcac",
-//         "index": 2
-//     },
-//     {
-//         "productName": 2,
-//         "productCategory": 2,
-//         "quantity": 4,
-//         "productNameLabel": "Product B",
-//         "productCategoryLabel": 2,
-//         "unitLabel": 2,
-//         "index": 3
-//     },
-//     {
-//         "productName": "",
-//         "productCategory": "",
-//         "quantity": 0,
-//         "productCategoryLabel": "",
-//         "unitLabel": "",
-//         "index": 2
-//     }
-// ]
+	const dispatch = useDispatch()
 const {products}=useTypedSelector(s=>s.inventory)
   
   // 1. نظّفي الداتا من الصفوف الفاضية
@@ -152,7 +82,12 @@ const {products}=useTypedSelector(s=>s.inventory)
 			</CardContent>
 			<CardFooter className="flex gap-3 justify-end">
 				<Button
-					onClick={(e)=>mutate({dataTosend:result})}
+					onClick={(e)=>mutate({dataTosend:result},{
+						onSuccess:()=>{
+							toast.success("تم ارسال الطلب بنجاح");
+							dispatch(clearinventorySlice())
+						}
+					})}
 					className="text-[16px] font-[500] text-[#FFFFFF] bg-[#16C47F] p-0 py-[10px] px-3 w-[148px] h-[48px]  hover:bg-[#16C47F]/70 shadow-none cursor-pointer rounded-lg"
 				>
 					{t("ordersInUser.SendToSupplier.save")}

@@ -251,7 +251,7 @@ export default function page() {
 			id: "actions",
 			cell: ({
 				row: {
-					original: { id, status },
+					original,
 				},
 			}) => (
 				<div className="flex justify-center">
@@ -260,12 +260,12 @@ export default function page() {
 						onClick={() => {
 							console.log(showSupplierAndOrderDetails)
 							// if (status==="pending") {
-								console.log(`طلب المنتج: ${id}`);
-								mutate(showSupplierAndOrderDetails,id)
-							// }
+								console.log(original);
+								mutate({ qutation_id: showSupplierAndOrderDetails, item_id: original?.id });
+								// }
 						}}
-						className={`flex items-center gap-2 px-4 py-2 w-[128px] h-[32px] rounded-[8px] ${
-							status==="pending"
+						className={`flex items-center justify-center gap-2 px-4 py-2 w-[128px] h-[32px] rounded-[8px] ${
+							original?.status==="pending"
 								? "border-[#16C47F] text-emerald-600 bg-white border"
 								: "bg-gray-200 text-gray-500 cursor-not-allowed opacity-50"
 						}`}

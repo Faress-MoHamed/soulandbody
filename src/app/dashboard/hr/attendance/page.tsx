@@ -4,21 +4,26 @@ import React from "react";
 import { useAttendance } from "./useAttendance";
 import ReusableManyTable from "@/components/ReusableTableWithManyData";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
-import { parseISO, format } from "date-fns";
 
 export default function AttendancePage() {
 	const { t } = useTypedTranslation();
 	const { data: attendanceData } = useAttendance();
 
 	// Define columns using translations
+	const formatDate = (isoString: string) => {
+		const date = new Date(isoString);
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, "0");
+		const day = String(date.getDate()).padStart(2, "0");
+		return `${year}-${month}-${day}`;
+	};
+
 	const columns = [
 		{
 			accessorKey: "check_in_created_at",
 			header: t("attendance.columns.date"),
 			cell: ({ row: { original } }: any) => {
-				const parsedDate = parseISO(original?.check_in_created_at);
-
-				const formatted = format(parsedDate, "yyyy-MM-dd");
+				const formatted = formatDate(original?.check_in_created_at);
 				return <>{formatted}</>;
 			},
 		},
@@ -31,7 +36,6 @@ export default function AttendancePage() {
 		{ accessorKey: "notes", header: t("attendance.columns.notes") },
 		{ accessorKey: "deduction", header: t("attendance.columns.deduction") },
 	];
-
 	return (
 		<div>
 			<ReusableManyTable

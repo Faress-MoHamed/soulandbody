@@ -1,5 +1,6 @@
 "use client";
 
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export type SuppliersType = {
@@ -26,24 +27,15 @@ export function useSuppliers() {
 	return useQuery<SuppliersType[]>({
 		queryKey: ["suppliers"],
 		queryFn: async () => {
-			const response = await fetch("http://192.168.1.15:8008/api/suppliers", {
-				headers: {
-					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
-					"Content-Type": "application/json",
-				},
-			});
+			const {data} = await AxiosInstance.get("suppliers");
 
-			if (!response.ok) {
-				throw new Error("فشل في جلب الموردين");
-			}
-
-			const responseData = await response.json();
+			
 
 			// التحقق من وجود البيانات بالهيكل الجديد
-			if (!responseData.data || !Array.isArray(responseData.data)) {
+			if (!data.data || !Array.isArray(data.data)) {
 				throw new Error("هيكل البيانات غير متوقع");
 			}
-			return responseData.data
+			return data.data
 				.filter((item: ApiSupplierType) => !item.deleted_at)
 				.map((item: ApiSupplierType) => ({
 					id: item.id,
@@ -53,8 +45,6 @@ export function useSuppliers() {
 					supplierType: item.supplier_type ?? "غير محدد",
 				}));
 		},
-		// إعدادات إضافية لتحسين الأداء
-		staleTime: 5 * 60 * 1000, // 5 دقائق قبل اعتبار البيانات قديمة
 		initialData: () => {
 			// يمكنك استخدام بيانات أولية من ذاكرة التخزين المؤقت إذا كانت متاحة
 			return queryClient.getQueryData<SuppliersType[]>(["suppliers"]);
@@ -66,20 +56,12 @@ export const useAddSupplier = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: async (formData: FormData) => {
-			const res = await fetch("http://192.168.1.15:8008/api/suppliers", {
-				method: "POST",
-				headers: {
-					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
-				},
-				body: formData,
+		mutationFn: async (formData: any) => {
+			const {data} = await AxiosInstance.post("suppliers",{
+			formData,
 			});
 
-			if (!res.ok) {
-				throw new Error("فشل في الإضافة");
-			}
-
-			return res.json();
+			return data;
 		},
 		onSuccess: (newSupplier) => {
 			// تحديث البيانات المحلية بدون الحاجة لإعادة جلبها من الخادم
@@ -108,16 +90,9 @@ export function useDeleteSupplier() {
 
 	return useMutation({
 		mutationFn: async ({ id }: { id: number }) => {
-			const res = await fetch(`http://192.168.1.15:8008/api/suppliers/${id}`, {
-				method: "DELETE",
-				headers: {
-					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
-				},
-			});
+			await AxiosInstance.delete(`suppliers/${id}`, );
 
-			if (!res.ok) {
-				throw new Error("فشل في الحذف");
-			}
+	
 
 			return { id }; // نعيد الـ id لاستخدامه في onSuccess
 		},
@@ -182,19 +157,10 @@ export function useUpdateSupplierDet() {
 
 	return useMutation({
 		mutationFn: async ({ id, formData }: { id: number; formData: FormData }) => {
-			const res = await fetch(`http://192.168.1.15:8008/api/suppliers/${id}`, {
-				method: "POST", 
-				headers: {
-					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
-				},
-				body: formData,
+			const res = await AxiosInstance.post(`suppliers/${id}`, {
+				 formData,
 			});
 
-			if (!res.ok) {
-				throw new Error("فشل في التعديل");
-			}
-
-			return res.json();
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["suppliers"] });
@@ -202,76 +168,31 @@ export function useUpdateSupplierDet() {
 	});
 }
 
-export function useSupplierById() {
-	const queryClient = useQueryClient();
 
-	const fetchSupplier = async (id: number) => {
-		const response = await fetch(`http://192.168.1.15:8000/api/suppliers/supplier_file/${id}`, {
-			headers: {
-				Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
-				"Content-Type": "application/json",
-			},
-		});
+export function useSupplierById(id: string | null) {
+	return useQuery<SupplierDetailsType>({
+		queryKey: ["supplier", id],
+		enabled: !!id, // يمنع تشغيل الاستعلام إذا كان id = null
+		queryFn: async () => {
+			const { data } = await AxiosInstance.get(`/suppliers/supplier_file/${id}`);
 
-		if (!response.ok) {
-			throw new Error("فشل في جلب بيانات المورد");
-		}
 
-		const responseData = await response.json();
 
-		if (!responseData.data || typeof responseData.data !== "object") {
-			throw new Error("هيكل البيانات غير متوقع");
-		}
-
-		return {
-			id: responseData.data.id,
-			name: responseData.data.name,
-			description: responseData.data.description,
-			phone: responseData.data.phone,
-			total_amounts: responseData.data.total_amounts ,
-			address: responseData.data.address,
-			invoices: responseData.data.invoices || [],
-			quotations: responseData.data.quotations || [],
-		};
-
-	};
-
-	return {
-		fetchSupplier, // تقدر تناديها يدويًا لما يكون الـ ID جاهز
-		queryClient,  // لو حبيت تعمل caching أو invalidate
-	};
+			return {
+				id: data.data.id,
+				name: data.data.name,
+				description: data.data.description,
+				phone: data.data.phone,
+				address: data.data.address,
+				total_amounts: data.data.total_amounts,
+				invoices: data.data.invoices || [],
+				quotations: data.data.quotations || [],
+				total_outstanding: data.data.total_outstanding || 0,
+			};
+		},
+		staleTime: 5 * 60 * 1000, // 5 دقائق
+	});
 }
 
 
-// type SupplierType = {
-// 	id: number;
-// 	name: string;
-// 	phone: string;
-// 	address: string;
-	
-//   };
-  
-//   export function useUpdateSupplierType() {
-// 	const queryClient = useQueryClient();
 
-// 	return useMutation({
-// 		mutationFn: async ({ id }: { id: number;  }) => {
-// 			const res = await fetch(`http://192.168.1.15:8008/api/suppliers/${id}`, {
-// 				method: "POST", 
-// 				headers: {
-// 					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
-// 				},
-				
-// 			});
-
-// 			if (!res.ok) {
-// 				throw new Error("فشل في التعديل");
-// 			}
-
-// 			return res.json();
-// 		},
-// 		onSuccess: () => {
-// 			queryClient.invalidateQueries({ queryKey: ["type"] });
-// 		},
-// 	});
-// }

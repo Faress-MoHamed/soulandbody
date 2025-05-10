@@ -1,7 +1,5 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { arSA } from "date-fns/locale";
 
 export type TransactionType = {
 	invoiceNumber: string;
@@ -13,6 +11,10 @@ export type TransactionType = {
 	balance: string;
 };
 
+const formatDateToYMD = (date: Date) => {
+	return date.toISOString().split("T")[0];
+};
+
 export function generateTransactions(count: number = 20): TransactionType[] {
 	return Array.from({ length: count }, (_, i) => {
 		const debtor = Math.floor(Math.random() * 5000 + 1000);
@@ -22,14 +24,12 @@ export function generateTransactions(count: number = 20): TransactionType[] {
 		return {
 			invoiceNumber: `INV-${1000 + i}`,
 			clientCode: `CL-${2000 + i}`,
-			date: format(
+			date: formatDateToYMD(
 				new Date(
 					2025,
 					Math.floor(Math.random() * 12),
 					Math.floor(Math.random() * 28 + 1)
-				),
-				"yyyy-MM-dd",
-				{ locale: arSA }
+				)
 			),
 			account: ["الصندوق", "البنك", "العملاء", "الموردين", "المبيعات"][i % 5],
 			debtor: debtor.toString(),
@@ -38,8 +38,8 @@ export function generateTransactions(count: number = 20): TransactionType[] {
 		};
 	});
 }
-const transactionsData = generateTransactions(50);
 
+const transactionsData = generateTransactions(50);
 
 export function useTransactions() {
 	return useQuery({

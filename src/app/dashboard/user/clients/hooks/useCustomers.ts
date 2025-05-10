@@ -11,7 +11,7 @@ export interface Invoice {
 
 // نوع العميل
 export interface Customer {
-	id: number;
+	// id: number;
 	name: string;
 	phone: string;
 	address: string;
@@ -24,8 +24,8 @@ export type CustomerType = {
 	name: string;
 	phone: string;
 	address: string;
-	invoice_no: string;
-	outstanding_amount: string;
+	// invoice_no: string;
+	// outstanding_amount: string;
 };
 
 export function useCustomers() {
@@ -53,7 +53,7 @@ export function useAddCustomer() {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: async (newCustomer: CustomerType) => { // تأكد من أن البيانات التي يتم إرسالها هي من نوع CustomerType
+		mutationFn: async (newCustomer: any) => { // تأكد من أن البيانات التي يتم إرسالها هي من نوع CustomerType
 			const { data } = await AxiosInstance.post("clients", newCustomer);
 			return data;
 		},

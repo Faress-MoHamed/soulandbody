@@ -10,6 +10,7 @@ import { executionsReducer } from "@/app/dashboard/userHr/execuse/executions.sli
 import { overtimeReducer } from "@/app/dashboard/userHr/components/additionalTimeRequest/overTime.slice";
 import  vacationsSlice  from "@/app/dashboard/hr/vacations/vacation.slice";
 import  inventorySlice  from "@/app/dashboard/user/orders/components/topComponentsinventoryProduct/inventorySlice";
+import  supplierSlice from "@/app/dashboard/user/suppliers/supplier.slice";
 
 const reducer = combineReducers({
 	employee: employeeReducer,
@@ -22,7 +23,8 @@ const reducer = combineReducers({
 	executions: executionsReducer,
 	overTime: overtimeReducer,
 	vacations:vacationsSlice,
-	inventory:inventorySlice
+	inventory:inventorySlice,
+	supplier:supplierSlice
 });
 
 export type RootState = ReturnType<typeof reducer>;
