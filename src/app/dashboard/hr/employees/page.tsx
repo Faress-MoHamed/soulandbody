@@ -26,7 +26,7 @@ export default function Page() {
 		useDeleteEmployee();
 
 	const handleNavigation = (id: string) => {
-		route.push(`/hr/employees/${id}`);
+		route.push(`/dashboard/hr/employees/${id}`);
 	};
 
 	let columns = [
@@ -67,7 +67,7 @@ export default function Page() {
 						حذف
 					</Button>
 					<Link
-						href={`/hr/employees/${original?.id}`}
+						href={`/dashboard/hr/employees/${original?.id}`}
 						className="flex items-center justify-center gap-2 px-4 py-2 bg-white text-[#16C47F] hover:bg-white hover:opacity-85 h-[32px] w-[83px] rounded-[8px] border border-[#16C47F]"
 					>
 						<div>
@@ -187,7 +187,7 @@ export default function Page() {
 					withActionButtons: false,
 					withFilter: false,
 					ButtonTrigger: () => (
-						<Link href={"/hr/employees/add"}>
+						<Link href={"/dashboard/hr/employees/add"}>
 							<AddButton
 								onClickAdd={() => {}}
 								AddTitle={t("employees.newEmployee")}

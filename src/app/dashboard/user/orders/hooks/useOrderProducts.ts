@@ -1,5 +1,6 @@
 "use client";
 
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery } from "@tanstack/react-query";
 
 export type OrderProductType = {
@@ -36,6 +37,38 @@ export function useOrderProducts() {
 			// Simulate network delay
 			// await new Promise((res) => setTimeout(res, 300));
 			return orderProductsData;
+		},
+	});
+}
+
+
+
+export function useProductsWithCategory(cat?:string) {
+	console.log(cat)
+	return useQuery({
+		queryKey: ["ProductsWithCategory",cat],
+		queryFn:  async() => {
+			const {data}=await AxiosInstance.get(`category/${cat}/products`);
+			return data
+		},
+		enabled:!!cat
+	});
+}
+export function useCategory() {
+	return useQuery({
+		queryKey: ["categoris"],
+		queryFn:  async() => {
+			const {data}=await AxiosInstance.get(`categories`);
+			return data
+		},
+	});
+}
+export function useMeasureUnits() {
+	return useQuery({
+		queryKey: ["units"],
+		queryFn:  async() => {
+			const {data}=await AxiosInstance.get(`measure-units`);
+			return data
 		},
 	});
 }

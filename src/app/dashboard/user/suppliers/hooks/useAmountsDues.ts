@@ -1,5 +1,3 @@
-"use client";
-
 import { useQuery } from "@tanstack/react-query";
 
 export type AmountsDuesType = {
@@ -7,12 +5,11 @@ export type AmountsDuesType = {
 	name: string;
 	total_outstanding: number;
 };
-
 export function useAmountsDues() {
 	return useQuery<AmountsDuesType[]>({
 		queryKey: ["amountsDues"],
 		queryFn: async () => {
-			const response = await fetch("http://192.168.1.15:8000/api/total_outstanding", {
+			const response = await fetch("http://192.168.1.15:8008/api/total_outstanding", {
 				headers: {
 					Authorization: "Bearer 34|BlAVimHB5xXY30NJyWsifXHBid3mHuCTo75PMDBB704258d9",
 					"Content-Type": "application/json",

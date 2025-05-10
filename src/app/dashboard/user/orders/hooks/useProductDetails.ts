@@ -1,38 +1,17 @@
 "use client";
 
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery } from "@tanstack/react-query";
 
-export type ProductDetailType = {
-	productCode: string;
-	productName: string;
-	category: string;
-	quantity: number;
-	unitPrice: number;
-	tax: string;
-	discount: string;
-	description: string;
-	total: number;
-	supplier: string;
-};
 
-const productData: ProductDetailType[] = Array.from({ length: 12 }, () => ({
-	productCode: "125",
-	productName: "لاب توب",
-	category: "كرتونة",
-	quantity: 12,
-	unitPrice: 100,
-	tax: "10%",
-	discount: "10%",
-	description: "4+1",
-	total: 1200,
-	supplier: "فاارس",
-}));
 
-export function useProductDetails() {
+export function useProductDetails(id:string) {
 	return useQuery({
 		queryKey: ["productDetails"],
+
 		queryFn: async () => {
-			return productData;
+			const { data } = await AxiosInstance.get(`admin-purchase-requests/${id}`);
+			return data;
 		},
 	});
 }

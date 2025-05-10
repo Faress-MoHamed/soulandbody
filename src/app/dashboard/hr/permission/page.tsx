@@ -133,7 +133,7 @@ function PermissionForm() {
 
 export default function Page() {
 	const { t } = useTypedTranslation();
-	const { data: permissions } = usePermissions();
+	const { data: permissions, isLoading: loading  } = usePermissions();
 	const dispatch = useDispatch();
 
 	React.useEffect(() => {
@@ -180,17 +180,18 @@ export default function Page() {
 						containerClassName: "border-none mt-9",
 						title: t("permissions.table.title"),
 						withActionButtons: false,
-						ButtonTrigger: () => (
-							<CustomPopUp
-								DialogTriggerComponent={() => (
-									<AddButton
-										onClickAdd={() => {}}
-										AddTitle={t("permissions.add")}
-									/>
-								)}
-								DialogContentComponent={() => <PermissionForm />}
-							/>
-						),
+						loading,
+						// ButtonTrigger: () => (
+						// 	<CustomPopUp
+						// 		DialogTriggerComponent={() => (
+						// 			<AddButton
+						// 				onClickAdd={() => {}}
+						// 				AddTitle={t("permissions.add")}
+						// 			/>
+						// 		)}
+						// 		DialogContentComponent={() => <PermissionForm />}
+						// 	/>
+						// ),
 						withPrinter: true,
 					},
 				]}

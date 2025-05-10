@@ -149,7 +149,7 @@ export function useCreateEmployee() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["employees"] });
 			toast.success("user created successfully");
-			router.push("/hr/employees");
+			router.push("/dashboard/hr/employees");
 		},
 		onError: (error: any, variables, context) => {
 			// Check if the error response has a 'data' field with a 'message' or validation errors
@@ -265,7 +265,7 @@ export function useUpdateEmployee() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["employees"] });
 			toast.success("user created successfully");
-			router.push("/hr/employees");
+			router.push("/dashboard/hr/employees");
 		},
 		onError: (error: any, variables, context) => {
 			// Check if the error response has a 'data' field with a 'message' or validation errors

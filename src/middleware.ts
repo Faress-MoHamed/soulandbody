@@ -31,7 +31,7 @@ export function middleware(req: NextRequest) {
 	//console.log("User role:", userRole || "undefined");
 
 	// 1. Handle root path
-	if (pathname === "/") {
+	if (pathname === "/" ||pathname==="/dashboard") {
 		if (!token) {
 			return redirectTo(req, "/auth", "No token on root path");
 		}
