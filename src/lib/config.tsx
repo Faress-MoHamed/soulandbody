@@ -1,5 +1,4 @@
 import { SearchOption } from "@/components/SearchSelect";
-import WarningPopUp from "@/components/warningPopUp";
 
 export const userOptions = [
     {

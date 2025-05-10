@@ -10,7 +10,7 @@ interface ListItem {
 	list?: ListItem[]; // 🔁 Nested sublist support
 }
 
-interface SideBarItem {
+export interface SideBarItem {
 	text: string;
 	icon?: React.ReactNode;
 	href?: string;
