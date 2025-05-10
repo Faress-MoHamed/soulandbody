@@ -258,9 +258,10 @@ export default function page() {
 					<button
 						// variant={"outline"}
 						onClick={() => {
+							console.log(showSupplierAndOrderDetails)
 							// if (status==="pending") {
 								console.log(`طلب المنتج: ${id}`);
-								mutate({qutation_id:showSupplierAndOrderDetails,item_id:id})
+								mutate(showSupplierAndOrderDetails,id)
 							// }
 						}}
 						className={`flex items-center gap-2 px-4 py-2 w-[128px] h-[32px] rounded-[8px] ${
