@@ -4,19 +4,21 @@ import { Search } from "lucide-react";
 import { Input } from "../ui/input";
 import Link from "next/link";
 import Image from "next/image";
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+// import {
+// 	DropdownMenu,
+// 	DropdownMenuCheckboxItem,
+// 	DropdownMenuContent,
+// 	DropdownMenuLabel,
+// 	DropdownMenuSeparator,
+// 	DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
 import { useLocale } from "next-intl";
 import NotificationsSheet from "./NotificationSheet";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 import HomeSideBar from "../homeSideBar";
 import { SidebarTrigger } from "../ui/sidebar";
+import { SearchSelect } from "../SearchSelect";
+import { HrOptions, UserHrOptions, userOptions } from "@/lib/config";
 
 export function DropdownMenuCheckboxes() {
 	const [ischoosed, setIschoosed] = useState("");
@@ -53,32 +55,29 @@ export function DropdownMenuCheckboxes() {
 	};
 
 	return (
-
-			<button
-				// className="bg-blue-500 text-white px-4 py-2 rounded"
-				onClick={handleChange}
-			>
-				<svg
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<g clipPath="url(#clip0_2278_2545)">
-						<path
-							d="M12 23C18.075 23 23 18.075 23 12C23 5.925 18.075 1 12 1M12 23C5.925 23 1 18.075 1 12C1 5.925 5.925 1 12 1M12 23C15 23 16 18 16 12C16 6 15 1 12 1M12 23C9 23 8 18 8 12C8 6 9 1 12 1M2 16H22M2 8H22"
-							stroke="black"
-							strokeWidth="2"
-						/>
-					</g>
-					<defs>
-						<clipPath id="clip0_2278_2545">
-							<rect width="24" height="24" fill="white" />
-						</clipPath>
-					</defs>
-				</svg>
-			</button>
+		<button
+			// className="bg-blue-500 text-white px-4 py-2 rounded"
+			onClick={handleChange}>
+			<svg
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg">
+				<g clipPath="url(#clip0_2278_2545)">
+					<path
+						d="M12 23C18.075 23 23 18.075 23 12C23 5.925 18.075 1 12 1M12 23C5.925 23 1 18.075 1 12C1 5.925 5.925 1 12 1M12 23C15 23 16 18 16 12C16 6 15 1 12 1M12 23C9 23 8 18 8 12C8 6 9 1 12 1M2 16H22M2 8H22"
+						stroke="black"
+						strokeWidth="2"
+					/>
+				</g>
+				<defs>
+					<clipPath id="clip0_2278_2545">
+						<rect width="24" height="24" fill="white" />
+					</clipPath>
+				</defs>
+			</svg>
+		</button>
 	);
 }
 
@@ -88,6 +87,15 @@ export default function Header({
 	OtherComponent?: React.FC;
 }) {
 	const { t } = useTypedTranslation();
+
+	const translatedItems = HrOptions.map(item => ({
+		...item,
+		title: t(item.title as any) // Apply translation function
+	  }));
+	const translatedUserHrOptions = UserHrOptions.map(item => ({
+		...item,
+		title: t(item.title as any) // Apply translation function
+	  }));
 	return (
 		<div className="flex lg:flex-row flex-col justify-between lg:gap-3 gap-2 lg:items-center ">
 			{/* logo */}
@@ -106,17 +114,10 @@ export default function Header({
 					<p className="md:text-[24px] text-[20px]">{t("header.welcome")}</p>
 				</Link>
 			</div>
-			{/* seatch */}
-			<div className="relative text-black lg:block hidden">
-				<Search className="absolute right-3 top-3.5 h-4 w-4 text-black" />
-				<Input
-					placeholder={t("header.searchHere")}
-					className="pr-9 min-w-[360px] h-[46px] max-[720px] rounded-[16px] lg:w-1/3 bg-[#007DFC1A] border-none placeholder:text-black"
 
-					// value={globalFilter}
-					// onChange={(e) => setGlobalFilter(e.target.value)}
-				/>
-			</div>
+			<SearchSelect
+				options={[...translatedItems,...userOptions,...translatedUserHrOptions]}
+			/>
 			<div className="flex items-center gap-1 font-bold">
 				<Image
 					height={47}

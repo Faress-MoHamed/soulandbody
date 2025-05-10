@@ -61,7 +61,6 @@ function SideBarSelector({
 					: [...prev, index]
 			);
 		};
-		console.log(depth);
 
 		return (
 			<div

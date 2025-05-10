@@ -14,7 +14,7 @@ export function middleware(req: NextRequest) {
 	const pathname = req.nextUrl.pathname;
 	const token = req.cookies.get("auth_token")?.value?.trim();
 	const userDataCookie = req.cookies.get("user_data")?.value;
-	console.log("userData", userDataCookie);
+	// console.log("userData", userDataCookie);
 	// Try to parse user data if cookie exists
 	let userData = null;
 	try {

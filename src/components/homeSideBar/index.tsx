@@ -18,44 +18,7 @@ import SideBarSelector from "./SideBarSelector";
 import { useTypedTranslation } from "@/hooks/useTypedTranslation";
 
 export default function HomeSideBar() {
-	const HomeCards = [
-		{
-			title: "فارس",
-			linkeUr: "/",
-		},
-		{
-			title: "فارس",
-			linkeUr: "/",
-		},
-		{
-			title: "فارس",
-			linkeUr: "/",
-		},
-		{
-			title: "فارس",
-			linkeUr: "/",
-		},
-		{
-			title: "فارس",
-			linkeUr: "/",
-		},
-		{
-			title: "فارس",
-			linkeUr: "/",
-		},
-		{
-			title: "فارس",
-			linkeUr: "/",
-		},
-		{
-			title: "فارس",
-			linkeUr: "/",
-		},
-		{
-			title: "فارس",
-			linkeUr: "/",
-		},
-	];
+
 	const { t } = useTypedTranslation();
 	const content = [
 		{
