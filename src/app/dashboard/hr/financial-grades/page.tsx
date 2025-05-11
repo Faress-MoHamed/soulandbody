@@ -219,12 +219,12 @@ const filteredData = data?.filter((item: any) => {
 
 
 		<Button
-			className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
+			className="!h-[48px] lg:w-[302px] w-full bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
 			onClick={() => {
 				setOneEmployee("");
 			}}
 		>
-			clear
+			{t("clear")}
 		</Button>
 	</div>
 	</div>

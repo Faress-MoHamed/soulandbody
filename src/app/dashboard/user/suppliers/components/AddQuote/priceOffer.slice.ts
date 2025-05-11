@@ -11,6 +11,7 @@ interface Product {
 	discount: number;
 	description: string;
 	total: number;
+	measureUnitId?:any
 }
 
 interface PriceOfferState {
@@ -98,6 +99,20 @@ export const priceOfferSlice = createSlice({
 	name: "priceOffer",
 	initialState,
 	reducers: {
+		setProductsFromMeta: (state, action: PayloadAction<any[]>) => {
+			state.products = action.payload.map((meta) => ({
+				productCode: meta.productCode,
+				productCategory: meta.productCategory,
+				productName: meta.productName,
+				requiredQuantity: meta.requiredQuantity,
+				measureUnitId: meta.measureUnitId,
+				availableQuantity: 0,
+				salesUnit: 0,
+				tax: 0,
+				discount: 0,
+				description: "",
+				total: 0,
+			}))},
 		updateField: (
 			state,
 			action: PayloadAction<{
@@ -146,7 +161,7 @@ export const priceOfferSlice = createSlice({
 	},
 });
 
-export const { updateField, calculateTotals, addProduct, removeProduct } =
+export const { updateField, calculateTotals, addProduct, removeProduct,setProductsFromMeta } =
 	priceOfferSlice.actions;
 
 

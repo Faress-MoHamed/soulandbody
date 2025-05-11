@@ -2,6 +2,7 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { VacationBalanceEntry } from "../vacationsList.type";
+import { AxiosInstance } from "@/lib/AxiosConfig";
 
 export const vacationBalanceData: VacationBalanceEntry[] = [
 	{ vacationType: "مرضية", totalDays: 15, remaining: 0 },
@@ -14,8 +15,8 @@ export function useUserVacationsList() {
   return useQuery({
 		queryKey: ["UserVacationsList"],
 		queryFn: async () => {
-			// const { data } = await axios.get("/api/Vacations");
-			return vacationBalanceData;
+			const { data } = await AxiosInstance.get("employee_vacations");
+			return data;
 		},
 	});
 }

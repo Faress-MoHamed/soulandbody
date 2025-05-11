@@ -103,7 +103,7 @@ export default function Page() {
 						),
 						data: data || [],
 						columns,
-						FooterComponent: () => <FinalInvoicesTable />,
+						// FooterComponent: () => <FinalInvoicesTable />,
 					},
 				]}
 			/>

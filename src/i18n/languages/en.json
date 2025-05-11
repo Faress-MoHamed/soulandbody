@@ -1,1614 +1,1610 @@
 {
-	"dir": "ltr",
-	"print": "Print",
-	"home": {
-		"employees": "Employees",
-		"employeeData": "Employee Data",
-		"financialGrades": "Financial Grades",
-		"workHours": "Company Work Hours",
-		"permission": "Permission",
-		"breakTime": "Break Time",
-		"attendance": "Attendance Records",
-		"vacations": "Vacations",
-		"disciplinaryVacations": "Disciplinary Vacations",
-		"fares": "Fares"
-	},
-	"employees": {
-		"title": "Employees",
-		"newEmployee": "New Employee",
-		"date": "Date",
-		"employee": "Employee",
-		"workNature": "Work Nature",
-		"netSalary": "Net Salary",
-		"phoneNumber": "Phone Number",
-		"address": "Address",
-		"form": {
-			"title": "Employee Information",
-			"personalInfo": "Personal Information",
-			"add": "Add Employee",
-			"save": "Save"
-		}
-	},
-	"pagination": {
-		"next": "Next",
-		"prev": "Previous"
-	},
-	"filter": {
-		"employee": "Employee",
-		"date": "Date",
-		"placeholder": "All"
-	},
-	"errors": {
-		"requiredField": "This field is required",
-		"invalidAmount": "Please enter a valid amount"
-	},
-	"financial": {
-		"transactionsTitle": "Financial Transactions",
-		"employee": "Employee",
-		"date": "Date",
-		"type": "Type",
-		"amount": "Amount",
-		"reason": "Reason",
-		"submit": "Submit",
-		"salaryTitle": "Salary Management",
-		"sendSalaries": "Send Salaries",
-		"deduction": "Deduction",
-		"advance": "Advance",
-		"netSalary": "Net Salary",
-		"extras": "Extras",
-		"allowances": "Allowances",
-		"totalSalary": "Total Salary",
-		"addSalary": "Add Salary",
-		"addTransaction": "Add Transaction",
-		"salaries": "Salaries",
-		"deductions": "Deductions",
-		"salary": "Salary"
-	},
-	"workHours": {
-		"title": "Working Hours",
-		"save": "Save Changes",
-		"columns": {
-			"day": "Day",
-			"is_active": "Active",
-			"start_time": "Start Time",
-			"end_time": "End Time",
-			"break_hours": "Break Hours"
-		}
-	},
-	"permissions": {
-		"title": "Permission",
-		"form": {
-			"employee": "Employee",
-			"from": "From",
-			"to": "To",
-			"actualEnd": "Actual End",
-			"reason": "Reason",
-			"submit": "Save"
-		},
-		"placeholders": {
-			"employee": "Select employee"
-		},
-		"errors": {
-			"employee": "Please select an employee",
-			"from": "Please select start time",
-			"to": "Please select end time",
-			"actualEnd": "Please select actual end time",
-			"reason": "Please enter a reason"
-		},
-		"table": {
-			"title": "Permission Records",
-			"columns": {
-				"date": "Date",
-				"employee": "Employee",
-				"from": "From",
-				"to": "To",
-				"actual_end": "Actual End",
-				"reason": "Reason",
-				"deduction": "Deduction"
-			}
-		},
-		"add": "Permission"
-	},
-	"hrVacations": {
-		"table": {
-			"date": "Date",
-			"employee": "Employee",
-			"leaveStart": "Leave Start",
-			"leaveEnd": "Leave End",
-			"leaveDays": "Number of Days",
-			"leaveType": "Leave Type",
-			"attachment": "Attachment",
-			"deduction": "Deduction"
-		},
-		"titles": {
-			"vacationLog": "Vacation Log",
-			"addVacation": "Add Vacation"
-		},
-		"inputs": {
-			"employees": "Employees",
-			"date": "Date"
-		},
-		"vacation": "Vacation",
-		"record": "Record",
-		"deduction": "Deduction",
-		"employee": "Employee",
-		"leaveDays": "Leave Days",
-		"leaveStart": "Start Date",
-		"leaveEnd": "End Date",
-		"leaveType": "Leave Type",
-		"medicalAttachments": "Medical Attachments",
-		"save": "Save",
-		"errors": {
-			"employeeRequired": "Please select an employee",
-			"leaveTypeRequired": "Please select a leave type",
-			"validLeaveDays": "Please enter a valid number of days",
-			"leaveStartRequired": "Please select a start date",
-			"leaveEndRequired": "Please select an end date",
-			"endDateAfterStart": "End date must be after start date",
-			"validDeduction": "Please enter a valid deduction amount"
-		}
-	},
-	"attendance": {
-		"title": "Attendance Record",
-		"save": "Save Changes",
-		"columns": {
-			"date": "Date",
-			"employee": "Employee",
-			"check_in": "Check In",
-			"check_out": "Check Out",
-			"notes": "Notes",
-			"deduction": "Deduction"
-		}
-	},
-	"breakTime": {
-		"title": "Break Time Records",
-		"form": {
-			"title": "Break",
-			"employee": "Employee",
-			"from": "Start",
-			"to": "To",
-			"actualEnd": "Actual End Time",
-			"save": "Save",
-			"deduction": "Deduction",
-			"add": "Break"
-		},
-		"validation": {
-			"employeeRequired": "Please select an employee",
-			"fromRequired": "Please select a start time",
-			"actualEndRequired": "Please select an actual end time"
-		},
-		"columns": {
-			"date": "Date",
-			"employee": "Employee",
-			"from": "From",
-			"to": "To",
-			"actual_end": "Actual End Time",
-			"deduction": "Deduction"
-		}
-	},
-	"employeeForm": {
-		"title": "Employee Information",
-		"subtitle": {
-			"edit": "Edit Employee Information",
-			"add": "Add New Employee"
-		},
-		"loading": "Loading employee data...",
-		"fields": {
-			"employee": "Name",
-			"phoneNumber": "Phone Number",
-			"address": "Address",
-			"birthDate": "Birth Date",
-			"qualification": "Qualification",
-			"position": "Position",
-			"net_salary": "Net Salary",
-			"extras": "Allowances",
-			"date": "Start Date",
-			"netSalary": "Total Salary",
-			"work_nature": "Work Nature",
-			"work_nature_placeholder": "Select Work Nature",
-			"work_nature_options": {
-				"full_time": "Full Time",
-				"part_time": "Part Time",
-				"varied": "Varied"
-			}
-		},
-		"buttons": {
-			"update": "Update Information",
-			"save": "Save",
-			"attachments": "Attachments"
-		},
-		"validation": {
-			"employee_required": "Name is required",
-			"birthDate_required": "Birth date is required",
-			"qualification_required": "Qualification is required",
-			"position_required": "Position is required",
-			"net_salary_required": "Salary is required",
-			"net_salary_positive": "Salary must be a positive value",
-			"date_required": "Start date is required",
-			"work_nature_required": "Work nature is required",
-			"extras_required": "Allowances are required"
-		},
-		"leave": {
-			"header": {
-				"total": "Total Leave Balance",
-				"regular": "Regular Leave Balance",
-				"emergency": "Emergency Leave Balance",
-				"sick": "Sick Days",
-				"continuous_absence": "Continuous Absence",
-				"separate_absence": "Separate Absence"
-			},
-			"days_count": "Number of Days",
-			"buttons": {
-				"save": "Save"
-			},
-			"policy": {
-				"intro": "-Total leave balance allowed for the employee",
-				"total_days": " days",
-				"divided_into": "divided into",
-				"regular_days": " regular days",
-				"and": "and",
-				"emergency_days": " emergency days",
-				"sick_days": " sick days",
-				"exceed_notice": "-In case of exceeding the allowed leave days, deductions will be applied according to the company policy",
-				"absence_intro": "-In case of employee absence",
-				"continuous_absence": " connected days",
-				"or": "or",
-				"separate_absence": " separate days",
-				"termination_notice": "termination procedures will be taken on the last day"
-			}
-		}
-	},
-	"salaries": {
-		"title": "Salary Details",
-		"hours": "Working Hours",
-		"of": "of",
-		"form": {
-			"title": "Salary Details",
-			"employee": "Employee",
-			"date": "Date",
-			"amount": "Amount",
-			"save": "Save"
-		},
-		"columns": {
-			"date": "Date",
-			"type": "Transaction Type",
-			"amount": "Amount",
-			"reason": "Reason"
-		}
-	},
-	"employeeData": {
-		"title": "Employee Data",
-		"filter": {
-			"employee": "Employee",
-			"date": "Date",
-			"all": "All"
-		}
-	},
-	"attendanceEmployeeData": {
-		"title": "Attendance Records",
-		"form": {
-			"title": "Record Attendance",
-			"employee": "Employee",
-			"date": "Date",
-			"checkIn": "Check In",
-			"checkOut": "Check Out",
-			"save": "Save"
-		},
-		"columns": {
-			"date": "Date",
-			"checkIn": "Check In",
-			"checkOut": "Check Out",
-			"breakTime": "Break",
-			"permission": "Permission",
-			"hoursWorked": "Hours Worked",
-			"workLocation": "Work Location"
-		}
-	},
-	"warningPopup": {
-		"disciplinaryActions": "Disciplinary Actions",
-		"employeeName": "Employee Name",
-		"warningType": "Warning Type",
-		"fromDate": "From Date",
-		"toDate": "To Date",
-		"save": "Save",
-		"warningTypes": {
-			"warning": "Warning",
-			"suspension": "Suspension",
-			"termination": "Termination"
-		}
-	},
-	"header": {
-		"welcome": "Welcome to SB Company",
-		"searchHere": "Search here",
-		"languages": "Languages",
-		"dr": "Dr. Ahmed Ibrahim"
-	},
-	"expense": {
-		"title": "Expenses",
-		"newExpense": "New Expense",
-		"code": "Expense Code",
-		"name": "Expense Name",
-		"total": "Total",
-		"date": "Date",
-		"expenseName": "Expense Name",
-		"amount": "Amount",
-		"accountName": "Account Name",
-		"type": "Type",
-		"save": "Save",
-		"statement": {
-			"accountStatement": "Account Statement",
-			"incomeList": "Income List",
-			"dateFrom": "Date From",
-			"dateTo": "Date To",
-			"search": "Search",
-			"columns": {
-				"date": "Date",
-				"transactionId": "Transaction ID",
-				"description": "Description",
-				"debit": "Debit",
-				"credit": "Credit",
-				"balance": "Balance"
-			}
-		}
-	},
-	"reports": "Reports",
-	"accountsReport": {
-		"statement": "Account Statement",
-		"generalStatement": "General Account Statement",
-		"customStatement": "Custom Account Statement",
-		"name": "Account Name",
-		"value": "Value"
-	},
-	"financialReport": {
-		"balanceSheet": "Balance Sheet",
-		"incomeStatement": "Income Statement",
-		"trialBalance": "Trial Balance",
-		"ledger": "General Ledger"
-	},
-	"columns": {
-		"date": "Date",
-		"transactionId": "Transaction ID",
-		"description": "Description",
-		"debit": "Debit",
-		"credit": "Credit",
-		"balance": "Balance",
-		"username": "Username",
-		"notes": "Notes",
-		"accountName": "Account Name"
-	},
-	"balance": {
-		"openingBalance": "Opening Balance",
-		"yearMovements": "Year Movements",
-		"closingBalance": "Closing Balance",
-		"movements": "Movements"
-	},
-	"incomeStatement": {
-		"title": "Income Statement",
-		"year": "Year",
-		"revenue": "Revenue",
-		"costOfRevenue": "Cost of Revenue",
-		"grossProfit": "Gross Profit",
-		"otherRevenue": "Other Revenue",
-		"expenses": "Expenses",
-		"netProfit": "Net Profit"
-	},
-	"actions": {
-		"search": "Search",
-		"edit": "Edit",
-		"delete": "Delete"
-	},
-	"filters": {
-		"dateFrom": "Date From",
-		"dateTo": "Date To",
-		"incomeList": "Income List"
-	},
-	"accounts": {
-		"assets": "Assets",
-		"nonCurrentAssets": "Non-Current Assets",
-		"fixedAssets": "Fixed Assets",
-		"projectsInProgress": "Projects in Progress",
-		"intangibleAssets": "Intangible Assets",
-		"realEstateInvestments": "Real Estate Investments",
-		"currentAssets": "Current Assets",
-		"inventory": "Inventory"
-	},
-	"services": {
-		"internet": "Internet",
-		"internetPlan": "Internet Plan",
-		"internetCardRefill": "Internet Card Refill",
-		"accountRecharge": "Account Recharge",
-		"billPayment": "Bill Payment",
-		"phoneBill": "Phone Bill",
-		"electricity": "Electricity",
-		"waterBill": "Water Bill",
-		"homeGas": "Home Gas",
-		"rent": "Rent",
-		"walletRecharge": "Wallet Recharge",
-		"moneyTransfer": "Money Transfer",
-		"creditCard": "Credit Card",
-		"healthInsurance": "Health Insurance",
-		"taxesAndFees": "Taxes and Fees",
-		"miscellaneousPayments": "Miscellaneous Payments",
-		"groceries": "Groceries",
-		"clothing": "Clothing",
-		"restaurants": "Restaurants",
-		"homeServices": "Home Services",
-		"carMaintenance": "Car Maintenance",
-		"fuel": "Fuel"
-	},
-	"AccountStatement": {
-		"tableHeaders": {
-			"date": "Date",
-			"transactionNumber": "Transaction Number",
-			"bankName": "Bank Name",
-			"description": "Description",
-			"debit": "Debit",
-			"credit": "Credit",
-			"balance": "Balance"
-		},
-		"labels": {
-			"accountStatement": "Account Statement"
-		},
-		"filters": {
-			"dateFrom": "Date From",
-			"dateTo": "Date To"
-		},
-		"actions": {
-			"search": "Search"
-		}
-	},
-	"IncomingChecks": {
-		"forms": {
-			"incomingChecks": "Incoming Checks",
-			"submit": "Submit",
-			"date": "Date",
-			"bankName": "Bank Name",
-			"accountName": "Account Name",
-			"checkNumber": "Check Number",
-			"amount": "Amount",
-			"collectionDate": "Collection Date",
-			"outgoingChecks": "Outgoing Checks",
-			"issue": "Issue"
-		},
-		"validation": {
-			"dateRequired": "Date is required",
-			"bankNameRequired": "Bank name is required",
-			"accountNameRequired": "Account name is required",
-			"checkNumberRequired": "Check number is required",
-			"amountRequired": "Amount is required",
-			"amountPositive": "Amount must be a positive number",
-			"collectionDateRequired": "Collection date is required"
-		}
-	},
-	"deposit": {
-		"forms": {
-			"deposit": "Deposit",
-			"date": "Date",
-			"bankName": "Bank Name",
-			"accountName": "Account Name",
-			"accountNumber": "Deposit Number",
-			"amount": "Amount"
-		},
-		"validation": {
-			"dateRequired": "Date is required",
-			"bankNameRequired": "Bank name is required",
-			"accountNameRequired": "Account name is required",
-			"accountNumberPositive": "Account number must be a positive number",
-			"accountNumberRequired": "Account number is required",
-			"amountPositive": "Amount must be a positive number",
-			"amountRequired": "Amount is required"
-		}
-	},
-	"withdrawal": {
-		"forms": {
-			"withdrawal": "Withdrawal",
-			"date": "Date",
-			"bankName": "Bank Name",
-			"accountName": "Account Name",
-			"withdrawalNumber": "Withdrawal Number",
-			"amount": "Amount"
-		},
-		"validation": {
-			"dateRequired": "Date is required",
-			"bankNameRequired": "Bank name is required",
-			"accountNameRequired": "Account name is required",
-			"accountNumberPositive": "Account number must be a positive number",
-			"accountNumberRequired": "Account number is required",
-			"amountPositive": "Amount must be a positive number",
-			"amountRequired": "Amount is required"
-		}
-	},
-	"IncomingTransfers": {
-		"forms": {
-			"incomingTransfer": "Incoming Transfer",
-			"date": "Date",
-			"bankName": "Bank Name",
-			"accountName": "Account Name",
-			"accountNumber": "Account Number",
-			"amount": "Amount",
-			"transfer": "Transfer"
-		},
-		"validation": {
-			"dateRequired": "Date is required",
-			"bankNameRequired": "Bank name is required",
-			"accountNameRequired": "Account name is required",
-			"accountNumberPositive": "Account number must be a positive number",
-			"accountNumberRequired": "Account number is required",
-			"amountPositive": "Amount must be a positive number",
-			"amountRequired": "Amount is required"
-		}
-	},
-	"OutgoingTransfers": {
-		"forms": {
-			"outgoingTransfer": "Outgoing Transfer",
-			"date": "Date",
-			"bankName": "Bank Name",
-			"accountName": "Account Name",
-			"accountNumber": "Account Number",
-			"amount": "Amount",
-			"transfer": "Transfer"
-		},
-		"validation": {
-			"dateRequired": "Date is required",
-			"bankNameRequired": "Bank name is required",
-			"accountNameRequired": "Account name is required",
-			"accountNumberRequired": "Account number is required",
-			"accountNumberPositive": "Account number must be a positive number",
-			"amountPositive": "Amount must be a positive number",
-			"amountRequired": "Amount is required"
-		}
-	},
-	"bankAccounts": {
-		"tabs": {
-			"accountStatement": "Account Statement",
-			"checks": "Checks",
-			"incoming": "Incoming",
-			"outgoing": "Outgoing",
-			"transfers": "Transfers",
-			"operations": "Operations",
-			"withdraw": "Withdraw",
-			"deposit": "Deposit",
-			"banks": "Banks"
-		}
-	},
-	"bank": {
-		"name": "Bank Name",
-		"branch": "Branch",
-		"accountNumber": "Account Number",
-		"balance": "Balance",
-		"add": "Add Bank"
-	},
-	"AddBank": {
-		"bank": {
-			"addNew": "Add New Bank",
-			"name": "Bank Name",
-			"branch": "Branch Name",
-			"accountNumber": "Account Number",
-			"initialBalance": "Initial Balance",
-			"type": "Type",
-			"credit": "Credit",
-			"debit": "Debit"
-		},
-		"formErrors": {
-			"bankName": "Bank name is required",
-			"branchName": "Branch name is required",
-			"accountNumber": "Account number is required",
-			"initialBalance": "Initial balance is required",
-			"initialBalanceType": "Initial balance must be a number",
-			"type": "Type is required"
-		},
-		"actions": {
-			"save": "Save"
-		}
-	},
-	"salesInvoices": {
-		"card1": {
-			"title": "Sales Invoices",
-			"subTitle": "Record all daily financial transactions such as sales and purchases."
-		},
-		"card2": {
-			"title": "Returns & Exchanges",
-			"subTitle": "View various account transactions."
-		},
-		"card3": {
-			"title": "Products",
-			"subTitle": "Manage invoices, sales operations, and account statements."
-		},
-		"card4": {
-			"title": "Employees",
-			"subTitle": "Record supplier purchases, manage due invoices, and view account statements."
-		},
-		"card5": {
-			"title": "Customers",
-			"subTitle": "Manage inventory and track available product quantities."
-		},
-		"card6": {
-			"title": "Reports",
-			"subTitle": "Manage cash transactions and bank accounts."
-		}
-	},
-	"salesInvoicesTable": {
-		"columns": {
-			"code": "Code",
-			"itemName": "Item Name",
-			"quantity": "Quantity",
-			"unit": "Unit",
-			"saleUnit": "Sale Unit",
-			"total": "Total",
-			"discount": "Discount",
-			"tax": "Tax",
-			"totalSale": "Total Sale",
-			"addTax": "Add Tax"
-		},
-		"filter": {
-			"pageTitle": "Sales Invoice",
-			"invoiceLabel": "Invoice Number",
-			"dateLabel": "Date",
-			"customerInfo": "Customer Information",
-			"customerName": "Customer Name",
-			"customerPhone": "Phone Number",
-			"customerAddress": "Address",
-			"customerDiscount": "Customer Discount",
-			"invoiceTax": "Invoice Tax",
-			"productTax": "Product Discount",
-			"errors": {
-				"invoiceNumber": "Invoice number is required",
-				"date": "Date is required",
-				"customerName": "Customer name is required",
-				"customerPhone": "Phone number is required",
-				"customerPhoneDigits": "Must be only digits",
-				"customerAddress": "Address is required",
-				"customerDiscount": "Discount is required"
-			}
-		},
-		"invoiceSmallTable": {
-			"totalInvoice": "Total Invoice",
-			"totalDiscount": "Total Discount",
-			"totalVAT": "Total VAT",
-			"totalTableTax": "Total Table Tax",
-			"discountAndAdditionTax": "Discount & Addition Tax",
-			"netInvoice": "Net Invoice",
-			"paymentMethod": "Payment Method",
-			"paymentMethodPlaceholder": "Select Payment Method",
-			"cash": "Cash",
-			"bankTransfer": "Bank Transfer",
-			"receiptNumber": "Receipt Number",
-			"amount": "Amount",
-			"saveInvoice": "Save Invoice",
-			"cancel": "Cancel",
-			"noResults": "No results."
-		},
-		"cashPayment": {
-			"title": "Cash Payment",
-			"paidLabel": "Paid",
-			"remainingLabel": "Remaining",
-			"saveButton": "Save"
-		},
-		"pankPayment": {
-			"title": "Bank Payment",
-			"checkNumberLabel": "Cheque Number",
-			"checkAmountLabel": "Cheque Amount",
-			"saveButton": "Save"
-		},
-		"taxOnInvoice": {
-			"title": "Add Tax to Invoice",
-			"salesTaxLabel": "Sales Tax",
-			"incomeTaxLabel": "Income Tax",
-			"saveButton": "Save"
-		},
-		"taxOnProduct": {
-			"title": "Add Tax to Product",
-			"salesTaxLabel": "Sales Tax",
-			"incomeTaxLabel": "Income Tax",
-			"saveButton": "Save"
-		},
-		"transaction": {
-			"title": "Transaction",
-			"checkNumberLabel": "Check Number",
-			"checkAmountLabel": "Check Amount",
-			"saveButton": "Save"
-		}
-	},
-	"ReturnsAndExchanges": {
-		"CustomPopUp": {
-			"dialogTriggerText": "Add Tax"
-		},
-		"exchangeTitle": "Exchange Invoice",
-		"ReturnTitle": "Return Invoice",
-		"ReusableManyTable": {
-			"invoiceLabel": "Invoice Label",
-			"footerLabel": "Returns Table",
-			"expandButtonText": "Expand"
-		},
-		"ReturnTopComponent": {
-			"selectInvoiceText": "Select Invoice"
-		},
-		"ReturnsTable": {
-			"code": "Code",
-			"itemName": "Item Name",
-			"quantity": "Quantity",
-			"unit": "Purchase Unit",
-			"total": "Total",
-			"discount": "Discount",
-			"tax": "Tax",
-			"totalSale": "Total Sale"
-		},
-		"ExchangeTopComponent": {
-			"selectInvoiceText": "Select Invoice for Exchange"
-		},
-		"ExchangeTable": {
-			"code": "Code",
-			"itemName": "Item Name",
-			"quantity": "Quantity",
-			"unit": "Purchase Unit",
-			"total": "Total",
-			"discount": "Discount",
-			"tax": "Tax",
-			"totalSale": "Total Sale"
-		},
-		"ExchangeIcon": {
-			"tooltipText": "Click to exchange"
-		},
-		"ReturnIcon": {
-			"tooltipText": "Click to return"
-		}
-	},
-	"returnsTable": {
-		"columns": {
-			"totalInvoice": "Total Returns",
-			"totalDiscount": "Total Discount",
-			"totalVAT": "Total VAT",
-			"totalTableTax": "Total Table Tax",
-			"totalDiscountAndAdditionTax": "Total Discount & Addition Tax",
-			"netInvoice": "Net Invoice",
-			"paymentMethod": "Payment Method"
-		},
-		"paymentMethods": {
-			"cash": "Cash",
-			"bankTransfer": "Bank Transfer"
-		},
-		"noResults": "No results found.",
-		"receiptNumber": "Receipt Number",
-		"amount": "Amount",
-		"buttons": {
-			"saveInvoice": "Save Invoice",
-			"cancel": "Cancel"
-		}
-	},
-	"returnTopComponent": {
-		"title": "Return Invoice",
-		"buttons": {
-			"taxOnInvoice": "Tax on Invoice",
-			"discountOnInvoice": "Discount on Invoice"
-		},
-		"inputs": {
-			"date": "Date",
-			"invoiceNumber": "Invoice Number"
-		},
-		"customerInfo": {
-			"title": "Customer Information",
-			"name": "Customer Name",
-			"number": "Number",
-			"address": "Address",
-			"discounts": "Customer Discounts"
-		},
-		"invoiceOptions": {
-			"invoice1": "Invoice 1",
-			"invoice2": "Invoice 2",
-			"invoice3": "Invoice 3"
-		}
-	},
-	"exchangeTopComponent": {
-		"title": "Exchange Invoice",
-		"buttons": {
-			"taxOnInvoice": "Tax on Invoice",
-			"discountOnInvoice": "Discount on Invoice"
-		},
-		"inputs": {
-			"date": "Date",
-			"invoiceNumber": "Invoice Number"
-		},
-		"customerInfo": {
-			"title": "Customer Information",
-			"name": "Customer Name",
-			"number": "Number",
-			"address": "Address",
-			"discounts": "Customer Discounts"
-		},
-		"invoiceOptions": {
-			"invoice1": "Invoice 1",
-			"invoice2": "Invoice 2",
-			"invoice3": "Invoice 3"
-		}
-	},
-	"products": {
-		"title": "Products",
-		"search": "Search here...",
-		"columns": {
-			"productCode": "Product Code",
-			"productName": "Product Name",
-			"productDescription": "Product Description",
-			"unit": "Unit",
-			"price": "Price",
-			"quantity": "Quantity",
-			"category": "Category",
-			"inStock": "In Stock",
-			"otherBranches": "Other Branches"
-		},
-		"buttons": {
-			"otherBranches": "Other Branches"
-		}
-	},
-	"employeesInvoices": {
-		"title": "Employees",
-		"addEmployee": "Add Employee",
-		"addNewEmployee": "Add New Employee",
-		"salesRecord": "Sales Record",
-		"searchPlaceholder": "Search here...",
-		"columns": {
-			"employeeName": "Employee Name",
-			"unitsCount": "Units Count",
-			"totalUnits": "Total Units",
-			"name": "Employee Name",
-			"phone": "Phone Number",
-			"address": "Address",
-			"job": "Job",
-			"permissions": "Permissions",
-			"options": "Options"
-		},
-		"filters": {
-			"employee": "Employee",
-			"dateFrom": "From Date",
-			"dateTo": "To Date"
-		},
-		"buttons": {
-			"save": "Save",
-			"view": "View",
-			"salesRecord": "Sales Record",
-			"edit": "Edit",
-			"delete": "Delete"
-		},
-		"employees": [
-			"Faris",
-			"Mohammed",
-			"Ahmed",
-			"Ali"
-		]
-	},
-	"customers": {
-		"title": "Customers",
-		"addCustomer": "Add Customer",
-		"addNewCustomer": "Add New Customer",
-		"searchPlaceholder": "Search here...",
-		"columns": {
-			"customerName": "Customer Name",
-			"phone": "Phone",
-			"address": "Address",
-			"discounts": "Customer Discounts",
-			"options": "Options"
-		},
-		"form": {
-			"customerName": "Customer Name",
-			"phone": "Phone Number",
-			"address": "Address",
-			"discounts": "Customer Discounts",
-			"category": "Category"
-		},
-		"buttons": {
-			"save": "Save",
-			"edit": "Edit",
-			"delete": "Delete"
-		},
-		"sampleNames": [
-			"Ahmed",
-			"Sarah",
-			"Mohammed",
-			"Fatima",
-			"Yousef",
-			"Layla",
-			"Khalid",
-			"Hind",
-			"Salman",
-			"Nora"
-		],
-		"samplePhones": [
-			"0501234567",
-			"0559876543",
-			"0541122334",
-			"0539988776",
-			"0566655443"
-		],
-		"sampleAddresses": [
-			"Riyadh",
-			"Jeddah",
-			"Dammam",
-			"Mecca",
-			"Medina",
-			"Abha",
-			"Taif",
-			"Buraidah"
-		],
-		"sampleSales": [
-			"VIP Customer",
-			"Regular Customer",
-			"Special Discount",
-			"Cash Payment",
-			"Deferred Invoice",
-			"New Customer"
-		]
-	},
-	"sales": {
-		"common": {
-			"add": "Add",
-			"edit": "Edit",
-			"delete": "Delete",
-			"search": "Search",
-			"actions": "Actions",
-			"save": "Save",
-			"cancel": "Cancel",
-			"back": "Back",
-			"next": "Next",
-			"submit": "Submit",
-			"execute": "Execute",
-			"from": "From",
-			"to": "To",
-			"client": "Client"
-		},
-		"clients": {
-			"title": "Clients",
-			"addNew": "New Client",
-			"addNewTitle": "Add New Client",
-			"columns": {
-				"name": "Client Name",
-				"phone": "Phone",
-				"phoneNumber": "Phone Number",
-				"address": "Address",
-				"action": "Action",
-				"code": "Client Code"
-			},
-			"deleteConfirmation": "Are you sure you want to delete this client?"
-		},
-		"invoiceClients": {
-			"title": "Due Amount",
-			"columns": {
-				"name": "Client Name",
-				"phone": "Phone",
-				"address": "Address",
-				"invoiceNumber": "Invoice Number",
-				"amountDue": "Amount Due"
-			}
-		},
-		"advancePayments": {
-			"title": "Advance Payments",
-			"columns": {
-				"name": "Client Name",
-				"phone": "Phone",
-				"address": "Address",
-				"receiptNumber": "Receipt Number",
-				"amount": "Amount"
-			}
-		},
-		"transactions": {
-			"title": "Account Statement",
-			"accountStatement": "Account Statement",
-			"mainTitle": "Clients",
-			"sales": {
-				"title": "Sales"
-			},
-			"columns": {
-				"invoiceNumber": "Invoice Number",
-				"clientCode": "Client Code",
-				"date": "Date",
-				"account": "Account",
-				"debtor": "Debtor",
-				"creditor": "Creditor",
-				"balance": "Balance"
-			}
-		},
-		"salesInvoices": {
-			"title": "Sales Invoices",
-			"columns": {
-				"code": "Code",
-				"itemName": "Item Name",
-				"category": "Category",
-				"quantity": "Quantity",
-				"saleUnit": "Sale Unit",
-				"total": "Total",
-				"discount": "Discount",
-				"tax": "Tax",
-				"totalSale": "Total Sale",
-				"addTax": "Add Tax"
-			}
-		},
-		"returnInvoices": {
-			"title": "Return Invoices"
-		},
-		"electronicInvoices": {
-			"title": "Electronic Invoices",
-			"mainTitle": "Sales",
-			"taxTransfer": "Tax Transfer",
-			"returns": "Returns",
-			"replacements": "Replacements",
-			"columns": {
-				"invoiceNumber": "Invoice Number",
-				"date": "Date",
-				"statement": "Statement",
-				"amount": "Amount",
-				"vatAmount": "VAT Amount",
-				"profit": "Annual Profit",
-				"total": "Total",
-				"status": "Response Status"
-			}
-		},
-		"categoryTable": {
-			"category": "Category",
-			"saleUnit": "Sale Unit",
-			"unitContents": "Unit Contents 1:1",
-			"subUnitContents": "Unit Contents 1:1:1"
-		}
-	},
-	"purchases": {
-		"productTypes": {
-			"code": "Item Code",
-			"name": "Item Name",
-			"description": "Description",
-			"purchasePrice": "Purchase Price",
-			"salePrice": "Sale Price",
-			"actions": "Options",
-			"addItem": "Add Item",
-			"title": "Items"
-		},
-		"invoices": {
-			"invoiceNumber": "Invoice Number",
-			"date": "Date",
-			"account": "Account",
-			"debtor": "Debtor",
-			"creditor": "Creditor",
-			"balance": "Balance",
-			"accountStatement": "Account Statement",
-			"mainTable": "Purchases"
-		},
-		"suppliers": {
-			"name": "Supplier Name",
-			"phone": "Phone",
-			"address": "Address",
-			"newSupplier": "New Supplier",
-			"title": "Suppliers"
-		},
-		"amountDues": {
-			"amountDue": "Amount Due",
-			"title": "Amount Due"
-		},
-		"downPayments": {
-			"paymentDocument": "Payment Document",
-			"advanceAmount": "Advance Amount",
-			"title": "Down Payment"
-		}
-	},
-	"AccountStatementTopComponent": {
-		"title": "Account Statement",
-		"from": "From",
-		"to": "To",
-		"item": "Item",
-		"execute": "Execute"
-	},
-	"AddNewCategory": {
-		"title": "Add New Category",
-		"code": "Code: 125",
-		"name": "Category Name",
-		"description": "Category Description",
-		"purchasePrice": "Purchase Price",
-		"salePrice": "Sale Price",
-		"save": "Save"
-	},
-	"AddSupplier": {
-		"title": "Add New Supplier",
-		"name": "Supplier Name",
-		"phone": "Phone Number",
-		"address": "Address",
-		"save": "Save"
-	},
-	"inventory": {
-		"classCard": {
-			"title": "Item Card",
-			"date": "Date",
-			"code": "Item Code",
-			"incoming": "Incoming",
-			"outgoing": "Outgoing",
-			"balance": "Balance",
-			"description": "Description"
-		},
-		"inventoryReports": {
-			"title": "Inventory Report",
-			"recordTitle": "Inventory Record",
-			"itemCode": "Item Code",
-			"itemName": "Item Name",
-			"actualQuantity": "Actual Quantity",
-			"systemQuantity": "System Quantity",
-			"difference": "Difference"
-		},
-		"disbursementPermissions": {
-			"title": "Disbursement Permission",
-			"code": "Code",
-			"date": "Date",
-			"name": "Item Name",
-			"quantity": "Quantity",
-			"reason": "Reason",
-			"actions": "Options"
-		},
-		"warehouseTransfer": {
-			"title": "Warehouse Transfer",
-			"code": "Transfer Code",
-			"date": "Date",
-			"sourceWarehouse": "Source Warehouse",
-			"destinationWarehouse": "Destination Warehouse"
-		},
-		"additionPermission": {
-			"title": "Addition Permission",
-			"supplier": "Supplier",
-			"invoiceNumber": "Invoice Number",
-			"quantity": "Quantity",
-			"date": "Date",
-			"discount": "Discount",
-			"paymentMethod": "Payment Method"
-		},
-		"products": {
-			"title": "Products",
-			"productCode": "Product Code",
-			"productName": "Product Name",
-			"category": "Category",
-			"unit": "Unit",
-			"date": "Date",
-			"purchasePrice": "Purchase Price",
-			"sellingPrice": "Selling Price",
-			"mainSupplier": "Main Supplier",
-			"minLimit": "Minimum Limit",
-			"maxLimit": "Maximum Limit",
-			"newProduct": "New Product"
-		},
-		"warehouses": {
-			"title": "Warehouses",
-			"code": "Warehouse Code",
-			"name": "Warehouse Name",
-			"type": "Warehouse Type",
-			"location": "Location",
-			"department": "Responsible Department",
-			"capacity": "Maximum Capacity",
-			"newWarehouse": "New Warehouse",
-			"newSubWarehouse": "New Sub Warehouse"
-		},
-		"actions": {
-			"view": "View",
-			"delete": "Delete",
-			"edit": "Edit"
-		}
-	},
-	"purshes": {
-		"inventory": {
-			"title": "Inventory Report",
-			"date": "Date",
-			"code": "Report Code",
-			"type": "Warehouse Type",
-			"name": "Warehouse Name",
-			"save": "Save",
-			"log": "Log"
-		},
-		"disbursement": {
-			"title": "Disbursement",
-			"code": "Transfer Code",
-			"date": "Date",
-			"receiver": "Receiving Party",
-			"subWarehouse": "Sub Warehouse",
-			"notes": "Notes",
-			"save": "Save",
-			"log": "Log"
-		},
-		"classCard": {
-			"title": "Item Card",
-			"from": "From",
-			"to": "To",
-			"items": "Items",
-			"search": "Search"
-		},
-		"addProduct": {
-			"title": "Add New Product",
-			"code": "Code",
-			"name": "Product Name",
-			"desc": "Product Description",
-			"type": "Warehouse Type",
-			"warehouse": "Warehouse Name",
-			"show": "Show for Sale",
-			"save": "Save"
-		}
-	},
-	"addNewWareHouse": {
-		"addNewStore": "Add New Warehouse",
-		"addNewSubStore": "Add New Sub Warehouse",
-		"code": "Code",
-		"storeName": "Warehouse Name",
-		"storeType": "Warehouse Type",
-		"purchasePrice": "Maximum Capacity",
-		"Responsiblemanagement": "Responsible Department",
-		"geographicalLocation": "Geographical Location",
-		"save": "Save",
-		"cancel": "Cancel",
-		"close": "x"
-	},
-	"userHome": {
-		"dashboardTitle": "Accounts Dashboard",
-		"modules": {
-			"sales": {
-				"title": "Sales",
-				"subtitle": "Manage invoices, sales operations and account inventory"
-			},
-			"accountMovements": {
-				"title": "Account Movements",
-				"subtitle": "View all different account movements"
-			},
-			"dailyEntries": {
-				"title": "Daily Entries",
-				"subtitle": "Record all daily financial movements between accounts and purchases"
-			},
-			"treasuryAndBanks": {
-				"title": "Treasury and Banks",
-				"subtitle": "Manage cash financial movements and bank accounts"
-			},
-			"purchases": {
-				"title": "Purchases",
-				"subtitle": "Record purchases from suppliers and manage received invoices and account payments"
-			},
-			"inventory": {
-				"title": "Inventory",
-				"subtitle": "Manage warehouses and track existing quantities of products"
-			},
-			"hr": {
-				"title": "Human Resources Management",
-				"subtitle": "Manage employees, salaries, attendance and absence"
-			},
-			"reports": {
-				"title": "Reports",
-				"subtitle": "Display and analyze financial data through various reports"
-			},
-			"expenses": {
-				"title": "Expenses",
-				"subtitle": "Record all expenses such as salaries, rent and services"
-			}
-		}
-	},
-	"professionalData": {
-		"form": {
-			"fields": {
-				"email": "email",
-				"password": "Password",
-				"total_salary": "Total salary",
-				"facility": "Facility",
-				"department": "Department",
-				"user_type": "User Type",
-				"work_nature": "Work Nature",
-				"net_salary": "Net Salary",
-				"allowances": "Allowances"
-			},
-			"buttons": {
-				"save": "Save",
-				"update": "Update"
-			},
-			"validation": {
-				"email_required": "email is required",
-				"password_required": "Password is required",
-				"total_salary_required": "Total salary is required",
-				"total_salary_positive": "Total salary must be a positive number",
-				"facility_required": "Facility is required",
-				"department_required": "Department is required",
-				"user_type_required": "User type is required",
-				"work_nature_required": "Work nature is required",
-				"net_salary_required": "Net salary is required",
-				"net_salary_positive": "Net salary must be a positive number",
-				"allowances_required": "Allowances are required",
-				"allowances_positive": "Allowances must be a positive number"
-			},
-			"loading": "Loading..."
-		},
-		"employeeForm": {
-			"leave": {
-				"header": {
-					"sick": "Sick Leave",
-					"total": "Total Leave",
-					"regular": "Regular Leave",
-					"continuous_absence": "Continuous Absence",
-					"separate_absence": "Separate Absence",
-					"emergency": "Emergency Leave"
-				},
-				"days_count": "Number of days",
-				"buttons": {
-					"save": "Save"
-				},
-				"policy": {
-					"intro": "The employee is entitled to ",
-					"total_days": "total leave",
-					"regular_days": "regular leave",
-					"sick_days": "sick leave",
-					"and": " and ",
-					"exceed_notice": "Leave cannot exceed the specified number of days.",
-					"absence_intro": "For absence without notice, the system records it as ",
-					"continuous_absence_days": "continuous absence",
-					"separate_absence_days": "separate absence"
-				}
-			}
-		}
-	},
-	"userHr": {
-		"attendance": "Attendance / Departure",
-		"workingHours": "Company Working Hours",
-		"yourData": "Your Information",
-		"vacations": "Vacations",
-		"execuse": "Permissions",
-		"breakTime": "Break Time",
-		"vacationsPage": {
-			"date": "Date",
-			"from": "From",
-			"to": "To",
-			"vacationType": "Vacation Type",
-			"reason": "Reason",
-			"deduction": "Deduction",
-			"status": "Status",
-			"recordTitle": "Vacation Record",
-			"monthPickerLabel": "Date",
-			"requestVacation": "Request Vacation",
-			"recordButton": "Record",
-			"balanceInside": "Inside vacation balance",
-			"balanceOutside": "Outside vacation balance",
-			"accepted": "Accepted",
-			"rejected": "Rejected",
-			"pending": "Pending"
-		},
-		"vacationsListPage": {
-			"vacationType": "Vacation Type",
-			"totalDays": "Total Days",
-			"remaining": "Remaining",
-			"recordTitle": "Vacation Record",
-			"monthPickerLabel": "Date",
-			"requestVacation": "Request Vacation"
-		},
-		"requestVacation": {
-			"title": "Vacation Request",
-			"start": "Start",
-			"end": "End",
-			"type": "Vacation Type",
-			"submit": "Submit Request"
-		},
-		"breakTimePage": {
-			"title": "Break Time Record",
-			"date": "Date",
-			"from": "From",
-			"to": "To",
-			"actualEnd": "Actual End Time",
-			"reason": "Reason",
-			"deduction": "Deduction",
-			"status": "Status",
-			"requestBreak": "Request Break"
-		},
-		"breakTimePopUp": {
-			"popupTitle": "Break Request",
-			"start": "Start",
-			"end": "End",
-			"reason": "Reason",
-			"submit": "Submit Request"
-		},
-		"execuses": {
-			"title": "Excuse Records",
-			"date": "Date",
-			"from": "From",
-			"to": "To",
-			"actualEnd": "Actual End",
-			"reason": "Reason",
-			"deduction": "Deduction",
-			"status": "Status",
-			"addTitle": "Request Excuse"
-		},
-		"execusesPopUp": {
-			"popupTitle": "Excuse Request",
-			"start": "Start",
-			"end": "End",
-			"reason": "Reason",
-			"submit": "Submit Request"
-		},
-		"execusesinOut": {
-			"inOutTitle": "Check In / Check Out",
-			"todayDate": "Today:",
-			"allowedTime": "Allowed Time:",
-			"checkIn": "Check In",
-			"checkOut": "Check Out"
-		},
-		"statuses": {
-			"pending": "Pending",
-			"accepted": "Accepted",
-			"done": "Done",
-			"denied": "Denied"
-		}
-	},
-	"salaryDetails": {
-		"tableHeaders": {
-			"netSalary": "Net Salary",
-			"increase": "Increase",
-			"allowance": "Allowance",
-			"totalDeductions": "Total Deductions",
-			"totalBonus": "Total Bonus",
-			"overtime": "Overtime",
-			"totalSalary": "Total Salary"
-		},
-		"monthlySalaryDetails": "Monthly Salary Details",
-		"hours": "Hours"
-	},
-	"employee_info": "Personal Information",
-	"professional_data": "Professional Data",
-	"vacationstatus": {
-		"pending": "Pending",
-		"accepted": "Accepted",
-		"rejected": "Rejected",
-		"deduction-days-with-permission": "Deduction Days with Permission"
-	},
-	"clients": {
-		"title": "Clients",
-		"amountsDue": "Amounts Due",
-		"supplierName": "Supplier Name",
-		"remainingAmount": "Remaining Amount",
-		"customerName": "Customer Name",
-		"phone": "Phone",
-		"address": "Address",
-		"options": "Options",
-		"delete": "Delete",
-		"show": "Show",
-		"addNewClient": "Add New Client",
-		"invoiceNumber": "Invoice Number",
-		"date": "Date",
-		"invoiceAmount": "Invoice Amount",
-		"save": "Save"
-	},
-	"ordersInUser": {
-		"productName": "Product Name",
-		"quantity": "Quantity",
-		"unitPrice": "Unit Price",
-		"total": "Total",
-		"supplierName": "Supplier Name",
-		"delete": "Delete",
-		"show": "Show",
-		"orderNumber": "Order Number",
-		"date": "Date",
-		"amount": "Amount",
-		"options": "Options",
-		"sendOrders": "Send Orders",
-		"cancel": "Cancel",
-		"ordersList": "Orders List",
-		"addOrder": "Add Order",
-		"myOrders": "My Orders",
-		"productTable": {
-			"code": "Product Code",
-			"name": "Product Name",
-			"quantity": "Quantity",
-			"unit": "Unit",
-			"price": "Total",
-			"action": "Action",
-			"order": "Order"
-		},
-		"SendToSupplier": {
-			"title": "Send to Supplier",
-			"supplierType": "Supplier Type",
-			"productName": "Product Name",
-			"save": "Save"
-		},
-		"TopComponentsinventoryProduct": {
-			"sendToSupplier": "Send to Supplier",
-			"productName": "Product Name",
-			"productCategory": "Product Category",
-			"quantity": "Quantity",
-			"add": "Add"
-		}
-	},
-	"suppliers": {
-		"title": "Suppliers",
-		"addSupplier": "Add Supplier",
-		"addTypeSupplier": "add supplier type",
-		"addOffer": "Add Offer",
-		"supplierName": "Supplier Name",
-		"phone": "Phone",
-		"address": "Address",
-		"supplierType": "Supplier Type",
-		"actions": "Actions",
-		"show": "Show",
-		"delete": "Delete",
-		"invoiceNumber": "Invoice Number",
-		"date": "Date",
-		"totalAmount": "Total Amount",
-		"remainingAmount": "Remaining Amount",
-		"amountDue": "Amount Due",
-		"offerDescription": "Offer Description",
-		"save": "Save",
-		"invoices": "Invoices"
-	},
-	"movementacount": {
-		"head": {
-			"date": "Date",
-			"account": "Account",
-			"referenceNumber": "Reference Number",
-			"transactionType": "Transaction Type",
-			"debit": "Debit",
-			"credit": "Credit",
-			"employee": "Employee"
-		},
-		"table": {
-			"from": "from",
-			"to": "to",
-			"account": "account",
-			"acction": "acction"
-		},
-		"popup": {
-			"tittle": "ادخل البيانات لاضافة حساب جديد",
-			"nameaccount": "Account Name",
-			"descaccount": "Account Description",
-			"contactaccount": "Account Link 1",
-			"contactaccount2": "Account Link 2",
-			"contactaccounts": "Link Accounts",
-			"naturalaccount": "Account Nature",
-			"balance": "Opening Balance",
-			"checkboxOptions": {
-				"trialBalance": "Trial Balance",
-				"incomeStatement": "Income Statement"
-			},
-			"addaccount": "Add New Account"
-		},
-		"employee": " ahmed hessin",
-		"credit": "0",
-		"debit": "0",
-		"transactionType": "not avialible ",
-		"referenceNumber": " not avialible",
-		"account": " not aviallible",
-		"date": "17/12/2024"
-	},
-	"treeAcounts": {
-		"head": {
-			"date": "Date",
-			"account": "Account",
-			"referenceNumber": "Reference Number",
-			"transactionType": "Transaction Type",
-			"debit": "Debit",
-			"credit": "Credit",
-			"employee": "Employee"
-		},
-		"table": {
-			"from": "from",
-			"to": "to",
-			"account": "account",
-			"acction": "acction"
-		},
-		"popup": {
-			"tittle": "ادخل البيانات لاضافة حساب جديد",
-			"nameaccount": "Account Name",
-			"descaccount": "Account Description",
-			"contactaccount": "Account Link 1",
-			"contactaccount2": "Account Link 2",
-			"contactaccounts": "Link Accounts",
-			"naturalaccount": "Account Nature",
-			"balance": "Opening Balance",
-			"checkboxOptions": {
-				"trialBalance": "Trial Balance",
-				"incomeStatement": "Income Statement"
-			},
-			"addaccount": "Add New Account"
-		},
-		"employee": " ahmed hessin",
-		"credit": "0",
-		"debit": "0",
-		"transactionType": "not avialible ",
-		"referenceNumber": " not avialible",
-		"account": " not aviallible",
-		"date": "17/12/2024"
-	},
-	"userAttendance": {
-		"date": "Date",
-		"arrivalTime": "Arrival Time",
-		"leaveTime": "Leave Time",
-		"execuseTotalTime": "Execuse Total Time",
-		"breakTotalTime": "Break Total Time",
-		"execuseNoteDeduction": "Execuse Note & Deduction"
-	}
+  "dir": "ltr",
+  "print": "Print",
+  "home": {
+    "employees": "Employees",
+    "employeeData": "Employee Data",
+    "financialGrades": "Financial Grades",
+    "workHours": "Company Work Hours",
+    "permission": "Permission",
+    "breakTime": "Break Time",
+    "attendance": "Attendance Records",
+    "vacations": "Vacations",
+    "disciplinaryVacations": "Disciplinary Vacations",
+    "fares": "Fares"
+  },
+  "employees": {
+    "title": "Employees",
+    "newEmployee": "New Employee",
+    "date": "Date",
+    "employee": "Employee",
+    "workNature": "Work Nature",
+    "netSalary": "Net Salary",
+    "phoneNumber": "Phone Number",
+    "address": "Address",
+    "form": {
+      "title": "Employee Information",
+      "personalInfo": "Personal Information",
+      "add": "Add Employee",
+      "save": "Save"
+    }
+  },
+  "pagination": {
+    "next": "Next",
+    "prev": "Previous"
+  },
+  "filter": {
+    "employee": "Employee",
+    "date": "Date",
+    "placeholder": "All"
+  },
+  "errors": {
+    "requiredField": "This field is required",
+    "invalidAmount": "Please enter a valid amount"
+  },
+  "financial": {
+    "transactionsTitle": "Financial Transactions",
+    "employee": "Employee",
+    "date": "Date",
+    "type": "Type",
+    "amount": "Amount",
+    "reason": "Reason",
+    "submit": "Submit",
+    "salaryTitle": "Salary Management",
+    "sendSalaries": "Send Salaries",
+    "deduction": "Deduction",
+    "advance": "Advance",
+    "netSalary": "Net Salary",
+    "extras": "Extras",
+    "allowances": "Allowances",
+    "totalSalary": "Total Salary",
+    "addSalary": "Add Salary",
+    "addTransaction": "Add Transaction",
+    "salaries": "Salaries",
+    "deductions": "Deductions",
+    "salary": "Salary"
+  },
+  "workHours": {
+    "title": "Working Hours",
+    "save": "Save Changes",
+    "columns": {
+      "day": "Day",
+      "is_active": "Active",
+      "start_time": "Start Time",
+      "end_time": "End Time",
+      "break_hours": "Break Hours"
+    }
+  },
+  "permissions": {
+    "title": "Permission",
+    "form": {
+      "employee": "Employee",
+      "from": "From",
+      "to": "To",
+      "actualEnd": "Actual End",
+      "reason": "Reason",
+      "submit": "Save"
+    },
+    "placeholders": {
+      "employee": "Select employee"
+    },
+    "errors": {
+      "employee": "Please select an employee",
+      "from": "Please select start time",
+      "to": "Please select end time",
+      "actualEnd": "Please select actual end time",
+      "reason": "Please enter a reason"
+    },
+    "table": {
+      "title": "Permission Records",
+      "columns": {
+        "date": "Date",
+        "employee": "Employee",
+        "from": "From",
+        "to": "To",
+        "actual_end": "Actual End",
+        "reason": "Reason",
+        "deduction": "Deduction"
+      }
+    },
+    "add": "Permission"
+  },
+  "hrVacations": {
+    "table": {
+      "date": "Date",
+      "employee": "Employee",
+      "leaveStart": "Leave Start",
+      "leaveEnd": "Leave End",
+      "leaveDays": "Number of Days",
+      "leaveType": "Leave Type",
+      "attachment": "Attachment",
+      "deduction": "Deduction"
+    },
+    "titles": {
+      "vacationLog": "Vacation Log",
+      "addVacation": "Add Vacation"
+    },
+    "inputs": {
+      "employees": "Employees",
+      "date": "Date"
+    },
+    "vacation": "Vacation",
+    "record": "Record",
+    "deduction": "Deduction",
+    "employee": "Employee",
+    "leaveDays": "Leave Days",
+    "leaveStart": "Start Date",
+    "leaveEnd": "End Date",
+    "leaveType": "Leave Type",
+    "medicalAttachments": "Medical Attachments",
+    "save": "Save",
+    "errors": {
+      "employeeRequired": "Please select an employee",
+      "leaveTypeRequired": "Please select a leave type",
+      "validLeaveDays": "Please enter a valid number of days",
+      "leaveStartRequired": "Please select a start date",
+      "leaveEndRequired": "Please select an end date",
+      "endDateAfterStart": "End date must be after start date",
+      "validDeduction": "Please enter a valid deduction amount"
+    }
+  },
+  "attendance": {
+    "title": "Attendance Record",
+    "save": "Save Changes",
+    "columns": {
+      "date": "Date",
+      "employee": "Employee",
+      "check_in": "Check In",
+      "check_out": "Check Out",
+      "notes": "Notes",
+      "deduction": "Deduction"
+    }
+  },
+  "breakTime": {
+    "title": "Break Time Records",
+    "form": {
+      "title": "Break",
+      "employee": "Employee",
+      "from": "Start",
+      "to": "To",
+      "actualEnd": "Actual End Time",
+      "save": "Save",
+      "deduction": "Deduction",
+      "add": "Break"
+    },
+    "validation": {
+      "employeeRequired": "Please select an employee",
+      "fromRequired": "Please select a start time",
+      "actualEndRequired": "Please select an actual end time"
+    },
+    "columns": {
+      "date": "Date",
+      "employee": "Employee",
+      "from": "From",
+      "to": "To",
+      "actual_end": "Actual End Time",
+      "deduction": "Deduction"
+    }
+  },
+  "employeeForm": {
+    "title": "Employee Information",
+    "subtitle": {
+      "edit": "Edit Employee Information",
+      "add": "Add New Employee"
+    },
+    "loading": "Loading employee data...",
+    "fields": {
+      "employee": "Name",
+      "phoneNumber": "Phone Number",
+      "address": "Address",
+      "birthDate": "Birth Date",
+      "qualification": "Qualification",
+      "position": "Position",
+      "net_salary": "Net Salary",
+      "extras": "Allowances",
+      "date": "Start Date",
+      "netSalary": "Total Salary",
+      "work_nature": "Work Nature",
+      "work_nature_placeholder": "Select Work Nature",
+      "work_nature_options": {
+        "full_time": "Full Time",
+        "part_time": "Part Time",
+        "varied": "Varied"
+      }
+    },
+    "buttons": {
+      "update": "Update Information",
+      "save": "Save",
+      "attachments": "Attachments"
+    },
+    "validation": {
+      "employee_required": "Name is required",
+      "birthDate_required": "Birth date is required",
+      "qualification_required": "Qualification is required",
+      "position_required": "Position is required",
+      "net_salary_required": "Salary is required",
+      "net_salary_positive": "Salary must be a positive value",
+      "date_required": "Start date is required",
+      "work_nature_required": "Work nature is required",
+      "extras_required": "Allowances are required"
+    },
+    "leave": {
+      "header": {
+        "total": "Total Leave Balance",
+        "regular": "Regular Leave Balance",
+        "emergency": "Emergency Leave Balance",
+        "sick": "Sick Days",
+        "continuous_absence": "Continuous Absence",
+        "separate_absence": "Separate Absence"
+      },
+      "days_count": "Number of Days",
+      "buttons": {
+        "save": "Save"
+      },
+      "policy": {
+        "intro": "-Total leave balance allowed for the employee",
+        "total_days": " days",
+        "divided_into": "divided into",
+        "regular_days": " regular days",
+        "and": "and",
+        "emergency_days": " emergency days",
+        "sick_days": " sick days",
+        "exceed_notice": "-In case of exceeding the allowed leave days, deductions will be applied according to the company policy",
+        "absence_intro": "-In case of employee absence",
+        "continuous_absence": " connected days",
+        "or": "or",
+        "separate_absence": " separate days",
+        "termination_notice": "termination procedures will be taken on the last day"
+      }
+    }
+  },
+  "salaries": {
+    "title": "Salary Details",
+    "hours": "Working Hours",
+    "of": "of",
+    "form": {
+      "title": "Salary Details",
+      "employee": "Employee",
+      "date": "Date",
+      "amount": "Amount",
+      "save": "Save"
+    },
+    "columns": {
+      "date": "Date",
+      "type": "Transaction Type",
+      "amount": "Amount",
+      "reason": "Reason"
+    }
+  },
+  "employeeData": {
+    "title": "Employee Data",
+    "filter": {
+      "employee": "Employee",
+      "date": "Date",
+      "all": "All"
+    }
+  },
+  "attendanceEmployeeData": {
+    "title": "Attendance Records",
+    "form": {
+      "title": "Record Attendance",
+      "employee": "Employee",
+      "date": "Date",
+      "checkIn": "Check In",
+      "checkOut": "Check Out",
+      "save": "Save"
+    },
+    "columns": {
+      "date": "Date",
+      "checkIn": "Check In",
+      "checkOut": "Check Out",
+      "breakTime": "Break",
+      "permission": "Permission",
+      "hoursWorked": "Hours Worked",
+      "workLocation": "Work Location"
+    }
+  },
+  "warningPopup": {
+    "disciplinaryActions": "Disciplinary Actions",
+    "employeeName": "Employee Name",
+    "warningType": "Warning Type",
+    "fromDate": "From Date",
+    "toDate": "To Date",
+    "save": "Save",
+    "warningTypes": {
+      "warning": "Warning",
+      "suspension": "Suspension",
+      "termination": "Termination"
+    }
+  },
+  "header": {
+    "welcome": "Welcome to SB Company",
+    "searchHere": "Search here",
+    "languages": "Languages",
+    "dr": "Dr. Ahmed Ibrahim"
+  },
+  "expense": {
+    "title": "Expenses",
+    "newExpense": "New Expense",
+    "code": "Expense Code",
+    "name": "Expense Name",
+    "total": "Total",
+    "date": "Date",
+    "expenseName": "Expense Name",
+    "amount": "Amount",
+    "accountName": "Account Name",
+    "type": "Type",
+    "save": "Save",
+    "statement": {
+      "accountStatement": "Account Statement",
+      "incomeList": "Income List",
+      "dateFrom": "Date From",
+      "dateTo": "Date To",
+      "search": "Search",
+      "columns": {
+        "date": "Date",
+        "transactionId": "Transaction ID",
+        "description": "Description",
+        "debit": "Debit",
+        "credit": "Credit",
+        "balance": "Balance"
+      }
+    }
+  },
+  "reports": "Reports",
+  "accountsReport": {
+    "statement": "Account Statement",
+    "generalStatement": "General Account Statement",
+    "customStatement": "Custom Account Statement",
+    "name": "Account Name",
+    "value": "Value"
+  },
+  "financialReport": {
+    "balanceSheet": "Balance Sheet",
+    "incomeStatement": "Income Statement",
+    "trialBalance": "Trial Balance",
+    "ledger": "General Ledger"
+  },
+  "columns": {
+    "date": "Date",
+    "transactionId": "Transaction ID",
+    "description": "Description",
+    "debit": "Debit",
+    "credit": "Credit",
+    "balance": "Balance",
+    "username": "Username",
+    "notes": "Notes",
+    "accountName": "Account Name"
+  },
+  "balance": {
+    "openingBalance": "Opening Balance",
+    "yearMovements": "Year Movements",
+    "closingBalance": "Closing Balance",
+    "movements": "Movements"
+  },
+  "incomeStatement": {
+    "title": "Income Statement",
+    "year": "Year",
+    "revenue": "Revenue",
+    "costOfRevenue": "Cost of Revenue",
+    "grossProfit": "Gross Profit",
+    "otherRevenue": "Other Revenue",
+    "expenses": "Expenses",
+    "netProfit": "Net Profit"
+  },
+  "actions": {
+    "search": "Search",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "filters": {
+    "dateFrom": "Date From",
+    "dateTo": "Date To",
+    "incomeList": "Income List"
+  },
+  "accounts": {
+    "assets": "Assets",
+    "nonCurrentAssets": "Non-Current Assets",
+    "fixedAssets": "Fixed Assets",
+    "projectsInProgress": "Projects in Progress",
+    "intangibleAssets": "Intangible Assets",
+    "realEstateInvestments": "Real Estate Investments",
+    "currentAssets": "Current Assets",
+    "inventory": "Inventory"
+  },
+  "services": {
+    "internet": "Internet",
+    "internetPlan": "Internet Plan",
+    "internetCardRefill": "Internet Card Refill",
+    "accountRecharge": "Account Recharge",
+    "billPayment": "Bill Payment",
+    "phoneBill": "Phone Bill",
+    "electricity": "Electricity",
+    "waterBill": "Water Bill",
+    "homeGas": "Home Gas",
+    "rent": "Rent",
+    "walletRecharge": "Wallet Recharge",
+    "moneyTransfer": "Money Transfer",
+    "creditCard": "Credit Card",
+    "healthInsurance": "Health Insurance",
+    "taxesAndFees": "Taxes and Fees",
+    "miscellaneousPayments": "Miscellaneous Payments",
+    "groceries": "Groceries",
+    "clothing": "Clothing",
+    "restaurants": "Restaurants",
+    "homeServices": "Home Services",
+    "carMaintenance": "Car Maintenance",
+    "fuel": "Fuel"
+  },
+  "AccountStatement": {
+    "tableHeaders": {
+      "date": "Date",
+      "transactionNumber": "Transaction Number",
+      "bankName": "Bank Name",
+      "description": "Description",
+      "debit": "Debit",
+      "credit": "Credit",
+      "balance": "Balance"
+    },
+    "labels": {
+      "accountStatement": "Account Statement"
+    },
+    "filters": {
+      "dateFrom": "Date From",
+      "dateTo": "Date To"
+    },
+    "actions": {
+      "search": "Search"
+    }
+  },
+  "IncomingChecks": {
+    "forms": {
+      "incomingChecks": "Incoming Checks",
+      "submit": "Submit",
+      "date": "Date",
+      "bankName": "Bank Name",
+      "accountName": "Account Name",
+      "checkNumber": "Check Number",
+      "amount": "Amount",
+      "collectionDate": "Collection Date",
+      "outgoingChecks": "Outgoing Checks",
+      "issue": "Issue"
+    },
+    "validation": {
+      "dateRequired": "Date is required",
+      "bankNameRequired": "Bank name is required",
+      "accountNameRequired": "Account name is required",
+      "checkNumberRequired": "Check number is required",
+      "amountRequired": "Amount is required",
+      "amountPositive": "Amount must be a positive number",
+      "collectionDateRequired": "Collection date is required"
+    }
+  },
+  "deposit": {
+    "forms": {
+      "deposit": "Deposit",
+      "date": "Date",
+      "bankName": "Bank Name",
+      "accountName": "Account Name",
+      "accountNumber": "Deposit Number",
+      "amount": "Amount"
+    },
+    "validation": {
+      "dateRequired": "Date is required",
+      "bankNameRequired": "Bank name is required",
+      "accountNameRequired": "Account name is required",
+      "accountNumberPositive": "Account number must be a positive number",
+      "accountNumberRequired": "Account number is required",
+      "amountPositive": "Amount must be a positive number",
+      "amountRequired": "Amount is required"
+    }
+  },
+  "withdrawal": {
+    "forms": {
+      "withdrawal": "Withdrawal",
+      "date": "Date",
+      "bankName": "Bank Name",
+      "accountName": "Account Name",
+      "withdrawalNumber": "Withdrawal Number",
+      "amount": "Amount"
+    },
+    "validation": {
+      "dateRequired": "Date is required",
+      "bankNameRequired": "Bank name is required",
+      "accountNameRequired": "Account name is required",
+      "accountNumberPositive": "Account number must be a positive number",
+      "accountNumberRequired": "Account number is required",
+      "amountPositive": "Amount must be a positive number",
+      "amountRequired": "Amount is required"
+    }
+  },
+  "IncomingTransfers": {
+    "forms": {
+      "incomingTransfer": "Incoming Transfer",
+      "date": "Date",
+      "bankName": "Bank Name",
+      "accountName": "Account Name",
+      "accountNumber": "Account Number",
+      "amount": "Amount",
+      "transfer": "Transfer"
+    },
+    "validation": {
+      "dateRequired": "Date is required",
+      "bankNameRequired": "Bank name is required",
+      "accountNameRequired": "Account name is required",
+      "accountNumberPositive": "Account number must be a positive number",
+      "accountNumberRequired": "Account number is required",
+      "amountPositive": "Amount must be a positive number",
+      "amountRequired": "Amount is required"
+    }
+  },
+  "OutgoingTransfers": {
+    "forms": {
+      "outgoingTransfer": "Outgoing Transfer",
+      "date": "Date",
+      "bankName": "Bank Name",
+      "accountName": "Account Name",
+      "accountNumber": "Account Number",
+      "amount": "Amount",
+      "transfer": "Transfer"
+    },
+    "validation": {
+      "dateRequired": "Date is required",
+      "bankNameRequired": "Bank name is required",
+      "accountNameRequired": "Account name is required",
+      "accountNumberRequired": "Account number is required",
+      "accountNumberPositive": "Account number must be a positive number",
+      "amountPositive": "Amount must be a positive number",
+      "amountRequired": "Amount is required"
+    }
+  },
+  "bankAccounts": {
+    "tabs": {
+      "accountStatement": "Account Statement",
+      "checks": "Checks",
+      "incoming": "Incoming",
+      "outgoing": "Outgoing",
+      "transfers": "Transfers",
+      "operations": "Operations",
+      "withdraw": "Withdraw",
+      "deposit": "Deposit",
+      "banks": "Banks"
+    }
+  },
+  "bank": {
+    "name": "Bank Name",
+    "branch": "Branch",
+    "accountNumber": "Account Number",
+    "balance": "Balance",
+    "add": "Add Bank"
+  },
+  "AddBank": {
+    "bank": {
+      "addNew": "Add New Bank",
+      "name": "Bank Name",
+      "branch": "Branch Name",
+      "accountNumber": "Account Number",
+      "initialBalance": "Initial Balance",
+      "type": "Type",
+      "credit": "Credit",
+      "debit": "Debit"
+    },
+    "formErrors": {
+      "bankName": "Bank name is required",
+      "branchName": "Branch name is required",
+      "accountNumber": "Account number is required",
+      "initialBalance": "Initial balance is required",
+      "initialBalanceType": "Initial balance must be a number",
+      "type": "Type is required"
+    },
+    "actions": {
+      "save": "Save"
+    }
+  },
+  "salesInvoices": {
+    "card1": {
+      "title": "Sales Invoices",
+      "subTitle": "Record all daily financial transactions such as sales and purchases."
+    },
+    "card2": {
+      "title": "Returns & Exchanges",
+      "subTitle": "View various account transactions."
+    },
+    "card3": {
+      "title": "Products",
+      "subTitle": "Manage invoices, sales operations, and account statements."
+    },
+    "card4": {
+      "title": "Employees",
+      "subTitle": "Record supplier purchases, manage due invoices, and view account statements."
+    },
+    "card5": {
+      "title": "Customers",
+      "subTitle": "Manage inventory and track available product quantities."
+    },
+    "card6": {
+      "title": "Reports",
+      "subTitle": "Manage cash transactions and bank accounts."
+    }
+  },
+  "salesInvoicesTable": {
+    "columns": {
+      "code": "Code",
+      "itemName": "Item Name",
+      "quantity": "Quantity",
+      "unit": "Unit",
+      "saleUnit": "Sale Unit",
+      "total": "Total",
+      "discount": "Discount",
+      "tax": "Tax",
+      "totalSale": "Total Sale",
+      "addTax": "Add Tax"
+    },
+    "filter": {
+      "pageTitle": "Sales Invoice",
+      "invoiceLabel": "Invoice Number",
+      "dateLabel": "Date",
+      "customerInfo": "Customer Information",
+      "customerName": "Customer Name",
+      "customerPhone": "Phone Number",
+      "customerAddress": "Address",
+      "customerDiscount": "Customer Discount",
+      "invoiceTax": "Invoice Tax",
+      "productTax": "Product Discount",
+      "errors": {
+        "invoiceNumber": "Invoice number is required",
+        "date": "Date is required",
+        "customerName": "Customer name is required",
+        "customerPhone": "Phone number is required",
+        "customerPhoneDigits": "Must be only digits",
+        "customerAddress": "Address is required",
+        "customerDiscount": "Discount is required"
+      }
+    },
+    "invoiceSmallTable": {
+      "totalInvoice": "Total Invoice",
+      "totalDiscount": "Total Discount",
+      "totalVAT": "Total VAT",
+      "totalTableTax": "Total Table Tax",
+      "discountAndAdditionTax": "Discount & Addition Tax",
+      "netInvoice": "Net Invoice",
+      "paymentMethod": "Payment Method",
+      "paymentMethodPlaceholder": "Select Payment Method",
+      "cash": "Cash",
+      "bankTransfer": "Bank Transfer",
+      "receiptNumber": "Receipt Number",
+      "amount": "Amount",
+      "saveInvoice": "Save Invoice",
+      "cancel": "Cancel",
+      "noResults": "No results."
+    },
+    "cashPayment": {
+      "title": "Cash Payment",
+      "paidLabel": "Paid",
+      "remainingLabel": "Remaining",
+      "saveButton": "Save"
+    },
+    "pankPayment": {
+      "title": "Bank Payment",
+      "checkNumberLabel": "Cheque Number",
+      "checkAmountLabel": "Cheque Amount",
+      "saveButton": "Save"
+    },
+    "taxOnInvoice": {
+      "title": "Add Tax to Invoice",
+      "salesTaxLabel": "Sales Tax",
+      "incomeTaxLabel": "Income Tax",
+      "saveButton": "Save"
+    },
+    "taxOnProduct": {
+      "title": "Add Tax to Product",
+      "salesTaxLabel": "Sales Tax",
+      "incomeTaxLabel": "Income Tax",
+      "saveButton": "Save"
+    },
+    "transaction": {
+      "title": "Transaction",
+      "checkNumberLabel": "Check Number",
+      "checkAmountLabel": "Check Amount",
+      "saveButton": "Save"
+    }
+  },
+  "ReturnsAndExchanges": {
+    "CustomPopUp": {
+      "dialogTriggerText": "Add Tax"
+    },
+    "exchangeTitle": "Exchange Invoice",
+    "ReturnTitle": "Return Invoice",
+    "ReusableManyTable": {
+      "invoiceLabel": "Invoice Label",
+      "footerLabel": "Returns Table",
+      "expandButtonText": "Expand"
+    },
+    "ReturnTopComponent": {
+      "selectInvoiceText": "Select Invoice"
+    },
+    "ReturnsTable": {
+      "code": "Code",
+      "itemName": "Item Name",
+      "quantity": "Quantity",
+      "unit": "Purchase Unit",
+      "total": "Total",
+      "discount": "Discount",
+      "tax": "Tax",
+      "totalSale": "Total Sale"
+    },
+    "ExchangeTopComponent": {
+      "selectInvoiceText": "Select Invoice for Exchange"
+    },
+    "ExchangeTable": {
+      "code": "Code",
+      "itemName": "Item Name",
+      "quantity": "Quantity",
+      "unit": "Purchase Unit",
+      "total": "Total",
+      "discount": "Discount",
+      "tax": "Tax",
+      "totalSale": "Total Sale"
+    },
+    "ExchangeIcon": {
+      "tooltipText": "Click to exchange"
+    },
+    "ReturnIcon": {
+      "tooltipText": "Click to return"
+    }
+  },
+  "returnsTable": {
+    "columns": {
+      "totalInvoice": "Total Returns",
+      "totalDiscount": "Total Discount",
+      "totalVAT": "Total VAT",
+      "totalTableTax": "Total Table Tax",
+      "totalDiscountAndAdditionTax": "Total Discount & Addition Tax",
+      "netInvoice": "Net Invoice",
+      "paymentMethod": "Payment Method"
+    },
+    "paymentMethods": {
+      "cash": "Cash",
+      "bankTransfer": "Bank Transfer"
+    },
+    "noResults": "No results found.",
+    "receiptNumber": "Receipt Number",
+    "amount": "Amount",
+    "buttons": {
+      "saveInvoice": "Save Invoice",
+      "cancel": "Cancel"
+    }
+  },
+  "returnTopComponent": {
+    "title": "Return Invoice",
+    "buttons": {
+      "taxOnInvoice": "Tax on Invoice",
+      "discountOnInvoice": "Discount on Invoice"
+    },
+    "inputs": {
+      "date": "Date",
+      "invoiceNumber": "Invoice Number"
+    },
+    "customerInfo": {
+      "title": "Customer Information",
+      "name": "Customer Name",
+      "number": "Number",
+      "address": "Address",
+      "discounts": "Customer Discounts"
+    },
+    "invoiceOptions": {
+      "invoice1": "Invoice 1",
+      "invoice2": "Invoice 2",
+      "invoice3": "Invoice 3"
+    }
+  },
+  "exchangeTopComponent": {
+    "title": "Exchange Invoice",
+    "buttons": {
+      "taxOnInvoice": "Tax on Invoice",
+      "discountOnInvoice": "Discount on Invoice"
+    },
+    "inputs": {
+      "date": "Date",
+      "invoiceNumber": "Invoice Number"
+    },
+    "customerInfo": {
+      "title": "Customer Information",
+      "name": "Customer Name",
+      "number": "Number",
+      "address": "Address",
+      "discounts": "Customer Discounts"
+    },
+    "invoiceOptions": {
+      "invoice1": "Invoice 1",
+      "invoice2": "Invoice 2",
+      "invoice3": "Invoice 3"
+    }
+  },
+  "products": {
+    "title": "Products",
+    "search": "Search here...",
+    "columns": {
+      "productCode": "Product Code",
+      "productName": "Product Name",
+      "productDescription": "Product Description",
+      "unit": "Unit",
+      "price": "Price",
+      "quantity": "Quantity",
+      "category": "Category",
+      "inStock": "In Stock",
+      "otherBranches": "Other Branches"
+    },
+    "buttons": {
+      "otherBranches": "Other Branches"
+    }
+  },
+  "employeesInvoices": {
+    "title": "Employees",
+    "addEmployee": "Add Employee",
+    "addNewEmployee": "Add New Employee",
+    "salesRecord": "Sales Record",
+    "searchPlaceholder": "Search here...",
+    "columns": {
+      "employeeName": "Employee Name",
+      "unitsCount": "Units Count",
+      "totalUnits": "Total Units",
+      "name": "Employee Name",
+      "phone": "Phone Number",
+      "address": "Address",
+      "job": "Job",
+      "permissions": "Permissions",
+      "options": "Options"
+    },
+    "filters": {
+      "employee": "Employee",
+      "dateFrom": "From Date",
+      "dateTo": "To Date"
+    },
+    "buttons": {
+      "save": "Save",
+      "view": "View",
+      "salesRecord": "Sales Record",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "employees": ["Faris", "Mohammed", "Ahmed", "Ali"]
+  },
+  "customers": {
+    "title": "Customers",
+    "addCustomer": "Add Customer",
+    "addNewCustomer": "Add New Customer",
+    "searchPlaceholder": "Search here...",
+    "columns": {
+      "customerName": "Customer Name",
+      "phone": "Phone",
+      "address": "Address",
+      "discounts": "Customer Discounts",
+      "options": "Options"
+    },
+    "form": {
+      "customerName": "Customer Name",
+      "phone": "Phone Number",
+      "address": "Address",
+      "discounts": "Customer Discounts",
+      "category": "Category"
+    },
+    "buttons": {
+      "save": "Save",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "sampleNames": [
+      "Ahmed",
+      "Sarah",
+      "Mohammed",
+      "Fatima",
+      "Yousef",
+      "Layla",
+      "Khalid",
+      "Hind",
+      "Salman",
+      "Nora"
+    ],
+    "samplePhones": [
+      "0501234567",
+      "0559876543",
+      "0541122334",
+      "0539988776",
+      "0566655443"
+    ],
+    "sampleAddresses": [
+      "Riyadh",
+      "Jeddah",
+      "Dammam",
+      "Mecca",
+      "Medina",
+      "Abha",
+      "Taif",
+      "Buraidah"
+    ],
+    "sampleSales": [
+      "VIP Customer",
+      "Regular Customer",
+      "Special Discount",
+      "Cash Payment",
+      "Deferred Invoice",
+      "New Customer"
+    ]
+  },
+  "sales": {
+    "common": {
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "search": "Search",
+      "actions": "Actions",
+      "save": "Save",
+      "cancel": "Cancel",
+      "back": "Back",
+      "next": "Next",
+      "submit": "Submit",
+      "execute": "Execute",
+      "from": "From",
+      "to": "To",
+      "client": "Client"
+    },
+    "clients": {
+      "title": "Clients",
+      "addNew": "New Client",
+      "addNewTitle": "Add New Client",
+      "columns": {
+        "name": "Client Name",
+        "phone": "Phone",
+        "phoneNumber": "Phone Number",
+        "address": "Address",
+        "action": "Action",
+        "code": "Client Code"
+      },
+      "deleteConfirmation": "Are you sure you want to delete this client?"
+    },
+    "invoiceClients": {
+      "title": "Due Amount",
+      "columns": {
+        "name": "Client Name",
+        "phone": "Phone",
+        "address": "Address",
+        "invoiceNumber": "Invoice Number",
+        "amountDue": "Amount Due"
+      }
+    },
+    "advancePayments": {
+      "title": "Advance Payments",
+      "columns": {
+        "name": "Client Name",
+        "phone": "Phone",
+        "address": "Address",
+        "receiptNumber": "Receipt Number",
+        "amount": "Amount"
+      }
+    },
+    "transactions": {
+      "title": "Account Statement",
+      "accountStatement": "Account Statement",
+      "mainTitle": "Clients",
+      "sales": {
+        "title": "Sales"
+      },
+      "columns": {
+        "invoiceNumber": "Invoice Number",
+        "clientCode": "Client Code",
+        "date": "Date",
+        "account": "Account",
+        "debtor": "Debtor",
+        "creditor": "Creditor",
+        "balance": "Balance"
+      }
+    },
+    "salesInvoices": {
+      "title": "Sales Invoices",
+      "columns": {
+        "code": "Code",
+        "itemName": "Item Name",
+        "category": "Category",
+        "quantity": "Quantity",
+        "saleUnit": "Sale Unit",
+        "total": "Total",
+        "discount": "Discount",
+        "tax": "Tax",
+        "totalSale": "Total Sale",
+        "addTax": "Add Tax"
+      }
+    },
+    "returnInvoices": {
+      "title": "Return Invoices"
+    },
+    "electronicInvoices": {
+      "title": "Electronic Invoices",
+      "mainTitle": "Sales",
+      "taxTransfer": "Tax Transfer",
+      "returns": "Returns",
+      "replacements": "Replacements",
+      "columns": {
+        "invoiceNumber": "Invoice Number",
+        "date": "Date",
+        "statement": "Statement",
+        "amount": "Amount",
+        "vatAmount": "VAT Amount",
+        "profit": "Annual Profit",
+        "total": "Total",
+        "status": "Response Status"
+      }
+    },
+    "categoryTable": {
+      "category": "Category",
+      "saleUnit": "Sale Unit",
+      "unitContents": "Unit Contents 1:1",
+      "subUnitContents": "Unit Contents 1:1:1"
+    }
+  },
+  "purchases": {
+    "productTypes": {
+      "code": "Item Code",
+      "name": "Item Name",
+      "description": "Description",
+      "purchasePrice": "Purchase Price",
+      "salePrice": "Sale Price",
+      "actions": "Options",
+      "addItem": "Add Item",
+      "title": "Items"
+    },
+    "invoices": {
+      "invoiceNumber": "Invoice Number",
+      "date": "Date",
+      "account": "Account",
+      "debtor": "Debtor",
+      "creditor": "Creditor",
+      "balance": "Balance",
+      "accountStatement": "Account Statement",
+      "mainTable": "Purchases"
+    },
+    "suppliers": {
+      "name": "Supplier Name",
+      "phone": "Phone",
+      "address": "Address",
+      "newSupplier": "New Supplier",
+      "title": "Suppliers"
+    },
+    "amountDues": {
+      "amountDue": "Amount Due",
+      "title": "Amount Due"
+    },
+    "downPayments": {
+      "paymentDocument": "Payment Document",
+      "advanceAmount": "Advance Amount",
+      "title": "Down Payment"
+    }
+  },
+  "AccountStatementTopComponent": {
+    "title": "Account Statement",
+    "from": "From",
+    "to": "To",
+    "item": "Item",
+    "execute": "Execute"
+  },
+  "AddNewCategory": {
+    "title": "Add New Category",
+    "code": "Code: 125",
+    "name": "Category Name",
+    "description": "Category Description",
+    "purchasePrice": "Purchase Price",
+    "salePrice": "Sale Price",
+    "save": "Save"
+  },
+  "AddSupplier": {
+    "title": "Add New Supplier",
+    "name": "Supplier Name",
+    "phone": "Phone Number",
+    "address": "Address",
+    "save": "Save"
+  },
+  "inventory": {
+    "classCard": {
+      "title": "Item Card",
+      "date": "Date",
+      "code": "Item Code",
+      "incoming": "Incoming",
+      "outgoing": "Outgoing",
+      "balance": "Balance",
+      "description": "Description"
+    },
+    "inventoryReports": {
+      "title": "Inventory Report",
+      "recordTitle": "Inventory Record",
+      "itemCode": "Item Code",
+      "itemName": "Item Name",
+      "actualQuantity": "Actual Quantity",
+      "systemQuantity": "System Quantity",
+      "difference": "Difference"
+    },
+    "disbursementPermissions": {
+      "title": "Disbursement Permission",
+      "code": "Code",
+      "date": "Date",
+      "name": "Item Name",
+      "quantity": "Quantity",
+      "reason": "Reason",
+      "actions": "Options"
+    },
+    "warehouseTransfer": {
+      "title": "Warehouse Transfer",
+      "code": "Transfer Code",
+      "date": "Date",
+      "sourceWarehouse": "Source Warehouse",
+      "destinationWarehouse": "Destination Warehouse"
+    },
+    "additionPermission": {
+      "title": "Addition Permission",
+      "supplier": "Supplier",
+      "invoiceNumber": "Invoice Number",
+      "quantity": "Quantity",
+      "date": "Date",
+      "discount": "Discount",
+      "paymentMethod": "Payment Method"
+    },
+    "products": {
+      "title": "Products",
+      "productCode": "Product Code",
+      "productName": "Product Name",
+      "category": "Category",
+      "unit": "Unit",
+      "date": "Date",
+      "purchasePrice": "Purchase Price",
+      "sellingPrice": "Selling Price",
+      "mainSupplier": "Main Supplier",
+      "minLimit": "Minimum Limit",
+      "maxLimit": "Maximum Limit",
+      "newProduct": "New Product"
+    },
+    "warehouses": {
+      "title": "Warehouses",
+      "code": "Warehouse Code",
+      "name": "Warehouse Name",
+      "type": "Warehouse Type",
+      "location": "Location",
+      "department": "Responsible Department",
+      "capacity": "Maximum Capacity",
+      "newWarehouse": "New Warehouse",
+      "newSubWarehouse": "New Sub Warehouse"
+    },
+    "actions": {
+      "view": "View",
+      "delete": "Delete",
+      "edit": "Edit"
+    }
+  },
+  "purshes": {
+    "inventory": {
+      "title": "Inventory Report",
+      "date": "Date",
+      "code": "Report Code",
+      "type": "Warehouse Type",
+      "name": "Warehouse Name",
+      "save": "Save",
+      "log": "Log"
+    },
+    "disbursement": {
+      "title": "Disbursement",
+      "code": "Transfer Code",
+      "date": "Date",
+      "receiver": "Receiving Party",
+      "subWarehouse": "Sub Warehouse",
+      "notes": "Notes",
+      "save": "Save",
+      "log": "Log"
+    },
+    "classCard": {
+      "title": "Item Card",
+      "from": "From",
+      "to": "To",
+      "items": "Items",
+      "search": "Search"
+    },
+    "addProduct": {
+      "title": "Add New Product",
+      "code": "Code",
+      "name": "Product Name",
+      "desc": "Product Description",
+      "type": "Warehouse Type",
+      "warehouse": "Warehouse Name",
+      "show": "Show for Sale",
+      "save": "Save"
+    }
+  },
+  "addNewWareHouse": {
+    "addNewStore": "Add New Warehouse",
+    "addNewSubStore": "Add New Sub Warehouse",
+    "code": "Code",
+    "storeName": "Warehouse Name",
+    "storeType": "Warehouse Type",
+    "purchasePrice": "Maximum Capacity",
+    "Responsiblemanagement": "Responsible Department",
+    "geographicalLocation": "Geographical Location",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "x"
+  },
+  "userHome": {
+    "dashboardTitle": "Accounts Dashboard",
+    "modules": {
+      "sales": {
+        "title": "Sales",
+        "subtitle": "Manage invoices, sales operations and account inventory"
+      },
+      "accountMovements": {
+        "title": "Account Movements",
+        "subtitle": "View all different account movements"
+      },
+      "dailyEntries": {
+        "title": "Daily Entries",
+        "subtitle": "Record all daily financial movements between accounts and purchases"
+      },
+      "treasuryAndBanks": {
+        "title": "Treasury and Banks",
+        "subtitle": "Manage cash financial movements and bank accounts"
+      },
+      "purchases": {
+        "title": "Purchases",
+        "subtitle": "Record purchases from suppliers and manage received invoices and account payments"
+      },
+      "inventory": {
+        "title": "Inventory",
+        "subtitle": "Manage warehouses and track existing quantities of products"
+      },
+      "hr": {
+        "title": "Human Resources Management",
+        "subtitle": "Manage employees, salaries, attendance and absence"
+      },
+      "reports": {
+        "title": "Reports",
+        "subtitle": "Display and analyze financial data through various reports"
+      },
+      "expenses": {
+        "title": "Expenses",
+        "subtitle": "Record all expenses such as salaries, rent and services"
+      }
+    }
+  },
+  "professionalData": {
+    "form": {
+      "fields": {
+        "email": "email",
+        "password": "Password",
+        "total_salary": "Total salary",
+        "facility": "Facility",
+        "department": "Department",
+        "user_type": "User Type",
+        "work_nature": "Work Nature",
+        "net_salary": "Net Salary",
+        "allowances": "Allowances"
+      },
+      "buttons": {
+        "save": "Save",
+        "update": "Update"
+      },
+      "validation": {
+        "email_required": "email is required",
+        "password_required": "Password is required",
+        "total_salary_required": "Total salary is required",
+        "total_salary_positive": "Total salary must be a positive number",
+        "facility_required": "Facility is required",
+        "department_required": "Department is required",
+        "user_type_required": "User type is required",
+        "work_nature_required": "Work nature is required",
+        "net_salary_required": "Net salary is required",
+        "net_salary_positive": "Net salary must be a positive number",
+        "allowances_required": "Allowances are required",
+        "allowances_positive": "Allowances must be a positive number"
+      },
+      "loading": "Loading..."
+    },
+    "employeeForm": {
+      "leave": {
+        "header": {
+          "sick": "Sick Leave",
+          "total": "Total Leave",
+          "regular": "Regular Leave",
+          "continuous_absence": "Continuous Absence",
+          "separate_absence": "Separate Absence",
+          "emergency": "Emergency Leave"
+        },
+        "days_count": "Number of days",
+        "buttons": {
+          "save": "Save"
+        },
+        "policy": {
+          "intro": "The employee is entitled to ",
+          "total_days": "total leave",
+          "regular_days": "regular leave",
+          "sick_days": "sick leave",
+          "and": " and ",
+          "exceed_notice": "Leave cannot exceed the specified number of days.",
+          "absence_intro": "For absence without notice, the system records it as ",
+          "continuous_absence_days": "continuous absence",
+          "separate_absence_days": "separate absence"
+        }
+      }
+    }
+  },
+  "userHr": {
+    "attendance": "Attendance / Departure",
+    "workingHours": "Company Working Hours",
+    "yourData": "Your Information",
+    "vacations": "Vacations",
+    "execuse": "Permissions",
+    "breakTime": "Break Time",
+    "vacationsPage": {
+      "date": "Date",
+      "from": "From",
+      "to": "To",
+      "vacationType": "Vacation Type",
+      "reason": "Reason",
+      "deduction": "Deduction",
+      "status": "Status",
+      "recordTitle": "Vacation Record",
+      "monthPickerLabel": "Date",
+      "requestVacation": "Request Vacation",
+      "recordButton": "Record",
+      "balanceInside": "Inside vacation balance",
+      "balanceOutside": "Outside vacation balance",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "pending": "Pending"
+    },
+    "vacationsListPage": {
+      "vacationType": "Vacation Type",
+      "totalDays": "Total Days",
+      "remaining": "Remaining",
+      "recordTitle": "Vacation Record",
+      "monthPickerLabel": "Date",
+      "requestVacation": "Request Vacation"
+    },
+    "requestVacation": {
+      "title": "Vacation Request",
+      "start": "Start",
+      "end": "End",
+      "type": "Vacation Type",
+      "submit": "Submit Request"
+    },
+    "breakTimePage": {
+      "title": "Break Time Record",
+      "date": "Date",
+      "from": "From",
+      "to": "To",
+      "actualEnd": "Actual End Time",
+      "reason": "Reason",
+      "deduction": "Deduction",
+      "status": "Status",
+      "requestBreak": "Request Break"
+    },
+    "breakTimePopUp": {
+      "popupTitle": "Break Request",
+      "start": "Start",
+      "end": "End",
+      "reason": "Reason",
+      "submit": "Submit Request"
+    },
+    "execuses": {
+      "title": "Excuse Records",
+      "date": "Date",
+      "from": "From",
+      "to": "To",
+      "actualEnd": "Actual End",
+      "reason": "Reason",
+      "deduction": "Deduction",
+      "status": "Status",
+      "addTitle": "Request Excuse"
+    },
+    "execusesPopUp": {
+      "popupTitle": "Excuse Request",
+      "start": "Start",
+      "end": "End",
+      "reason": "Reason",
+      "submit": "Submit Request"
+    },
+    "execusesinOut": {
+      "inOutTitle": "Check In / Check Out",
+      "todayDate": "Today:",
+      "allowedTime": "Allowed Time:",
+      "checkIn": "Check In",
+      "checkOut": "Check Out"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "done": "Done",
+      "denied": "Denied"
+    }
+  },
+  "salaryDetails": {
+    "tableHeaders": {
+      "netSalary": "Net Salary",
+      "increase": "Increase",
+      "allowance": "Allowance",
+      "totalDeductions": "Total Deductions",
+      "totalBonus": "Total Bonus",
+      "overtime": "Overtime",
+      "totalSalary": "Total Salary"
+    },
+    "monthlySalaryDetails": "Monthly Salary Details",
+    "hours": "Hours"
+  },
+  "employee_info": "Personal Information",
+  "professional_data": "Professional Data",
+  "vacationstatus": {
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "deduction-days-with-permission": "Deduction Days with Permission"
+  },
+  "clients": {
+    "title": "Clients",
+    "amountsDue": "Amounts Due",
+    "supplierName": "Supplier Name",
+    "remainingAmount": "Remaining Amount",
+    "customerName": "Customer Name",
+    "phone": "Phone",
+    "address": "Address",
+    "options": "Options",
+    "delete": "Delete",
+    "show": "Show",
+    "addNewClient": "Add New Client",
+    "invoiceNumber": "Invoice Number",
+    "date": "Date",
+    "invoiceAmount": "Invoice Amount",
+    "save": "Save"
+  },
+  "ordersInUser": {
+    "productName": "Product Name",
+    "quantity": "Quantity",
+    "unitPrice": "Unit Price",
+    "total": "Total",
+    "supplierName": "Supplier Name",
+    "delete": "Delete",
+    "show": "Show",
+    "orderNumber": "Order Number",
+    "date": "Date",
+    "amount": "Amount",
+    "options": "Options",
+    "sendOrders": "Send Orders",
+    "cancel": "Cancel",
+    "ordersList": "Orders List",
+    "addOrder": "Add Order",
+    "myOrders": "My Orders",
+    "productTable": {
+      "code": "Product Code",
+      "name": "Product Name",
+      "quantity": "Quantity",
+      "unit": "Unit",
+      "price": "Total",
+      "action": "Action",
+      "order": "Order"
+    },
+    "SendToSupplier": {
+      "title": "Send to Supplier",
+      "supplierType": "Supplier Type",
+      "productName": "Product Name",
+      "save": "Save"
+    },
+    "TopComponentsinventoryProduct": {
+      "sendToSupplier": "Send to Supplier",
+      "productName": "Product Name",
+      "productCategory": "Product Category",
+      "quantity": "Quantity",
+      "add": "Add"
+    }
+  },
+  "suppliers": {
+    "title": "Suppliers",
+    "addSupplier": "Add Supplier",
+    "addTypeSupplier": "add supplier type",
+    "addOffer": "Add Offer",
+    "supplierName": "Supplier Name",
+    "phone": "Phone",
+    "address": "Address",
+    "supplierType": "Supplier Type",
+    "actions": "Actions",
+    "show": "Show",
+    "delete": "Delete",
+    "invoiceNumber": "Invoice Number",
+    "date": "Date",
+    "totalAmount": "Total Amount",
+    "remainingAmount": "Remaining Amount",
+    "amountDue": "Amount Due",
+    "offerDescription": "Offer Description",
+    "save": "Save",
+    "invoices": "Invoices"
+  },
+  "movementacount": {
+    "head": {
+      "date": "Date",
+      "account": "Account",
+      "referenceNumber": "Reference Number",
+      "transactionType": "Transaction Type",
+      "debit": "Debit",
+      "credit": "Credit",
+      "employee": "Employee"
+    },
+    "table": {
+      "from": "from",
+      "to": "to",
+      "account": "account",
+      "acction": "acction"
+    },
+    "popup": {
+      "tittle": "ادخل البيانات لاضافة حساب جديد",
+      "nameaccount": "Account Name",
+      "descaccount": "Account Description",
+      "contactaccount": "Account Link 1",
+      "contactaccount2": "Account Link 2",
+      "contactaccounts": "Link Accounts",
+      "naturalaccount": "Account Nature",
+      "balance": "Opening Balance",
+      "checkboxOptions": {
+        "trialBalance": "Trial Balance",
+        "incomeStatement": "Income Statement"
+      },
+      "addaccount": "Add New Account"
+    },
+    "employee": " ahmed hessin",
+    "credit": "0",
+    "debit": "0",
+    "transactionType": "not avialible ",
+    "referenceNumber": " not avialible",
+    "account": " not aviallible",
+    "date": "17/12/2024"
+  },
+  "treeAcounts": {
+    "head": {
+      "date": "Date",
+      "account": "Account",
+      "referenceNumber": "Reference Number",
+      "transactionType": "Transaction Type",
+      "debit": "Debit",
+      "credit": "Credit",
+      "employee": "Employee"
+    },
+    "table": {
+      "from": "from",
+      "to": "to",
+      "account": "account",
+      "acction": "acction"
+    },
+    "popup": {
+      "tittle": "ادخل البيانات لاضافة حساب جديد",
+      "nameaccount": "Account Name",
+      "descaccount": "Account Description",
+      "contactaccount": "Account Link 1",
+      "contactaccount2": "Account Link 2",
+      "contactaccounts": "Link Accounts",
+      "naturalaccount": "Account Nature",
+      "balance": "Opening Balance",
+      "checkboxOptions": {
+        "trialBalance": "Trial Balance",
+        "incomeStatement": "Income Statement"
+      },
+      "addaccount": "Add New Account"
+    },
+    "employee": " ahmed hessin",
+    "credit": "0",
+    "debit": "0",
+    "transactionType": "not avialible ",
+    "referenceNumber": " not avialible",
+    "account": " not aviallible",
+    "date": "17/12/2024"
+  },
+  "userAttendance": {
+    "date": "Date",
+    "arrivalTime": "Arrival Time",
+    "leaveTime": "Leave Time",
+    "execuseTotalTime": "Execuse Total Time",
+    "breakTotalTime": "Break Total Time",
+    "execuseNoteDeduction": "Execuse Note & Deduction"
+  },
+  "clear": "clear"
 }

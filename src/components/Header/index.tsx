@@ -19,6 +19,7 @@ import HomeSideBar from "../homeSideBar";
 import { SidebarTrigger } from "../ui/sidebar";
 import { SearchSelect } from "../SearchSelect";
 import { HrOptions, UserHrOptions, userOptions } from "@/lib/config";
+import LogoutButton from "../LogoutButton";
 
 export function DropdownMenuCheckboxes() {
 	const [ischoosed, setIschoosed] = useState("");
@@ -131,6 +132,7 @@ export default function Header({
 			<div className="flex gap-6 items-center">
 				<DropdownMenuCheckboxes />
 				<NotificationsSheet />
+				<LogoutButton/>
 			</div>
 		</div>
 	);

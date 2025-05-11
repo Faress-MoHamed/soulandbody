@@ -1,1609 +1,1610 @@
 {
-	"dir": "rtl",
-	"print": "طباعة",
-	"home": {
-		"employees": "الموظفين",
-		"employeeData": "بيانات موظف",
-		"financialGrades": "الدرجات المالية بشؤون الموظفين",
-		"workHours": "ساعات دوام الشركة",
-		"permission": "استئذان",
-		"breakTime": "وقت راحة",
-		"attendance": "سجلات حضور",
-		"vacations": "إجازات",
-		"disciplinaryVacations": "إجازات تأديبية",
-		"fares": "fares"
-	},
-	"employees": {
-		"title": "الموظفين",
-		"newEmployee": "موظف جديد",
-		"date": "التاريخ",
-		"employee": "الموظف",
-		"workNature": "طبيعة العمل",
-		"netSalary": "صافي المرتب",
-		"phoneNumber": "رقم الهاتف",
-		"address": "العنوان",
-		"form": {
-			"title": "معلومات الموظف",
-			"personalInfo": "معلومات شخصية",
-			"add": "اضافة موظف",
-			"save": "حفظ"
-		}
-	},
-	"pagination": {
-		"next": "التالي",
-		"prev": "السابق"
-	},
-	"filter": {
-		"employee": "الموظف",
-		"date": "التاريخ",
-		"placeholder": "الكل"
-	},
-	"errors": {
-		"requiredField": "هذا الحقل مطلوب",
-		"invalidAmount": "الرجاء إدخال مبلغ صحيح"
-	},
-	"financial": {
-		"transactionsTitle": "المعاملات المالية",
-		"employee": "الموظف",
-		"date": "التاريخ",
-		"type": "النوع",
-		"amount": "المبلغ",
-		"reason": "السبب",
-		"submit": "إرسال",
-		"salaryTitle": "إدارة الرواتب",
-		"sendSalaries": "إرسال الرواتب",
-		"deduction": "خصم",
-		"advance": "سلفة",
-		"netSalary": "صافي الراتب",
-		"extras": "الإضافات",
-		"allowances": "البدلات",
-		"totalSalary": "إجمالي الراتب",
-		"addSalary": "إضافة راتب",
-		"addTransaction": "إضافة معاملة",
-		"salaries": "الرواتب",
-		"deductions": "الخصومات",
-		"salary": "الراتب"
-	},
-	"workHours": {
-		"title": "ساعات الدوام",
-		"save": "حفظ التغييرات",
-		"columns": {
-			"day": "اليوم",
-			"is_active": "دوام",
-			"start_time": "بداية الدوام",
-			"end_time": "انتهاء الدوام",
-			"break_hours": "الراحه"
-		}
-	},
-	"permissions": {
-		"title": "استأذان",
-		"form": {
-			"employee": "الموظف",
-			"from": "بداية",
-			"to": "نهاية",
-			"actualEnd": "وقت الأنتهاء الفعلي",
-			"reason": "السبب",
-			"submit": "حفظ"
-		},
-		"placeholders": {
-			"employee": "اختر الموظف"
-		},
-		"errors": {
-			"employee": "يرجى اختيار الموظف",
-			"from": "يرجى اختيار وقت البداية",
-			"to": "يرجى اختيار وقت النهاية",
-			"actualEnd": "يرجى اختيار وقت الانتهاء الفعلي",
-			"reason": "يرجى إدخال السبب"
-		},
-		"table": {
-			"title": "سجل استاذان",
-			"columns": {
-				"date": "التاريخ",
-				"employee": "الموظف",
-				"from": "من",
-				"to": "الي",
-				"actual_end": "وقت الأنتهاء الفعلي",
-				"reason": "السبب",
-				"deduction": "الخصم"
-			}
-		},
-		"add": " استأذان"
-	},
-	"hrVacations": {
-		"table": {
-			"date": "التاريخ",
-			"employee": "الموظف",
-			"leaveStart": "بداية الأجازة",
-			"leaveEnd": "نهاية الأجازة",
-			"leaveDays": "عدد الأيام",
-			"leaveType": "نوع الأجازة",
-			"attachment": "ملحقات",
-			"deduction": "الخصم"
-		},
-		"titles": {
-			"vacationLog": "سجل الاجاازات",
-			"addVacation": "اضافة اجازة"
-		},
-		"inputs": {
-			"employees": "الموظقين",
-			"date": "التاريح"
-		},
-		"vacation": "اجازات",
-		"record": "السجل",
-		"deduction": "الخصم",
-		"employee": "الموظف",
-		"leaveDays": "عدد الأيام",
-		"leaveStart": "تاريخ البدء",
-		"leaveEnd": "تاريخ العودة",
-		"leaveType": "نوع الأجازة",
-		"medicalAttachments": "ملحقات طبية",
-		"save": "حفظ",
-		"errors": {
-			"employeeRequired": "يرجى اختيار الموظف",
-			"leaveTypeRequired": "يرجى اختيار نوع الأجازة",
-			"validLeaveDays": "يرجى إدخال عدد أيام صالح",
-			"leaveStartRequired": "يرجى اختيار تاريخ البدء",
-			"leaveEndRequired": "يرجى اختيار تاريخ العودة",
-			"endDateAfterStart": "تاريخ العودة يجب أن يكون بعد تاريخ البدء",
-			"validDeduction": "يرجى إدخال قيمة خصم صالحة"
-		}
-	},
-	"attendance": {
-		"title": "سجل الحضور",
-		"save": "حفظ التغييرات",
-		"columns": {
-			"date": "التاريخ",
-			"employee": "الموظف",
-			"check_in": "تسجيل دخول",
-			"check_out": "تسجيل خروج",
-			"notes": "ملاحظات",
-			"deduction": "خصم"
-		}
-	},
-	"breakTime": {
-		"title": "سجل وقت الراحة",
-		"form": {
-			"title": "راحة",
-			"employee": "الموظف",
-			"from": "بداية",
-			"to": "الي",
-			"actualEnd": "وقت الأنتهاء الفعلي",
-			"save": "حفظ",
-			"deduction": "الخصم",
-			"add": " راحة"
-		},
-		"validation": {
-			"employeeRequired": "يرجى اختيار الموظف",
-			"fromRequired": "يرجى اختيار وقت البداية",
-			"actualEndRequired": "يرجى اختيار وقت الانتهاء"
-		},
-		"columns": {
-			"date": "التاريخ",
-			"employee": "الموظف",
-			"from": "من",
-			"to": "الي",
-			"actual_end": "وقت الأنتهاء الفعلي",
-			"deduction": "الخصم"
-		}
-	},
-	"employeeForm": {
-		"title": "بيانات موظف",
-		"subtitle": {
-			"edit": "تعديل بيانات الموظف",
-			"add": "إضافة موظف جديد"
-		},
-		"loading": "Loading employee data...",
-		"fields": {
-			"employee": "الاسم",
-			"phoneNumber": "رقم الهاتف",
-			"address": "العنوان",
-			"birthDate": "تاريخ الميلاد",
-			"qualification": "المؤهل",
-			"position": "الوظيفة",
-			"net_salary": "صافي المرتب",
-			"extras": "بدلات",
-			"date": "تاريخ بدء العمل",
-			"netSalary": "اجمالي الراتب",
-			"work_nature": "طبيعة العمل",
-			"work_nature_placeholder": "اختر طبيعة العمل",
-			"work_nature_options": {
-				"full_time": "دوام كامل",
-				"part_time": "دوام جزئي",
-				"varied": "متنوع"
-			}
-		},
-		"buttons": {
-			"update": "تحديث البيانات",
-			"save": "حفظ",
-			"attachments": "الملحقات"
-		},
-		"validation": {
-			"employee_required": "الاسم مطلوب",
-			"birthDate_required": "تاريخ الميلاد مطلوب",
-			"qualification_required": "المؤهل مطلوب",
-			"position_required": "الوظيفة مطلوبة",
-			"net_salary_required": "الراتب مطلوب",
-			"net_salary_positive": "يجب أن يكون الراتب قيمة موجبة",
-			"date_required": "تاريخ بدء العمل مطلوب",
-			"work_nature_required": "طبيعة العمل مطلوبة",
-			"extras_required": "البدلات مطلوبة"
-		},
-		"leave": {
-			"header": {
-				"total": "رصيد الأجازات الكلي",
-				"regular": "رصيد الإجازة الاعتيادية",
-				"emergency": "رصيد الإجازة العارضة",
-				"sick": "عدد الأيام المرضي",
-				"continuous_absence": "الغياب المتصل",
-				"separate_absence": "الغياب المنفصل"
-			},
-			"days_count": "عدد الأيام",
-			"buttons": {
-				"save": "حفظ"
-			},
-			"policy": {
-				"intro": "-رصيد الأجازات الكلي المسموحه للموظف",
-				"total_days": "يوم",
-				"divided_into": "منقسم الى",
-				"regular_days": "يوم اعتيادي",
-				"and": "و",
-				"emergency_days": "ايام عارضة",
-				"sick_days": "يوم مرضي",
-				"exceed_notice": "-في حالة تخطي عدد ايام الأجازة المسموح بها يتم تطبيق الخصم على حسب نظام الشركة",
-				"absence_intro": "-في حالةغياب الموظف",
-				"continuous_absence": "يوم متصلة",
-				"or": "او",
-				"separate_absence": "يوم منفصلة",
-				"termination_notice": "يتم اتخاذ اجراءات الفصل في اليوم الأخير"
-			}
-		}
-	},
-	"salaries": {
-		"title": "تفاصيل المرتب",
-		"hours": "ساعات الدوام",
-		"of": "من",
-		"form": {
-			"title": "تفاصيل المرتب",
-			"employee": "الموظف",
-			"date": "التاريخ",
-			"amount": "المبلغ",
-			"save": "حفظ"
-		},
-		"columns": {
-			"date": "التاريخ",
-			"type": "نوع الحركة",
-			"amount": "المبلغ",
-			"reason": "السبب"
-		}
-	},
-	"employeeData": {
-		"title": "بيانات موظف",
-		"filter": {
-			"employee": "الموظف",
-			"date": "التاريخ",
-			"all": "الكل"
-		}
-	},
-	"attendanceEmployeeData": {
-		"title": "سجلات حضور",
-		"form": {
-			"title": "تسجيل حضور",
-			"employee": "الموظف",
-			"date": "التاريخ",
-			"checkIn": "تسجيل دخول",
-			"checkOut": "تسجيل خروج",
-			"save": "حفظ"
-		},
-		"columns": {
-			"date": "التاريخ",
-			"checkIn": "تسجيل دخول",
-			"checkOut": "تسجيل خروج",
-			"breakTime": "الراحة",
-			"permission": "أذن",
-			"hoursWorked": "عدد الساعات",
-			"workLocation": "موقع الدوام"
-		}
-	},
-	"warningPopup": {
-		"disciplinaryActions": "إجراءات تأديبية",
-		"employeeName": "اسم الموظف",
-		"warningType": "نوع الإنذار",
-		"fromDate": "من تاريخ",
-		"toDate": "إلى تاريخ",
-		"save": "حفظ",
-		"warningTypes": {
-			"warning": "تنبيه",
-			"suspension": "إيقاف عن العمل",
-			"termination": "إنهاء خدمة"
-		}
-	},
-	"header": {
-		"welcome": "مرحبا بك في شركة SB",
-		"searchHere": "ابحث هنا",
-		"languages": "اللغات",
-		"dr": "د/احمد ابراهيم"
-	},
-	"expense": {
-		"title": "مصروفات",
-		"newExpense": "مصروف جديد",
-		"code": "كود المصروف",
-		"name": "اسم المصروف",
-		"total": "الإجمالي",
-		"date": "التاريخ",
-		"expenseName": "أسم المصرف",
-		"amount": "المبلغ",
-		"accountName": "أسم الحساب",
-		"type": "النوع",
-		"save": "حفظ",
-		"statement": {
-			"accountStatement": "كشف حساب",
-			"incomeList": "قائمة الدخل",
-			"dateFrom": "تاريخ من",
-			"dateTo": "تاريخ إلى",
-			"search": "بحث",
-			"columns": {
-				"date": "تاريخ",
-				"transactionId": "رقم العملية",
-				"description": "البيان",
-				"debit": "مدين",
-				"credit": "دائن",
-				"balance": "رصيد"
-			}
-		}
-	},
-	"reports": "تقارير",
-	"accountsReport": {
-		"statement": "كشف حساب",
-		"generalStatement": "كشف حساب عام",
-		"customStatement": "كشف الحسابات المخصص",
-		"name": "اسم الحساب",
-		"value": "القيمة"
-	},
-	"financialReport": {
-		"balanceSheet": "قائمة مركز مالي",
-		"incomeStatement": "قائمة الدخل",
-		"trialBalance": "ميزان مراجعة",
-		"ledger": "دفتر أستاذ"
-	},
-	"columns": {
-		"date": "تاريخ",
-		"transactionId": "رقم العملية",
-		"description": "البيان",
-		"debit": "مدين",
-		"credit": "دائن",
-		"balance": "رصيد",
-		"username": "اسم المستخدم",
-		"notes": "ملاحظات",
-		"accountName": "اسم الحساب"
-	},
-	"balance": {
-		"openingBalance": "رصيد بداية المدة",
-		"yearMovements": "حركات العام",
-		"closingBalance": "رصيد نهاية المدة",
-		"movements": "حركات"
-	},
-	"incomeStatement": {
-		"title": "قائمة الدخل",
-		"year": "السنة",
-		"revenue": "الايرادات",
-		"costOfRevenue": "تكلفة الايرادات",
-		"grossProfit": "مجمل الربح",
-		"otherRevenue": "ايرادات اخرى",
-		"expenses": "مصروفات",
-		"netProfit": "صافي الربح"
-	},
-	"actions": {
-		"search": "بحث",
-		"edit": "تعديل",
-		"delete": "حذف"
-	},
-	"filters": {
-		"dateFrom": "من تاريخ",
-		"dateTo": "إلى تاريخ",
-		"incomeList": "قائمة الدخل"
-	},
-	"accounts": {
-		"assets": "أصول",
-		"nonCurrentAssets": "أصول غير متداولة",
-		"fixedAssets": "أصول ثابتة",
-		"projectsInProgress": "مشروعات تحت التنفيذ",
-		"intangibleAssets": "أصول غير ملموسة",
-		"realEstateInvestments": "استثمار عقاري",
-		"currentAssets": "أصول متداولة",
-		"inventory": "البضاعة"
-	},
-	"services": {
-		"internet": "شريحة الانترنت",
-		"internetPlan": "اشتراك نت",
-		"internetCardRefill": "شحن بطاقة الانترنت",
-		"accountRecharge": "شحن رصيد",
-		"billPayment": "تسديد فاتورة",
-		"phoneBill": "فاتورة الهاتف",
-		"electricity": "الكهرباء",
-		"waterBill": "فاتورة الماء",
-		"homeGas": "غاز المنزل",
-		"rent": "الايجار",
-		"walletRecharge": "شحن محفظة",
-		"moneyTransfer": "تحويل أموال",
-		"creditCard": "بطاقة الإئتمان",
-		"healthInsurance": "التأمين الصحي",
-		"taxesAndFees": "دفع ضرائب ورسوم",
-		"miscellaneousPayments": "مدفوعات مختلفة",
-		"groceries": "بقالة",
-		"clothing": "ملابس",
-		"restaurants": "مطاعم",
-		"homeServices": "خدمات منزلية",
-		"carMaintenance": "صيانة السيارة",
-		"fuel": "وقود"
-	},
-	"AccountStatement": {
-		"tableHeaders": {
-			"date": "تاريخ",
-			"transactionNumber": "رقم العملية",
-			"bankName": "اسم البنك",
-			"description": "بيان",
-			"debit": "مدين",
-			"credit": "دائن",
-			"balance": "رصيد"
-		},
-		"labels": {
-			"accountStatement": "كشف حساب"
-		},
-		"filters": {
-			"dateFrom": "من تاريخ",
-			"dateTo": "إلى تاريخ"
-		},
-		"actions": {
-			"search": "بحث"
-		}
-	},
-	"IncomingChecks": {
-		"forms": {
-			"incomingChecks": "شيكات واردة",
-			"submit": "استلام",
-			"date": "التاريخ",
-			"bankName": "أسم البنك",
-			"accountName": "أسم الحساب",
-			"checkNumber": "رقم الشيك",
-			"amount": "المبلغ",
-			"collectionDate": "تاريخ التحصيل",
-			"outgoingChecks": "شيكات صادرة",
-			"issue": "اصدار"
-		},
-		"validation": {
-			"dateRequired": "التاريخ مطلوب",
-			"bankNameRequired": "أسم البنك مطلوب",
-			"accountNameRequired": "أسم الحساب مطلوب",
-			"checkNumberRequired": "رقم الشيك مطلوب",
-			"amountRequired": "المبلغ مطلوب",
-			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
-			"collectionDateRequired": "تاريخ التحصيل مطلوب"
-		}
-	},
-	"deposit": {
-		"forms": {
-			"deposit": "ايداع",
-			"date": "التاريخ",
-			"bankName": "أسم البنك",
-			"accountName": "أسم الحساب",
-			"accountNumber": "رقم ايداع",
-			"amount": "المبلغ"
-		},
-		"validation": {
-			"dateRequired": "التاريخ مطلوب",
-			"bankNameRequired": "أسم البنك مطلوب",
-			"accountNameRequired": "أسم الحساب مطلوب",
-			"accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
-			"accountNumberRequired": "رقم الحساب مطلوب",
-			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
-			"amountRequired": "المبلغ مطلوب"
-		}
-	},
-	"withdrawal": {
-		"forms": {
-			"withdrawal": "سحب",
-			"date": "التاريخ",
-			"bankName": "أسم البنك",
-			"accountName": "أسم الحساب",
-			"withdrawalNumber": "رقم سحب",
-			"amount": "المبلغ"
-		},
-		"validation": {
-			"dateRequired": "التاريخ مطلوب",
-			"bankNameRequired": "أسم البنك مطلوب",
-			"accountNameRequired": "أسم الحساب مطلوب",
-			"accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
-			"accountNumberRequired": "رقم الحساب مطلوب",
-			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
-			"amountRequired": "المبلغ مطلوب"
-		}
-	},
-	"IncomingTransfers": {
-		"forms": {
-			"incomingTransfer": "تحويلات وارده",
-			"date": "التاريخ",
-			"bankName": "أسم البنك",
-			"accountName": "أسم الحساب",
-			"accountNumber": "رقم الحساب",
-			"amount": "المبلغ",
-			"transfer": "تحويل"
-		},
-		"validation": {
-			"dateRequired": "التاريخ مطلوب",
-			"bankNameRequired": "أسم البنك مطلوب",
-			"accountNameRequired": "أسم الحساب مطلوب",
-			"accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
-			"accountNumberRequired": "رقم الحساب مطلوب",
-			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
-			"amountRequired": "المبلغ مطلوب"
-		}
-	},
-	"OutgoingTransfers": {
-		"forms": {
-			"outgoingTransfer": "تحويلات صادرة",
-			"date": "التاريخ",
-			"bankName": "أسم البنك",
-			"accountName": "أسم الحساب",
-			"accountNumber": "رقم الحساب",
-			"amount": "المبلغ",
-			"transfer": "تحويل"
-		},
-		"validation": {
-			"dateRequired": "التاريخ مطلوب",
-			"bankNameRequired": "أسم البنك مطلوب",
-			"accountNameRequired": "أسم الحساب مطلوب",
-			"accountNumberRequired": "رقم الحساب مطلوب",
-			"accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
-			"amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
-			"amountRequired": "المبلغ مطلوب"
-		}
-	},
-	"bankAccounts": {
-		"tabs": {
-			"accountStatement": "كشف الحساب",
-			"checks": "الشيكات",
-			"incoming": "الوارده",
-			"outgoing": "الصادرة",
-			"transfers": "التحويلات",
-			"operations": "العمليات",
-			"withdraw": "سحب",
-			"deposit": "ايداع",
-			"banks": "بنوك"
-		}
-	},
-	"bank": {
-		"name": "اسم البنك",
-		"branch": "الفرع",
-		"accountNumber": "رقم الحساب",
-		"balance": "رصيد",
-		"add": "إضافة بنك"
-	},
-	"AddBank": {
-		"bank": {
-			"addNew": "اضافة بنك جديد",
-			"name": "أسم البنك",
-			"branch": "أسم الفرع",
-			"accountNumber": "رقم الحساب",
-			"initialBalance": "رصيد افتتاحي",
-			"type": "النوع",
-			"credit": "دائن",
-			"debit": "مدين"
-		},
-		"formErrors": {
-			"bankName": "أسم البنك مطلوب",
-			"branchName": "أسم الفرع مطلوب",
-			"accountNumber": "رقم الحساب مطلوب",
-			"initialBalance": "الرصيد الافتتاحي مطلوب",
-			"initialBalanceType": "يجب أن يكون الرصيد رقماً",
-			"type": "النوع مطلوب"
-		},
-		"actions": {
-			"save": "حفظ"
-		}
-	},
-	"salesInvoices": {
-		"card1": {
-			"title": "فواتير بيع",
-			"subTitle": "تسجيل كافة الحركات المالية اليومية مثل المبيعات والمشتريات."
-		},
-		"card2": {
-			"title": "استبدال ومرتجعات",
-			"subTitle": "عرض حركات الحسابات المختلفة"
-		},
-		"card3": {
-			"title": "المنتجات",
-			"subTitle": "إدارة الفواتير وعمليات البيع وكشف حساب"
-		},
-		"card4": {
-			"title": "الموظفين",
-			"subTitle": "سجل مشترياتك من الموردين وإدارة الفواتير المستحقة وكشف حساب"
-		},
-		"card5": {
-			"title": "العملاء",
-			"subTitle": "إدارة المخزون ومتابعة الكميات المتوفرة من المنتجات"
-		},
-		"card6": {
-			"title": "تقارير",
-			"subTitle": "إدارة الحركات المالية النقدية والحسابات البنكية"
-		}
-	},
-	"salesInvoicesTable": {
-		"columns": {
-			"code": "الكود",
-			"itemName": "اسم الصنف",
-			"quantity": "الكمية",
-			"unit": "وحدة القياس",
-			"saleUnit": "وحدة البيع",
-			"total": "الإجمالي",
-			"discount": "الخصم",
-			"tax": "الضريبة",
-			"totalSale": "إجمالي البيع",
-			"addTax": "إضافة ضريبة"
-		},
-		"filter": {
-			"pageTitle": "فاتورة بيع",
-			"invoiceLabel": "رقم الفاتورة",
-			"dateLabel": "التاريخ",
-			"customerInfo": "معلومات العميل",
-			"customerName": "أسم العميل",
-			"customerPhone": "الرقم",
-			"customerAddress": "العنوان",
-			"customerDiscount": "خصومات العميل",
-			"invoiceTax": "ضريبة على الفاتورة",
-			"productTax": "خصم على الفاتورة",
-			"errors": {
-				"invoiceNumber": "رقم الفاتورة مطلوب",
-				"date": "التاريخ مطلوب",
-				"customerName": "اسم العميل مطلوب",
-				"customerPhone": "رقم الهاتف مطلوب",
-				"customerPhoneDigits": "يجب أن يكون أرقام فقط",
-				"customerAddress": "العنوان مطلوب",
-				"customerDiscount": "الخصم مطلوب"
-			}
-		},
-		"invoiceSmallTable": {
-			"totalInvoice": "إجمالي الفاتورة",
-			"totalDiscount": "إجمالي الخصم",
-			"totalVAT": "إجمالي ضريبة القيمة المضافة",
-			"totalTableTax": "إجمالي ضريبة جدول",
-			"discountAndAdditionTax": "إجمالي ضريبة خصم وإضافة",
-			"netInvoice": "صافي الفاتورة",
-			"paymentMethod": "طريقة الدفع",
-			"paymentMethodPlaceholder": "اختر طريقة الدفع",
-			"cash": "نقدي",
-			"bankTransfer": "تحويل بنكي",
-			"receiptNumber": "رقم الإيصال",
-			"amount": "المبلغ",
-			"saveInvoice": "حفظ الفاتورة",
-			"cancel": "إلغاء",
-			"noResults": "لا توجد نتائج."
-		},
-		"cashPayment": {
-			"title": "دفع نقدي",
-			"paidLabel": "المدفوع",
-			"remainingLabel": "المتبقي",
-			"saveButton": "حفظ"
-		},
-		"pankPayment": {
-			"title": "دفع بنكي",
-			"checkNumberLabel": "رقم الشيك",
-			"checkAmountLabel": "مبلغ الشيك",
-			"saveButton": "حفظ"
-		},
-		"taxOnInvoice": {
-			"title": "اضافة ضريبة على الفاتورة",
-			"salesTaxLabel": "ضريبة مبيعات",
-			"incomeTaxLabel": "ضريبة الدخل",
-			"saveButton": "حفظ"
-		},
-		"taxOnProduct": {
-			"title": "اضافة ضريبة على المنتج",
-			"salesTaxLabel": "ضريبة مبيعات",
-			"incomeTaxLabel": "ضريبة الدخل",
-			"saveButton": "حفظ"
-		},
-		"transaction": {
-			"title": "تحويل",
-			"checkNumberLabel": "رقم الشيك",
-			"checkAmountLabel": "مبلغ الشيك",
-			"saveButton": "حفظ"
-		}
-	},
-	"ReturnsAndExchanges": {
-		"CustomPopUp": {
-			"dialogTriggerText": "إضافة ضريبة"
-		},
-		"exchangeTitle": "فاتورة أستبدال",
-		"ReturnTitle": "فاتورة مرتجع",
-		"ReusableManyTable": {
-			"invoiceLabel": "تسمية الفاتورة",
-			"footerLabel": "جدول المرتجعات",
-			"expandButtonText": "توسيع"
-		},
-		"ReturnTopComponent": {
-			"selectInvoiceText": "اختيار الفاتورة"
-		},
-		"ReturnsTable": {
-			"code": "الكود",
-			"itemName": "اسم الصنف",
-			"quantity": "الكمية",
-			"unit": "وحدة الشراء",
-			"total": "الإجمالي",
-			"discount": "الخصم",
-			"tax": "الضريبة",
-			"totalSale": "إجمالي البيع"
-		},
-		"ExchangeTopComponent": {
-			"selectInvoiceText": "اختيار الفاتورة للتبديل"
-		},
-		"ExchangeTable": {
-			"code": "الكود",
-			"itemName": "اسم الصنف",
-			"quantity": "الكمية",
-			"unit": "وحدة الشراء",
-			"total": "الإجمالي",
-			"discount": "الخصم",
-			"tax": "الضريبة",
-			"totalSale": "إجمالي البيع"
-		},
-		"ExchangeIcon": {
-			"tooltipText": "اضغط للتبديل"
-		},
-		"ReturnIcon": {
-			"tooltipText": "اضغط للرجوع"
-		}
-	},
-	"returnsTable": {
-		"columns": {
-			"totalInvoice": "اجمالي المرتجع",
-			"totalDiscount": "إجمالي الخصم",
-			"totalVAT": "إجمالي ضريبة القيمة المضافة",
-			"totalTableTax": "إجمالي ضريبة جدول",
-			"totalDiscountAndAdditionTax": "إجمالي ضريبة خصم وإضافة",
-			"netInvoice": "صافي الفاتورة",
-			"paymentMethod": "طريقة الدفع"
-		},
-		"paymentMethods": {
-			"cash": "نقدي",
-			"bankTransfer": "تحويل بنكي"
-		},
-		"noResults": "لا توجد نتائج.",
-		"receiptNumber": "رقم الأيصال",
-		"amount": "المبلغ",
-		"buttons": {
-			"saveInvoice": "حفظ الفاتوره",
-			"cancel": "الغاء"
-		}
-	},
-	"returnTopComponent": {
-		"title": "فاتورة مرتجع",
-		"buttons": {
-			"taxOnInvoice": "ضريبة على الفاتورة",
-			"discountOnInvoice": "خصم على الفاتورة"
-		},
-		"inputs": {
-			"date": "التاريخ",
-			"invoiceNumber": "رقم الفاتورة"
-		},
-		"customerInfo": {
-			"title": "معلومات العميل",
-			"name": "أسم العميل",
-			"number": "الرقم",
-			"address": "العنوان",
-			"discounts": "خصومات العميل"
-		},
-		"invoiceOptions": {
-			"invoice1": "invoice1",
-			"invoice2": "invoice2",
-			"invoice3": "invoice3"
-		}
-	},
-	"exchangeTopComponent": {
-		"title": "فاتورة أستبدال",
-		"buttons": {
-			"taxOnInvoice": "ضريبة على الفاتورة",
-			"discountOnInvoice": "خصم على الفاتورة"
-		},
-		"inputs": {
-			"date": "التاريخ",
-			"invoiceNumber": "رقم الفاتورة"
-		},
-		"customerInfo": {
-			"title": "معلومات العميل",
-			"name": "أسم العميل",
-			"number": "الرقم",
-			"address": "العنوان",
-			"discounts": "خصومات العميل"
-		},
-		"invoiceOptions": {
-			"invoice1": "invoice1",
-			"invoice2": "invoice2",
-			"invoice3": "invoice3"
-		}
-	},
-	"products": {
-		"title": "المنتجات",
-		"search": "ابحث هنا..",
-		"columns": {
-			"productCode": "كود المنتج",
-			"productName": "اسم المنتج",
-			"productDescription": "وصف المنتج",
-			"unit": "الوحدة",
-			"price": "السعر",
-			"quantity": "الكمية",
-			"category": "الفئة",
-			"inStock": "المتبقي",
-			"otherBranches": "فروع اخرى"
-		},
-		"buttons": {
-			"otherBranches": "فروع اخرى"
-		}
-	},
-	"employeesInvoices": {
-		"title": "الموظفون",
-		"addEmployee": "إضافة موظف",
-		"addNewEmployee": "إضافة موظف جديد",
-		"salesRecord": "سجل المبيعات",
-		"searchPlaceholder": "ابحث هنا...",
-		"columns": {
-			"employeeName": "اسم الموظف",
-			"unitsCount": "عدد الوحدات",
-			"totalUnits": "إجمالي الوحدات",
-			"name": "اسم الموظف",
-			"phone": "رقم الهاتف",
-			"address": "العنوان",
-			"job": "الوظيفة",
-			"permissions": "الصلاحيات",
-			"options": "الخيارات"
-		},
-		"filters": {
-			"employee": "الموظف",
-			"dateFrom": "من تاريخ",
-			"dateTo": "إلى تاريخ"
-		},
-		"buttons": {
-			"save": "حفظ",
-			"view": "عرض",
-			"salesRecord": "سجل المبيعات",
-			"edit": "تعديل",
-			"delete": "حذف"
-		},
-		"employees": ["فارس", "محمد", "أحمد", "علي"]
-	},
-	"customers": {
-		"title": "العملاء",
-		"addCustomer": "اضافة عميل",
-		"addNewCustomer": "اضافة عميل جديد",
-		"searchPlaceholder": "ابحث هنا...",
-		"columns": {
-			"customerName": "اسم العميل",
-			"phone": "الهاتف",
-			"address": "العنوان",
-			"discounts": "خصومات العميل",
-			"options": "خيارات"
-		},
-		"form": {
-			"customerName": "اسم العميل",
-			"phone": "رقم الهاتف",
-			"address": "العنوان",
-			"discounts": "خصومات العميل",
-			"category": "الفئة"
-		},
-		"buttons": {
-			"save": "حفظ",
-			"edit": "تعديل",
-			"delete": "حذف"
-		},
-		"sampleNames": [
-			"أحمد",
-			"سارة",
-			"محمد",
-			"فاطمة",
-			"يوسف",
-			"ليلى",
-			"خالد",
-			"هند",
-			"سلمان",
-			"نورة"
-		],
-		"samplePhones": [
-			"0501234567",
-			"0559876543",
-			"0541122334",
-			"0539988776",
-			"0566655443"
-		],
-		"sampleAddresses": [
-			"الرياض",
-			"جدة",
-			"الدمام",
-			"مكة",
-			"المدينة",
-			"أبها",
-			"الطائف",
-			"بريدة"
-		],
-		"sampleSales": [
-			"عميل مميز",
-			"عميل دائم",
-			"خصم خاص",
-			"دفع نقدي",
-			"فاتورة مؤجلة",
-			"عميل جديد"
-		]
-	},
-	"sales": {
-		"common": {
-			"add": "إضافة",
-			"edit": "تعديل",
-			"delete": "حذف",
-			"search": "بحث",
-			"actions": "الإجراءات",
-			"save": "حفظ",
-			"cancel": "إلغاء",
-			"back": "رجوع",
-			"next": "التالي",
-			"submit": "إرسال",
-			"execute": "تنفيذ",
-			"from": "من",
-			"to": "الي",
-			"client": "العميل"
-		},
-		"clients": {
-			"title": "العملاء",
-			"addNew": "عميل جديد",
-			"addNewTitle": "اضافة عميل جديد",
-			"columns": {
-				"name": "اسم العميل",
-				"phone": "الهاتف",
-				"phoneNumber": "رقم الهاتف",
-				"address": "العنوان",
-				"action": "الإجراء",
-				"code": "كود العميل"
-			},
-			"deleteConfirmation": "هل أنت متأكد من حذف هذا العميل؟"
-		},
-		"invoiceClients": {
-			"title": "مبلغ مستحق",
-			"columns": {
-				"name": "اسم العميل",
-				"phone": "الهاتف",
-				"address": "العنوان",
-				"invoiceNumber": "رقم الفاتورة",
-				"amountDue": "المبلغ المستحق"
-			}
-		},
-		"advancePayments": {
-			"title": "مبلغ تحت الحساب",
-			"columns": {
-				"name": "اسم العميل",
-				"phone": "الهاتف",
-				"address": "العنوان",
-				"receiptNumber": "سند القبض",
-				"amount": "المبلغ"
-			}
-		},
-		"transactions": {
-			"title": "كشف الحساب",
-			"accountStatement": "كشف حساب",
-			"mainTitle": "العملاء",
-			"sales": {
-				"title": "المبيعات"
-			},
-			"columns": {
-				"invoiceNumber": "رقم الفاتورة",
-				"clientCode": "كود العميل",
-				"date": "تاريخ",
-				"account": "الحساب",
-				"debtor": "مدين",
-				"creditor": "دائن",
-				"balance": "رصيد"
-			}
-		},
-		"salesInvoices": {
-			"title": "فواتير البيع",
-			"columns": {
-				"code": "الكود",
-				"itemName": "اسم الصنف",
-				"category": "فئة الصنف",
-				"quantity": "الكمية",
-				"saleUnit": "وحدة البيع",
-				"total": "الإجمالي",
-				"discount": "الخصم",
-				"tax": "الضريبة",
-				"totalSale": "إجمالي البيع",
-				"addTax": "إضافة ضريبة"
-			}
-		},
-		"returnInvoices": {
-			"title": "فواتير مرتجع"
-		},
-		"electronicInvoices": {
-			"title": "الفواتير الألكترونية",
-			"mainTitle": "المبيعات",
-			"taxTransfer": "تحويل ضريبي",
-			"returns": "مرتجعات",
-			"replacements": "استبدلات",
-			"columns": {
-				"invoiceNumber": "رقم الفاتورة",
-				"date": "تاريخ",
-				"statement": "بيان",
-				"amount": "المبلغ",
-				"vatAmount": "ضريبة القيمة المضافة",
-				"profit": "أرباح سنوية",
-				"total": "المجموع",
-				"status": "حالة الرد"
-			}
-		},
-		"categoryTable": {
-			"category": "الفئة",
-			"saleUnit": "وحد البيع",
-			"unitContents": "محتويات الوحدة 1:1",
-			"subUnitContents": "محتويات الوحدة 1:1:1"
-		}
-	},
-	"purchases": {
-		"productTypes": {
-			"code": "كود الصنف",
-			"name": "اسم الصنف",
-			"description": "الوصف",
-			"purchasePrice": "سعر الشراء",
-			"salePrice": "سعر البيع",
-			"actions": "خيارات",
-			"addItem": "اضافة صنف",
-			"title": "الاصناف"
-		},
-		"invoices": {
-			"invoiceNumber": "رقم الفاتورة",
-			"date": "تاريخ",
-			"account": "الحساب",
-			"debtor": "مدين",
-			"creditor": "دائن",
-			"balance": "رصيد",
-			"accountStatement": "كشف الحساب",
-			"mainTable": "المشتريات"
-		},
-		"suppliers": {
-			"name": "اسم المورد",
-			"phone": "الهاتف",
-			"address": "العنوان",
-			"newSupplier": "مورد جديد",
-			"title": "الموردين"
-		},
-		"amountDues": {
-			"amountDue": "المبلغ المستحق",
-			"title": "مبلغ مستحق"
-		},
-		"downPayments": {
-			"paymentDocument": "سند القبض",
-			"advanceAmount": "المبلغ",
-			"title": "مبلغ تحت الحساب"
-		}
-	},
-	"AccountStatementTopComponent": {
-		"title": "كشف حساب",
-		"from": "من",
-		"to": "الى",
-		"item": "الصنف",
-		"execute": "تنفيذ"
-	},
-	"AddNewCategory": {
-		"title": "اضافة صنف جديد",
-		"code": "كود : 125",
-		"name": "اسم الصنف",
-		"description": "وصف الصنف",
-		"purchasePrice": "سعر الشراء",
-		"salePrice": "سعر البيع",
-		"save": "حفظ"
-	},
-	"AddSupplier": {
-		"title": "اضافة مورد جديد",
-		"name": "اسم المورد",
-		"phone": "رقم الهاتف",
-		"address": "العنوان",
-		"save": "حفظ"
-	},
-	"inventory": {
-		"classCard": {
-			"title": "كارت صنف",
-			"date": "تاريخ",
-			"code": "كود الصنف",
-			"incoming": "وارد",
-			"outgoing": "صرف",
-			"balance": "رصيد",
-			"description": "بيان"
-		},
-		"inventoryReports": {
-			"title": "محضر جرد",
-			"recordTitle": "سجل الجرد",
-			"itemCode": "كود الصنف",
-			"itemName": "اسم الصنف",
-			"actualQuantity": "الكمية الفعلية",
-			"systemQuantity": "كمية السيستم",
-			"difference": "الفرق"
-		},
-		"disbursementPermissions": {
-			"title": "اذن صرف",
-			"code": "الكود",
-			"date": "التاريخ",
-			"name": "اسم الصنف",
-			"quantity": "الكمية",
-			"reason": "السبب",
-			"actions": "خيارات"
-		},
-		"warehouseTransfer": {
-			"title": "تحويل مخزن",
-			"code": "كود التحويل",
-			"date": "التاريخ",
-			"sourceWarehouse": "اسم المخزن منه",
-			"destinationWarehouse": "اسم المخزن اليه"
-		},
-		"additionPermission": {
-			"title": "اذن اضافة",
-			"supplier": "المورد",
-			"invoiceNumber": "الفاتورة",
-			"quantity": "الكمية",
-			"date": "التاريخ",
-			"discount": "خصومات",
-			"paymentMethod": "طريق الفاتورة"
-		},
-		"products": {
-			"title": "المنتجات",
-			"productCode": "كود المنتج",
-			"productName": "اسم المنتج",
-			"category": "فئة المنتج",
-			"unit": "الوحدة",
-			"date": "التاريخ",
-			"purchasePrice": "سعر الشراء",
-			"sellingPrice": "سعر البيع",
-			"mainSupplier": "المورد الرئيسي",
-			"minLimit": "الحد الأدنى",
-			"maxLimit": "الحد الأقصى",
-			"newProduct": "منتج جديد"
-		},
-		"warehouses": {
-			"title": "المخازن",
-			"code": "كود المخزن",
-			"name": "اسم المخزن",
-			"type": "نوع المخزن",
-			"location": "الموقع",
-			"department": "الإدارة المسؤولة",
-			"capacity": "السعة القصوى",
-			"newWarehouse": "مخزن جديد",
-			"newSubWarehouse": "مخزن فرعي جديد"
-		},
-		"actions": {
-			"view": "عرض",
-			"delete": "حذف",
-			"edit": "تعديل"
-		}
-	},
-	"purshes": {
-		"inventory": {
-			"title": "محضر جرد",
-			"date": "التاريخ",
-			"code": "كود المحضر",
-			"type": "نوع المخزن",
-			"name": "اسم المخزن",
-			"save": "حفظ",
-			"log": "السجل"
-		},
-		"disbursement": {
-			"title": "الصرف",
-			"code": "كود التحويل",
-			"date": "التاريخ",
-			"receiver": "الجهة المستلمة",
-			"subWarehouse": "مخزن فرعي",
-			"notes": "ملاحظات",
-			"save": "حفظ",
-			"log": "السجل"
-		},
-		"classCard": {
-			"title": "كارت صنف",
-			"from": "من",
-			"to": "الي",
-			"items": "الاصناف",
-			"search": "بحث"
-		},
-		"addProduct": {
-			"title": "اضافة منتج جديد",
-			"code": "كود : 125",
-			"name": "اسم المنتج",
-			"desc": "وصف المنتج",
-			"type": "نوع المخزن",
-			"warehouse": "أسم المخزن",
-			"show": "عرض للبيع",
-			"save": "حفظ"
-		}
-	},
-	"addNewWareHouse": {
-		"addNewStore": "إضافة مخزن جديد",
-		"addNewSubStore": "إضافة مخزن فرعي جديد",
-		"code": "كود",
-		"storeName": "اسم المخزن",
-		"storeType": "نوع المخزن",
-		"purchasePrice": "السعه القصوي",
-		"Responsiblemanagement": "الأدارة المسئولة",
-		"geographicalLocation": "الموقع الجغرافي",
-		"save": "حفظ",
-		"cancel": "إلغاء",
-		"close": "x"
-	},
-	"userHome": {
-		"dashboardTitle": "نافذة الحسابات",
-		"modules": {
-			"sales": {
-				"title": "المبيعات",
-				"subtitle": "إدارة الفواتير وعمليات البيع ومخزونات الحساب"
-			},
-			"accountMovements": {
-				"title": "حركات الحسابات",
-				"subtitle": "عرض جميع حركات الحسابات المختلفة"
-			},
-			"dailyEntries": {
-				"title": "قيود يومية",
-				"subtitle": "تسجيل كافة الحركات المالية اليومية بين الحسابات والمشتريات"
-			},
-			"treasuryAndBanks": {
-				"title": "الخزينة والبنوك",
-				"subtitle": "إدارة الحركات المالية النقدية والحسابات البنكية"
-			},
-			"purchases": {
-				"title": "المشتريات",
-				"subtitle": "تسجيل مشتريات من الموردين وإدارة الفواتير المستلمة والمدفوعات حساب"
-			},
-			"inventory": {
-				"title": "المخزن",
-				"subtitle": "إدارة المخازن ومتابعة الكميات المتواجدة من المنتجات"
-			},
-			"hr": {
-				"title": "إدارة الموارد البشرية",
-				"subtitle": "إدارة الموظفين والرواتب والحضور والغياب"
-			},
-			"reports": {
-				"title": "التقارير",
-				"subtitle": "عرض وتحليل البيانات المالية من خلال تقارير مختلفة"
-			},
-			"expenses": {
-				"title": "المصروفات",
-				"subtitle": "تسجيل جميع المصروفات مثل الرواتب والإيجارات والخدمات"
-			}
-		}
-	},
-	"professionalData": {
-		"form": {
-			"fields": {
-				"email": "ايميل",
-				"password": "كلمة المرور",
-				"total_salary": "المرتب",
-				"facility": "المنشأة",
-				"department": "القسم",
-				"user_type": "نوع المستخدم",
-				"work_nature": "طبيعة العمل",
-				"net_salary": "الراتب الصافي",
-				"allowances": "البدلات"
-			},
-			"buttons": {
-				"save": "حفظ",
-				"update": "تحديث"
-			},
-			"validation": {
-				"email_required": "الايميل مطلوب",
-				"password_required": "كلمة المرور مطلوبة",
-				"total_salary_required": "إجمالي المرتب مطلوب",
-				"total_salary_positive": "يجب أن يكون إجمالي المرتب رقمًا موجبًا",
-				"facility_required": "المنشأة مطلوبة",
-				"department_required": "القسم مطلوب",
-				"user_type_required": "نوع المستخدم مطلوب",
-				"work_nature_required": "طبيعة العمل مطلوبة",
-				"net_salary_required": "الراتب الصافي مطلوب",
-				"net_salary_positive": "يجب أن يكون الراتب الصافي رقمًا موجبًا",
-				"allowances_required": "البدلات مطلوبة",
-				"allowances_positive": "يجب أن تكون البدلات رقمًا موجبًا"
-			},
-			"loading": "جارٍ التحميل..."
-		},
-		"employeeForm": {
-			"leave": {
-				"header": {
-					"sick": "إجازة مرضية",
-					"total": "الإجازة الإجمالية",
-					"regular": "الإجازة الاعتيادية",
-					"continuous_absence": "غياب مستمر",
-					"separate_absence": "غياب متقطع",
-					"emergency": "إجازة طارئة"
-				},
-				"days_count": "عدد الأيام",
-				"buttons": {
-					"save": "حفظ"
-				},
-				"policy": {
-					"intro": "يحق للموظف الحصول على ",
-					"total_days": "إجازة إجمالية",
-					"regular_days": "إجازة اعتيادية",
-					"sick_days": "إجازة مرضية",
-					"and": " و ",
-					"exceed_notice_days": "لا يمكن أن تتجاوز الإجازة عدد الأيام المحددة.",
-					"absence_intro": "في حال الغياب بدون إذن يتم تسجيله كـ ",
-					"continuous_absence_days": "غياب مستمر",
-					"separate_absence_days": "غياب متقطع"
-				}
-			}
-		}
-	},
-	"userHr": {
-		"attendance": "حضور / أنصراف",
-		"workingHours": "ساعات دوام الشركة",
-		"yourData": "بياناتك",
-		"vacations": "اجازات",
-		"execuse": "أستاذان",
-		"breakTime": "وقت راحة",
-		"vacationsPage": {
-			"date": "التاريخ",
-			"from": "من",
-			"to": "الى",
-			"vacationType": "نوع الإجازة",
-			"reason": "السبب",
-			"deduction": "الخصم",
-			"status": "الحالة",
-			"recordTitle": "سجل الأجازة",
-			"monthPickerLabel": "التاريخ",
-			"requestVacation": "طلب أجازة",
-			"recordButton": "السجل",
-			"balanceInside": "داخل رصيد الإجازات",
-			"balanceOutside": "خارج رصيد الإجازات",
-			"accepted": "مقبول",
-			"rejected": "مرفوض",
-			"pending": "في انتظار الرد"
-		},
-		"vacationsListPage": {
-			"vacationType": "نوع الإجازة",
-			"totalDays": "عدد الأيام",
-			"remaining": "المتبقي",
-			"recordTitle": "سجل الأجازة",
-			"monthPickerLabel": "التاريخ",
-			"requestVacation": "طلب أجازة"
-		},
-		"requestVacation": {
-			"title": "طلب الأجازة",
-			"start": "بداية",
-			"end": "نهاية",
-			"type": "نوع الأجازة",
-			"submit": "ارسال الطلب"
-		},
-		"breakTimePage": {
-			"title": "سجل الراحة",
-			"date": "التاريخ",
-			"from": "من",
-			"to": "الى",
-			"actualEnd": "وقت الإنتهاء الفعلي",
-			"reason": "السبب",
-			"deduction": "الخصم",
-			"status": "الحالة",
-			"requestBreak": "طلب راحة"
-		},
-		"breakTimePopUp": {
-			"popupTitle": "طلب راحة",
-			"start": "بداية",
-			"end": "نهاية",
-			"reason": "السبب",
-			"submit": "ارسال الطلب"
-		},
-		"execuses": {
-			"title": "سجل استاذان",
-			"date": "التاريخ",
-			"from": "من",
-			"to": "الى",
-			"actualEnd": "وقت الإنتهاء الفعلي",
-			"reason": "السبب",
-			"deduction": "الخصم",
-			"status": "الحالة",
-			"addTitle": "استأذان"
-		},
-		"execusesPopUp": {
-			"popupTitle": "استأذان",
-			"start": "بداية",
-			"end": "نهاية",
-			"reason": "السبب",
-			"submit": "ارسال الطلب"
-		},
-		"execusesinOut": {
-			"inOutTitle": "دخول / خروج",
-			"todayDate": "تاريخ اليوم:",
-			"allowedTime": "الوقت المسموح:",
-			"checkIn": "تسجيل دخول",
-			"checkOut": "تسجيل خروج"
-		},
-		"statuses": {
-			"pending": "في انتظار الرد",
-			"accepted": "مقبول",
-			"done": "تمت",
-			"denied": "مرفوض"
-		}
-	},
-	"salaryDetails": {
-		"tableHeaders": {
-			"netSalary": "صافي المرتب",
-			"increase": "زيادة",
-			"allowance": "البدل",
-			"totalDeductions": "اجمالي الخصم",
-			"totalBonus": "اجمالي المكفأة",
-			"overtime": "وقت اضافي",
-			"totalSalary": "اجمالي المرتب"
-		},
-		"monthlySalaryDetails": "تفاصيل الراتب الشهري",
-		"hours": "ساعات"
-	},
-	"employee_info": "معلومات شخصية",
-	"professional_data": "بيانات مهنية",
-	"vacationstatus": {
-		"pending": "قيد الانتظار",
-		"accepted": "مقبول",
-		"rejected": "مرفوض",
-		"deduction-days-with-permission": "خصم أيام بإذن"
-	},
-	"clients": {
-		"title": "العملاء",
-		"amountsDue": "مبالغ مستحقة",
-		"supplierName": "أسم المورد",
-		"customerName": "اسم العميل",
-		"phone": "الهاتف",
-		"address": "العنوان",
-		"options": "خيارات",
-		"delete": "حذف",
-		"show": "عرض",
-		"addNewClient": "اضافة عميل",
-		"invoiceNumber": "رقم الفاتورة",
-		"date": "التاريخ",
-		"invoiceAmount": "مبلغ الفاتورة",
-		"remainingAmount": "المبلغ المتبقي",
-		"save": "حفظ"
-	},
-	"ordersInUser": {
-		"productName": "اسم المنتج",
-		"quantity": "الكمية",
-		"unitPrice": "سعر الوحدة",
-		"total": "الإجمالي",
-		"supplierName": "اسم المورد",
-		"delete": "حذف",
-		"show": "عرض",
-		"orderNumber": "رقم الطلب",
-		"date": "التاريخ",
-		"amount": "المبلغ",
-		"options": "الخيارات",
-		"sendOrders": "ارسال الطلبات",
-		"cancel": "الغاء",
-		"ordersList": "قائمة الطلبات",
-		"addOrder": "اضافة طلب",
-		"myOrders": "طلباتي",
-		"productTable": {
-			"code": "كود المنتج",
-			"name": "اسم المنتج",
-			"quantity": "الكمية",
-			"unit": "وحدة البيع",
-			"price": "الاجمالي",
-			"action": "الاجراء",
-			"order": "طلب"
-		},
-		"SendToSupplier": {
-			"title": "ارسال الي مورد",
-			"supplierType": "نوع المورد",
-			"productName": "أسم المنتج",
-			"save": "ارسال"
-		},
-		"TopComponentsinventoryProduct": {
-			"sendToSupplier": "إرسال إلى المورد",
-			"productName": "اسم المنتج",
-			"productCategory": "فئة المنتج",
-			"quantity": "الكمية",
-			"add": "إضافة"
-		}
-	},
-	"suppliers": {
-		"title": "موردين",
-		"addSupplier": "اضافة مورد",
-		"addTypeSupplier": "اضافة نوع مورد",
-		"addOffer": " العروض",
-		"supplierName": "اسم المورد",
-		"phone": "الهاتف",
-		"address": "العنوان",
-		"supplierType": "نوع المورد",
-		"actions": "خيارات",
-		"show": "عرض",
-		"delete": "حذف",
-		"invoiceNumber": "رقم الفاتورة",
-		"date": "التاريخ",
-		"totalAmount": "مبلغ الفاتورة",
-		"remainingAmount": "المبلغ المتبقي",
-		"amountDue": "مبالغ مستحقه",
-		"offerDescription": "وصف العرض",
-		"save": "حفظ",
-		"invoices": "فواتير"
-	},
-	"movementacount": {
-		"head": {
-			"date": "تاريخ",
-			"account": "حساب",
-			"referenceNumber": "رقم المرجع",
-			"transactionType": "نوع الحركة",
-			"debit": "مدين",
-			"credit": "دائن",
-			"employee": "الموظف"
-		},
-		"table": {
-			"from": "من",
-			"to": "الي",
-			"account": "الحساب",
-			"acction": "تنفيذ"
-		},
-		"popup": {
-			"tittle": "ادخل البيانات لاضافة حساب جديد",
-			"nameaccount": "اسم الحساب",
-			"descaccount": "وصف الحساب",
-			"contactaccount": "ربط الحساب ١",
-			"contactaccount2": "ربط الحساب ٢",
-			"contactaccounts": "ربط حسابات",
-			"naturalaccount": "طبيعة الحساب",
-			"balance": "رصيد افتتاحي",
-			"checkboxOptions": {
-				"trialBalance": "ميزان مراجعة",
-				"incomeStatement": "قائمة الدخل"
-			},
-			"addaccount": "اضافة حساب جديد"
-		},
-		"employee": "أحمد حسين",
-		"credit": "0",
-		"debit": "0",
-		"transactionType": "غير متوفر",
-		"referenceNumber": "غير متوفر",
-		"account": "غير متوفر",
-		"date": "17/12/2024"
-	},
-	"treeAcounts": {
-		"head": {
-			"date": "تاريخ",
-			"account": "حساب",
-			"referenceNumber": "رقم المرجع",
-			"transactionType": "نوع الحركة",
-			"debit": "مدين",
-			"credit": "دائن",
-			"employee": "الموظف"
-		},
-		"table": {
-			"from": "من",
-			"to": "الي",
-			"account": "الحساب",
-			"acction": "تنفيذ"
-		},
-		"popup": {
-			"tittle": "ادخل البيانات لاضافة حساب جديد",
-			"nameaccount": "اسم الحساب",
-			"descaccount": "وصف الحساب",
-			"contactaccount": "ربط الحساب ١",
-			"contactaccount2": "ربط الحساب ٢",
-			"contactaccounts": "ربط حسابات",
-			"naturalaccount": "طبيعة الحساب",
-			"balance": "رصيد افتتاحي",
-			"checkboxOptions": {
-				"trialBalance": "ميزان مراجعة",
-				"incomeStatement": "قائمة الدخل"
-			},
-			"addaccount": "اضافة حساب جديد"
-		},
-		"employee": "أحمد حسين",
-		"credit": "0",
-		"debit": "0",
-		"transactionType": "غير متوفر",
-		"referenceNumber": "غير متوفر",
-		"account": "غير متوفر",
-		"date": "17/12/2024"
-	},
-	"userAttendance": {
-		"date": "التاريخ",
-		"arrivalTime": "وقت الوصول",
-		"leaveTime": "وقت الانصراف",
-		"execuseTotalTime": "وقت الاستئذان (الوقت الكلي)",
-		"breakTotalTime": "الراحة (الوقت الكلي)",
-		"execuseNoteDeduction": "ملاحظات الاستئذان الخصم"
-	}
+  "dir": "rtl",
+  "print": "طباعة",
+  "home": {
+    "employees": "الموظفين",
+    "employeeData": "بيانات موظف",
+    "financialGrades": "الدرجات المالية بشؤون الموظفين",
+    "workHours": "ساعات دوام الشركة",
+    "permission": "استئذان",
+    "breakTime": "وقت راحة",
+    "attendance": "سجلات حضور",
+    "vacations": "إجازات",
+    "disciplinaryVacations": "إجازات تأديبية",
+    "fares": "fares"
+  },
+  "employees": {
+    "title": "الموظفين",
+    "newEmployee": "موظف جديد",
+    "date": "التاريخ",
+    "employee": "الموظف",
+    "workNature": "طبيعة العمل",
+    "netSalary": "صافي المرتب",
+    "phoneNumber": "رقم الهاتف",
+    "address": "العنوان",
+    "form": {
+      "title": "معلومات الموظف",
+      "personalInfo": "معلومات شخصية",
+      "add": "اضافة موظف",
+      "save": "حفظ"
+    }
+  },
+  "pagination": {
+    "next": "التالي",
+    "prev": "السابق"
+  },
+  "filter": {
+    "employee": "الموظف",
+    "date": "التاريخ",
+    "placeholder": "الكل"
+  },
+  "errors": {
+    "requiredField": "هذا الحقل مطلوب",
+    "invalidAmount": "الرجاء إدخال مبلغ صحيح"
+  },
+  "financial": {
+    "transactionsTitle": "المعاملات المالية",
+    "employee": "الموظف",
+    "date": "التاريخ",
+    "type": "النوع",
+    "amount": "المبلغ",
+    "reason": "السبب",
+    "submit": "إرسال",
+    "salaryTitle": "إدارة الرواتب",
+    "sendSalaries": "إرسال الرواتب",
+    "deduction": "خصم",
+    "advance": "سلفة",
+    "netSalary": "صافي الراتب",
+    "extras": "الإضافات",
+    "allowances": "البدلات",
+    "totalSalary": "إجمالي الراتب",
+    "addSalary": "إضافة راتب",
+    "addTransaction": "إضافة معاملة",
+    "salaries": "الرواتب",
+    "deductions": "الخصومات",
+    "salary": "الراتب"
+  },
+  "workHours": {
+    "title": "ساعات الدوام",
+    "save": "حفظ التغييرات",
+    "columns": {
+      "day": "اليوم",
+      "is_active": "دوام",
+      "start_time": "بداية الدوام",
+      "end_time": "انتهاء الدوام",
+      "break_hours": "الراحه"
+    }
+  },
+  "permissions": {
+    "title": "استأذان",
+    "form": {
+      "employee": "الموظف",
+      "from": "بداية",
+      "to": "نهاية",
+      "actualEnd": "وقت الأنتهاء الفعلي",
+      "reason": "السبب",
+      "submit": "حفظ"
+    },
+    "placeholders": {
+      "employee": "اختر الموظف"
+    },
+    "errors": {
+      "employee": "يرجى اختيار الموظف",
+      "from": "يرجى اختيار وقت البداية",
+      "to": "يرجى اختيار وقت النهاية",
+      "actualEnd": "يرجى اختيار وقت الانتهاء الفعلي",
+      "reason": "يرجى إدخال السبب"
+    },
+    "table": {
+      "title": "سجل استاذان",
+      "columns": {
+        "date": "التاريخ",
+        "employee": "الموظف",
+        "from": "من",
+        "to": "الي",
+        "actual_end": "وقت الأنتهاء الفعلي",
+        "reason": "السبب",
+        "deduction": "الخصم"
+      }
+    },
+    "add": " استأذان"
+  },
+  "hrVacations": {
+    "table": {
+      "date": "التاريخ",
+      "employee": "الموظف",
+      "leaveStart": "بداية الأجازة",
+      "leaveEnd": "نهاية الأجازة",
+      "leaveDays": "عدد الأيام",
+      "leaveType": "نوع الأجازة",
+      "attachment": "ملحقات",
+      "deduction": "الخصم"
+    },
+    "titles": {
+      "vacationLog": "سجل الاجاازات",
+      "addVacation": "اضافة اجازة"
+    },
+    "inputs": {
+      "employees": "الموظقين",
+      "date": "التاريح"
+    },
+    "vacation": "اجازات",
+    "record": "السجل",
+    "deduction": "الخصم",
+    "employee": "الموظف",
+    "leaveDays": "عدد الأيام",
+    "leaveStart": "تاريخ البدء",
+    "leaveEnd": "تاريخ العودة",
+    "leaveType": "نوع الأجازة",
+    "medicalAttachments": "ملحقات طبية",
+    "save": "حفظ",
+    "errors": {
+      "employeeRequired": "يرجى اختيار الموظف",
+      "leaveTypeRequired": "يرجى اختيار نوع الأجازة",
+      "validLeaveDays": "يرجى إدخال عدد أيام صالح",
+      "leaveStartRequired": "يرجى اختيار تاريخ البدء",
+      "leaveEndRequired": "يرجى اختيار تاريخ العودة",
+      "endDateAfterStart": "تاريخ العودة يجب أن يكون بعد تاريخ البدء",
+      "validDeduction": "يرجى إدخال قيمة خصم صالحة"
+    }
+  },
+  "attendance": {
+    "title": "سجل الحضور",
+    "save": "حفظ التغييرات",
+    "columns": {
+      "date": "التاريخ",
+      "employee": "الموظف",
+      "check_in": "تسجيل دخول",
+      "check_out": "تسجيل خروج",
+      "notes": "ملاحظات",
+      "deduction": "خصم"
+    }
+  },
+  "breakTime": {
+    "title": "سجل وقت الراحة",
+    "form": {
+      "title": "راحة",
+      "employee": "الموظف",
+      "from": "بداية",
+      "to": "الي",
+      "actualEnd": "وقت الأنتهاء الفعلي",
+      "save": "حفظ",
+      "deduction": "الخصم",
+      "add": " راحة"
+    },
+    "validation": {
+      "employeeRequired": "يرجى اختيار الموظف",
+      "fromRequired": "يرجى اختيار وقت البداية",
+      "actualEndRequired": "يرجى اختيار وقت الانتهاء"
+    },
+    "columns": {
+      "date": "التاريخ",
+      "employee": "الموظف",
+      "from": "من",
+      "to": "الي",
+      "actual_end": "وقت الأنتهاء الفعلي",
+      "deduction": "الخصم"
+    }
+  },
+  "employeeForm": {
+    "title": "بيانات موظف",
+    "subtitle": {
+      "edit": "تعديل بيانات الموظف",
+      "add": "إضافة موظف جديد"
+    },
+    "loading": "Loading employee data...",
+    "fields": {
+      "employee": "الاسم",
+      "phoneNumber": "رقم الهاتف",
+      "address": "العنوان",
+      "birthDate": "تاريخ الميلاد",
+      "qualification": "المؤهل",
+      "position": "الوظيفة",
+      "net_salary": "صافي المرتب",
+      "extras": "بدلات",
+      "date": "تاريخ بدء العمل",
+      "netSalary": "اجمالي الراتب",
+      "work_nature": "طبيعة العمل",
+      "work_nature_placeholder": "اختر طبيعة العمل",
+      "work_nature_options": {
+        "full_time": "دوام كامل",
+        "part_time": "دوام جزئي",
+        "varied": "متنوع"
+      }
+    },
+    "buttons": {
+      "update": "تحديث البيانات",
+      "save": "حفظ",
+      "attachments": "الملحقات"
+    },
+    "validation": {
+      "employee_required": "الاسم مطلوب",
+      "birthDate_required": "تاريخ الميلاد مطلوب",
+      "qualification_required": "المؤهل مطلوب",
+      "position_required": "الوظيفة مطلوبة",
+      "net_salary_required": "الراتب مطلوب",
+      "net_salary_positive": "يجب أن يكون الراتب قيمة موجبة",
+      "date_required": "تاريخ بدء العمل مطلوب",
+      "work_nature_required": "طبيعة العمل مطلوبة",
+      "extras_required": "البدلات مطلوبة"
+    },
+    "leave": {
+      "header": {
+        "total": "رصيد الأجازات الكلي",
+        "regular": "رصيد الإجازة الاعتيادية",
+        "emergency": "رصيد الإجازة العارضة",
+        "sick": "عدد الأيام المرضي",
+        "continuous_absence": "الغياب المتصل",
+        "separate_absence": "الغياب المنفصل"
+      },
+      "days_count": "عدد الأيام",
+      "buttons": {
+        "save": "حفظ"
+      },
+      "policy": {
+        "intro": "-رصيد الأجازات الكلي المسموحه للموظف",
+        "total_days": "يوم",
+        "divided_into": "منقسم الى",
+        "regular_days": "يوم اعتيادي",
+        "and": "و",
+        "emergency_days": "ايام عارضة",
+        "sick_days": "يوم مرضي",
+        "exceed_notice": "-في حالة تخطي عدد ايام الأجازة المسموح بها يتم تطبيق الخصم على حسب نظام الشركة",
+        "absence_intro": "-في حالةغياب الموظف",
+        "continuous_absence": "يوم متصلة",
+        "or": "او",
+        "separate_absence": "يوم منفصلة",
+        "termination_notice": "يتم اتخاذ اجراءات الفصل في اليوم الأخير"
+      }
+    }
+  },
+  "salaries": {
+    "title": "تفاصيل المرتب",
+    "hours": "ساعات الدوام",
+    "of": "من",
+    "form": {
+      "title": "تفاصيل المرتب",
+      "employee": "الموظف",
+      "date": "التاريخ",
+      "amount": "المبلغ",
+      "save": "حفظ"
+    },
+    "columns": {
+      "date": "التاريخ",
+      "type": "نوع الحركة",
+      "amount": "المبلغ",
+      "reason": "السبب"
+    }
+  },
+  "employeeData": {
+    "title": "بيانات موظف",
+    "filter": {
+      "employee": "الموظف",
+      "date": "التاريخ",
+      "all": "الكل"
+    }
+  },
+  "attendanceEmployeeData": {
+    "title": "سجلات حضور",
+    "form": {
+      "title": "تسجيل حضور",
+      "employee": "الموظف",
+      "date": "التاريخ",
+      "checkIn": "تسجيل دخول",
+      "checkOut": "تسجيل خروج",
+      "save": "حفظ"
+    },
+    "columns": {
+      "date": "التاريخ",
+      "checkIn": "تسجيل دخول",
+      "checkOut": "تسجيل خروج",
+      "breakTime": "الراحة",
+      "permission": "أذن",
+      "hoursWorked": "عدد الساعات",
+      "workLocation": "موقع الدوام"
+    }
+  },
+  "warningPopup": {
+    "disciplinaryActions": "إجراءات تأديبية",
+    "employeeName": "اسم الموظف",
+    "warningType": "نوع الإنذار",
+    "fromDate": "من تاريخ",
+    "toDate": "إلى تاريخ",
+    "save": "حفظ",
+    "warningTypes": {
+      "warning": "تنبيه",
+      "suspension": "إيقاف عن العمل",
+      "termination": "إنهاء خدمة"
+    }
+  },
+  "header": {
+    "welcome": "مرحبا بك في شركة SB",
+    "searchHere": "ابحث هنا",
+    "languages": "اللغات",
+    "dr": "د/احمد ابراهيم"
+  },
+  "expense": {
+    "title": "مصروفات",
+    "newExpense": "مصروف جديد",
+    "code": "كود المصروف",
+    "name": "اسم المصروف",
+    "total": "الإجمالي",
+    "date": "التاريخ",
+    "expenseName": "أسم المصرف",
+    "amount": "المبلغ",
+    "accountName": "أسم الحساب",
+    "type": "النوع",
+    "save": "حفظ",
+    "statement": {
+      "accountStatement": "كشف حساب",
+      "incomeList": "قائمة الدخل",
+      "dateFrom": "تاريخ من",
+      "dateTo": "تاريخ إلى",
+      "search": "بحث",
+      "columns": {
+        "date": "تاريخ",
+        "transactionId": "رقم العملية",
+        "description": "البيان",
+        "debit": "مدين",
+        "credit": "دائن",
+        "balance": "رصيد"
+      }
+    }
+  },
+  "reports": "تقارير",
+  "accountsReport": {
+    "statement": "كشف حساب",
+    "generalStatement": "كشف حساب عام",
+    "customStatement": "كشف الحسابات المخصص",
+    "name": "اسم الحساب",
+    "value": "القيمة"
+  },
+  "financialReport": {
+    "balanceSheet": "قائمة مركز مالي",
+    "incomeStatement": "قائمة الدخل",
+    "trialBalance": "ميزان مراجعة",
+    "ledger": "دفتر أستاذ"
+  },
+  "columns": {
+    "date": "تاريخ",
+    "transactionId": "رقم العملية",
+    "description": "البيان",
+    "debit": "مدين",
+    "credit": "دائن",
+    "balance": "رصيد",
+    "username": "اسم المستخدم",
+    "notes": "ملاحظات",
+    "accountName": "اسم الحساب"
+  },
+  "balance": {
+    "openingBalance": "رصيد بداية المدة",
+    "yearMovements": "حركات العام",
+    "closingBalance": "رصيد نهاية المدة",
+    "movements": "حركات"
+  },
+  "incomeStatement": {
+    "title": "قائمة الدخل",
+    "year": "السنة",
+    "revenue": "الايرادات",
+    "costOfRevenue": "تكلفة الايرادات",
+    "grossProfit": "مجمل الربح",
+    "otherRevenue": "ايرادات اخرى",
+    "expenses": "مصروفات",
+    "netProfit": "صافي الربح"
+  },
+  "actions": {
+    "search": "بحث",
+    "edit": "تعديل",
+    "delete": "حذف"
+  },
+  "filters": {
+    "dateFrom": "من تاريخ",
+    "dateTo": "إلى تاريخ",
+    "incomeList": "قائمة الدخل"
+  },
+  "accounts": {
+    "assets": "أصول",
+    "nonCurrentAssets": "أصول غير متداولة",
+    "fixedAssets": "أصول ثابتة",
+    "projectsInProgress": "مشروعات تحت التنفيذ",
+    "intangibleAssets": "أصول غير ملموسة",
+    "realEstateInvestments": "استثمار عقاري",
+    "currentAssets": "أصول متداولة",
+    "inventory": "البضاعة"
+  },
+  "services": {
+    "internet": "شريحة الانترنت",
+    "internetPlan": "اشتراك نت",
+    "internetCardRefill": "شحن بطاقة الانترنت",
+    "accountRecharge": "شحن رصيد",
+    "billPayment": "تسديد فاتورة",
+    "phoneBill": "فاتورة الهاتف",
+    "electricity": "الكهرباء",
+    "waterBill": "فاتورة الماء",
+    "homeGas": "غاز المنزل",
+    "rent": "الايجار",
+    "walletRecharge": "شحن محفظة",
+    "moneyTransfer": "تحويل أموال",
+    "creditCard": "بطاقة الإئتمان",
+    "healthInsurance": "التأمين الصحي",
+    "taxesAndFees": "دفع ضرائب ورسوم",
+    "miscellaneousPayments": "مدفوعات مختلفة",
+    "groceries": "بقالة",
+    "clothing": "ملابس",
+    "restaurants": "مطاعم",
+    "homeServices": "خدمات منزلية",
+    "carMaintenance": "صيانة السيارة",
+    "fuel": "وقود"
+  },
+  "AccountStatement": {
+    "tableHeaders": {
+      "date": "تاريخ",
+      "transactionNumber": "رقم العملية",
+      "bankName": "اسم البنك",
+      "description": "بيان",
+      "debit": "مدين",
+      "credit": "دائن",
+      "balance": "رصيد"
+    },
+    "labels": {
+      "accountStatement": "كشف حساب"
+    },
+    "filters": {
+      "dateFrom": "من تاريخ",
+      "dateTo": "إلى تاريخ"
+    },
+    "actions": {
+      "search": "بحث"
+    }
+  },
+  "IncomingChecks": {
+    "forms": {
+      "incomingChecks": "شيكات واردة",
+      "submit": "استلام",
+      "date": "التاريخ",
+      "bankName": "أسم البنك",
+      "accountName": "أسم الحساب",
+      "checkNumber": "رقم الشيك",
+      "amount": "المبلغ",
+      "collectionDate": "تاريخ التحصيل",
+      "outgoingChecks": "شيكات صادرة",
+      "issue": "اصدار"
+    },
+    "validation": {
+      "dateRequired": "التاريخ مطلوب",
+      "bankNameRequired": "أسم البنك مطلوب",
+      "accountNameRequired": "أسم الحساب مطلوب",
+      "checkNumberRequired": "رقم الشيك مطلوب",
+      "amountRequired": "المبلغ مطلوب",
+      "amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+      "collectionDateRequired": "تاريخ التحصيل مطلوب"
+    }
+  },
+  "deposit": {
+    "forms": {
+      "deposit": "ايداع",
+      "date": "التاريخ",
+      "bankName": "أسم البنك",
+      "accountName": "أسم الحساب",
+      "accountNumber": "رقم ايداع",
+      "amount": "المبلغ"
+    },
+    "validation": {
+      "dateRequired": "التاريخ مطلوب",
+      "bankNameRequired": "أسم البنك مطلوب",
+      "accountNameRequired": "أسم الحساب مطلوب",
+      "accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
+      "accountNumberRequired": "رقم الحساب مطلوب",
+      "amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+      "amountRequired": "المبلغ مطلوب"
+    }
+  },
+  "withdrawal": {
+    "forms": {
+      "withdrawal": "سحب",
+      "date": "التاريخ",
+      "bankName": "أسم البنك",
+      "accountName": "أسم الحساب",
+      "withdrawalNumber": "رقم سحب",
+      "amount": "المبلغ"
+    },
+    "validation": {
+      "dateRequired": "التاريخ مطلوب",
+      "bankNameRequired": "أسم البنك مطلوب",
+      "accountNameRequired": "أسم الحساب مطلوب",
+      "accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
+      "accountNumberRequired": "رقم الحساب مطلوب",
+      "amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+      "amountRequired": "المبلغ مطلوب"
+    }
+  },
+  "IncomingTransfers": {
+    "forms": {
+      "incomingTransfer": "تحويلات وارده",
+      "date": "التاريخ",
+      "bankName": "أسم البنك",
+      "accountName": "أسم الحساب",
+      "accountNumber": "رقم الحساب",
+      "amount": "المبلغ",
+      "transfer": "تحويل"
+    },
+    "validation": {
+      "dateRequired": "التاريخ مطلوب",
+      "bankNameRequired": "أسم البنك مطلوب",
+      "accountNameRequired": "أسم الحساب مطلوب",
+      "accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
+      "accountNumberRequired": "رقم الحساب مطلوب",
+      "amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+      "amountRequired": "المبلغ مطلوب"
+    }
+  },
+  "OutgoingTransfers": {
+    "forms": {
+      "outgoingTransfer": "تحويلات صادرة",
+      "date": "التاريخ",
+      "bankName": "أسم البنك",
+      "accountName": "أسم الحساب",
+      "accountNumber": "رقم الحساب",
+      "amount": "المبلغ",
+      "transfer": "تحويل"
+    },
+    "validation": {
+      "dateRequired": "التاريخ مطلوب",
+      "bankNameRequired": "أسم البنك مطلوب",
+      "accountNameRequired": "أسم الحساب مطلوب",
+      "accountNumberRequired": "رقم الحساب مطلوب",
+      "accountNumberPositive": "يجب أن يكون رقم الحساب رقماً موجباً",
+      "amountPositive": "يجب أن يكون المبلغ رقماً موجباً",
+      "amountRequired": "المبلغ مطلوب"
+    }
+  },
+  "bankAccounts": {
+    "tabs": {
+      "accountStatement": "كشف الحساب",
+      "checks": "الشيكات",
+      "incoming": "الوارده",
+      "outgoing": "الصادرة",
+      "transfers": "التحويلات",
+      "operations": "العمليات",
+      "withdraw": "سحب",
+      "deposit": "ايداع",
+      "banks": "بنوك"
+    }
+  },
+  "bank": {
+    "name": "اسم البنك",
+    "branch": "الفرع",
+    "accountNumber": "رقم الحساب",
+    "balance": "رصيد",
+    "add": "إضافة بنك"
+  },
+  "AddBank": {
+    "bank": {
+      "addNew": "اضافة بنك جديد",
+      "name": "أسم البنك",
+      "branch": "أسم الفرع",
+      "accountNumber": "رقم الحساب",
+      "initialBalance": "رصيد افتتاحي",
+      "type": "النوع",
+      "credit": "دائن",
+      "debit": "مدين"
+    },
+    "formErrors": {
+      "bankName": "أسم البنك مطلوب",
+      "branchName": "أسم الفرع مطلوب",
+      "accountNumber": "رقم الحساب مطلوب",
+      "initialBalance": "الرصيد الافتتاحي مطلوب",
+      "initialBalanceType": "يجب أن يكون الرصيد رقماً",
+      "type": "النوع مطلوب"
+    },
+    "actions": {
+      "save": "حفظ"
+    }
+  },
+  "salesInvoices": {
+    "card1": {
+      "title": "نقاط بيع",
+      "subTitle": "تسجيل كافة الحركات المالية اليومية مثل المبيعات والمشتريات."
+    },
+    "card2": {
+      "title": "استبدال ومرتجعات",
+      "subTitle": "عرض حركات الحسابات المختلفة"
+    },
+    "card3": {
+      "title": "المنتجات",
+      "subTitle": "إدارة الفواتير وعمليات البيع وكشف حساب"
+    },
+    "card4": {
+      "title": "الموظفين",
+      "subTitle": "سجل مشترياتك من الموردين وإدارة الفواتير المستحقة وكشف حساب"
+    },
+    "card5": {
+      "title": "العملاء",
+      "subTitle": "إدارة المخزون ومتابعة الكميات المتوفرة من المنتجات"
+    },
+    "card6": {
+      "title": "تقارير",
+      "subTitle": "إدارة الحركات المالية النقدية والحسابات البنكية"
+    }
+  },
+  "salesInvoicesTable": {
+    "columns": {
+      "code": "الكود",
+      "itemName": "اسم الصنف",
+      "quantity": "الكمية",
+      "unit": "وحدة القياس",
+      "saleUnit": "وحدة البيع",
+      "total": "الإجمالي",
+      "discount": "الخصم",
+      "tax": "الضريبة",
+      "totalSale": "إجمالي البيع",
+      "addTax": "إضافة ضريبة"
+    },
+    "filter": {
+      "pageTitle": "نقاط بيع",
+      "invoiceLabel": "رقم الفاتورة",
+      "dateLabel": "التاريخ",
+      "customerInfo": "معلومات العميل",
+      "customerName": "أسم العميل",
+      "customerPhone": "الرقم",
+      "customerAddress": "العنوان",
+      "customerDiscount": "خصومات العميل",
+      "invoiceTax": "ضريبة على الفاتورة",
+      "productTax": "خصم على الفاتورة",
+      "errors": {
+        "invoiceNumber": "رقم الفاتورة مطلوب",
+        "date": "التاريخ مطلوب",
+        "customerName": "اسم العميل مطلوب",
+        "customerPhone": "رقم الهاتف مطلوب",
+        "customerPhoneDigits": "يجب أن يكون أرقام فقط",
+        "customerAddress": "العنوان مطلوب",
+        "customerDiscount": "الخصم مطلوب"
+      }
+    },
+    "invoiceSmallTable": {
+      "totalInvoice": "إجمالي الفاتورة",
+      "totalDiscount": "إجمالي الخصم",
+      "totalVAT": "إجمالي ضريبة القيمة المضافة",
+      "totalTableTax": "إجمالي ضريبة جدول",
+      "discountAndAdditionTax": "إجمالي ضريبة خصم وإضافة",
+      "netInvoice": "صافي الفاتورة",
+      "paymentMethod": "طريقة الدفع",
+      "paymentMethodPlaceholder": "اختر طريقة الدفع",
+      "cash": "نقدي",
+      "bankTransfer": "تحويل بنكي",
+      "receiptNumber": "رقم الإيصال",
+      "amount": "المبلغ",
+      "saveInvoice": "حفظ الفاتورة",
+      "cancel": "إلغاء",
+      "noResults": "لا توجد نتائج."
+    },
+    "cashPayment": {
+      "title": "دفع نقدي",
+      "paidLabel": "المدفوع",
+      "remainingLabel": "المتبقي",
+      "saveButton": "حفظ"
+    },
+    "pankPayment": {
+      "title": "دفع بنكي",
+      "checkNumberLabel": "رقم الشيك",
+      "checkAmountLabel": "مبلغ الشيك",
+      "saveButton": "حفظ"
+    },
+    "taxOnInvoice": {
+      "title": "اضافة ضريبة على الفاتورة",
+      "salesTaxLabel": "ضريبة مبيعات",
+      "incomeTaxLabel": "ضريبة الدخل",
+      "saveButton": "حفظ"
+    },
+    "taxOnProduct": {
+      "title": "اضافة ضريبة على المنتج",
+      "salesTaxLabel": "ضريبة مبيعات",
+      "incomeTaxLabel": "ضريبة الدخل",
+      "saveButton": "حفظ"
+    },
+    "transaction": {
+      "title": "تحويل",
+      "checkNumberLabel": "رقم الشيك",
+      "checkAmountLabel": "مبلغ الشيك",
+      "saveButton": "حفظ"
+    }
+  },
+  "ReturnsAndExchanges": {
+    "CustomPopUp": {
+      "dialogTriggerText": "إضافة ضريبة"
+    },
+    "exchangeTitle": "فاتورة أستبدال",
+    "ReturnTitle": "فاتورة مرتجع",
+    "ReusableManyTable": {
+      "invoiceLabel": "تسمية الفاتورة",
+      "footerLabel": "جدول المرتجعات",
+      "expandButtonText": "توسيع"
+    },
+    "ReturnTopComponent": {
+      "selectInvoiceText": "اختيار الفاتورة"
+    },
+    "ReturnsTable": {
+      "code": "الكود",
+      "itemName": "اسم الصنف",
+      "quantity": "الكمية",
+      "unit": "وحدة الشراء",
+      "total": "الإجمالي",
+      "discount": "الخصم",
+      "tax": "الضريبة",
+      "totalSale": "إجمالي البيع"
+    },
+    "ExchangeTopComponent": {
+      "selectInvoiceText": "اختيار الفاتورة للتبديل"
+    },
+    "ExchangeTable": {
+      "code": "الكود",
+      "itemName": "اسم الصنف",
+      "quantity": "الكمية",
+      "unit": "وحدة الشراء",
+      "total": "الإجمالي",
+      "discount": "الخصم",
+      "tax": "الضريبة",
+      "totalSale": "إجمالي البيع"
+    },
+    "ExchangeIcon": {
+      "tooltipText": "اضغط للتبديل"
+    },
+    "ReturnIcon": {
+      "tooltipText": "اضغط للرجوع"
+    }
+  },
+  "returnsTable": {
+    "columns": {
+      "totalInvoice": "اجمالي المرتجع",
+      "totalDiscount": "إجمالي الخصم",
+      "totalVAT": "إجمالي ضريبة القيمة المضافة",
+      "totalTableTax": "إجمالي ضريبة جدول",
+      "totalDiscountAndAdditionTax": "إجمالي ضريبة خصم وإضافة",
+      "netInvoice": "صافي الفاتورة",
+      "paymentMethod": "طريقة الدفع"
+    },
+    "paymentMethods": {
+      "cash": "نقدي",
+      "bankTransfer": "تحويل بنكي"
+    },
+    "noResults": "لا توجد نتائج.",
+    "receiptNumber": "رقم الأيصال",
+    "amount": "المبلغ",
+    "buttons": {
+      "saveInvoice": "حفظ الفاتوره",
+      "cancel": "الغاء"
+    }
+  },
+  "returnTopComponent": {
+    "title": "فاتورة مرتجع",
+    "buttons": {
+      "taxOnInvoice": "ضريبة على الفاتورة",
+      "discountOnInvoice": "خصم على الفاتورة"
+    },
+    "inputs": {
+      "date": "التاريخ",
+      "invoiceNumber": "رقم الفاتورة"
+    },
+    "customerInfo": {
+      "title": "معلومات العميل",
+      "name": "أسم العميل",
+      "number": "الرقم",
+      "address": "العنوان",
+      "discounts": "خصومات العميل"
+    },
+    "invoiceOptions": {
+      "invoice1": "invoice1",
+      "invoice2": "invoice2",
+      "invoice3": "invoice3"
+    }
+  },
+  "exchangeTopComponent": {
+    "title": "فاتورة أستبدال",
+    "buttons": {
+      "taxOnInvoice": "ضريبة على الفاتورة",
+      "discountOnInvoice": "خصم على الفاتورة"
+    },
+    "inputs": {
+      "date": "التاريخ",
+      "invoiceNumber": "رقم الفاتورة"
+    },
+    "customerInfo": {
+      "title": "معلومات العميل",
+      "name": "أسم العميل",
+      "number": "الرقم",
+      "address": "العنوان",
+      "discounts": "خصومات العميل"
+    },
+    "invoiceOptions": {
+      "invoice1": "invoice1",
+      "invoice2": "invoice2",
+      "invoice3": "invoice3"
+    }
+  },
+  "products": {
+    "title": "المنتجات",
+    "search": "ابحث هنا..",
+    "columns": {
+      "productCode": "كود المنتج",
+      "productName": "اسم المنتج",
+      "productDescription": "وصف المنتج",
+      "unit": "الوحدة",
+      "price": "السعر",
+      "quantity": "الكمية",
+      "category": "الفئة",
+      "inStock": "المتبقي",
+      "otherBranches": "فروع اخرى"
+    },
+    "buttons": {
+      "otherBranches": "فروع اخرى"
+    }
+  },
+  "employeesInvoices": {
+    "title": "الموظفون",
+    "addEmployee": "إضافة موظف",
+    "addNewEmployee": "إضافة موظف جديد",
+    "salesRecord": "سجل المبيعات",
+    "searchPlaceholder": "ابحث هنا...",
+    "columns": {
+      "employeeName": "اسم الموظف",
+      "unitsCount": "عدد الوحدات",
+      "totalUnits": "إجمالي الوحدات",
+      "name": "اسم الموظف",
+      "phone": "رقم الهاتف",
+      "address": "العنوان",
+      "job": "الوظيفة",
+      "permissions": "الصلاحيات",
+      "options": "الخيارات"
+    },
+    "filters": {
+      "employee": "الموظف",
+      "dateFrom": "من تاريخ",
+      "dateTo": "إلى تاريخ"
+    },
+    "buttons": {
+      "save": "حفظ",
+      "view": "عرض",
+      "salesRecord": "سجل المبيعات",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "employees": ["فارس", "محمد", "أحمد", "علي"]
+  },
+  "customers": {
+    "title": "العملاء",
+    "addCustomer": "اضافة عميل",
+    "addNewCustomer": "اضافة عميل جديد",
+    "searchPlaceholder": "ابحث هنا...",
+    "columns": {
+      "customerName": "اسم العميل",
+      "phone": "الهاتف",
+      "address": "العنوان",
+      "discounts": "خصومات العميل",
+      "options": "خيارات"
+    },
+    "form": {
+      "customerName": "اسم العميل",
+      "phone": "رقم الهاتف",
+      "address": "العنوان",
+      "discounts": "خصومات العميل",
+      "category": "الفئة"
+    },
+    "buttons": {
+      "save": "حفظ",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "sampleNames": [
+      "أحمد",
+      "سارة",
+      "محمد",
+      "فاطمة",
+      "يوسف",
+      "ليلى",
+      "خالد",
+      "هند",
+      "سلمان",
+      "نورة"
+    ],
+    "samplePhones": [
+      "0501234567",
+      "0559876543",
+      "0541122334",
+      "0539988776",
+      "0566655443"
+    ],
+    "sampleAddresses": [
+      "الرياض",
+      "جدة",
+      "الدمام",
+      "مكة",
+      "المدينة",
+      "أبها",
+      "الطائف",
+      "بريدة"
+    ],
+    "sampleSales": [
+      "عميل مميز",
+      "عميل دائم",
+      "خصم خاص",
+      "دفع نقدي",
+      "فاتورة مؤجلة",
+      "عميل جديد"
+    ]
+  },
+  "sales": {
+    "common": {
+      "add": "إضافة",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "search": "بحث",
+      "actions": "الإجراءات",
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "back": "رجوع",
+      "next": "التالي",
+      "submit": "إرسال",
+      "execute": "تنفيذ",
+      "from": "من",
+      "to": "الي",
+      "client": "العميل"
+    },
+    "clients": {
+      "title": "العملاء",
+      "addNew": "عميل جديد",
+      "addNewTitle": "اضافة عميل جديد",
+      "columns": {
+        "name": "اسم العميل",
+        "phone": "الهاتف",
+        "phoneNumber": "رقم الهاتف",
+        "address": "العنوان",
+        "action": "الإجراء",
+        "code": "كود العميل"
+      },
+      "deleteConfirmation": "هل أنت متأكد من حذف هذا العميل؟"
+    },
+    "invoiceClients": {
+      "title": "مبلغ مستحق",
+      "columns": {
+        "name": "اسم العميل",
+        "phone": "الهاتف",
+        "address": "العنوان",
+        "invoiceNumber": "رقم الفاتورة",
+        "amountDue": "المبلغ المستحق"
+      }
+    },
+    "advancePayments": {
+      "title": "مبلغ تحت الحساب",
+      "columns": {
+        "name": "اسم العميل",
+        "phone": "الهاتف",
+        "address": "العنوان",
+        "receiptNumber": "سند القبض",
+        "amount": "المبلغ"
+      }
+    },
+    "transactions": {
+      "title": "كشف الحساب",
+      "accountStatement": "كشف حساب",
+      "mainTitle": "العملاء",
+      "sales": {
+        "title": "المبيعات"
+      },
+      "columns": {
+        "invoiceNumber": "رقم الفاتورة",
+        "clientCode": "كود العميل",
+        "date": "تاريخ",
+        "account": "الحساب",
+        "debtor": "مدين",
+        "creditor": "دائن",
+        "balance": "رصيد"
+      }
+    },
+    "salesInvoices": {
+      "title": "نقاط البيع",
+      "columns": {
+        "code": "الكود",
+        "itemName": "اسم الصنف",
+        "category": "فئة الصنف",
+        "quantity": "الكمية",
+        "saleUnit": "وحدة البيع",
+        "total": "الإجمالي",
+        "discount": "الخصم",
+        "tax": "الضريبة",
+        "totalSale": "إجمالي البيع",
+        "addTax": "إضافة ضريبة"
+      }
+    },
+    "returnInvoices": {
+      "title": "فواتير مرتجع"
+    },
+    "electronicInvoices": {
+      "title": "الفواتير الألكترونية",
+      "mainTitle": "المبيعات",
+      "taxTransfer": "تحويل ضريبي",
+      "returns": "مرتجعات",
+      "replacements": "استبدلات",
+      "columns": {
+        "invoiceNumber": "رقم الفاتورة",
+        "date": "تاريخ",
+        "statement": "بيان",
+        "amount": "المبلغ",
+        "vatAmount": "ضريبة القيمة المضافة",
+        "profit": "أرباح سنوية",
+        "total": "المجموع",
+        "status": "حالة الرد"
+      }
+    },
+    "categoryTable": {
+      "category": "الفئة",
+      "saleUnit": "وحد البيع",
+      "unitContents": "محتويات الوحدة 1:1",
+      "subUnitContents": "محتويات الوحدة 1:1:1"
+    }
+  },
+  "purchases": {
+    "productTypes": {
+      "code": "كود الصنف",
+      "name": "اسم الصنف",
+      "description": "الوصف",
+      "purchasePrice": "سعر الشراء",
+      "salePrice": "سعر البيع",
+      "actions": "خيارات",
+      "addItem": "اضافة صنف",
+      "title": "الاصناف"
+    },
+    "invoices": {
+      "invoiceNumber": "رقم الفاتورة",
+      "date": "تاريخ",
+      "account": "الحساب",
+      "debtor": "مدين",
+      "creditor": "دائن",
+      "balance": "رصيد",
+      "accountStatement": "كشف الحساب",
+      "mainTable": "المشتريات"
+    },
+    "suppliers": {
+      "name": "اسم المورد",
+      "phone": "الهاتف",
+      "address": "العنوان",
+      "newSupplier": "مورد جديد",
+      "title": "الموردين"
+    },
+    "amountDues": {
+      "amountDue": "المبلغ المستحق",
+      "title": "مبلغ مستحق"
+    },
+    "downPayments": {
+      "paymentDocument": "سند القبض",
+      "advanceAmount": "المبلغ",
+      "title": "مبلغ تحت الحساب"
+    }
+  },
+  "AccountStatementTopComponent": {
+    "title": "كشف حساب",
+    "from": "من",
+    "to": "الى",
+    "item": "الصنف",
+    "execute": "تنفيذ"
+  },
+  "AddNewCategory": {
+    "title": "اضافة صنف جديد",
+    "code": "كود : 125",
+    "name": "اسم الصنف",
+    "description": "وصف الصنف",
+    "purchasePrice": "سعر الشراء",
+    "salePrice": "سعر البيع",
+    "save": "حفظ"
+  },
+  "AddSupplier": {
+    "title": "اضافة مورد جديد",
+    "name": "اسم المورد",
+    "phone": "رقم الهاتف",
+    "address": "العنوان",
+    "save": "حفظ"
+  },
+  "inventory": {
+    "classCard": {
+      "title": "كارت صنف",
+      "date": "تاريخ",
+      "code": "كود الصنف",
+      "incoming": "وارد",
+      "outgoing": "صرف",
+      "balance": "رصيد",
+      "description": "بيان"
+    },
+    "inventoryReports": {
+      "title": "محضر جرد",
+      "recordTitle": "سجل الجرد",
+      "itemCode": "كود الصنف",
+      "itemName": "اسم الصنف",
+      "actualQuantity": "الكمية الفعلية",
+      "systemQuantity": "كمية السيستم",
+      "difference": "الفرق"
+    },
+    "disbursementPermissions": {
+      "title": "اذن صرف",
+      "code": "الكود",
+      "date": "التاريخ",
+      "name": "اسم الصنف",
+      "quantity": "الكمية",
+      "reason": "السبب",
+      "actions": "خيارات"
+    },
+    "warehouseTransfer": {
+      "title": "تحويل مخزن",
+      "code": "كود التحويل",
+      "date": "التاريخ",
+      "sourceWarehouse": "اسم المخزن منه",
+      "destinationWarehouse": "اسم المخزن اليه"
+    },
+    "additionPermission": {
+      "title": "اذن اضافة",
+      "supplier": "المورد",
+      "invoiceNumber": "الفاتورة",
+      "quantity": "الكمية",
+      "date": "التاريخ",
+      "discount": "خصومات",
+      "paymentMethod": "طريق الفاتورة"
+    },
+    "products": {
+      "title": "المنتجات",
+      "productCode": "كود المنتج",
+      "productName": "اسم المنتج",
+      "category": "فئة المنتج",
+      "unit": "الوحدة",
+      "date": "التاريخ",
+      "purchasePrice": "سعر الشراء",
+      "sellingPrice": "سعر البيع",
+      "mainSupplier": "المورد الرئيسي",
+      "minLimit": "الحد الأدنى",
+      "maxLimit": "الحد الأقصى",
+      "newProduct": "منتج جديد"
+    },
+    "warehouses": {
+      "title": "المخازن",
+      "code": "كود المخزن",
+      "name": "اسم المخزن",
+      "type": "نوع المخزن",
+      "location": "الموقع",
+      "department": "الإدارة المسؤولة",
+      "capacity": "السعة القصوى",
+      "newWarehouse": "مخزن جديد",
+      "newSubWarehouse": "مخزن فرعي جديد"
+    },
+    "actions": {
+      "view": "عرض",
+      "delete": "حذف",
+      "edit": "تعديل"
+    }
+  },
+  "purshes": {
+    "inventory": {
+      "title": "محضر جرد",
+      "date": "التاريخ",
+      "code": "كود المحضر",
+      "type": "نوع المخزن",
+      "name": "اسم المخزن",
+      "save": "حفظ",
+      "log": "السجل"
+    },
+    "disbursement": {
+      "title": "الصرف",
+      "code": "كود التحويل",
+      "date": "التاريخ",
+      "receiver": "الجهة المستلمة",
+      "subWarehouse": "مخزن فرعي",
+      "notes": "ملاحظات",
+      "save": "حفظ",
+      "log": "السجل"
+    },
+    "classCard": {
+      "title": "كارت صنف",
+      "from": "من",
+      "to": "الي",
+      "items": "الاصناف",
+      "search": "بحث"
+    },
+    "addProduct": {
+      "title": "اضافة منتج جديد",
+      "code": "كود : 125",
+      "name": "اسم المنتج",
+      "desc": "وصف المنتج",
+      "type": "نوع المخزن",
+      "warehouse": "أسم المخزن",
+      "show": "عرض للبيع",
+      "save": "حفظ"
+    }
+  },
+  "addNewWareHouse": {
+    "addNewStore": "إضافة مخزن جديد",
+    "addNewSubStore": "إضافة مخزن فرعي جديد",
+    "code": "كود",
+    "storeName": "اسم المخزن",
+    "storeType": "نوع المخزن",
+    "purchasePrice": "السعه القصوي",
+    "Responsiblemanagement": "الأدارة المسئولة",
+    "geographicalLocation": "الموقع الجغرافي",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "close": "x"
+  },
+  "userHome": {
+    "dashboardTitle": "نافذة الحسابات",
+    "modules": {
+      "sales": {
+        "title": "المبيعات",
+        "subtitle": "إدارة الفواتير وعمليات البيع ومخزونات الحساب"
+      },
+      "accountMovements": {
+        "title": "حركات الحسابات",
+        "subtitle": "عرض جميع حركات الحسابات المختلفة"
+      },
+      "dailyEntries": {
+        "title": "قيود يومية",
+        "subtitle": "تسجيل كافة الحركات المالية اليومية بين الحسابات والمشتريات"
+      },
+      "treasuryAndBanks": {
+        "title": "الخزينة والبنوك",
+        "subtitle": "إدارة الحركات المالية النقدية والحسابات البنكية"
+      },
+      "purchases": {
+        "title": "المشتريات",
+        "subtitle": "تسجيل مشتريات من الموردين وإدارة الفواتير المستلمة والمدفوعات حساب"
+      },
+      "inventory": {
+        "title": "المخزن",
+        "subtitle": "إدارة المخازن ومتابعة الكميات المتواجدة من المنتجات"
+      },
+      "hr": {
+        "title": "إدارة الموارد البشرية",
+        "subtitle": "إدارة الموظفين والرواتب والحضور والغياب"
+      },
+      "reports": {
+        "title": "التقارير",
+        "subtitle": "عرض وتحليل البيانات المالية من خلال تقارير مختلفة"
+      },
+      "expenses": {
+        "title": "المصروفات",
+        "subtitle": "تسجيل جميع المصروفات مثل الرواتب والإيجارات والخدمات"
+      }
+    }
+  },
+  "professionalData": {
+    "form": {
+      "fields": {
+        "email": "ايميل",
+        "password": "كلمة المرور",
+        "total_salary": "المرتب",
+        "facility": "المنشأة",
+        "department": "القسم",
+        "user_type": "نوع المستخدم",
+        "work_nature": "طبيعة العمل",
+        "net_salary": "الراتب الصافي",
+        "allowances": "البدلات"
+      },
+      "buttons": {
+        "save": "حفظ",
+        "update": "تحديث"
+      },
+      "validation": {
+        "email_required": "الايميل مطلوب",
+        "password_required": "كلمة المرور مطلوبة",
+        "total_salary_required": "إجمالي المرتب مطلوب",
+        "total_salary_positive": "يجب أن يكون إجمالي المرتب رقمًا موجبًا",
+        "facility_required": "المنشأة مطلوبة",
+        "department_required": "القسم مطلوب",
+        "user_type_required": "نوع المستخدم مطلوب",
+        "work_nature_required": "طبيعة العمل مطلوبة",
+        "net_salary_required": "الراتب الصافي مطلوب",
+        "net_salary_positive": "يجب أن يكون الراتب الصافي رقمًا موجبًا",
+        "allowances_required": "البدلات مطلوبة",
+        "allowances_positive": "يجب أن تكون البدلات رقمًا موجبًا"
+      },
+      "loading": "جارٍ التحميل..."
+    },
+    "employeeForm": {
+      "leave": {
+        "header": {
+          "sick": "إجازة مرضية",
+          "total": "الإجازة الإجمالية",
+          "regular": "الإجازة الاعتيادية",
+          "continuous_absence": "غياب مستمر",
+          "separate_absence": "غياب متقطع",
+          "emergency": "إجازة طارئة"
+        },
+        "days_count": "عدد الأيام",
+        "buttons": {
+          "save": "حفظ"
+        },
+        "policy": {
+          "intro": "يحق للموظف الحصول على ",
+          "total_days": "إجازة إجمالية",
+          "regular_days": "إجازة اعتيادية",
+          "sick_days": "إجازة مرضية",
+          "and": " و ",
+          "exceed_notice_days": "لا يمكن أن تتجاوز الإجازة عدد الأيام المحددة.",
+          "absence_intro": "في حال الغياب بدون إذن يتم تسجيله كـ ",
+          "continuous_absence_days": "غياب مستمر",
+          "separate_absence_days": "غياب متقطع"
+        }
+      }
+    }
+  },
+  "userHr": {
+    "attendance": "حضور / أنصراف",
+    "workingHours": "ساعات دوام الشركة",
+    "yourData": "بياناتك",
+    "vacations": "اجازات",
+    "execuse": "أستاذان",
+    "breakTime": "وقت راحة",
+    "vacationsPage": {
+      "date": "التاريخ",
+      "from": "من",
+      "to": "الى",
+      "vacationType": "نوع الإجازة",
+      "reason": "السبب",
+      "deduction": "الخصم",
+      "status": "الحالة",
+      "recordTitle": "سجل الأجازة",
+      "monthPickerLabel": "التاريخ",
+      "requestVacation": "طلب أجازة",
+      "recordButton": "السجل",
+      "balanceInside": "داخل رصيد الإجازات",
+      "balanceOutside": "خارج رصيد الإجازات",
+      "accepted": "مقبول",
+      "rejected": "مرفوض",
+      "pending": "في انتظار الرد"
+    },
+    "vacationsListPage": {
+      "vacationType": "نوع الإجازة",
+      "totalDays": "عدد الأيام",
+      "remaining": "المتبقي",
+      "recordTitle": "سجل الأجازة",
+      "monthPickerLabel": "التاريخ",
+      "requestVacation": "طلب أجازة"
+    },
+    "requestVacation": {
+      "title": "طلب الأجازة",
+      "start": "بداية",
+      "end": "نهاية",
+      "type": "نوع الأجازة",
+      "submit": "ارسال الطلب"
+    },
+    "breakTimePage": {
+      "title": "سجل الراحة",
+      "date": "التاريخ",
+      "from": "من",
+      "to": "الى",
+      "actualEnd": "وقت الإنتهاء الفعلي",
+      "reason": "السبب",
+      "deduction": "الخصم",
+      "status": "الحالة",
+      "requestBreak": "طلب راحة"
+    },
+    "breakTimePopUp": {
+      "popupTitle": "طلب راحة",
+      "start": "بداية",
+      "end": "نهاية",
+      "reason": "السبب",
+      "submit": "ارسال الطلب"
+    },
+    "execuses": {
+      "title": "سجل استاذان",
+      "date": "التاريخ",
+      "from": "من",
+      "to": "الى",
+      "actualEnd": "وقت الإنتهاء الفعلي",
+      "reason": "السبب",
+      "deduction": "الخصم",
+      "status": "الحالة",
+      "addTitle": "استأذان"
+    },
+    "execusesPopUp": {
+      "popupTitle": "استأذان",
+      "start": "بداية",
+      "end": "نهاية",
+      "reason": "السبب",
+      "submit": "ارسال الطلب"
+    },
+    "execusesinOut": {
+      "inOutTitle": "دخول / خروج",
+      "todayDate": "تاريخ اليوم:",
+      "allowedTime": "الوقت المسموح:",
+      "checkIn": "تسجيل دخول",
+      "checkOut": "تسجيل خروج"
+    },
+    "statuses": {
+      "pending": "في انتظار الرد",
+      "accepted": "مقبول",
+      "done": "تمت",
+      "denied": "مرفوض"
+    }
+  },
+  "salaryDetails": {
+    "tableHeaders": {
+      "netSalary": "صافي المرتب",
+      "increase": "زيادة",
+      "allowance": "البدل",
+      "totalDeductions": "اجمالي الخصم",
+      "totalBonus": "اجمالي المكفأة",
+      "overtime": "وقت اضافي",
+      "totalSalary": "اجمالي المرتب"
+    },
+    "monthlySalaryDetails": "تفاصيل الراتب الشهري",
+    "hours": "ساعات"
+  },
+  "employee_info": "معلومات شخصية",
+  "professional_data": "بيانات مهنية",
+  "vacationstatus": {
+    "pending": "قيد الانتظار",
+    "accepted": "مقبول",
+    "rejected": "مرفوض",
+    "deduction-days-with-permission": "خصم أيام بإذن"
+  },
+  "clients": {
+    "title": "العملاء",
+    "amountsDue": "مبالغ مستحقة",
+    "supplierName": "أسم المورد",
+    "customerName": "اسم العميل",
+    "phone": "الهاتف",
+    "address": "العنوان",
+    "options": "خيارات",
+    "delete": "حذف",
+    "show": "عرض",
+    "addNewClient": "اضافة عميل",
+    "invoiceNumber": "رقم الفاتورة",
+    "date": "التاريخ",
+    "invoiceAmount": "مبلغ الفاتورة",
+    "remainingAmount": "المبلغ المتبقي",
+    "save": "حفظ"
+  },
+  "ordersInUser": {
+    "productName": "اسم المنتج",
+    "quantity": "الكمية",
+    "unitPrice": "سعر الوحدة",
+    "total": "الإجمالي",
+    "supplierName": "اسم المورد",
+    "delete": "حذف",
+    "show": "عرض",
+    "orderNumber": "رقم الطلب",
+    "date": "التاريخ",
+    "amount": "المبلغ",
+    "options": "الخيارات",
+    "sendOrders": "ارسال الطلبات",
+    "cancel": "الغاء",
+    "ordersList": "قائمة الطلبات",
+    "addOrder": "اضافة طلب",
+    "myOrders": "طلباتي",
+    "productTable": {
+      "code": "كود المنتج",
+      "name": "اسم المنتج",
+      "quantity": "الكمية",
+      "unit": "وحدة البيع",
+      "price": "الاجمالي",
+      "action": "الاجراء",
+      "order": "طلب"
+    },
+    "SendToSupplier": {
+      "title": "ارسال الي مورد",
+      "supplierType": "نوع المورد",
+      "productName": "أسم المنتج",
+      "save": "ارسال"
+    },
+    "TopComponentsinventoryProduct": {
+      "sendToSupplier": "إرسال إلى المورد",
+      "productName": "اسم المنتج",
+      "productCategory": "فئة المنتج",
+      "quantity": "الكمية",
+      "add": "إضافة"
+    }
+  },
+  "suppliers": {
+    "title": "موردين",
+    "addSupplier": "اضافة مورد",
+    "addTypeSupplier": "اضافة نوع مورد",
+    "addOffer": " العروض",
+    "supplierName": "اسم المورد",
+    "phone": "الهاتف",
+    "address": "العنوان",
+    "supplierType": "نوع المورد",
+    "actions": "خيارات",
+    "show": "عرض",
+    "delete": "حذف",
+    "invoiceNumber": "رقم الفاتورة",
+    "date": "التاريخ",
+    "totalAmount": "مبلغ الفاتورة",
+    "remainingAmount": "المبلغ المتبقي",
+    "amountDue": "مبالغ مستحقه",
+    "offerDescription": "وصف العرض",
+    "save": "حفظ",
+    "invoices": "فواتير"
+  },
+  "movementacount": {
+    "head": {
+      "date": "تاريخ",
+      "account": "حساب",
+      "referenceNumber": "رقم المرجع",
+      "transactionType": "نوع الحركة",
+      "debit": "مدين",
+      "credit": "دائن",
+      "employee": "الموظف"
+    },
+    "table": {
+      "from": "من",
+      "to": "الي",
+      "account": "الحساب",
+      "acction": "تنفيذ"
+    },
+    "popup": {
+      "tittle": "ادخل البيانات لاضافة حساب جديد",
+      "nameaccount": "اسم الحساب",
+      "descaccount": "وصف الحساب",
+      "contactaccount": "ربط الحساب ١",
+      "contactaccount2": "ربط الحساب ٢",
+      "contactaccounts": "ربط حسابات",
+      "naturalaccount": "طبيعة الحساب",
+      "balance": "رصيد افتتاحي",
+      "checkboxOptions": {
+        "trialBalance": "ميزان مراجعة",
+        "incomeStatement": "قائمة الدخل"
+      },
+      "addaccount": "اضافة حساب جديد"
+    },
+    "employee": "أحمد حسين",
+    "credit": "0",
+    "debit": "0",
+    "transactionType": "غير متوفر",
+    "referenceNumber": "غير متوفر",
+    "account": "غير متوفر",
+    "date": "17/12/2024"
+  },
+  "treeAcounts": {
+    "head": {
+      "date": "تاريخ",
+      "account": "حساب",
+      "referenceNumber": "رقم المرجع",
+      "transactionType": "نوع الحركة",
+      "debit": "مدين",
+      "credit": "دائن",
+      "employee": "الموظف"
+    },
+    "table": {
+      "from": "من",
+      "to": "الي",
+      "account": "الحساب",
+      "acction": "تنفيذ"
+    },
+    "popup": {
+      "tittle": "ادخل البيانات لاضافة حساب جديد",
+      "nameaccount": "اسم الحساب",
+      "descaccount": "وصف الحساب",
+      "contactaccount": "ربط الحساب ١",
+      "contactaccount2": "ربط الحساب ٢",
+      "contactaccounts": "ربط حسابات",
+      "naturalaccount": "طبيعة الحساب",
+      "balance": "رصيد افتتاحي",
+      "checkboxOptions": {
+        "trialBalance": "ميزان مراجعة",
+        "incomeStatement": "قائمة الدخل"
+      },
+      "addaccount": "اضافة حساب جديد"
+    },
+    "employee": "أحمد حسين",
+    "credit": "0",
+    "debit": "0",
+    "transactionType": "غير متوفر",
+    "referenceNumber": "غير متوفر",
+    "account": "غير متوفر",
+    "date": "17/12/2024"
+  },
+  "userAttendance": {
+    "date": "التاريخ",
+    "arrivalTime": "وقت الوصول",
+    "leaveTime": "وقت الانصراف",
+    "execuseTotalTime": "وقت الاستئذان (الوقت الكلي)",
+    "breakTotalTime": "الراحة (الوقت الكلي)",
+    "execuseNoteDeduction": "ملاحظات الاستئذان الخصم"
+  },
+  "clear": "مسح"
 }

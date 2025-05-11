@@ -69,7 +69,7 @@ export const {
 	setEmployeeField,
 	setEmployeeAttachments,
 	setEmployeeData,
-	clearEmployeeData,
+	// EmployeeData,
 	removeEmployeeAttachment,
 } = employeeSlice.actions;
 export const employeeReducer = employeeSlice.reducer;

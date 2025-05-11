@@ -190,14 +190,14 @@ function VacationsRecodrs() {
 									onChange={(e) => setMonthEmployee(e)}
 								/>
 								<Button
-									className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
+									className="!h-[48px] lg:w-[302px] w-full bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-md"
 									onClick={(e) => {
 										e.stopPropagation();
 										setOneEmployee(undefined as any);
 										setMonthEmployee(null);
 									}}
 								>
-									clear
+									{t("clear")}
 								</Button>
 							</div>
 							<CustomPopUp

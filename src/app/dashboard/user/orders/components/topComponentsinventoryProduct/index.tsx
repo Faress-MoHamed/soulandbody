@@ -59,8 +59,8 @@ export default function TopComponentsinventoryProduct() {
               </Button>
             );
           }}
-          DialogContentComponent={() => {
-            return <SendToSupplier />;
+          DialogContentComponent={({closePopup}) => {
+            return <SendToSupplier closePopup={closePopup}/>;
           }}
         />
       </div>
