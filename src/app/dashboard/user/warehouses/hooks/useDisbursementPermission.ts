@@ -1,5 +1,6 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
+import { AxiosInstance } from "@/lib/AxiosConfig";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 
 export type DisbursementPermissionType = {
@@ -35,8 +36,22 @@ export function useDisbursementPermissionsData() {
 		queryKey: ["DisbursementPermissions"],
 		queryFn: async () => {
 			// Simulate network delay
-			await new Promise((res) => setTimeout(res, 300));
-			return initialDisbursementPermissionsData;
+			const {data}= await AxiosInstance.get("issue-vouchers");	
+			return data;
+		},
+	});
+}
+export function useDeleteDisbursementPermissionsData() {
+	const queryclicnt = useQueryClient()
+	return useMutation({
+		// queryKey: ["DisbursementPermissions"],
+		mutationFn: async (id:any) => {
+			// Simulate network delay
+			const {data}= await AxiosInstance.delete(`issue-vouchers/${id}`);	
+			return data;
+		},
+		onSuccess: () => {
+			queryclicnt.invalidateQueries({queryKey: ["DisbursementPermissions"]})
 		},
 	});
 }

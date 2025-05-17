@@ -1,6 +1,7 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { AxiosInstance } from "@/lib/AxiosConfig";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export type InventoryProductsType = {
 	productCode: string; // كود المنتج
@@ -15,26 +16,28 @@ export type InventoryProductsType = {
 	maxLimit: number; // الحد الأقصى
 };
 
-const ProductData: InventoryProductsType[] = Array.from({ length: 10 }, () => ({
-	productCode: "1",
-	productName: "لاب توب",
-	category: "الكترونيات",
-	unit: "كرتونة",
-	date: "12/10/2024",
-	purchasePrice: 3000,
-	sellingPrice: 4000,
-	mainSupplier: "أحمد سعد",
-	minLimit: 12,
-	maxLimit: 20,
-}));
 
 export function useInventoryProductsData() {
 	return useQuery({
 		queryKey: ["InventoryProductsData"],
 		queryFn: async () => {
 			// Simulate delay
-			// await new Promise((res) => setTimeout(res, 300));
-			return ProductData;
+			const {data} = await AxiosInstance.get("product-stores");
+			return data;
+		},
+	});
+}
+export function useDeleteInventoryProductsData() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationKey: ["InventoryProductsData"],
+		mutationFn: async (id: number) => {
+			const { data } = await AxiosInstance.delete(`product-stores/${id}`);
+			return data;
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["InventoryProductsData"] });
 		},
 	});
 }

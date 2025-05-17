@@ -96,13 +96,16 @@ export default function CustomSelect({
 	}, [options, search]);
 
 	let selectedValue: string | { value: string; label: string } | undefined;
-	if (typeof value === "string") {
+	if (typeof value === "string" || typeof value === "number") {
+		console.log(value);
 		selectedValue = options.find((el) => {
 			if (typeof el === "string" || typeof el === "number") {
 				return el.toString() === value;
 			}
-			return el?.value.toString() === value;
+			console.log(el, value);
+			return el?.value.toString() === value.toString();
 		});
+		console.log(selectedValue);
 	}
 
 	return (

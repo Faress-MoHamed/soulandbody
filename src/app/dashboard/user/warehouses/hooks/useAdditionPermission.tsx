@@ -1,4 +1,5 @@
 "use client";
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import { FileText, Trash2, Eye } from "lucide-react";
@@ -38,7 +39,8 @@ export function useAdditionPermission() {
 		queryKey: ["AdditionPermission"],
 		queryFn: async () => {
 			// Simulate network delay
-			return initialAdditionPermission;
+			const {data}=await AxiosInstance("addition-permits")
+			return data;
 		},
 	});
 }

@@ -8,6 +8,7 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import { Trash2, Edit } from "lucide-react";
+import { AxiosInstance } from "@/lib/AxiosConfig";
 
 export type WarehouseTransferType = {
 	id: number; // ID for React key purposes
@@ -41,7 +42,9 @@ export function useWarehouseTransferData() {
 		queryFn: async () => {
 			// Simulate network delay
 			// await new Promise((res) => setTimeout(res, 300));
-			return initialWarehouseTransferData;
+			const {data}= await AxiosInstance.get("issue-vouchers/IssueVouchersReport");	
+
+			return data;
 		},
 	});
 }

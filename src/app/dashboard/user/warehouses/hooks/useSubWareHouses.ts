@@ -1,4 +1,5 @@
 "use client";
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery } from "@tanstack/react-query";
 
 export type SubWarehouseType = {
@@ -69,7 +70,8 @@ export function useSubWarehousesData() {
     queryKey: ["Subwarehouses"],
     queryFn: async () => {
       // Simulate network delay
-      return initialSubWarehousesData;
+      const {data} = await AxiosInstance.get("sub-stores")
+      return data;
     },
   });
 }

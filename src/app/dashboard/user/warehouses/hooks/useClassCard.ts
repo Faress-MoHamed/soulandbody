@@ -1,4 +1,5 @@
 "use client";
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery } from "@tanstack/react-query";
 
 import { ColumnDef } from "@tanstack/react-table";
@@ -33,8 +34,9 @@ export function useClassCardData() {
 		queryKey: ["ClassCard"],
 		queryFn: async () => {
 			// Simulate network delay
-			await new Promise((res) => setTimeout(res, 300));
-			return initialClassCardData;
+			// await new Promise((res) => setTimeout(res, 300));
+			const { data } = await AxiosInstance.get("issue-logs/item-card");
+			return data;
 		},
 	});
 }
