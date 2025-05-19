@@ -13,6 +13,7 @@ import  inventorySlice  from "@/app/dashboard/user/orders/components/topComponen
 import  supplierSlice from "@/app/dashboard/user/suppliers/supplier.slice";
 import  productSlice  from "@/app/dashboard/user/warehouses/components/AddNewProduct/productSlice";
 import  addNewWareHouseSlice  from "@/app/dashboard/user/warehouses/components/AddNewWareHouse/AddNewWareHouse.slice";
+import  productRowSlice  from "@/app/dashboard/user/warehouses/hooks/TableHooks/productRowSlice";
 
 const reducer = combineReducers({
 	employee: employeeReducer,
@@ -28,7 +29,8 @@ const reducer = combineReducers({
 	inventory:inventorySlice,
 	supplier:supplierSlice,
 	productInventory:productSlice,
-	addNewWareHouse:addNewWareHouseSlice
+	addNewWareHouse:addNewWareHouseSlice,
+	productRowSlice,
 });
 
 export type RootState = ReturnType<typeof reducer>;

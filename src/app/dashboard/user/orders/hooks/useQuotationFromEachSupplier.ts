@@ -1,6 +1,5 @@
 import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
 
 export type SupplierType = {
 	code: string;

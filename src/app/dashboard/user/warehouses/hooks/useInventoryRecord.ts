@@ -1,5 +1,6 @@
 "use client";
 
+import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useQuery } from "@tanstack/react-query";
 
 export type InventoryRecordType = {
@@ -22,8 +23,9 @@ export function useInventoryRecords() {
 		queryKey: ["InventoryRecords"],
 		queryFn: async () => {
 			// Simulate network delay
+			const { data } = await AxiosInstance.get("inventory-reports/inventory_records");
 			// await new Promise((res) => setTimeout(res, 300));
-			return InventoryRecordsData;
+			return data;
 		},
 	});
 }

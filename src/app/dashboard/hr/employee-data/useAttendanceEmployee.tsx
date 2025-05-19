@@ -3,7 +3,6 @@
 import { AxiosInstance } from "@/lib/AxiosConfig";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useMemo } from "react";
 
 export interface AttendanceEmployee {
 	id: number;
@@ -40,7 +39,6 @@ const workLocations = [
 ];
 
 // // Generate 150 attendance records
-// const mockData = useMemo(() => {
 // 	return Array.from({ length: 150 }, (_, id) => {
 // 		// Randomly decide if this is a regular work day or a special case
 // 		const isRegularWorkDay = Math.random() > 0.1;
